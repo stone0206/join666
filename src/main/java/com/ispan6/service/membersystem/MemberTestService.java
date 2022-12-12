@@ -19,4 +19,8 @@ public class MemberTestService {
 			return mDAO.findByAccAndPwd(account, password);
 			
 		}
+		
+		public void updateByAcc(String account, String avator, String name, String address) {
+			mDAO.updateByAcc(account, avator, name, address);
+		}
 }
