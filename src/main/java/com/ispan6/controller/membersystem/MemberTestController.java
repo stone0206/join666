@@ -4,7 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -19,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.ispan6.bean.membersystem.MemberTest;
@@ -144,5 +147,22 @@ public class MemberTestController {
 	@GetMapping("/showprofile")
 	public String showProfile() {
 		return "showOneUser";
+	}
+	
+
+	@PostMapping("/CheckAcc")
+	public @ResponseBody Map<String, String> checkAcc(
+			@RequestParam(value = "account") String account) {
+		String acc = "";
+		Map<String, String> map = new HashMap<>();
+		if (mService.existsByAccount(account)!=null) {
+//			id = memberService.existsByMemberId(memberId);
+			acc="帳號重複";
+			
+		}else {
+			acc="此帳號可用";
+			
+		}map.put("acc", acc);
+		return map;
 	}
 }

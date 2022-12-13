@@ -25,4 +25,11 @@ public class MemberTestService {
 		public void updateByAcc(String account, String avator, String name, String address) {
 			mDAO.updateByAcc(account, avator, name, address);
 		}
+		
+		public MemberTest existsByAccount(String account) {
+//			String acc="";
+			return mDAO.existsByAccount(account);				
+		
+		}
+
 }
