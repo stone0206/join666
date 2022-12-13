@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -60,11 +60,14 @@
 		<button class="btn btn-outline-info fastLogin2">Leo</button>
 		<button class="btn btn-outline-info fastLogin2">Amy</button>
 		<button class="btn btn-outline-info fastLogin2">Kevin</button>
-<!-- 		<button class="btn btn-outline-info fastLogin">易穎</button> -->
-<!-- 		<button class="btn btn-outline-info fastLogin">博宇</button> -->
-<!-- 		<button class="btn btn-outline-info fastLogin">宇豐</button> -->
-<!-- 		<button class="btn btn-outline-info fastLogin" -->
-<!-- 			style="border: none; opacity: 0;">奕徵</button> -->
+		<button class="btn btn-outline-info fastLogin2">John</button>
+		<button class="btn btn-outline-info fastLogin2">Peter</button>
+		<button class="btn btn-outline-info fastLogin2">Mary</button>
+		<!-- 		<button class="btn btn-outline-info fastLogin">易穎</button> -->
+		<!-- 		<button class="btn btn-outline-info fastLogin">博宇</button> -->
+		<!-- 		<button class="btn btn-outline-info fastLogin">宇豐</button> -->
+		<!-- 		<button class="btn btn-outline-info fastLogin" -->
+		<!-- 			style="border: none; opacity: 0;">奕徵</button> -->
 
 	</div>
 
@@ -73,7 +76,7 @@
 <script type="text/javascript">
 	//快速登入
 	$(".fastLogin2").click(function() {
-		$("#floatingInput").val(this.innerHTML+"001");
+		$("#floatingInput").val(this.innerHTML + "001");
 		$("#floatingPassword").val("1234");
 	});
 	$(".fastLogin").click(function() {
