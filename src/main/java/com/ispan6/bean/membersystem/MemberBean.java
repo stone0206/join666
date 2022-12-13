@@ -1,28 +1,50 @@
 package com.ispan6.bean.membersystem;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.ispan6.bean.chatsystem.MessageContent;
+import com.ispan6.bean.chatsystem.Participants;
 
 @Entity
 @Table(name = "member")
-public class MemberBean {
+public class MemberBean implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 //	
 //	[id] [int] IDENTITY(1,1) NOT NULL,
 //	[m_account] [nvarchar](50) NOT NULL,
 //	[m_password] [nvarchar](50) NOT NULL
 
 	@Id
-	@Column(name = "id")
+	@Column(name = "MEMBERID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer mid;
-	@Column(name = "m_account")
+	@Column(name = "maccount")
 	private String mAccount;
-	@Column(name = "m_password")
+	@Column(name = "mpassword")
 	private String mPassword;
+
+	// 易
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userId", cascade = CascadeType.ALL)
+	private List<MessageContent> senderId = new ArrayList<MessageContent>();
+	// 易
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userId", cascade = CascadeType.ALL)
+
+	private Set<Participants> personId = new HashSet<Participants>();
 
 	public Integer getMid() {
 		return mid;
@@ -54,6 +76,22 @@ public class MemberBean {
 
 	public void setmPassword(String mPassword) {
 		this.mPassword = mPassword;
+	}
+
+	public List<MessageContent> getSenderId() {
+		return senderId;
+	}
+
+	public void setSenderId(List<MessageContent> senderId) {
+		this.senderId = senderId;
+	}
+
+	public Set<Participants> getPersonId() {
+		return personId;
+	}
+
+	public void setPersonId(Set<Participants> personId) {
+		this.personId = personId;
 	}
 
 }

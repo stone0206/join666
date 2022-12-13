@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ispan6.bean.chatsystem.GroupRoom;
 import com.ispan6.bean.chatsystem.Participants;
 import com.ispan6.bean.membersystem.MemberBean;
+import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.dao.chatsystem.ParticipantsDAO;
 
 @Transactional
@@ -20,9 +21,9 @@ public class ParticipantsService {
 	//新增成員
 	public void insertParticipants(Integer groupId,Integer personId) {
 		Participants participants=new Participants();
-		MemberBean memberBean=new MemberBean();
-		memberBean.setId(personId);
-		participants.setUserId(memberBean);
+		MemberTest memberTest=new MemberTest();
+		memberTest.setId(personId);
+		participants.setUserId(memberTest);
 		GroupRoom groupRoom=new GroupRoom();
 		groupRoom.setGroupId(groupId);
 		participants.setGroupRoomId(groupRoom);
@@ -33,5 +34,9 @@ public class ParticipantsService {
 		
 		return participantsDAO.findGroupName(personId);
 		
+	}
+	
+	public List<Participants> queryParticipants(Integer personId){
+		return participantsDAO.findAllByUserIdId(personId);
 	}
 }

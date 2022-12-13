@@ -37,8 +37,14 @@ public class FrontendController {
 	@Autowired
 	private ShoppingCartItemService shoppingCartItemService;
 
+	/**
+	 * 重置整個網頁，同時將資料product、label、type存進session
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("/product")
-	public String getProduct(Model model, HttpSession session) {
+	public String getProduct(HttpSession session) {
+		//先將網頁全部重置
 		List<ProductLabel> labels = productLabelService.findAllLabel();
 		List<ProductType> types = productTypeService.findAllType();
 		List<Product> products = productService.getAllProduct();
@@ -47,7 +53,28 @@ public class FrontendController {
 		session.setAttribute("labels", labels);
 		return "productpage";
 	}
+	
+	/**
+	 * 開啟購物車時取得商品資料
+	 * @param session
+	 * @param model
+	 */
+	@GetMapping("/openShoppingCart")
+	@ResponseBody
+	public List<ShoppingCartItem> openShoppingCart(HttpSession session) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		if(member != null) {
+			System.out.println(member);
+			return shoppingCartItemService.findAllByMemberId(member.getId());
+		}
+		return null;
+	}
 
+	/**
+	 * 商品按照價格高到低進行排序
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/priceHightToLow")
 	public String priceHightToLow(Model model) {
 		List<Product> productByType = productService.findAllProductOrderByPriceDesc();
@@ -55,6 +82,11 @@ public class FrontendController {
 		return "productpage";
 	}
 
+	/**
+	 * 商品按照價格低到高進行排序
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/priceLowToHight")
 	public String priceLowToHight(Model model) {
 		List<Product> productByType = productService.findAllProductOrderByPriceAsc();
@@ -62,14 +94,25 @@ public class FrontendController {
 		return "productpage";
 	}
 
-	@ResponseBody
+	/**
+	 * 按照商品類型進行查找
+	 * @param id
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/searchByTypeId")
-	public List<Product> searchByTypeId(@RequestParam Integer id, Model model) {
+	public String searchByTypeId(@RequestParam Integer id, Model model) {
 		List<Product> products = productService.findByTypeId(id);
-//		model.addAttribute("products", products);
-		return products;
+		model.addAttribute("products", products);
+		return "productpage";
 	}
 
+	/**
+	 * 按照商品標籤進行查找
+	 * @param id
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/searchByLabelId")
 	public String searchByLabelId(@RequestParam Integer id, Model model) {
 		List<Product> products = productService.findByLabelId(id);
@@ -77,6 +120,13 @@ public class FrontendController {
 		return "productpage";
 	}
 
+	/**
+	 * 按照商品價格範圍進行查找
+	 * @param lowPrice
+	 * @param highPrice
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/searchByHLPrice")
 	public String searchByHLPrice(@RequestParam Integer lowPrice, Integer highPrice, Model model) {
 		List<Product> products = productService.findAllByPrice(lowPrice, highPrice);
@@ -84,6 +134,12 @@ public class FrontendController {
 		return "productpage";
 	}
 
+	/**
+	 * 新增商品進購物車
+	 * @param id
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("/addToCart")
 	@ResponseBody
 	public String addToCart(@RequestParam Integer id, HttpSession session) {
@@ -118,5 +174,9 @@ public class FrontendController {
 		//如果都不是
 		return "unexpect wrong please contact with engineer";
 	}
+	
+	
+	
+	
 
 }

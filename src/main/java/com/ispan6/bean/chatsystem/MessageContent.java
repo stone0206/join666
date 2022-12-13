@@ -18,7 +18,8 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.ispan6.bean.membersystem.MemberBean;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ispan6.bean.membersystem.MemberTest;
 
 @Entity
 @Table(name="messagecontent")
@@ -33,13 +34,13 @@ public class MessageContent {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int messageId;
 	
-//	//誰發的訊息
-//	@Column(name="SENDERID",insertable=true,updatable=false)
-//	private int senderId;
-//	
-//	//傳到哪個房間
-//	@Column(name="GROUPID",insertable=true,updatable=false)
-//	private int groupId;
+	//誰發的訊息
+	@Column(name="SENDERID",insertable=false,updatable=false)
+	private int senderId;
+	
+	//傳到哪個房間
+	@Column(name="GROUPID",insertable=false,updatable=false)
+	private int groupId;
 	
 	//訊息內容
 	@Column(name="MESSAGETEXT")
@@ -63,10 +64,12 @@ public class MessageContent {
 	//雙向
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="SENDERID")
-	private MemberBean userId;
+	@JsonIgnore
+	private MemberTest userId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="GROUPID")
+	@JsonIgnore
 	private GroupRoom groupRoomId;
 
 
@@ -78,21 +81,21 @@ public class MessageContent {
 		this.messageId = messageId;
 	}
 
-//	public int getSenderId() {
-//		return senderId;
-//	}
-//
-//	public void setSenderId(int senderId) {
-//		this.senderId = senderId;
-//	}
-//
-//	public int getGroupId() {
-//		return groupId;
-//	}
-//
-//	public void setGroupId(int groupId) {
-//		this.groupId = groupId;
-//	}
+	public int getSenderId() {
+		return senderId;
+	}
+
+	public void setSenderId(int senderId) {
+		this.senderId = senderId;
+	}
+
+	public int getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
+	}
 
 	public String getMessageText() {
 		return messageText;
@@ -110,11 +113,11 @@ public class MessageContent {
 		this.createAt = createAt;
 	}
 
-	public MemberBean getUserId() {
+	public MemberTest getUserId() {
 		return userId;
 	}
 
-	public void setUserId(MemberBean userId) {
+	public void setUserId(MemberTest userId) {
 		this.userId = userId;
 	}
 

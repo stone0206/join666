@@ -1,5 +1,7 @@
 package com.ispan6.service.mallsystem;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,10 @@ public class ShoppingCartItemService {
 
 	public ShoppingCartItem findByMemberIdAndProductId(Integer memberId, Integer id) {
 		return shoppingCartItemDao.findByMemberIdAndProductId(memberId, id).get(0);
+	}
+
+	public List<ShoppingCartItem> findAllByMemberId(int i) {
+		return shoppingCartItemDao.findAllByMemberId(i);
 	}
 
 }

@@ -209,7 +209,7 @@
 														<td>Hot</td>
 													</c:when>
 													<c:otherwise>
-														<td>None</td>
+														<td>Sales</td>
 													</c:otherwise>
 												</c:choose>
 
@@ -229,8 +229,8 @@
 													</button> / <a class="btn"
 														onclick="return confirm('是否刪除 ${productContent.name }')"
 														href="/deleteProduct?id=${productContent.id }"
-														style="color: red;">刪除</a> / <a class="btn"
-														href="/unSold?id=${productContent.id }">下架</a>
+														style="color: red;">刪除</a> / 
+														<a class="btn" href="/unSold?id=${productContent.id }">下架</a>
 												</td>
 											</tr>
 										</c:forEach>

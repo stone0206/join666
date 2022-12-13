@@ -15,9 +15,11 @@ public class MemberTestService {
 		
 		public MemberTest findByAccAndPwd(String account, String password) {
 //			Optional<MemberTest> optional = mDAO.findByAccAndPwd(account, password);
-			
 			return mDAO.findByAccAndPwd(account, password);
-			
+		}
+		
+		public MemberTest findByAcc(String account) {
+			return mDAO.findByAcc(account);
 		}
 		
 		public void updateByAcc(String account, String avator, String name, String address) {

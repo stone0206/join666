@@ -1,5 +1,6 @@
 package com.ispan6.dao.chatsystem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,5 +14,6 @@ public interface GroupRoomDAO extends JpaRepository<GroupRoom, Integer> {
 	@Query("from GroupRoom where groupId = ?1")
 	public List<GroupRoom> findGroupName(Integer groupId);
 	
-	
+	@Query(value="select * from grouproom where groupId in (?1)",nativeQuery = true)
+	public List<GroupRoom> userHaveGroupSelect(ArrayList<Integer> id);
 }
