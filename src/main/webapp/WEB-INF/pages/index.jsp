@@ -19,6 +19,23 @@
 <meta charset="UTF-8">
 
 <title>約約</title>
+<style type="text/css">
+.box {
+	width: 100px;
+	height: 50px;
+	margin: auto; /*區塊置中*/
+}
+
+p {
+	text-align: center;
+	line-height: 50px; /*與包著的區塊設定同高度即可*/
+}
+
+a {
+	text-align: center;
+	line-height: 50px; /*與包著的區塊設定同高度即可*/
+}
+</style>
 </head>
 
 <body>
@@ -177,7 +194,30 @@
 								</div>
 								<!-- Card header END -->
 								<!-- Card body START -->
-								<div class="card-body">
+								<div class="card-body" id="onefriend">
+									<div>
+										<a href="#!"><img src="${random.avator}"
+											style="height: 400px; width: 280px; margin: auto;"></a>
+									</div>
+									<c:choose>
+										<c:when test="${random.gender==1 }">
+											<a>${random.address},男</a>
+										</c:when>
+										<c:when test="${random.gender==2 }">
+											<a>${random.address},女</a>
+										</c:when>
+									</c:choose>
+									<div class="box">
+										<p style="font-size: 40px;">${random.name }</p>
+									</div>
+									<div style="text-align: center;">
+										<a style="font-size: 25px; margin: auto;"><button
+												id="submitBtn">換一個</button></a> <a
+											style="font-size: 25px; margin: auto;"><button>
+												送出邀請</button></a>
+									</div>
+								</div>
+								<%-- <div class="card-body">
 									<!-- Connection item START -->
 									<c:forEach var="rand" items="${rand3}">
 										<div class="hstack gap-2 mb-3">
@@ -213,19 +253,19 @@
 											</c:choose>
 										</div>
 									</c:forEach>
+ --%>
+								<!-- Connection item END -->
 
-									<!-- Connection item END -->
-
-									<div class="d-grid mt-3">
-										<a class="btn btn-sm btn-primary-soft" href="/addfriend">更多推薦</a>
-									</div>
+								<div class="d-grid mt-3">
+									<a class="btn btn-sm btn-primary-soft" href="/addfriend"
+										style="font-size: 20px;">更多推薦</a>
 								</div>
-								<!-- Card body END -->
 							</div>
+							<!-- Card body END -->
 						</div>
-						<!-- Card follow START -->
-
 					</div>
+					<!-- Card follow START -->
+
 				</div>
 			</div>
 		</div>
@@ -240,6 +280,18 @@
 
 </body>
 <script type="text/javascript">
-	
+	var submitbtn = document.getElementById("submitBtn");
+	submitbtn.addEventListener('click', (event) => {
+		event.preventDefault();
+		fetch('${contextRoot}/newfriend', {
+			method: "get",
+			headers: new Headers({
+				'Content-Type': 'application/json'
+			})
+		}).then(function (response) {
+			return response.json();
+		}).then(function (myjson) {
+		
+	};
 </script>
 </html>

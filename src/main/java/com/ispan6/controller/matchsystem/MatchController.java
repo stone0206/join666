@@ -21,10 +21,10 @@ public class MatchController {
 		return "addfriend";
 	}
 	
-	@GetMapping("/random3members")
-	public String random3members(Model m) {
-		List<MemberTest> rand3 = matchService.random3Members();
-		m.addAttribute("rand3",rand3);
-		return "index";
+	
+	@GetMapping("/newfriend")
+	public String newfriend() {
+		matchService.random1();
+		return "";
 	}
 }

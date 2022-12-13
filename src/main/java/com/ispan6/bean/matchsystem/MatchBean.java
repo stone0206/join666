@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.criteria.CriteriaBuilder.In;
 
 import com.ispan6.bean.chatsystem.GroupRoom;
 import com.ispan6.bean.membersystem.MemberTest;

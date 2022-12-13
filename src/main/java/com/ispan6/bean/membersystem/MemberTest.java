@@ -55,10 +55,10 @@ public class MemberTest {
 	@OneToMany(mappedBy = "memberTest")
 	private List<ShoppingCartItem> sciList = new ArrayList<ShoppingCartItem>();
 
-	@OneToMany(mappedBy = "memberTest")
+	@OneToMany(mappedBy = "userid")
 	private List<MatchBean> userid = new ArrayList<MatchBean>();
 
-	@OneToMany(mappedBy = "memberTest")
+	@OneToMany(mappedBy = "fuid")
 	private List<MatchBean> fuid = new ArrayList<MatchBean>();
 
 	

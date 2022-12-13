@@ -42,7 +42,8 @@ public class MemberTestController {
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
 		MemberTest mt = mService.findByAccAndPwd(account, password);
-
+		MemberTest random = matchService.random1(mt.getId());
+		m.addAttribute("random", random);
 		
 
 		HttpSession session = request.getSession();
@@ -70,9 +71,9 @@ public class MemberTestController {
 		HttpSession session = request.getSession();
 		status.setComplete();
 		session.invalidate();
-		List<MemberTest> rand3 = matchService.random3Members();
-		m.addAttribute("rand3", rand3);
-
+		MemberTest random = matchService.random1();
+		m.addAttribute("random", random);
+		
 		return "index";
 	}
 
