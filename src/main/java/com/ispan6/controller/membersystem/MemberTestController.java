@@ -43,6 +43,18 @@ public class MemberTestController {
 		return "index";
 	}
 	
+	@PostMapping("/update")
+	public String update1(HttpServletRequest request, HttpServletResponse response) {
+		String account = request.getParameter("account");
+		String avator = request.getParameter("avator");
+		String name = request.getParameter("name");
+		String address = request.getParameter("address");
+		System.out.println("avator:"+avator);
+		mService.updateByAcc(account, avator, name, address);
+		
+		return "index";
+	}
+	
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response, SessionStatus status) {
 		HttpSession session= request.getSession();
