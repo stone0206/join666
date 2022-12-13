@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ispan6.bean.mallsystem.Product;
 import com.ispan6.bean.mallsystem.ProductLabel;
 import com.ispan6.bean.mallsystem.ProductType;
+import com.ispan6.bean.mallsystem.ShoppingCartItem;
+import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.service.mallsystem.ProductLabelService;
 import com.ispan6.service.mallsystem.ProductService;
 import com.ispan6.service.mallsystem.ProductTypeService;
+import com.ispan6.service.mallsystem.ShoppingCartItemService;
 
 @Controller
 public class FrontendController {
@@ -29,6 +32,10 @@ public class FrontendController {
 
 	@Autowired
 	private ProductTypeService productTypeService;
+	
+	@Autowired
+	private ShoppingCartItemService shoppingCartItemService;
+	
 
 	@GetMapping("/product")
 	public String getProduct(Model model, HttpSession session) {
@@ -74,6 +81,21 @@ public class FrontendController {
 		List<Product> products = productService.findAllByPrice(lowPrice,highPrice);
 		model.addAttribute("products", products);
 		return "productpage";
+	}
+	
+	@GetMapping("/addToCart")
+	public String addToCart(@RequestParam Integer id,HttpSession session) {
+		//抓到member
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		//抓到productid
+		Product product = productService.findById(id);
+		
+		ShoppingCartItem sci = new ShoppingCartItem();
+		sci.setCount(1);
+		sci.setMemberTest(member);
+		sci.setProduct(product);
+		shoppingCartItemService.insertSCI(sci);
+		return "product";
 	}
 
 }

@@ -16,6 +16,10 @@ public class pageController {
 	}
 	
 
+	@GetMapping("/productbackend")
+	public String backend() {
+		return "productbackend";
+	}
 	
 
 }

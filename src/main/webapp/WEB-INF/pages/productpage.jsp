@@ -166,12 +166,13 @@
 								</li>
 								<li>
 									<form method="post" action="/searchByHLPrice">
-									<p class="dropdown-item" style="margin-right: 10px;">
-										價格區間： 
-										<input type="text" style="width: 60px;" placeholder="最低價" name="lowPrice">
-										一 <input type="text" style="width: 60px; margin-right: 10px;" placeholder="最高價" name="highPrice">
-										<input type="submit" value="送出">
-									</p>
+										<p class="dropdown-item" style="margin-right: 10px;">
+											價格區間：
+											<input type="text" style="width: 60px;" placeholder="最低價" name="lowPrice">
+											一 <input type="text" style="width: 60px; margin-right: 10px;"
+												placeholder="最高價" name="highPrice">
+											<input type="submit" value="送出">
+										</p>
 									</form>
 								</li>
 							</ul>
@@ -245,7 +246,7 @@
 													data-bs-target="#staticBackdropbydetail${p.id }"
 													style="margin-right: 10px;">查看詳情</button>
 												<!-- 查看詳情之cart -->
-												<a class="btn btn-outline-dark" onclick='hihi()'>加入購物車</a>
+												<a class="btn btn-outline-dark" onclick='addToCart(${p.id})'>加入購物車</a>
 											</div>
 										</div>
 
@@ -361,8 +362,11 @@
 							trs[i].style.backgroundColor = 'rgba(200, 200, 200,0.2)';
 						}
 					}
-					function hihi(){
-						alert('123')
+
+					function addToCart(productId) {
+						fetch('${contextRoot}/addToCart?id=' + productId).then(function (response) {
+							console.log(response);
+						})
 					}
 
 				</script>

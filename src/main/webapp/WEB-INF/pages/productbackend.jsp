@@ -262,6 +262,7 @@
 													<th>庫存</th>
 													<th>類型</th>
 													<th>標籤</th>
+													<th>描述</th>
 												</tr>
 												<tr>
 														<input type="hidden" name="id" value="${ productContent.id}">
@@ -271,7 +272,7 @@
 													<td><input type="text" value="${productContent.name}"
 															name="name"></td>
 													<td><img src="${productContent.img}" alt=""
-															style="width: 200px;height:150px ;"></td>
+															style="width: 150px;height:120px ;"></td>
 													<td><input type="text" value="${productContent.price}"
 															name="price"></td>
 													<td><input type="text" value="${productContent.inventory}"
@@ -294,6 +295,9 @@
 															<option value="3">Hot</option>
 															<option value="4">Sales</option>
 														</select>
+													</td>
+													<td><input type="text" value="${productContent.desc}"
+															name="desc">
 													</td>
 												</tr>
 											</table>
