@@ -147,7 +147,7 @@
 										商品類型：
 										<c:forEach var="typescontent" items="${types }">
 											<button id="search-btn">
-												<a href="/searchByTypeId?id=${typescontent.id }">${typescontent.type
+												<a onclick="searchByTypeId(${typescontent.id })">${typescontent.type
 													}</a>
 											</button>
 										</c:forEach>
@@ -364,9 +364,9 @@
 					}
 
 					function addToCart(productId) {
-						fetch('${contextRoot}/addToCart?id=' + productId).then(function (response) {
-							console.log(response);
-						})
+						fetch('${contextRoot}/addToCart?id=' + productId).then(res => res.text()).then(text => {
+							alert(text)
+						 })
 					}
 
 				</script>
