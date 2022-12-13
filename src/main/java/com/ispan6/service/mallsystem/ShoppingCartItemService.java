@@ -5,7 +5,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ispan6.bean.mallsystem.Product;
 import com.ispan6.bean.mallsystem.ShoppingCartItem;
+import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.dao.mallsystem.ShoppingCartItemDao;
 
 
@@ -14,9 +16,20 @@ import com.ispan6.dao.mallsystem.ShoppingCartItemDao;
 @Transactional
 public class ShoppingCartItemService {
 	
+	@Autowired
 	private ShoppingCartItemDao shoppingCartItemDao;
-	
-	public void insertSCI(ShoppingCartItem shoppingCartItem) {
+
+	public void addToCart(ShoppingCartItem shoppingCartItem) {
 		shoppingCartItemDao.save(shoppingCartItem);
 	}
+
+	public boolean itemEmpty(Integer memberId, Integer id) {
+		return shoppingCartItemDao.findByMemberIdAndProductId(memberId, id).isEmpty();
+		
+	}
+
+	public ShoppingCartItem findByMemberIdAndProductId(Integer memberId, Integer id) {
+		return shoppingCartItemDao.findByMemberIdAndProductId(memberId, id).get(0);
+	}
+
 }

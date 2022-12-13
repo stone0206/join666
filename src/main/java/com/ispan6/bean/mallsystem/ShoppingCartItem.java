@@ -13,14 +13,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+
 import com.ispan6.bean.membersystem.MemberTest;
 
 @Entity
 @Table(name = "shoppingcartitem")
+@Component
 public class ShoppingCartItem {
 	
 	@Id
-	@Column(name = "id")
+	@Column(name = "sci_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -32,7 +35,7 @@ public class ShoppingCartItem {
     @JoinColumn(name = "sci_mid")
     private MemberTest memberTest;
     
-    @Column(name = "count")
+    @Column(name = "sci_count")
     private Integer count;
 
 	public Integer getId() {
