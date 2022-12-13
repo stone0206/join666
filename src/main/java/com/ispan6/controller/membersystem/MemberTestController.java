@@ -1,5 +1,7 @@
 package com.ispan6.controller.membersystem;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.ispan6.bean.membersystem.MemberTest;
+import com.ispan6.service.matchsystem.MatchService;
 import com.ispan6.service.membersystem.MemberTestService;
 
 @Controller
@@ -20,6 +23,11 @@ import com.ispan6.service.membersystem.MemberTestService;
 public class MemberTestController {
 	@Autowired
 	private MemberTestService mService;
+	
+	@Autowired
+	private MatchService matchService;
+
+	
 	
 	@PostMapping("/login2")
 	public String login(@RequestParam String account, @RequestParam String password, Model model) {
@@ -32,10 +40,13 @@ public class MemberTestController {
 	}
 	
 	@PostMapping("/login")
-	public String login2(HttpServletRequest request, HttpServletResponse response) {
+	public String login2(HttpServletRequest request, HttpServletResponse response,Model m) {
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
 		MemberTest mt = mService.findByAccAndPwd(account, password);
+
+		List<MemberTest> rand3 = matchService.random3Members();
+		m.addAttribute("rand3",rand3);
 		HttpSession session= request.getSession();
 		
 		session.setAttribute("loginUser", mt);
@@ -56,10 +67,12 @@ public class MemberTestController {
 	}
 	
 	@GetMapping("/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response, SessionStatus status) {
+	public String logout(HttpServletRequest request, HttpServletResponse response, SessionStatus status,Model m) {
 		HttpSession session= request.getSession();
 		status.setComplete();
 		session.invalidate();
+		List<MemberTest> rand3 = matchService.random3Members();
+		m.addAttribute("rand3",rand3);
 		return "index";
 	}
 	
