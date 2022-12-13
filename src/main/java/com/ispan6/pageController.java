@@ -17,15 +17,17 @@ public class pageController {
 	
 	@GetMapping("/login")
 	public String getLogin(Model m) {
-		List<MemberTest> rand3 = matchService.random3Members();
-		m.addAttribute("rand3",rand3);
 		return "login";
 	}
 	
-	@GetMapping("/index")
+	@GetMapping("/")
 	public String backHome(Model m) {
 		List<MemberTest> rand3 = matchService.random3Members();
 		m.addAttribute("rand3",rand3);
+		return "index";
+	}
+	@GetMapping("/index")
+	public String backHomeIndex(Model m) {
 		return "index";
 	}
 	
