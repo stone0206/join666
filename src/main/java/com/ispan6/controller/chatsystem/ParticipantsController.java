@@ -13,13 +13,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ispan6.bean.chatsystem.GroupRoom;
 import com.ispan6.bean.chatsystem.Participants;
+import com.ispan6.service.chatsystem.GroupRoomService;
 import com.ispan6.service.chatsystem.ParticipantsService;
 
 @Controller
 public class ParticipantsController {
 	@Autowired
 	private ParticipantsService participantsService;
+	@Autowired
+	private GroupRoomService groupRoomService;
 	
 	@RequestMapping(path="/participants/add",method = RequestMethod.POST)
 	@ResponseBody
@@ -30,9 +34,15 @@ public class ParticipantsController {
 	
 	@GetMapping(path="/participants/select")
 	@ResponseBody
-	public List<Participants> selectParticipants(@RequestParam Integer personId,Model m) {
+	public List<GroupRoom> selectParticipants(@RequestParam Integer personId) {
+		List<GroupRoom> gList=groupRoomService.userHaveGroupSelect(participantsService.selectParticipants(personId));
 		
-		System.out.println(participantsService.selectParticipants(personId));
-		return participantsService.selectParticipants(personId);
+		return gList;
+	}
+	
+	@GetMapping(path="/participants/query")
+	@ResponseBody
+	public List<Participants> queryParticipants(@RequestParam Integer personId){
+		return participantsService.queryParticipants(personId);
 	}
 }
