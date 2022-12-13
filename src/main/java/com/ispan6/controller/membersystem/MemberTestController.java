@@ -53,7 +53,7 @@ public class MemberTestController {
 	}
 
 	@PostMapping("/login")
-	public String login(HttpServletRequest request, HttpServletResponse response, Model m) {
+	public String login(HttpServletRequest request, HttpServletResponse response, Model model) {
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
 		MemberTest mt = mService.findByAccAndPwd(account, password);
@@ -106,6 +106,10 @@ public class MemberTestController {
 		String avator = responseMsg.toString();
 
 		mService.updateByAcc(account, avator, name, address);
+		MemberTest mt = mService.findByAcc(account);
+		HttpSession session = request.getSession();
+
+		session.setAttribute("loginUser", mt);
 		return "index";
 	}
 
