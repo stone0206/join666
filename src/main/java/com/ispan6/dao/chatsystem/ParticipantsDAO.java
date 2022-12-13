@@ -11,6 +11,9 @@ import com.ispan6.bean.chatsystem.Participants;
 public interface ParticipantsDAO extends JpaRepository<Participants, Integer> {
 	
 	//user有多少聊天室
-	@Query("from Participants where personId = ?1")
+	@Query("from Participants p where p.personId=?1")
 	public List<Participants> findGroupName(Integer personId);
+	
+	
+	public List<Participants> findAllByUserIdId(Integer personId);
 }

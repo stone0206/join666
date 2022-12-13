@@ -189,11 +189,28 @@
 											<div class="overflow-hidden">
 												<a class="h6 mb-0" href="#!"> ${rand.name}</a>
 												<p class="mb-0 small text-truncate">${rand.address}</p>
+												<c:choose>
+													<c:when test="${rand.gender==1 }">
+														<p class="mb-0 small text-truncate">男</p>
+													</c:when>
+													<c:when test="${rand.gender==2 }">
+														<p class="mb-0 small text-truncate">女</p>
+													</c:when>
+												</c:choose>
 											</div>
 											<!-- Button -->
-											<a
-												class="btn btn-primary-soft rounded-circle icon-md ms-auto"
-												href="#"><i class="fa-solid fa-plus"> 加他</i></a>
+											<c:choose>
+												<c:when test="${loginUser==null}">
+													<a
+														class="btn btn-primary-soft rounded-circle icon-md ms-auto"
+														href="/login"><i class="fa-solid fa-plus">+ </i></a>
+												</c:when>
+												<c:when test="${loginUser!=null }">
+													<a
+														class="btn btn-primary-soft rounded-circle icon-md ms-auto"
+														href="加好友頁面"><i class="fa-solid fa-plus"> +</i></a>
+												</c:when>
+											</c:choose>
 										</div>
 									</c:forEach>
 

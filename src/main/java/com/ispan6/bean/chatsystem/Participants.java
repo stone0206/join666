@@ -14,7 +14,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ispan6.bean.membersystem.MemberBean;
+import com.ispan6.bean.membersystem.MemberTest;
 //群組
 @Entity
 @Table(name="participants")
@@ -39,49 +41,51 @@ public class Participants implements Serializable{
 //	重要：不知道要不要加
 	
 	
-//	//參與者ID 會員外來鍵
-//	@Column(name="PERSONID")
-//	private int personId;
-//	//聊天室ID
-//	@Column(name="GROUPID")
-//	private int groupId;
+	//參與者ID 會員外來鍵
+	@Column(name="PERSONID",insertable=false,updatable=false)
+	private int personId;
+	//聊天室ID
+	@Column(name="GROUPID",insertable=false,updatable=false)
+	private int groupId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="PERSONID")
-	private MemberBean userId;
+	@JsonIgnore
+	private MemberTest userId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="GROUPID")
+	@JsonIgnore
 	private GroupRoom groupRoomId;
 
-//	public int getPersonId() {
-//		return personId;
-//	}
-//
-//	public void setPersonId(int personId) {
-//		this.personId = personId;
-//	}
-//
-//	public int getGroupId() {
-//		return groupId;
-//	}
-//
-//	public void setGroupId(int groupId) {
-//		this.groupId = groupId;
-//	}
-
-	public MemberBean getUserId() {
-		return userId;
+	public int getPersonId() {
+		return personId;
 	}
 
-	public void setUserId(MemberBean userId) {
+	public void setPersonId(int personId) {
+		this.personId = personId;
+	}
+
+	public int getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
+	}
+
+	public MemberTest getUserId() {
+		return userId;
+	}
+	
+	public void setUserId(MemberTest userId) {
 		this.userId = userId;
 	}
 
 	public GroupRoom getGroupRoomId() {
 		return groupRoomId;
 	}
-
+	
 	public void setGroupRoomId(GroupRoom groupRoomId) {
 		this.groupRoomId = groupRoomId;
 	}

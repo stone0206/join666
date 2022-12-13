@@ -1,10 +1,14 @@
 package com.ispan6.service.chatsystem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan6.bean.chatsystem.GroupRoom;
+import com.ispan6.bean.chatsystem.Participants;
 import com.ispan6.dao.chatsystem.GroupRoomDAO;
 
 @Transactional
@@ -24,5 +28,22 @@ public class GroupRoomService {
 		groupRoomDAO.save(groupRoom);
 	}
 	
-
+	public List<GroupRoom> userHaveGroupSelect(List<Participants> pList) {
+		ArrayList<Integer> id=new ArrayList<Integer>();
+		if (pList.isEmpty()) {
+			return null;
+		}else {
+			for(int i=0;i<pList.size();i++) {
+				Participants p = pList.get(i);
+				id.add(p.getGroupId());
+				
+			}
+			List<GroupRoom> gList=groupRoomDAO.userHaveGroupSelect(id);
+			for(int i=0;i<id.size();i++) {
+				System.out.println(id.get(i));
+			}
+			
+			return gList;
+		}
+	}
 }

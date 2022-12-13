@@ -46,7 +46,7 @@
               <ul class="navbar-nav navbar-nav-scroll ms-auto">
                 <!-- 揪團 -->
                 <li class="nav-item " style="margin-right: 20px;">
-                  <a class="nav-link " href="放網址的位置" id="homeMenu" aria-haspopup="true"
+                  <a class="nav-link " href="/msg/page" id="homeMenu" aria-haspopup="true"
                     aria-expanded="false">揪團</a>
                 </li>
 

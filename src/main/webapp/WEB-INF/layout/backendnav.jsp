@@ -61,7 +61,7 @@
                             貼文管理
                         </a>
 
-                        <a class="nav-link" href="reunion">
+                        <a class="nav-link" href="/msg/reunionbackend">
                             <div class="sb-nav-link-icon"><i class='fas fa-campground'></i></i></div>
                             揪團管理
                         </a>

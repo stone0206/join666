@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.ispan6.bean.mallsystem.ShoppingCartItem;
+import com.ispan6.bean.matchsystem.MatchBean;
 
 @Entity
 @Table(name = "memberTest")
@@ -54,6 +55,13 @@ public class MemberTest {
 	@OneToMany(mappedBy = "memberTest")
 	private List<ShoppingCartItem> sciList = new ArrayList<ShoppingCartItem>();
 
+	@OneToMany(mappedBy = "userid")
+	private List<MatchBean> userid = new ArrayList<MatchBean>();
+
+	@OneToMany(mappedBy = "fuid")
+	private List<MatchBean> fuid = new ArrayList<MatchBean>();
+
+	
 	public MemberTest() {
 		super();
 	}

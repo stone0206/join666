@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ispan6.bean.chatsystem.GroupRoom;
 import com.ispan6.bean.chatsystem.MessageContent;
 import com.ispan6.bean.membersystem.MemberBean;
+import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.dao.chatsystem.MessageDAO;
 
 
@@ -25,7 +26,7 @@ public class MessageService {
 	
 	public MessageContent insertMessage(String text,Integer senderId,Integer groupId) {
 		MessageContent msgText=new MessageContent();
-		MemberBean memberBean=new MemberBean();
+		MemberTest memberBean=new MemberTest();
 		memberBean.setId(senderId);
 		msgText.setUserId(memberBean);
 		GroupRoom groupRoom=new GroupRoom();
