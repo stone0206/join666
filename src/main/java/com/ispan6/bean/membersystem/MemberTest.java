@@ -1,13 +1,21 @@
 package com.ispan6.bean.membersystem;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.ispan6.bean.mallsystem.ShoppingCartItem;
+import com.ispan6.bean.matchsystem.MatchBean;
 
 @Entity
 @Table(name = "memberTest")
@@ -43,7 +51,17 @@ public class MemberTest {
 	
 	@Column(name="address")
 	private String address;
+	
+	@OneToMany(mappedBy = "memberTest")
+	private List<ShoppingCartItem> sciList = new ArrayList<ShoppingCartItem>();
 
+	@OneToMany(mappedBy = "userid")
+	private List<MatchBean> userid = new ArrayList<MatchBean>();
+
+	@OneToMany(mappedBy = "fuid")
+	private List<MatchBean> fuid = new ArrayList<MatchBean>();
+
+	
 	public MemberTest() {
 		super();
 	}
@@ -127,4 +145,6 @@ public class MemberTest {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	
 }

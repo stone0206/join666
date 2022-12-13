@@ -59,6 +59,7 @@ public class Product {
 	@Column(name = "p_type")
 	private Integer type;
 
+	
 //	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 //	@JoinColumn(name = "p_label") //透過外來鍵去找
 //	private ProductLabel labels;

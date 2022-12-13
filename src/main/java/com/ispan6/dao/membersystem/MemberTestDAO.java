@@ -17,6 +17,9 @@ public interface MemberTestDAO extends JpaRepository<MemberTest, Integer> {
 		@Modifying
 		@Query(value = "UPDATE MemberTest SET m_name= :name, avator= :avator, address= :address WHERE m_account= :account")
 		public void updateByAcc(@Param("account") String account, @Param("avator") String avator, @Param("name") String name, @Param("address") String address);
+		
+		@Query("from MemberTest where m_account= :account")
+		public MemberTest findByAcc(@Param("account") String account); 
 
 }
 
