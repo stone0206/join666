@@ -1,6 +1,7 @@
 package com.ispan6.service.mallsystem;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -20,16 +21,6 @@ public class ProductService {
 	@Autowired
 	private ProductDAO productDAO;
 	
-	// show all product without any condition
-	// show product by Type
-	// show product by Label
-	// show product by price
-	// show product order by price desc
-	// show product order by price asc
-	// show product order by price inventory
-	// show product order by price inventory
-	// show product by img search
-	// show product by many keyword search
 	public List<Product> getAllProduct() {
 		return productDAO.findAll();
 	}
@@ -66,6 +57,14 @@ public class ProductService {
 
 	public List<Product> findAllByPrice(Integer lowPrice, Integer highPrice) {
 		return productDAO.findByPriceBetween(lowPrice, highPrice);
+	}
+
+	public Product findById(Integer id) {
+		 Optional<Product> product = productDAO.findById(id);
+		 if(product.isPresent()) {
+			 return product.get();
+		 }
+		 return null;
 	}
 	
 	
