@@ -37,6 +37,6 @@ public class ParticipantsService {
 	}
 	
 	public List<Participants> queryParticipants(Integer personId){
-		return participantsDAO.findAllByUserIdMid(personId);
+		return participantsDAO.findAllByUserIdId(personId);
 	}
 }

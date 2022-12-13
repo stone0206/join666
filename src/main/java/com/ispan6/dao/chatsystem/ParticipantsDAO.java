@@ -15,5 +15,5 @@ public interface ParticipantsDAO extends JpaRepository<Participants, Integer> {
 	public List<Participants> findGroupName(Integer personId);
 	
 	
-	public List<Participants> findAllByUserIdMid(Integer personId);
+	public List<Participants> findAllByUserIdId(Integer personId);
 }
