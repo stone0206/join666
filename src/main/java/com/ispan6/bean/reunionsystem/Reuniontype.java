@@ -20,17 +20,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name="reunion_type")
-public class Reunion_type {
+@Table(name="reuniontype")
+public class Reuniontype {
   //付聚會類型
 	@Id
-	@Column(name="reut_id")
+	@Column(name="reutid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer reut_id ;
+	private Integer reutid ;
 	
 	
-	@Column(name="reu_type", columnDefinition = "nvarchar(50)")
-	private String reu_type;
+	@Column(name="reutype", columnDefinition = "nvarchar(50)")
+	private String reutype;
 	
 //	@OneToMany(fetch = FetchType.LAZY,mappedBy = "reunion_type",cascade=CascadeType.ALL)
 //	private List<reunion> reunion;

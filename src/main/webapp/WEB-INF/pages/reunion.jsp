@@ -12,10 +12,13 @@
 </head>
 <body>
 
+<div class="container">
+ <div class="row justify-content-center">
+  <div class="col-10 col-md-12">
 
-	<header>
+	
 		<jsp:include page="/WEB-INF/layout/navbar.jsp" />
-	</header>
+	
 	
 	
 	    <section class="py-5 text-center container">
@@ -43,6 +46,11 @@
 			</a> <a href=>
 				<button type="button" class="btn btn-info">新手友善</button>
 			</a>
+			
+			</a> <a href=/msg/insertreunion>
+				<button type="button" class="btn btn-info">新增聚會</button>
+			</a>
+			
 		</div>
 		<div>
 			<form class="row g-3">
@@ -236,10 +244,13 @@
 			</c:forEach>
 		</ul>
 	</nav>
-
-
+</div>
+</div>
+</div>
 	<footer>
 		<jsp:include page="/WEB-INF/layout/footer.jsp" />
 	</footer>
+	
+	
 </body>
 </html>

@@ -18,14 +18,14 @@ import javax.persistence.Table;
 public class Payment {
   //付款方式
 	@Id
-	@Column(name="pay_id")
+	@Column(name="payid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer payId ;
 	
 	
-	@Column(name="pay_type", columnDefinition = "nvarchar(50)")
-	private String pay_type;
-	
+	@Column(name="paytype", columnDefinition = "nvarchar(50)")
+	private String paytype;
+
 //	@OneToOne(fetch = FetchType.LAZY,mappedBy = "payment",cascade=CascadeType.ALL)
 //	private List<reunion> reunion;
 	

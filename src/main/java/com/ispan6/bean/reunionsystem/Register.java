@@ -12,9 +12,9 @@ import javax.persistence.Table;
 public class Register {
   //聚會報名
 	@Id
-	@Column(name="id ")
+	@Column(name="registerid ")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id ;
+	private Integer registerid ;
 	
 	@Column(name="reunionid ")
 	private Integer reunionid  ;

@@ -20,9 +20,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Evaluate {
   //聚會評價
 	@Id
-	@Column(name="id ")
+	@Column(name="evaluateid ")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id ;
+	private Integer evaluateid ;
 	
 	@Column(name="reunionid ")
 	private Integer reunionid  ;
