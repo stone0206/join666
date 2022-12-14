@@ -21,7 +21,7 @@ public interface MemberTestDAO extends JpaRepository<MemberTest, Integer> {
 		@Query("from MemberTest where m_account= :account")
 		public MemberTest findByAcc(@Param("account") String account); 
 		
-		@Query(value="SELECT account FROM MemberTest where m_account= :account")
+		@Query(value="FROM MemberTest where m_account= :account")
 		public MemberTest existsByAccount(@Param("account") String account);
 		
 //		@Override

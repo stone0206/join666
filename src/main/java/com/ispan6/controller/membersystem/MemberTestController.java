@@ -111,7 +111,9 @@ public class MemberTestController {
 		String avator = responseMsg.toString();
 
 		mService.updateByAcc(account, avator, name, address);
-		mService.findByAcc(account);
+		MemberTest mt=mService.findByAcc(account);
+		HttpSession session = request.getSession();
+		session.setAttribute("loginUser", mt);
 		return "index";
 	}
 
@@ -156,13 +158,15 @@ public class MemberTestController {
 		String acc = "";
 		Map<String, String> map = new HashMap<>();
 		if (mService.existsByAccount(account)!=null) {
-//			id = memberService.existsByMemberId(memberId);
+//			System.out.println("NOT NULL");
 			acc="帳號重複";
 			
 		}else {
+//			System.out.println("NULL");
 			acc="此帳號可用";
-			
-		}map.put("acc", acc);
+		}
+		map.put("acc", acc);
+//		System.out.println(map);
 		return map;
 	}
 }

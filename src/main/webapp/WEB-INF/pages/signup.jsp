@@ -33,7 +33,7 @@
 			</div>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingPassword"
-					placeholder="Password" name="password" onblur="checkPwd()" required>
+					placeholder="Password" name="password" onblur="" required>
 				<label for="floatingPassword">密碼</label>
 			</div>
 			<!-- 			<div class="form-floating"> -->
@@ -76,14 +76,13 @@
 		window.history.back(); //返回上一頁
 	})
 
-
 	function checkAcc() {
 		
 		var acc = document.getElementsByName("account")[0].value;
-		console.log(acc);
-		if (!acc) {
-			//	 			div.innerHTML = "<font color='blue' size='-1'>請輸入帳號</font>";
-			//alert("請輸入帳號");
+		//console.log(acc.length);
+		if (acc.length==0) {
+			//div.innerHTML = "<font color='blue' size='-1'>請輸入帳號</font>";
+			alert("請輸入帳號");
 			return;
 		}
 		var xhr = new XMLHttpRequest();
@@ -97,21 +96,19 @@
 			if (xhr.readyState == 4 && xhr.status == 200) {
 				var result = JSON.parse(xhr.responseText);
 
-				if (result.acc.length == 0) {
-					message = "帳號可用";
+				if (result.acc.length == 5) {
+					message = "此帳號可用";
 				} else if (result.acc.startsWith("Error")) {
 					message = result.acc;
 				} else {
+					console.log(result.acc);
 					message = "帳號重複，請重新輸入帳號";
 				}
 				alert(message);
-				//	 				div.innerHTML = "<font color='red' size='-2'>" + message
-				//	 						      + "</font>";
+				//div.innerHTML = "<font color='red' size='-2'>" + message
+				//+ "</font>";
 			}
 		}
 	}
 </script>
-
-
-
 </html>
