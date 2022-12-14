@@ -1,6 +1,5 @@
 package com.ispan6.bean.mallsystem;
 
-import java.lang.reflect.Member;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

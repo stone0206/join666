@@ -20,6 +20,25 @@ public interface MemberTestDAO extends JpaRepository<MemberTest, Integer> {
 		
 		@Query("from MemberTest where m_account= :account")
 		public MemberTest findByAcc(@Param("account") String account); 
-
+		
+		@Query(value="FROM MemberTest where m_account= :account")
+		public MemberTest existsByAccount(@Param("account") String account);
+		
+//		@Override
+//		public String existsByMemberId(String memberId) {
+//			String hql = "FROM MemberEntity m WHERE m.memberId = :id";
+//			String id = ""; 
+//			
+//			Session session = factory.getCurrentSession();
+//			
+//			List<Member> list = session.createQuery(hql, Member.class)
+//									   .setParameter("id", memberId)
+//									   .getResultList();
+//			if (!  list.isEmpty()) {
+//				id = list.get(0).getMemberId();
+//			}
+//			
+//			return id;
+//		}
 }
 
