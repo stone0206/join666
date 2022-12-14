@@ -20,4 +20,7 @@ public interface ShoppingCartItemDao extends JpaRepository<ShoppingCartItem, Int
 	@Query(value = "select * from shoppingcartitem where sci_mid = ?1",nativeQuery = true)
 	List<ShoppingCartItem> findAllByMemberId(int i);
 
+	
+	
+
 }

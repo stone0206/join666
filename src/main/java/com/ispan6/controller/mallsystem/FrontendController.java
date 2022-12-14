@@ -145,6 +145,9 @@ public class FrontendController {
 	public String addToCart(@RequestParam Integer id, HttpSession session) {
 		//先取得會員和商品id
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		if(member == null) {
+			return "請先登入";
+		}
 		Product product = productService.findById(id);
 		Integer memberId = member.getId();
 
@@ -173,6 +176,14 @@ public class FrontendController {
 		
 		//如果都不是
 		return "unexpect wrong please contact with engineer";
+	}
+	
+	@GetMapping("/deleteShoppingCart")
+	@ResponseBody
+	public List<ShoppingCartItem> deleteShoppingCart(@RequestParam Integer sciId,HttpSession session) {
+		MemberTest member=(MemberTest) session.getAttribute("loginUser");
+		shoppingCartItemService.deleteShoppingCartItem(sciId);
+		return shoppingCartItemService.findAllByMemberId(member.getId());
 	}
 	
 	

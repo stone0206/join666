@@ -56,8 +56,6 @@ public class ReunionsystemController {
 	public String pageList(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
 		Page<Reunion> page = wService.findByPage(pageNumber);
 		model.addAttribute("page", page);
-		
-	
 		return "reunion";
 	}
 	
