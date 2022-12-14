@@ -89,7 +89,7 @@
                   aria-labelledby="profileDropdown">
            
                   <!-- Links -->
-                  <li><a class="dropdown-item" href="settings.html"><i class="bi bi-gear fa-fw me-2"></i>Sign up</a></li>
+                  <li><a class="dropdown-item" href="/signup"><i class="bi bi-gear fa-fw me-2"></i>Sign up</a></li>
 
               <li><a class="dropdown-item" href="/login"><i class="bi bi-gear fa-fw me-2"></i>Login</a></li>
 

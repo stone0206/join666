@@ -41,5 +41,9 @@ public class pageController {
 		return "productbackend";
 	}
 	
+	@GetMapping("/signup")
+	public String goSignUp() {
+		return "signup";
+	}
 
 }

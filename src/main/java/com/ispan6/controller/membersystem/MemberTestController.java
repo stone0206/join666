@@ -4,7 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -19,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 
 import com.ispan6.bean.membersystem.MemberTest;
@@ -57,13 +60,10 @@ public class MemberTestController {
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
 		MemberTest mt = mService.findByAccAndPwd(account, password);
-<<<<<<< HEAD
-		MemberTest random = matchService.random1(mt.getId());
-		m.addAttribute("random", random);
 		
-=======
->>>>>>> origin/master
-
+        MemberTest random = matchService.random1(mt.getId());
+        m.addAttribute("random", random);
+		
 		HttpSession session = request.getSession();
 
 		session.setAttribute("loginUser", mt);
@@ -73,15 +73,11 @@ public class MemberTestController {
 	}
 
 	@PostMapping("/update")
-	public String update1(HttpServletRequest request, HttpServletResponse response) {
 	public String update1(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		String account = request.getParameter("account");
-		String avator = request.getParameter("avator");
-//		String avator = request.getParameter("avator");
 		String name = request.getParameter("name");
 		String address = request.getParameter("address");
-		System.out.println("avator:" + avator);
 
 		Part part = request.getPart("avator");
 //		InputStream in = part.getInputStream();
@@ -115,10 +111,7 @@ public class MemberTestController {
 		String avator = responseMsg.toString();
 
 		mService.updateByAcc(account, avator, name, address);
-		MemberTest mt = mService.findByAcc(account);
-		HttpSession session = request.getSession();
-
-		session.setAttribute("loginUser", mt);
+		mService.findByAcc(account);
 		return "index";
 	}
 
@@ -145,14 +138,31 @@ public class MemberTestController {
 		HttpSession session = request.getSession();
 		status.setComplete();
 		session.invalidate();
-		MemberTest random = matchService.random1();
-		m.addAttribute("random", random);
-		
+		List<MemberTest> rand3 = matchService.random3Members();
+		m.addAttribute("rand3", rand3);
+
 		return "index";
 	}
 
 	@GetMapping("/showprofile")
 	public String showProfile() {
 		return "showOneUser";
+	}
+	
+
+	@PostMapping("/CheckAcc")
+	public @ResponseBody Map<String, String> checkAcc(
+			@RequestParam(value = "account") String account) {
+		String acc = "";
+		Map<String, String> map = new HashMap<>();
+		if (mService.existsByAccount(account)!=null) {
+//			id = memberService.existsByMemberId(memberId);
+			acc="帳號重複";
+			
+		}else {
+			acc="此帳號可用";
+			
+		}map.put("acc", acc);
+		return map;
 	}
 }
