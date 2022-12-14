@@ -27,7 +27,7 @@ public class ShoppingCartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne
     @JoinColumn(name="sci_pid", referencedColumnName="p_id")
     private Product product;
 

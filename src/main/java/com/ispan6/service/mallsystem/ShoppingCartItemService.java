@@ -38,4 +38,9 @@ public class ShoppingCartItemService {
 		return shoppingCartItemDao.findAllByMemberId(i);
 	}
 
+	public void deleteShoppingCartItem(Integer sciId) {
+		shoppingCartItemDao.deleteById(sciId);
+	}
+
+	
 }
