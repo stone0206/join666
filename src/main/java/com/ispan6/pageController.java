@@ -22,20 +22,19 @@ public class pageController {
 		return "login";
 	}
 	
-	@GetMapping("/")
+	@GetMapping("/index")
 	public String backHome(Model m) {
 		MemberTest random = matchService.random1();
 		m.addAttribute("random", random);
 		return "index";
 	}
-	@GetMapping("/index")
-	public String backHomeIndex(HttpSession session, Model m) {
-		MemberTest mt = (MemberTest)session.getAttribute("loginUser");
-		MemberTest random = matchService.random1(mt.getId());
+	
+	@GetMapping("/")
+	public String homePage(Model m) {
+		MemberTest random = matchService.random1();
 		m.addAttribute("random", random);
 		return "index";
 	}
-	
 
 	@GetMapping("/productbackend")
 	public String backend() {
