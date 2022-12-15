@@ -73,12 +73,16 @@
                 <!-- 聊天室連結位置 -->
                 <a class="nav-link icon-md btn btn-light p-0" href="聊天室連結位置">
                   <img class="avatar-img rounded-2" src="${contextRoot}/assets/messageicon.png" alt="">
+
+                  <img class="avatar-img rounded-2" src="assets/bell.png" alt="">
+
                 </a>
               </li>
 
               <!-- 登入位置 -->
 					<!-- 未登入 -->
 					<c:if test="${loginUser==null }">
+					<c:if test="${loginUser==null}">
               <li class="nav-item ms-2 dropdown">
                 <a class="nav-link btn icon-md p-0" id="profileDropdown" role="button" data-bs-auto-close="outside"
                   data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">

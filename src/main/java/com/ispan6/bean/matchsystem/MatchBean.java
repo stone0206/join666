@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ispan6.bean.chatsystem.GroupRoom;
 import com.ispan6.bean.membersystem.MemberTest;
 
@@ -31,12 +32,38 @@ public class MatchBean {
 	
 	@ManyToOne
 	@JoinColumn(name = "userid")
+	@JsonIgnore
 	private MemberTest userid;
 	@ManyToOne
 	@JoinColumn(name = "fuid")
+	@JsonIgnore
 	private MemberTest fuid;
 	@Column(name = "isFriend")
 	private Integer isFriend;
-	@ManyToOne
-	private GroupRoom roomid;
+	public Integer getFriendid() {
+		return friendid;
+	}
+	public void setFriendid(Integer friendid) {
+		this.friendid = friendid;
+	}
+	public MemberTest getUserid() {
+		return userid;
+	}
+	public void setUserid(MemberTest userid) {
+		this.userid = userid;
+	}
+	public MemberTest getFuid() {
+		return fuid;
+	}
+	public void setFuid(MemberTest fuid) {
+		this.fuid = fuid;
+	}
+	public Integer getIsFriend() {
+		return isFriend;
+	}
+	public void setIsFriend(Integer isFriend) {
+		this.isFriend = isFriend;
+	}
+	
+	
 }
