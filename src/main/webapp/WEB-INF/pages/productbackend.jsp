@@ -226,11 +226,12 @@
 														data-bs-target="#exampleModal${productContent.id}"
 														style="color: blue;">
 														<a>編輯</a>
+														<!-- return confirm('是否刪除 ${productContent.name }') -->
 													</button> / <a class="btn"
 														onclick="return confirm('是否刪除 ${productContent.name }')"
 														href="/deleteProduct?id=${productContent.id }"
-														style="color: red;">刪除</a> / 
-														<a class="btn" href="/unSold?id=${productContent.id }">下架</a>
+														style="color: red;">刪除</a> /
+													<a class="btn" href="/unSold?id=${productContent.id }">下架</a>
 												</td>
 											</tr>
 										</c:forEach>
@@ -265,16 +266,17 @@
 													<th>描述</th>
 												</tr>
 												<tr>
-														<input type="hidden" name="id" value="${ productContent.id}">
-														<input type="hidden" name="img" value="${ productContent.img}">
-														<input type="hidden" name="sales" value="${ productContent.sales}">
-														<input type="hidden" name="status" value="${ productContent.status}">
-													<td><input type="text" value="${productContent.name}"
-															name="name"></td>
+													<input type="hidden" name="id" value="${ productContent.id}">
+													<input type="hidden" name="img" value="${ productContent.img}">
+													<input type="hidden" name="sales" value="${ productContent.sales}">
+													<input type="hidden" name="status"
+														value="${ productContent.status}">
+													<td><input type="text" value="${productContent.name}" name="name">
+													</td>
 													<td><img src="${productContent.img}" alt=""
 															style="width: 150px;height:120px ;"></td>
-													<td><input type="text" value="${productContent.price}"
-															name="price"></td>
+													<td><input type="text" value="${productContent.price}" name="price">
+													</td>
 													<td><input type="text" value="${productContent.inventory}"
 															name="inventory">
 													</td>
@@ -296,8 +298,7 @@
 															<option value="4">Sales</option>
 														</select>
 													</td>
-													<td><input type="text" value="${productContent.desc}"
-															name="desc">
+													<td><input type="text" value="${productContent.desc}" name="desc">
 													</td>
 												</tr>
 											</table>
@@ -343,7 +344,9 @@
 					}
 				})
 
-		// 點擊編輯時會變成form表單，可以直接修改，然後送出
+
+
+
 			</script>
 		</body>
 

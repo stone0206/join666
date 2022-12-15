@@ -27,7 +27,7 @@ public class MemberTestService {
 		}
 		
 		public MemberTest existsByAccount(String account) {
-//			String acc="";
+//			System.out.println(mDAO.existsByAccount(account));
 			return mDAO.existsByAccount(account);				
 		
 		}

@@ -29,11 +29,12 @@
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInput"
 					placeholder="aaa" name="account" onblur="checkAcc()" required>
-				<label for="floatingInput">帳號</label>
+				<div id='result0c' style="height: 10px;"></div>
+				<label for="floatingInput" id="acclabel">帳號</label>
 			</div>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingPassword"
-					placeholder="Password" name="password" onblur="checkPwd()" required>
+					placeholder="Password" name="password" onblur="" required>
 				<label for="floatingPassword">密碼</label>
 			</div>
 			<!-- 			<div class="form-floating"> -->
@@ -49,7 +50,7 @@
 			<i id="checkEye" class="fas fa-eye"></i>
 
 			<div class=" mb-2">
-				<button type="submit" class="w-25 btn btn-lg btn-primary">確認送出</button>
+				<button type="submit" class="w-25 btn btn-lg btn-primary" id="comfirmbtn" disabled="true">確認送出</button>
 			</div>
 			<div>
 				<button class="w-25 btn btn-lg btn-outline-dark" id="cancel">取消</button>
@@ -76,16 +77,22 @@
 		window.history.back(); //返回上一頁
 	})
 
-
 	function checkAcc() {
 		
 		var acc = document.getElementsByName("account")[0].value;
-		console.log(acc);
-		if (!acc) {
-			//	 			div.innerHTML = "<font color='blue' size='-1'>請輸入帳號</font>";
+		var acclabel= document.getElementById('acclabel');
+		var objRex=/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+// 		var objRex=/^[a-zA-Z0-9]+$/;
+		//console.log(acc.length);
+		if (acc.length==0) {
+			acclabel.innerHTML = "<font color='red' size='-1'>請輸入帳號</font>";
 			//alert("請輸入帳號");
 			return;
-		}
+		}else{
+		if(!objRex.test(acc)){
+			acclabel.innerHTML = "<font color='red' size='-1'>請輸入正確格式</font>";
+			return;}
+		else{
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", "<c:url value='/CheckAcc'/>", true);
 		xhr.setRequestHeader("Content-Type",
@@ -97,21 +104,24 @@
 			if (xhr.readyState == 4 && xhr.status == 200) {
 				var result = JSON.parse(xhr.responseText);
 
-				if (result.acc.length == 0) {
-					message = "帳號可用";
+				if (result.acc.length == 5) {
+					message = "此帳號可用";
+					acclabel.innerHTML = "<font color='green' size='-1'>"+message+"</font>";
+					document.getElementById("comfirmbtn").disabled=false;
+			
 				} else if (result.acc.startsWith("Error")) {
 					message = result.acc;
 				} else {
+					console.log(result.acc);
 					message = "帳號重複，請重新輸入帳號";
+					acclabel.innerHTML = "<font color='red' size='-1'>"+message+"</font>";
 				}
-				alert(message);
-				//	 				div.innerHTML = "<font color='red' size='-2'>" + message
-				//	 						      + "</font>";
+				//alert(message);
+				//div.innerHTML = "<font color='red' size='-2'>" + message
+				
+				//+ "</font>";
 			}
 		}
-	}
+	}}}
 </script>
-
-
-
 </html>
