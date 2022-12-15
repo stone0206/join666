@@ -16,60 +16,83 @@
         crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <title>聚會管理</title>
+   			<style>
+				#table tr {
+					text-align: center;
+					line-height: 100px;
+				}
+
+				#table tr td a {
+					text-decoration: none;
+				}
+
+				#pagenav ul div {
+					margin: 0 auto;
+				}
+
+				#pagenav ul div li {
+					float: left;
+				}
+
+				#insertProductForm input {
+					margin-bottom: 10px;
+				}
+			</style>
 </head>
 
+
 <body>
-    
+    <jsp:include page="../layout/backendnav.jsp"></jsp:include>
+<div id="layoutSidenav_content">
+		<main>
+			<h1 class="text-center">聚會管理</h1>
+			<div class="container-fluid px-4">
+			<div class="card mb-4">
+				<div class="card-header">
+					<i class="fas fa-table me-1"></i> 檢舉聚會
+				</div>
+				<div class="card-body container-fluid">
+					<table class="table table-striped table-sm">
+						<thead>
+							<tr style="text-align: center;">
+								<th>聚會id</th>
+								<th>聚會名稱</th>
+								<th>發起人ID</th>
+								<th>檢舉人ID</th>
+								<th>檢舉內容</th>
+					
+							</tr>
+						</thead>
+						<tbody id="table">
+							<c:forEach var="reunionreport" items="${reunionreport}">
+								<tr>
+									<td>${reunionreport.reunionreportid }</td>
+									<td>${reunionreport.reunionid }</td>
+									<td>發起人</td>
+									<td>${reunionreport.memberid }</td>
+									<td>${reunionreport.content}</td>
+									
+									
 
-    <main>
-        <h1 class="text-center">聚會管理</h1>
-        <div class="container">
-            <table id="idtable" class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">主題
-                            </td>
-                        <th scope="col">發起人ID
-                            </td>
-
-                        <th scope="col">檢舉人ID
-                            </td>
-                        <th scope="col">狀態
-                            </td>
-                        <th scope="col">檢舉內容
-                            </td>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach items="${userList }" var="u">
-                        <tr>
-
-                            <td>唱歌</td>
-                            <td>A123</td>
-                            <td>b123</td>
-                            <td>檢舉</td>
-                            <td>檢舉內容</td>
-
-
-                            <td><a href="javascript:if (confirm ('確認刪除?')) location='/Project/DeleteEmps.do?empno=${u.empno }'"
-                                    role="button" class="btn btn-outline-danger ">刪除</a></td>
-
-
-
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-
-
-
-
-
-
-
+								
+									<td>
+																				<!-- return confirm('是否刪除 ${productContent.name }') -->
+										 <a class="btn"
+										onclick="return confirm('是否刪除 ${reunionreport.reunionid }')"
+										href="/deleteReunionreport?id=${reunionreport.reunionid }"
+										style="color: red;">刪除</a> 
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+	
+</div>
 
     </main>
+    </div>
 
 </body>
 

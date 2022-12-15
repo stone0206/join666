@@ -1,10 +1,15 @@
 package com.ispan6.dao.membersystem;
 
+<<<<<<< HEAD
 
 import java.util.HashSet;
 import java.util.List;
 
 
+=======
+import java.util.List;
+
+>>>>>>> 473a25ac58fb42bc9618e3ce33729915cfb36d54
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -30,6 +35,22 @@ public interface MemberTestDAO extends JpaRepository<MemberTest, Integer> {
 		@Query(value="FROM MemberTest where m_account= :account")
 		public MemberTest existsByAccount(@Param("account") String account);
 		
+		
+
+		@Query(value = "SELECT top 3* from memberTest where m_id != ?1 ORDER BY NEWID()", nativeQuery = true)
+		public List<MemberTest> random3Members(Integer id);
+		
+
+		@Query(value = "SELECT top 3* from memberTest  ORDER BY NEWID()", nativeQuery = true)
+		public List<MemberTest> random3Members();
+		
+
+		@Query(value = "SELECT top 1* from memberTest where m_id != ?1 ORDER BY NEWID()", nativeQuery = true)
+		public MemberTest random1(Integer id);
+		
+
+		@Query(value = "SELECT top 1* from memberTest ORDER BY NEWID()", nativeQuery = true)
+		public MemberTest random1();
 //		@Override
 //		public String existsByMemberId(String memberId) {
 //			String hql = "FROM MemberEntity m WHERE m.memberId = :id";

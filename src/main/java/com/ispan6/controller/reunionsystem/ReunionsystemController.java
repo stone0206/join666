@@ -1,25 +1,22 @@
 package com.ispan6.controller.reunionsystem;
 
 import java.util.List;
-import java.util.Optional;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ispan6.bean.reunionsystem.Payment;
 import com.ispan6.bean.reunionsystem.Reunion;
+import com.ispan6.bean.reunionsystem.Reuniontype;
+import com.ispan6.service.reunionsystem.PaymentService;
 import com.ispan6.service.reunionsystem.ReunionsystemService;
+import com.ispan6.service.reunionsystem.ReuniontypeService;
+
 
 
 
@@ -27,7 +24,13 @@ import com.ispan6.service.reunionsystem.ReunionsystemService;
 public class ReunionsystemController {
 	
 	@Autowired
-	private ReunionsystemService wService;
+	private ReunionsystemService reunionsystemService;
+	
+	@Autowired
+	private PaymentService paymentService;
+	
+	@Autowired
+	private ReuniontypeService reuniontypeService;
 	
 	
 //	@GetMapping("/msg/add")
@@ -43,21 +46,54 @@ public class ReunionsystemController {
 //		return "message/addMessage";
 //	}
 	
-	@PostMapping("/msg/post")
-	public String postInsert(@ModelAttribute("workMessages") Reunion msg ) {
-		// insert
-		wService.insert(msg);
-		
-		return "redirect:/msg/add";
-	}
+//	@PostMapping("/msg/post")
+//	public String postInsert(@ModelAttribute("workMessages") Reunion msg ) {
+//		// insert
+//		wService.insert(msg);
+//		
+//		return "redirect:/msg/add";
+//	}
 	
 
+//	@GetMapping("/msg/page")
+//	public String pageList(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
+//		Page<Reunion> page = wService.findByPage(pageNumber);
+//		model.addAttribute("page", page);
+//		return "reunion";
+//	}
+	
+	
 	@GetMapping("/msg/page")
-	public String pageList(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
-		Page<Reunion> page = wService.findByPage(pageNumber);
-		model.addAttribute("page", page);
+	public String getReunion(HttpSession session) {
+		//先將網頁全部重置
+		List<Reunion> reunion = reunionsystemService.findAllReunion();
+		List<Reuniontype> reuniontype = reuniontypeService.findAllType();
+		List<Payment> payment = paymentService.findAllPayment();
+		session.setAttribute("reunion", reunion);
+		session.setAttribute("reuniontype", reuniontype);
+		session.setAttribute("payment", payment);
 		return "reunion";
 	}
+	
+	
+	
+	
+	
+	@GetMapping("/searchByPaymentId")
+	public String searchByPaymentId(@RequestParam Integer id, Model model) {
+		List<Reunion> reunion = reunionsystemService.findByPaymentId(id);
+		model.addAttribute("reunion", reunion);
+		return "reunion";
+	}
+
+
+	@GetMapping("/searchByReuniontypeId")
+	public String searchByReuniontypelId(@RequestParam Integer id, Model model) {
+		List<Reunion> reunion = reunionsystemService.findByReuniontypelId(id);
+		model.addAttribute("reunion", reunion);
+		return "reunion";
+	}
+	
 	
 	@GetMapping("/msg/insertreunion")
 	public String insertreunion(Model model) {

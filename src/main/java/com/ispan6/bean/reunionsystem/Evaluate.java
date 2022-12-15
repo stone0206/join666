@@ -20,9 +20,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Evaluate {
   //聚會評價
 	@Id
-	@Column(name="id ")
+	@Column(name="evaluateid ")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id ;
+	private Integer evaluateid ;
 	
 	@Column(name="reunionid ")
 	private Integer reunionid  ;
@@ -35,6 +35,46 @@ public class Evaluate {
 	
 	@Column(name="comment", columnDefinition = "nvarchar(50)")
 	private String comment;
+
+	public Integer getEvaluateid() {
+		return evaluateid;
+	}
+
+	public void setEvaluateid(Integer evaluateid) {
+		this.evaluateid = evaluateid;
+	}
+
+	public Integer getReunionid() {
+		return reunionid;
+	}
+
+	public void setReunionid(Integer reunionid) {
+		this.reunionid = reunionid;
+	}
+
+	public Integer getMemberid() {
+		return memberid;
+	}
+
+	public void setMemberid(Integer memberid) {
+		this.memberid = memberid;
+	}
+
+	public Integer getScore() {
+		return score;
+	}
+
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 	
 	
 	

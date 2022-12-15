@@ -72,18 +72,22 @@
 
                 <!-- 聊天室連結位置 -->
                 <a class="nav-link icon-md btn btn-light p-0" href="聊天室連結位置">
-                  <img class="avatar-img rounded-2" src="assets/messageicon.png" alt="">
+                  <img class="avatar-img rounded-2" src="${contextRoot}/assets/messageicon.png" alt="">
+
+                  <img class="avatar-img rounded-2" src="assets/bell.png" alt="">
+
                 </a>
               </li>
 
               <!-- 登入位置 -->
 					<!-- 未登入 -->
 					<c:if test="${loginUser==null }">
+					<c:if test="${loginUser==null}">
               <li class="nav-item ms-2 dropdown">
                 <a class="nav-link btn icon-md p-0" id="profileDropdown" role="button" data-bs-auto-close="outside"
                   data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
                   <!-- 預設是灰頭像，登入後改成用戶頭像 -->
-                  <img class="avatar-img rounded-2" src="assets/avatar-placeholder.jpg" alt="">
+                  <img class="avatar-img rounded-2" src="${contextRoot}/assets/avatar-placeholder.jpg" alt="">
                 </a>
                 <ul class="dropdown-menu dropdown-animation dropdown-menu-end pt-3 small me-md-n3"
                   aria-labelledby="profileDropdown">
@@ -140,6 +144,12 @@
                     <li>
                     <a class="dropdown-item" href="/showprofile">
                       <i class="fa-fw bi bi-card-text me-2"></i>個人資訊
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a class="dropdown-item" href="/msg/insertreunion">
+                      <i class="fa-fw bi bi-card-text me-2"></i>新增聚會
                     </a>
                   </li>
 

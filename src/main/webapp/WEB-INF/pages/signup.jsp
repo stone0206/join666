@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>寵物論壇-加入會員</title>
+<title>約約-註冊頁面</title>
 
 
 <!-- 自訂CSS -->

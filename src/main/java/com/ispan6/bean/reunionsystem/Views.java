@@ -16,7 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name="evaluate")
+@Table(name="views")
 public class Views {
   //聚會瀏覽
 	@Id

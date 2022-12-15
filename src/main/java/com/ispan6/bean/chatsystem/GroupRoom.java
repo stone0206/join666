@@ -17,7 +17,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonIgnore;
+=======
+import com.ispan6.bean.matchsystem.MatchBean;
+>>>>>>> 473a25ac58fb42bc9618e3ce33729915cfb36d54
 //聊天室
 @Entity
 @Table(name="grouproom")
@@ -52,7 +56,8 @@ public class GroupRoom {
 	//按照順序依照id大小出現訊息
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "groupRoomId",cascade = CascadeType.ALL)
 	private List<MessageContent> messageText;
-
+	
+	
 	public int getGroupId() {
 		return groupId;
 	}
