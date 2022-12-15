@@ -1,5 +1,7 @@
 package com.ispan6.service.chatsystem;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,17 +25,18 @@ public class MessageService {
 		messageDAO.save(msg);
 	}
 	
-	
+	//新增訊息
 	public MessageContent insertMessage(String text,Integer senderId,Integer groupId) {
 		MessageContent msgText=new MessageContent();
-		MemberTest memberBean=new MemberTest();
-		memberBean.setId(senderId);
-		msgText.setUserId(memberBean);
-		GroupRoom groupRoom=new GroupRoom();
-		groupRoom.setGroupId(groupId);
-		msgText.setGroupRoomId(groupRoom);
+		msgText.setSenderId(senderId);
+		msgText.setGroupId(groupId);
 		msgText.setMessageText(text);
 		messageDAO.save(msgText);
 		return msgText;
+	}
+	//搜尋誰傳的訊息 測試
+	public List<MessageContent> findWhoSender(Integer senderId) {
+		
+		return messageDAO.findWhoSender(senderId);
 	}
 }

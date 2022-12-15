@@ -14,6 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ispan6.bean.chatsystem.MessageContent;
+import com.ispan6.bean.chatsystem.Participants;
 import com.ispan6.bean.mallsystem.ShoppingCartItem;
 import com.ispan6.bean.matchsystem.MatchBean;
 
@@ -61,15 +64,25 @@ public class MemberTest {
 	@OneToMany(mappedBy = "fuid")
 	private List<MatchBean> fuid = new ArrayList<MatchBean>();
 
+	//易
+	@OneToMany(mappedBy = "participantsUserId")
+	private List<Participants> participantsUserId=new ArrayList<Participants>();
+	//易
+	@OneToMany(mappedBy = "messageContentUserId")
+	private List<MessageContent> messageContentUserId=new ArrayList<MessageContent>();
 	
 	public MemberTest() {
 		super();
 	}
 
+	
+	
+
 	public int getId() {
 		return id;
 	}
 
+	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -144,6 +157,22 @@ public class MemberTest {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public List<Participants> getParticipantsUserId() {
+		return participantsUserId;
+	}
+
+	public void setParticipantsUserId(List<Participants> participantsUserId) {
+		this.participantsUserId = participantsUserId;
+	}
+
+	public List<MessageContent> getMessageContentUserId() {
+		return messageContentUserId;
+	}
+
+	public void setMessageContentUserId(List<MessageContent> messageContentUserId) {
+		this.messageContentUserId = messageContentUserId;
 	}
 	
 	

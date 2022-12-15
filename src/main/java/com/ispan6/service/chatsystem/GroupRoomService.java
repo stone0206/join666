@@ -46,4 +46,6 @@ public class GroupRoomService {
 			return gList;
 		}
 	}
+	
+//	public List<GroupRoom> 
 }

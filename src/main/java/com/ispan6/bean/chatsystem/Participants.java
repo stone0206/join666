@@ -42,21 +42,29 @@ public class Participants implements Serializable{
 	
 	
 	//參與者ID 會員外來鍵
-	@Column(name="PERSONID",insertable=false,updatable=false)
+	@Column(name="PERSONID")
 	private int personId;
 	//聊天室ID
-	@Column(name="GROUPID",insertable=false,updatable=false)
+	@Column(name="GROUPID")
 	private int groupId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="PERSONID")
+	@JoinColumn(name="PERSONID",insertable=false,updatable=false)
 	@JsonIgnore
-	private MemberTest userId;
+	private MemberTest participantsUserId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="GROUPID")
+	@JoinColumn(name="GROUPID",insertable=false,updatable=false)
 	@JsonIgnore
 	private GroupRoom groupRoomId;
+
+	public int getParticipantsId() {
+		return participantsId;
+	}
+
+	public void setParticipantsId(int participantsId) {
+		this.participantsId = participantsId;
+	}
 
 	public int getPersonId() {
 		return personId;
@@ -74,29 +82,23 @@ public class Participants implements Serializable{
 		this.groupId = groupId;
 	}
 
-	public MemberTest getUserId() {
-		return userId;
+	public MemberTest getParticipantsUserId() {
+		return participantsUserId;
 	}
-	
-	public void setUserId(MemberTest userId) {
-		this.userId = userId;
+
+	public void setParticipantsUserId(MemberTest participantsUserId) {
+		this.participantsUserId = participantsUserId;
 	}
 
 	public GroupRoom getGroupRoomId() {
 		return groupRoomId;
 	}
-	
+
 	public void setGroupRoomId(GroupRoom groupRoomId) {
 		this.groupRoomId = groupRoomId;
 	}
 
-	public int getParticipantsId() {
-		return participantsId;
-	}
-
-	public void setParticipantsId(int participantsId) {
-		this.participantsId = participantsId;
-	}
+	
 	
 	
 }

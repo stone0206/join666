@@ -1,10 +1,16 @@
 package com.ispan6.dao.membersystem;
 
+
+import java.util.HashSet;
+import java.util.List;
+
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import com.ispan6.bean.membersystem.MemberTest;
 
@@ -40,5 +46,9 @@ public interface MemberTestDAO extends JpaRepository<MemberTest, Integer> {
 //			
 //			return id;
 //		}
+		
+		//易
+		@Query(value="SELECT * FROM memberTest where m_id in(?1)",nativeQuery = true)
+		public List<MemberTest> senderFile(HashSet<Integer> id);
 }
 

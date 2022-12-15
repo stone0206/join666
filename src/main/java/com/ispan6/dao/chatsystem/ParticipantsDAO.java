@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.ispan6.bean.chatsystem.GroupRoom;
 import com.ispan6.bean.chatsystem.Participants;
+import com.ispan6.bean.membersystem.MemberTest;
 
 public interface ParticipantsDAO extends JpaRepository<Participants, Integer> {
 	
@@ -15,5 +16,8 @@ public interface ParticipantsDAO extends JpaRepository<Participants, Integer> {
 	public List<Participants> findGroupName(Integer personId);
 	
 	
-	public List<Participants> findAllByUserIdId(Integer personId);
+	public List<Participants> findAllByParticipantsUserIdId(Integer personId);
+	
+	@Query("from Participants p where p.participantsUserId=?1")
+	public List<Participants> findGroupFile(MemberTest participantsUserId);
 }

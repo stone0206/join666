@@ -1,9 +1,13 @@
 package com.ispan6.service.membersystem;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.dao.membersystem.MemberTestDAO;
@@ -31,5 +35,12 @@ public class MemberTestService {
 			return mDAO.existsByAccount(account);				
 		
 		}
+		
+		
+		//易查會員資料
+		public List<MemberTest> senderFile(HashSet<Integer> id){
+			return mDAO.senderFile(id);
+		}
+		
 
 }

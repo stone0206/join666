@@ -21,12 +21,8 @@ public class ParticipantsService {
 	//新增成員
 	public void insertParticipants(Integer groupId,Integer personId) {
 		Participants participants=new Participants();
-		MemberTest memberTest=new MemberTest();
-		memberTest.setId(personId);
-		participants.setUserId(memberTest);
-		GroupRoom groupRoom=new GroupRoom();
-		groupRoom.setGroupId(groupId);
-		participants.setGroupRoomId(groupRoom);
+		participants.setGroupId(groupId);
+		participants.setPersonId(personId);
 		participantsDAO.save(participants);
 	}
 //	user有幾個聊天室
@@ -37,6 +33,14 @@ public class ParticipantsService {
 	}
 	
 	public List<Participants> queryParticipants(Integer personId){
-		return participantsDAO.findAllByUserIdId(personId);
+		return participantsDAO.findAllByParticipantsUserIdId(personId);
 	}
+	
+	//測試
+	public List<Participants> findGroupFile(Integer userId){
+		MemberTest memberTest=new MemberTest();
+		memberTest.setId(userId);
+		return participantsDAO.findGroupFile(memberTest);
+	}
+	
 }
