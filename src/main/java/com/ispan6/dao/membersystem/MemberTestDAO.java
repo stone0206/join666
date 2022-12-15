@@ -1,15 +1,15 @@
 package com.ispan6.dao.membersystem;
 
-<<<<<<< HEAD
+
 
 import java.util.HashSet;
 import java.util.List;
 
 
-=======
+
 import java.util.List;
 
->>>>>>> 473a25ac58fb42bc9618e3ce33729915cfb36d54
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
