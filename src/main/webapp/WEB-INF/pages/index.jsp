@@ -238,7 +238,7 @@
 			<footer>
 				<jsp:include page="/WEB-INF/layout/footer.jsp" />
 			</footer>
-
+			<jsp:include page="${contextRoot}/WEB-INF/layout/chat.jsp"/>
 		</body>
 		<script type="text/javascript">
 			function changeone() {
