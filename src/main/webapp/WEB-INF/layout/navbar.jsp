@@ -142,6 +142,12 @@
                       <i class="fa-fw bi bi-card-text me-2"></i>個人資訊
                     </a>
                   </li>
+                  
+                  <li>
+                    <a class="dropdown-item" href="/msg/insertreunion">
+                      <i class="fa-fw bi bi-card-text me-2"></i>新增聚會
+                    </a>
+                  </li>
 
                   <!-- 登出位置，連接要放登入 -->
 

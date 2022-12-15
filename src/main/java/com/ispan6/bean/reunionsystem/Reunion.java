@@ -74,7 +74,7 @@ public class Reunion {
 	private Reuniontype reuniontype;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "payment")
+	@JoinColumn(name = "payment",columnDefinition = "nvarchar(50)")
 	private Payment payment;
 
 	@Column(name = "budget")
@@ -89,6 +89,12 @@ public class Reunion {
 
 
 
+
+
+	public String getTopic() {
+		return topic;
+	}
+
 	public String getPicture() {
 		return picture;
 	}
@@ -101,9 +107,9 @@ public class Reunion {
 		this.picture = picture;
 	}
 
-	public String getTopic() {
-		return topic;
-	}
+
+
+
 
 	public void setTopic(String topic) {
 		this.topic = topic;
