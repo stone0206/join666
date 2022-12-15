@@ -60,10 +60,10 @@ public class MemberTestController {
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
 		MemberTest mt = mService.findByAccAndPwd(account, password);
-		
-        MemberTest random = matchService.random1(mt.getId());
-        m.addAttribute("random", random);
-		
+
+		MemberTest random = matchService.random1(mt.getId());
+		m.addAttribute("random", random);
+
 		HttpSession session = request.getSession();
 
 		session.setAttribute("loginUser", mt);
@@ -111,7 +111,7 @@ public class MemberTestController {
 		String avator = responseMsg.toString();
 
 		mService.updateByAcc(account, avator, name, address);
-		MemberTest mt=mService.findByAcc(account);
+		MemberTest mt = mService.findByAcc(account);
 		HttpSession session = request.getSession();
 		session.setAttribute("loginUser", mt);
 		return "index";
@@ -140,8 +140,8 @@ public class MemberTestController {
 		HttpSession session = request.getSession();
 		status.setComplete();
 		session.invalidate();
-		List<MemberTest> rand3 = matchService.random3Members();
-		m.addAttribute("rand3", rand3);
+		MemberTest random = matchService.random1();
+		m.addAttribute("random", random);
 
 		return "index";
 	}
@@ -150,20 +150,18 @@ public class MemberTestController {
 	public String showProfile() {
 		return "showOneUser";
 	}
-	
 
 	@PostMapping("/CheckAcc")
-	public @ResponseBody Map<String, String> checkAcc(
-			@RequestParam(value = "account") String account) {
+	public @ResponseBody Map<String, String> checkAcc(@RequestParam(value = "account") String account) {
 		String acc = "";
 		Map<String, String> map = new HashMap<>();
-		if (mService.existsByAccount(account)!=null) {
+		if (mService.existsByAccount(account) != null) {
 //			System.out.println("NOT NULL");
-			acc="帳號重複";
-			
-		}else {
+			acc = "帳號重複";
+
+		} else {
 //			System.out.println("NULL");
-			acc="此帳號可用";
+			acc = "此帳號可用";
 		}
 		map.put("acc", acc);
 //		System.out.println(map);
