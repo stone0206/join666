@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.dao.matchsystem.MatchDAO;
+import com.ispan6.dao.membersystem.MemberTestDAO;
 
 @Service
 @Transactional
 public class MatchService {
 	@Autowired
-	private MatchDAO matchDAO;
+	private MemberTestDAO matchDAO;
 	
 	public List<MemberTest> random3Members(Integer id){
 		return matchDAO.random3Members(id);

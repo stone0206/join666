@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ispan6.bean.chatsystem.GroupRoom;
 import com.ispan6.bean.membersystem.MemberTest;
 
@@ -31,12 +32,12 @@ public class MatchBean {
 	
 	@ManyToOne
 	@JoinColumn(name = "userid")
+	@JsonIgnore
 	private MemberTest userid;
 	@ManyToOne
 	@JoinColumn(name = "fuid")
+	@JsonIgnore
 	private MemberTest fuid;
 	@Column(name = "isFriend")
 	private Integer isFriend;
-	@ManyToOne
-	private GroupRoom roomid;
 }
