@@ -40,4 +40,30 @@ public class MatchBean {
 	private MemberTest fuid;
 	@Column(name = "isFriend")
 	private Integer isFriend;
+	public Integer getFriendid() {
+		return friendid;
+	}
+	public void setFriendid(Integer friendid) {
+		this.friendid = friendid;
+	}
+	public MemberTest getUserid() {
+		return userid;
+	}
+	public void setUserid(MemberTest userid) {
+		this.userid = userid;
+	}
+	public MemberTest getFuid() {
+		return fuid;
+	}
+	public void setFuid(MemberTest fuid) {
+		this.fuid = fuid;
+	}
+	public Integer getIsFriend() {
+		return isFriend;
+	}
+	public void setIsFriend(Integer isFriend) {
+		this.isFriend = isFriend;
+	}
+	
+	
 }

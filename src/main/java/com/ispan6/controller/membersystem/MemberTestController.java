@@ -140,8 +140,8 @@ public class MemberTestController {
 		HttpSession session = request.getSession();
 		status.setComplete();
 		session.invalidate();
-		List<MemberTest> rand3 = matchService.random3Members();
-		m.addAttribute("rand3", rand3);
+		MemberTest random = matchService.random1();
+		m.addAttribute("random", random);
 
 		return "index";
 	}
@@ -152,6 +152,7 @@ public class MemberTestController {
 	}
 
 	@PostMapping("/CheckAcc")
+
 	public @ResponseBody String checkAcc(@RequestParam(value = "account") String account) {
 		String accountState = "";
 
@@ -159,6 +160,7 @@ public class MemberTestController {
 			accountState = "帳號重複";
 		} else {
 			accountState = "此帳號可用";
+
 		}
 		return accountState;
 	}
