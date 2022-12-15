@@ -78,7 +78,7 @@
 
               <!-- 登入位置 -->
 					<!-- 未登入 -->
-					<c:if test="${loginUser==null }">
+					<c:if test="${loginUser==null}">
               <li class="nav-item ms-2 dropdown">
                 <a class="nav-link btn icon-md p-0" id="profileDropdown" role="button" data-bs-auto-close="outside"
                   data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
