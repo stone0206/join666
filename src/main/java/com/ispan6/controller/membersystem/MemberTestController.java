@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -152,7 +153,6 @@ public class MemberTestController {
 	}
 
 	@PostMapping("/CheckAcc")
-
 	public @ResponseBody String checkAcc(@RequestParam(value = "account") String account) {
 		String accountState = "";
 
@@ -160,8 +160,21 @@ public class MemberTestController {
 			accountState = "帳號重複";
 		} else {
 			accountState = "此帳號可用";
-
 		}
 		return accountState;
 	}
+	
+	@PostMapping("/insertMember")
+	public void insertMember(@RequestParam(value = "account") String account, @RequestParam(value = "password") String password, @RequestParam(value = "birth") Date birth, @RequestParam(value = "gneder") int gender) {
+		System.out.println(account);
+		System.out.println(password);
+//		System.out.println(fullname);
+		System.out.println(birth);
+		System.out.println(gender);
+//		System.out.println(phone);
+//		System.out.println(address);
+//		return "index";
+	}
+	
+	
 }
