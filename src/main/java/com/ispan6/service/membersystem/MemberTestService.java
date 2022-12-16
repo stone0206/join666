@@ -17,6 +17,10 @@ public class MemberTestService {
 		@Autowired
 		private MemberTestDAO mDAO;
 		
+		public void insertMember(MemberTest mt) {
+			mDAO.save(mt);
+		}
+		
 		public MemberTest findByAccAndPwd(String account, String password) {
 //			Optional<MemberTest> optional = mDAO.findByAccAndPwd(account, password);
 			return mDAO.findByAccAndPwd(account, password);

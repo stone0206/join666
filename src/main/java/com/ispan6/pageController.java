@@ -43,7 +43,7 @@ public class pageController {
 	
 	@GetMapping("/signup")
 	public String goSignUp() {
-		return "signup2";
+		return "signup3";
 	}
 
 }
