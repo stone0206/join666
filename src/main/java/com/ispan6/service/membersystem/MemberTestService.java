@@ -18,7 +18,7 @@ public class MemberTestService {
 		private MemberTestDAO mDAO;
 		
 		public void insertMember(MemberTest mt) {
-			mDAO.save(mt);
+			mDAO.save(mt);			
 		}
 		
 		public MemberTest findByAccAndPwd(String account, String password) {

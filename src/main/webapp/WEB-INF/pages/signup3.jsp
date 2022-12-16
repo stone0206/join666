@@ -25,7 +25,7 @@ body {
 }
 
 #account, #password, h3, #fullname, #comfirm_password, #username,
-	#password, #birth, #sex, #e-mail, #phone, #address, .fullname{
+	#password, #birth, #sex, #e-mail, #phone, #address, .fullname {
 	width: 200px;
 	height: 20px;
 	margin: 10px;
@@ -119,20 +119,21 @@ input, button {
 </head>
 
 <body>
-	<jsp:include page="/WEB-INF/layout/navbar.jsp" />			
-		<form action="/insertMember" id="form1" method="post">
-	<div class="login_page">
-		<div id="container1">
-			<div class="login">
-				<h3>註冊</h3>
+	<jsp:include page="/WEB-INF/layout/navbar.jsp" />
+	<form action="/insertMember" id="form1" method="post">
+		<div class="login_page">
+			<div id="container1">
+				<div class="login">
+					<h3>註冊</h3>
 
-					<label for="account" id="accLabel">請輸入帳號</label> <input type="text"
-						id="account" name="account" placeholder="帳號" required> <label
-						for="password" id="pwdLabel">請輸入密碼</label> <input type="text"
-						id="password" name="password" placeholder="密碼" required> <label
-						for="comfirm_password" id="comfirmPwdLabel">請再次輸入密碼</label> <input
-						type="text" id="comfirm_password" name="comfirm_password"
-						placeholder="確認密碼" required>
+					<label for="account" id="accLabel">請輸入您的信箱</label> <input
+						type="text" id="account" name="account" placeholder="信箱" required>
+					<label for="password" id="pwdLabel">請輸入密碼</label> <input
+						type="password" id="password" name="password" placeholder="密碼"
+						required> <label for="comfirm_password"
+						id="comfirmPwdLabel">請再次輸入密碼</label> <input type="text"
+						id="comfirm_password" name="comfirm_password" placeholder="確認密碼"
+						required>
 					<div class="tab"></div>
 					<button id="nextBtn" class="submit" disabled
 						style="background-color: gray">下一步</button>
@@ -141,21 +142,21 @@ input, button {
 					<input type="button" class="submit"
 						onclick="location.href='https://accounts.google.com/o/oauth2/auth?scope=email+profile&redirect_uri=http://localhost:8080/Login/LoginGoogleHandler&response_type=code&client_id=378093448501-ebvinmo23u9l8lmljs9souqd3953nbqg.apps.googleusercontent.com&approval_prompt=force';"
 						value="Google登入" disabled style="background-color: gray" />
-<%-- 				</form> --%>
+					<%-- 				</form> --%>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="signup_page">
-		<div id="container2">
+		<div class="signup_page">
+			<div id="container2">
 
-			<div class="signup">
+				<div class="signup">
 
-				<h3>請輸入個人資料</h3>
+					<h3>請輸入個人資料</h3>
 
-<%-- 				<form action="/insertMember" id="form2" method="post"> --%>
-					<input type="text" id="name"  class="fullname" name="name" placeholder="暱稱"
-						required>
+					<%-- 				<form action="/insertMember" id="form2" method="post"> --%>
+					<input type="text" id="name" class="fullname" name="name"
+						placeholder="暱稱" required>
 					<div class="tab"></div>
 					<input type="date" id="birth" name="birth" placeholder="出生日期"
 						required>
@@ -166,19 +167,19 @@ input, button {
 						required>
 					<div class="tab"></div>
 					<div style="text-align: left; margin-left: 10px" id="gen">
-					<label id="gen">性別:</label>
-						<input type="radio" id="gender" name="gender" value="1" checked >男
-						<input type="radio" id="gender" name="gender" value="2" >女
+						<label id="gen">性別:</label> <input type="radio" id="gender"
+							name="gender" value="1" checked>男 <input type="radio"
+							id="gender" name="gender" value="2">女
 					</div>
 					<div class="tab"></div>
 
 					<button type="submit" class="submit" id="submitBoth">註冊</button>
 					<button class="submit" id="lastBtn">上一步</button>
-				
+
+				</div>
 			</div>
 		</div>
-	</div>
-</form>
+	</form>
 </body>
 
 <script type="text/javascript">
@@ -196,12 +197,12 @@ input, button {
 					let flag2 = false;
 					let flag3 = false;
 
-					account.keypress(function () {
+					account.keyup(function () {
 
 						checkAll()
 					})
 
-					password.keypress(function () {
+					password.keyup(function () {
 
 						checkAll()
 					})
