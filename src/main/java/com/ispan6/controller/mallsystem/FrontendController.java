@@ -1,5 +1,6 @@
 package com.ispan6.controller.mallsystem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,11 +13,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ispan6.bean.mallsystem.OrderBean;
+import com.ispan6.bean.mallsystem.OrderItems;
 import com.ispan6.bean.mallsystem.Product;
 import com.ispan6.bean.mallsystem.ProductLabel;
 import com.ispan6.bean.mallsystem.ProductType;
 import com.ispan6.bean.mallsystem.ShoppingCartItem;
 import com.ispan6.bean.membersystem.MemberTest;
+import com.ispan6.service.mallsystem.OrderBeanService;
+import com.ispan6.service.mallsystem.OrderItemService;
 import com.ispan6.service.mallsystem.ProductLabelService;
 import com.ispan6.service.mallsystem.ProductService;
 import com.ispan6.service.mallsystem.ProductTypeService;
@@ -36,6 +41,12 @@ public class FrontendController {
 
 	@Autowired
 	private ShoppingCartItemService shoppingCartItemService;
+	
+	@Autowired
+	private OrderBeanService orderBeanService;
+	
+	@Autowired
+	private OrderItemService orderItemService;
 
 	/**
 	 * 重置整個網頁，同時將資料product、label、type存進session
@@ -47,7 +58,7 @@ public class FrontendController {
 		//先將網頁全部重置
 		List<ProductLabel> labels = productLabelService.findAllLabel();
 		List<ProductType> types = productTypeService.findAllType();
-		List<Product> products = productService.getAllProduct();
+		List<Product> products = productService.getAllProductOnSell();
 		session.setAttribute("products", products);
 		session.setAttribute("types", types);
 		session.setAttribute("labels", labels);
@@ -178,6 +189,12 @@ public class FrontendController {
 		return "unexpect wrong please contact with engineer";
 	}
 	
+	/**
+	 * 刪除購物車商品
+	 * @param sciId
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("/deleteShoppingCart")
 	@ResponseBody
 	public List<ShoppingCartItem> deleteShoppingCart(@RequestParam Integer sciId,HttpSession session) {
@@ -185,6 +202,53 @@ public class FrontendController {
 		shoppingCartItemService.deleteShoppingCartItem(sciId);
 		return shoppingCartItemService.findAllByMemberId(member.getId());
 	}
+	
+	@GetMapping("/sendCartToCheck")
+	public String sendCartToCheck() {
+		return "ordercheck";
+	}
+	
+	/**
+	 * 新增訂單
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("/checkedOrder")
+	public String sendOrderToCheck(HttpSession session) {
+		//取得會員id
+		MemberTest member=(MemberTest) session.getAttribute("loginUser");
+		//取得會員當前購物車商品
+		List<ShoppingCartItem> items = shoppingCartItemService.findAllByMemberId(member.getId());
+		//計算總金額
+		int totalPrice = 0;
+		//將購物車商品設定到訂單商品中
+		for(ShoppingCartItem item : items) {
+			totalPrice += item.getProduct().getPrice();
+		}
+
+		//生成訂單
+		OrderBean orderBean = new OrderBean();
+		orderBean.setId(100);
+		orderBean.setCount(items.size());
+		orderBean.setPrice(totalPrice);
+		orderBean.setMemberTest(member);
+		List<OrderItems> oiList = new ArrayList<OrderItems>();
+		for(ShoppingCartItem item : items) {
+			OrderItems orderItem = new OrderItems();
+			orderItem.setCount(item.getCount());
+			orderItem.setTotalPrice(item.getCount() * item.getProduct().getPrice());
+			orderItem.setProduct(item.getProduct());
+			orderItem.setOrderBean(orderBean);
+			oiList.add(orderItem);
+		}
+		orderBean.setOrderItems(oiList);
+		orderBeanService.save(orderBean);
+		return "送到支付畫面";
+	}
+	
+	
+	
+	
 	
 	
 	

@@ -178,7 +178,7 @@
 										<c:forEach var="productContent" items="${products }">
 											<tr>
 												<td>${productContent.id }</td>
-												<td>${productContent.name }</td>
+												<td style="width: 300px;">${productContent.name }</td>
 												<td><img alt="" src="${productContent.img }"
 														style="width: 150px; height: 100px;"></td>
 												<td>${productContent.price }</td>
@@ -315,21 +315,11 @@
 						</div>
 					</c:forEach>
 
-					<nav aria-label="Page navigation example" id="pagenav">
-						<ul class="pagination">
-							<div>
-								<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-								<li class="page-item"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item"><a class="page-link" href="#">Next</a></li>
-							</div>
-						</ul>
-					</nav>
 				</main>
 			</div>
 
 			<script type="text/javascript">
+
 				// 新增商品時轉換圖片的方式
 				let img = document.getElementById('img');
 				img.addEventListener('change', function (e) {
@@ -343,10 +333,6 @@
 						pimg.value = this.result
 					}
 				})
-
-
-
-
 			</script>
 		</body>
 

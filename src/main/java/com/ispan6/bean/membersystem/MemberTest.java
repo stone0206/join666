@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.ispan6.bean.mallsystem.OrderBean;
 import com.ispan6.bean.mallsystem.ShoppingCartItem;
 import com.ispan6.bean.matchsystem.MatchBean;
 
@@ -60,6 +61,9 @@ public class MemberTest {
 
 	@OneToMany(mappedBy = "fuid")
 	private List<MatchBean> fuid = new ArrayList<MatchBean>();
+	
+	@OneToMany(mappedBy = "memberTest")
+	private List<OrderBean> order = new ArrayList<OrderBean>();
 
 	
 	public MemberTest() {

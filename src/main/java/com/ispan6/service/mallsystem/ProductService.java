@@ -66,6 +66,10 @@ public class ProductService {
 		 }
 		 return null;
 	}
+
+	public List<Product> getAllProductOnSell() {
+		return productDAO.getAllProductOnSell();
+	}
 	
 	
 	
