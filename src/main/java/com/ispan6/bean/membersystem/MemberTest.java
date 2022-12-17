@@ -17,15 +17,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-<<<<<<< HEAD
 import com.ispan6.bean.mallsystem.OrderBean;
-=======
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ispan6.bean.chatsystem.MessageContent;
 import com.ispan6.bean.chatsystem.Participants;
->>>>>>> 59db71002f1902e221e0d49d4a08b180d16cdbc3
 import com.ispan6.bean.mallsystem.ShoppingCartItem;
 import com.ispan6.bean.matchsystem.MatchBean;
 
