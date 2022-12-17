@@ -12,9 +12,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+<<<<<<< HEAD
 import com.ispan6.bean.mallsystem.OrderBean;
+=======
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ispan6.bean.chatsystem.MessageContent;
+import com.ispan6.bean.chatsystem.Participants;
+>>>>>>> 59db71002f1902e221e0d49d4a08b180d16cdbc3
 import com.ispan6.bean.mallsystem.ShoppingCartItem;
 import com.ispan6.bean.matchsystem.MatchBean;
 
@@ -35,7 +46,9 @@ public class MemberTest {
 	@Column(name="m_name")
 	private String name;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="birth")
+	@DateTimeFormat(pattern ="yyyy-MM-dd")
 	private Date birth;
 	
 	@Column(name="gender")
@@ -65,15 +78,30 @@ public class MemberTest {
 	@OneToMany(mappedBy = "memberTest")
 	private List<OrderBean> order = new ArrayList<OrderBean>();
 
+	//易
+	@OneToMany(mappedBy = "participantsUserId")
+	private List<Participants> participantsUserId=new ArrayList<Participants>();
+	//易
+	@OneToMany(mappedBy = "messageContentUserId")
+	private List<MessageContent> messageContentUserId=new ArrayList<MessageContent>();
 	
 	public MemberTest() {
 		super();
 	}
 
+	@PrePersist  // 當物件要從 Transient 狀態轉換成 Persistent 狀態時，先做...
+	public void prePersist() {
+		if(birth == null) {
+			birth = new Date();
+		}
+	}
+	
+
 	public int getId() {
 		return id;
 	}
 
+	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -148,6 +176,22 @@ public class MemberTest {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public List<Participants> getParticipantsUserId() {
+		return participantsUserId;
+	}
+
+	public void setParticipantsUserId(List<Participants> participantsUserId) {
+		this.participantsUserId = participantsUserId;
+	}
+
+	public List<MessageContent> getMessageContentUserId() {
+		return messageContentUserId;
+	}
+
+	public void setMessageContentUserId(List<MessageContent> messageContentUserId) {
+		this.messageContentUserId = messageContentUserId;
 	}
 	
 	

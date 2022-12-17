@@ -38,10 +38,11 @@ public class MessageController {
 	
 	
 	
-//	@GetMapping("/msg/que")
-//	public String queryMessage(Model m) {
-//		
-//	}
+	@GetMapping("/msg/que")
+	@ResponseBody
+	public List<MessageContent> findWhoSender(@RequestParam Integer senderId) {
+		return messageService.findWhoSender(senderId);
+	}
 	
 	
 }

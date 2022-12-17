@@ -1,7 +1,9 @@
 package com.ispan6.bean.chatsystem;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -35,11 +39,11 @@ public class MessageContent {
 	private int messageId;
 	
 	//誰發的訊息
-	@Column(name="SENDERID",insertable=false,updatable=false)
+	@Column(name="SENDERID")
 	private int senderId;
 	
 	//傳到哪個房間
-	@Column(name="GROUPID",insertable=false,updatable=false)
+	@Column(name="GROUPID")
 	private int groupId;
 	
 	//訊息內容
@@ -62,16 +66,18 @@ public class MessageContent {
 	}
 	
 	//雙向
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="SENDERID")
+	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@JoinColumn(name="SENDERID",insertable=false,updatable=false)
 	@JsonIgnore
-	private MemberTest userId;
+	private MemberTest messageContentUserId;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="GROUPID")
+	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinColumn(name="GROUPID",insertable=false,updatable=false)
 	@JsonIgnore
 	private GroupRoom groupRoomId;
-
+	
+//	@OneToOne(mappedBy = "id",cascade = CascadeType.ALL)
+//	private List<MemberTest> memberTestFile;
 
 	public int getMessageId() {
 		return messageId;
@@ -113,12 +119,12 @@ public class MessageContent {
 		this.createAt = createAt;
 	}
 
-	public MemberTest getUserId() {
-		return userId;
+	public MemberTest getMessageContentUserId() {
+		return messageContentUserId;
 	}
 
-	public void setUserId(MemberTest userId) {
-		this.userId = userId;
+	public void setMessageContentUserId(MemberTest messageContentUserId) {
+		this.messageContentUserId = messageContentUserId;
 	}
 
 	public GroupRoom getGroupRoomId() {
@@ -128,5 +134,8 @@ public class MessageContent {
 	public void setGroupRoomId(GroupRoom groupRoomId) {
 		this.groupRoomId = groupRoomId;
 	}
+
+
+	
 	
 }

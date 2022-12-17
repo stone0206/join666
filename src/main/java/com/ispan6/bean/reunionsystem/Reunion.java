@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -20,9 +19,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(name = "reunion")
+@Table(name = "Reunion")
 public class Reunion {
 
+//	@Id
+//	@Column(name = "reunionid")
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	private Integer reunionid;
+	
 	@Id
 	@Column(name = "reunionid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +34,18 @@ public class Reunion {
 
 	@Column(name = "topic", columnDefinition = "nvarchar(50)")
 	private String topic;
+
+	public Integer getReunionid() {
+		return reunionid;
+	}
+
+
+
+
+
+	public void setReunionid(Integer reunionid) {
+		this.reunionid = reunionid;
+	}
 
 	@Column(name = "content", columnDefinition = "nvarchar(50)")
 	private String content;
@@ -55,10 +71,10 @@ public class Reunion {
 //	@Column(name = "activity", columnDefinition = "nvarchar(50)")
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "activity", columnDefinition = "nvarchar(50)")
-	private Reunion_type reunion_type;
+	private Reuniontype reuniontype;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "payment")
+	@JoinColumn(name = "payment",columnDefinition = "nvarchar(50)")
 	private Payment payment;
 
 	@Column(name = "budget")
@@ -71,25 +87,29 @@ public class Reunion {
 //	@JoinColumn(name="memberId", columnDefinition = "nvarchar(50)")
 //	private Integer memberId;
 
-	public Integer getReunionid() {
-		return reunionid;
-	}
 
-	public void setReunionid(Integer reunionid) {
-		this.reunionid = reunionid;
+
+
+
+	public String getTopic() {
+		return topic;
 	}
 
 	public String getPicture() {
 		return picture;
 	}
 
+
+
+
+
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
 
-	public String getTopic() {
-		return topic;
-	}
+
+
+
 
 	public void setTopic(String topic) {
 		this.topic = topic;
@@ -135,13 +155,23 @@ public class Reunion {
 		this.people = people;
 	}
 
-	public Reunion_type getReunion_type() {
-		return reunion_type;
+	
+
+	public Reuniontype getReuniontype() {
+		return reuniontype;
 	}
 
-	public void setReunion_type(Reunion_type reunion_type) {
-		this.reunion_type = reunion_type;
+
+
+
+
+	public void setReuniontype(Reuniontype reuniontype) {
+		this.reuniontype = reuniontype;
 	}
+
+
+
+
 
 	public Payment getPayment() {
 		return payment;

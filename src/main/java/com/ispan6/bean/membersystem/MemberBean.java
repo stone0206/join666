@@ -38,14 +38,7 @@ public class MemberBean implements Serializable {
 	@Column(name = "mpassword")
 	private String mPassword;
 
-	// 易
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userId", cascade = CascadeType.ALL)
-	private List<MessageContent> senderId = new ArrayList<MessageContent>();
-	// 易
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "userId", cascade = CascadeType.ALL)
-
-	private Set<Participants> personId = new HashSet<Participants>();
-
+	
 	public Integer getMid() {
 		return mid;
 	}
@@ -78,20 +71,6 @@ public class MemberBean implements Serializable {
 		this.mPassword = mPassword;
 	}
 
-	public List<MessageContent> getSenderId() {
-		return senderId;
-	}
-
-	public void setSenderId(List<MessageContent> senderId) {
-		this.senderId = senderId;
-	}
-
-	public Set<Participants> getPersonId() {
-		return personId;
-	}
-
-	public void setPersonId(Set<Participants> personId) {
-		this.personId = personId;
-	}
+	
 
 }

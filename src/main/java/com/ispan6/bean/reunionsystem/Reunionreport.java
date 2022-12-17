@@ -32,6 +32,38 @@ public class Reunionreport {
 	
 	@Column(name="content", columnDefinition = "nvarchar(50)")
 	private String content;
+
+	public Integer getReunionreportid() {
+		return reunionreportid;
+	}
+
+	public void setReunionreportid(Integer reunionreportid) {
+		this.reunionreportid = reunionreportid;
+	}
+
+	public Integer getReunionid() {
+		return reunionid;
+	}
+
+	public void setReunionid(Integer reunionid) {
+		this.reunionid = reunionid;
+	}
+
+	public Integer getMemberid() {
+		return memberid;
+	}
+
+	public void setMemberid(Integer memberid) {
+		this.memberid = memberid;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 	
 	
 	

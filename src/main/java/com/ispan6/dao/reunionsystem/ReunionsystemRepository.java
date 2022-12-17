@@ -8,9 +8,24 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ispan6.bean.mallsystem.Product;
 import com.ispan6.bean.reunionsystem.Reunion;
+import com.ispan6.bean.reunionsystem.Reunionreport;
 
-public interface ReunionsystemRepository extends JpaRepository<Reunion, Integer> {
+public interface ReunionsystemRepository extends JpaRepository<Reunion,Integer> {
+	
+	
+	
+	@Query("from Reunion where payment = :payment")
+	public List<Reunion> findByPayment(@Param("payment") String payment);
+	@Query("from Reunion where payment = ?1")
+	public List<Reunion> findByPaymentId(Integer id);
+
+	
+	@Query("from Reunion where activity = :activity")
+	public List<Reunion> findByReuniontype(@Param("activity") String activity);
+	@Query("from Reunion where activity = ?1")
+	public List<Reunion> findByReuniontypeId(Integer id);
 
 //	@Query("from WorkMessages where text=?1")
 //	public List<Reunion> findMsgByText(String text);
