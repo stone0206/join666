@@ -23,37 +23,95 @@
 
 			<body>
 				<jsp:include page="../layout/navbar.jsp"></jsp:include>
-				<div class="container=fluid">
-					<div style="margin-top: 80px; display: flex; justify-content: center;">
-						<h2>訂單確認</h2>
-					</div>
-					<div class="card mb-4" style="width: 70%; margin:0 auto;">
-						<div class="card-header">
-							<i class="fas fa-table me-1"></i> 商品列表
-						</div>
-						<div class="card-body container-fluid">
-							<table class="table table-striped table-sm">
-								<thead>
-									<tr>
-										<th><input type="checkbox" name="" id=""></th>
-										<th>名稱</th>
-										<th>圖片</th>
-										<th>價格</th>
-										<th>數量</th>
-										<th>總價</th>
-										<th>操作</th>
-									</tr>
-								</thead>
-								<tbody id="table">
-
-								</tbody>
-							</table>
-						</div>
-						<div style="display: flex; justify-content: right;">
-							<span>總計</span>
-						</div>
-					</div>
+				div class="container=fluid">
+				<!-- 訂單確認標題 -->
+				<div style="margin-top: 80px; display: flex; justify-content: center;">
+					<h2>訂單確認</h2>
 				</div>
+				<!-- 商品陳列 -->
+				<div class="card mb-4" style="width: 70%; margin:0 auto;">
+					<!-- 商品成列之標題 -->
+					<div class="card-header">
+						<i class="fas fa-table me-1"></i> 商品列表
+					</div>
+					<!-- 商品成列之table -->
+					<div class="card-body container-fluid">
+						<table class="table table-striped table-sm">
+							<thead>
+								<tr>
+									<th>名稱</th>
+									<th>圖片</th>
+									<th>價格</th>
+									<th>數量</th>
+									<th>總價</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody id="table">
+
+
+						</table>
+					</div>
+
+				</div>
+				<!-- 總金額位置 -->
+				<div style="display: flex; justify-content: center;">
+					<div id="totalPrice"></div>
+				</div>
+				<form action="">
+					<!-- 收件人信息 -->
+					<div class="card mb-4" style="width: 70%; margin:16px auto 0px;">
+						<!-- 收件人信息之標題 -->
+						<div class="card-header">
+							<i class="fas fa-table me-1"></i> 收件人信息
+						</div>
+						<!-- 收件人信息 -->
+						<div class="card-body container-fluid">
+							<div class="row g-3">
+								<div class="col-md-3">
+									<label for="validationServer01" class="form-label">收件人姓名</label>
+									<input type="text" class="form-control" id="validationServer01" required>
+								</div>
+								<div class="col-md-3">
+									<label for="validationServer02" class="form-label">收件人電話</label>
+									<input type="tel" class="form-control" id="validationServer02" required>
+									<div id="tel-feedback"></div>
+								</div>
+								<div class="col-md-6">
+									<label for="validationServer3" class="form-label">E-mail</label>
+									<input type="text" class="form-control" id="validationServer3" required
+										onblur="checkEmail(value)" onfocus="cleanMailFeeback()">
+									<div id="mail-feedback"></div>
+								</div>
+
+								<div class="col-md-2">
+									<label for="city" class="form-label">縣市</label>
+									<select class="form-select" id="city" name="city" required>
+										<option selected disabled value="">請選擇</option>
+									</select>
+								</div>
+
+								<div class="col-md-2">
+									<label for="area" class="form-label">地區</label>
+									<select class="form-select" id="area" required>
+										<option selected disabled value="">請選擇</option>
+									</select>
+								</div>
+								<div class="col-md-8">
+									<label for="validationServer05" class="form-label">詳細地址</label>
+									<input type="text" class="form-control" id="validationServer05"
+										aria-describedby="validationServer05Feedback" required>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 確認結帳 -->
+					<div style="display: flex; justify-content: center;">
+						<button class="btn btn-primary col-md-2" type="submit">確認結帳</button>
+					</div>
+				</form>
+				</div>
+
 
 
 
@@ -64,21 +122,99 @@
 					fetch("${contextRoot}/checkCartItem").then(res => res.json()).then(data => changeItem(data))
 				}
 
-				function chageItem(item) {
-					let itemData = "<tr>";
-					$.each(item, function (index, value) {
-						itemData += '<td><input type="checkbox" name="" id=""></td>'
-						itemData += '<td>' + value.product.name + '</td>'
+				// 購物車系統
+				function changeItem(data) {
+					let itemData = '';
+					let totalCount = 0;
+					let totalP = 0;
+					$.each(data, function (index, value) {
+						itemData += '<tr>'
+						itemData += '<td>' + value.product.name + '</td>';
 						itemData += '<td><img src="' + value.product.img + '" style="width: 100px; height: 100px;"></td>'
 						itemData += '<td>' + value.product.price + '</td>'
-						itemData += '<td>' + value.product.count + '</td>'
-						itemData += '<td>' + value.product.price * value.product.count + '</td>'
+						totalCount += value.count;
+						itemData += '<td><input type="tel" value="' + value.count + '" style="width:40px;text-align:center"'
+						itemData += ';width:40px;text-align:center" onchange="sciCountChange(value,' + value.product.id + ')"></td>'
+						totalP += value.product.price * value.count;
+						itemData += '<td id="sumPrice">' + value.product.price * value.count + '</td>'
 						itemData += '<td>'
-						itemData += '<a class="btn" href="/deleteProduct?id=' + value.product.id + '"style="color: red;">刪除</a>'
-						itemData += '</td>'
+						itemData += '<a  onclick="deleteShoppingCart(' + value.id + ')"style="color: red; text-decoration:none;cursor: pointer;">刪除</a>'
+						itemData += '</td></tr>'
 					})
-
+					itemData += '</tbody>'
+					let table = document.getElementById('table');
+					table.innerHTML = itemData;
+					let totalPrice = document.getElementById('totalPrice');
+					totalPrice.innerHTML = '共 <strong style="color:red;font-size:20px">' + totalCount + '</strong> 件商品， <strong style="color:red;font-size:20px">' + totalP + '</strong> 元';
 				}
+
+				function deleteShoppingCart(sciId) {
+					fetch('${contextRoot}/deleteShoppingCart?sciId=' + sciId).then(res => res.json()).then(json => changeItem(json))
+				}
+
+				function sciCountChange(count, id) {
+					fetch('${contextRoot}/changeCartItem?count=' + count + '&id=' + id).then(res => res.json()).then(json => changeItem(json))
+				}
+
+				// 驗證email
+				function checkEmail(email) {
+					let emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+					if (email.search(emailRule) != -1) {
+						document.getElementById('mail-feedback').innerHTML = '<span style="color:green;">email ok</span>';
+					} else {
+						document.getElementById('mail-feedback').innerHTML = '<span style="color:red;">email error</span>';
+					}
+				}
+
+				function cleanMailFeeback() {
+					document.getElementById('mail-feedback').innerHTML = "";
+				}
+
+				$(document).ready(function () {
+
+					//第一層選單
+					$.ajax({
+						url: 'https://raw.githubusercontent.com/donma/TaiwanAddressCityAreaRoadChineseEnglishJSON/master/CityCountyData.json',
+						type: "get",
+						dataType: "json",
+						success: function (data) {
+							console.log(data);
+							$.each(data, function (key, value) {
+								console.log(key, value)
+								$('#city').append('<option value="' + key + '">' + data[key].CityName + '</option>')
+							})
+						},
+						error: function (data) {
+							alert("fail");
+						}
+					});
+
+					//第二層選單
+					$("#city").change(function () {
+						cityvalue = $("#city").val();  //取值
+						$("#area").empty(); //清空上次的值
+						$("#area").css("display", "inline"); //顯現
+						$.ajax({
+							url: 'https://raw.githubusercontent.com/donma/TaiwanAddressCityAreaRoadChineseEnglishJSON/master/CityCountyData.json',
+							type: "get",
+							dataType: "json",
+							success: function (data) {
+
+								eachval = data[cityvalue].AreaList; //鄉鎮
+
+								$.each(eachval, function (key, value) {
+									$('#area').append('<option value="' + key + '">' + eachval[key].AreaName + '</option>')
+								});
+							},
+							error: function () {
+								alert("fail");
+							}
+
+						});
+					});
+				});
+
 			</script>
+
 
 			</html>

@@ -68,7 +68,6 @@ public class FrontendController {
 
 	/**
 	 * 開啟購物車時取得商品資料
-	 * 
 	 * @param session
 	 * @param model
 	 */
@@ -268,6 +267,16 @@ public class FrontendController {
 		orderBean.setOrderItems(oiList);
 		orderBeanService.save(orderBean);
 		return "送到支付畫面";
+	}
+	
+	@GetMapping("/changeCartItem")
+	@ResponseBody
+	public List<ShoppingCartItem> changeCartItem(@RequestParam Integer count,Integer id,HttpSession session){
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		ShoppingCartItem items = shoppingCartItemService.findByMemberIdAndProductId(member.getId(),id);
+		items.setCount(count);
+		shoppingCartItemService.addToCart(items);
+		return shoppingCartItemService.findAllByMemberId(member.getId());
 	}
 
 }
