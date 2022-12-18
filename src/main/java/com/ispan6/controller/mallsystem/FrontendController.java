@@ -1,6 +1,7 @@
 package com.ispan6.controller.mallsystem;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -226,11 +227,10 @@ public class FrontendController {
 	 * @param session
 	 * @return
 	 */
-	@GetMapping("/checkedOrder")
+	@PostMapping("/checkedOrder")
 	public String sendOrderToCheck(@RequestParam String mname,String mtel,String memail,String city,String area,String addrDetail,HttpSession session) {
 		//串接會員地址
 		String address = city + area + addrDetail;
-		
 		// 取得會員id
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
 		// 取得會員當前購物車商品
@@ -244,13 +244,13 @@ public class FrontendController {
 		// 生成訂單
 		OrderBean orderBean = new OrderBean();
 		// 設定訂單編號
-		orderBean.setId(100);
+		orderBean.setId(new Date().hashCode());
 		// 設定總數量
 		orderBean.setCount(items.size());
 		// 設定總金額
 		orderBean.setPrice(totalPrice);
 		// 設定訂單所屬人
-		orderBean.setMemberTest(member);
+		orderBean.setMemberId(member.getId());
 		// 設定收件人
 		orderBean.setName(mname);
 		// 設定收件人電話
@@ -272,9 +272,23 @@ public class FrontendController {
 		}
 		orderBean.setOrderItems(oiList);
 		orderBeanService.save(orderBean);
+		//清空購物車
+		
+		return "redirect:/toMyOrderPage";
+	}
+	
+	@GetMapping("/toMyOrderPage")
+	public String toMyOrderPage() {
 		return "myorderpage";
 	}
 	
+	/**
+	 * 調整購物車數量
+	 * @param count
+	 * @param id
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("/changeCartItem")
 	@ResponseBody
 	public List<ShoppingCartItem> changeCartItem(@RequestParam Integer count,Integer id,HttpSession session){
@@ -283,6 +297,13 @@ public class FrontendController {
 		items.setCount(count);
 		shoppingCartItemService.addToCart(items);
 		return shoppingCartItemService.findAllByMemberId(member.getId());
+	}
+	
+	@GetMapping("/openMyOrder")
+	@ResponseBody
+	public List<OrderBean> openMyOrder(HttpSession session) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		return orderBeanService.findByMemberId(member.getId());
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.ispan6.bean.mallsystem;
 
 import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "order_items")
@@ -28,11 +30,12 @@ public class OrderItems {
 	@Column(name = "item_totalprice")
 	private Integer totalPrice;
 	
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="item_pid", referencedColumnName="p_id")
 	private Product product;
 	
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "item_oid")
 	private OrderBean orderBean;

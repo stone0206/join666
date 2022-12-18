@@ -22,6 +22,7 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.ispan6.bean.membersystem.MemberTest;
 
@@ -57,17 +58,11 @@ public class OrderBean {
 	@Column(name = "o_name")
 	private String name;
 	
-	public String getMail() {
-		return mail;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
-	@ManyToOne
-	@JoinColumn(name = "o_memberid")
-	private MemberTest memberTest;
+	@Column(name = "o_status")
+	private Integer status;
+	
+	@Column(name = "o_memberid")
+	private Integer memberId;
 	
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "orderBean",cascade = CascadeType.ALL)
 	private List<OrderItems> orderItems = new ArrayList<OrderItems>();
@@ -77,8 +72,11 @@ public class OrderBean {
 		if(date == null) {
 			date = new Date();
 		}
+		if(status == null) {
+			status = 0;
+		}
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -119,6 +117,14 @@ public class OrderBean {
 		this.addr = addr;
 	}
 
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
 	public String getTel() {
 		return tel;
 	}
@@ -135,12 +141,20 @@ public class OrderBean {
 		this.name = name;
 	}
 
-	public MemberTest getMemberTest() {
-		return memberTest;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setMemberTest(MemberTest memberTest) {
-		this.memberTest = memberTest;
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public Integer getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(Integer memberId) {
+		this.memberId = memberId;
 	}
 
 	public List<OrderItems> getOrderItems() {
@@ -150,5 +164,7 @@ public class OrderBean {
 	public void setOrderItems(List<OrderItems> orderItems) {
 		this.orderItems = orderItems;
 	}
+	
+	
 	
 }

@@ -71,9 +71,6 @@ public class MemberTest {
 
 	@OneToMany(mappedBy = "fuid")
 	private List<MatchBean> fuid = new ArrayList<MatchBean>();
-	
-	@OneToMany(mappedBy = "memberTest")
-	private List<OrderBean> order = new ArrayList<OrderBean>();
 
 	//易
 	@OneToMany(mappedBy = "participantsUserId")
