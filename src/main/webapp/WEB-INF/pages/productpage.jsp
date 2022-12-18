@@ -372,7 +372,6 @@
 							shoppingCartData += '<td style="width:150px">' + value.product.name + '</td>'
 							shoppingCartData += '<td><input type="tel" value="' + value.count + '" style="width:40px;text-align:center"'
 							shoppingCartData += ';width:40px;text-align:center" onchange="sciCountChange(value,' + value.product.id + ')"></td>'
-							shoppingCartData += '<td>' + value.count + '</td>'
 							shoppingCartData += '<td>' + value.product.price + '</td>'
 							shoppingCartData += '<td>' + value.count * value.product.price + '</td>'
 							shoppingCartData += '<td>' + '<a class="btn" style="text-decoration: none;color:blue;" onclick="deleteShoppingCart(' + value.id + ')">刪除</a>' + '</td>'
@@ -396,7 +395,7 @@
 					function deleteShoppingCart(sciId) {
 						fetch('${contextRoot}/deleteShoppingCart?sciId=' + sciId).then(res => res.json()).then(json => chageCartItem(json))
 					}
-					
+
 					function sciCountChange(count, id) {
 						fetch('${contextRoot}/changeCartItem?count=' + count + '&id=' + id).then(res => res.json()).then(json => chageCartItem(json))
 					}
