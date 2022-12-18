@@ -50,7 +50,6 @@ public class FrontendController {
 
 	/**
 	 * 重置整個網頁，同時將資料product、label、type存進session
-	 * 
 	 * @param session
 	 * @return
 	 */
@@ -83,7 +82,6 @@ public class FrontendController {
 
 	/**
 	 * 商品按照價格高到低進行排序
-	 * 
 	 * @param model
 	 * @return
 	 */
@@ -96,7 +94,6 @@ public class FrontendController {
 
 	/**
 	 * 商品按照價格低到高進行排序
-	 * 
 	 * @param model
 	 * @return
 	 */
@@ -109,7 +106,6 @@ public class FrontendController {
 
 	/**
 	 * 按照商品類型進行查找
-	 * 
 	 * @param id
 	 * @param model
 	 * @return
@@ -123,7 +119,6 @@ public class FrontendController {
 
 	/**
 	 * 按照商品標籤進行查找
-	 * 
 	 * @param id
 	 * @param model
 	 * @return
@@ -137,7 +132,6 @@ public class FrontendController {
 
 	/**
 	 * 按照商品價格範圍進行查找
-	 * 
 	 * @param lowPrice
 	 * @param highPrice
 	 * @param model
@@ -152,7 +146,6 @@ public class FrontendController {
 
 	/**
 	 * 新增商品進購物車
-	 * 
 	 * @param id
 	 * @param session
 	 * @return
@@ -197,7 +190,6 @@ public class FrontendController {
 
 	/**
 	 * 刪除購物車商品
-	 * 
 	 * @param sciId
 	 * @param session
 	 * @return
@@ -212,7 +204,6 @@ public class FrontendController {
 
 	/**
 	 * 點擊確認結帳後送出到訂單確認頁面
-	 * 
 	 * @return
 	 */
 	@GetMapping("/sendCartToCheck")
@@ -232,31 +223,46 @@ public class FrontendController {
 
 	/**
 	 * 新增訂單
-	 * 
 	 * @param session
 	 * @return
 	 */
 	@GetMapping("/checkedOrder")
-	public String sendOrderToCheck(HttpSession session) {
+	public String sendOrderToCheck(@RequestParam String mname,String mtel,String memail,String city,String area,String addrDetail,HttpSession session) {
+		//串接會員地址
+		String address = city + area + addrDetail;
+		
 		// 取得會員id
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
 		// 取得會員當前購物車商品
 		List<ShoppingCartItem> items = shoppingCartItemService.findAllByMemberId(member.getId());
 		// 計算總金額
 		int totalPrice = 0;
-		// 將購物車商品設定到訂單商品中
 		for (ShoppingCartItem item : items) {
 			totalPrice += item.getProduct().getPrice();
 		}
 
 		// 生成訂單
 		OrderBean orderBean = new OrderBean();
+		// 設定訂單編號
 		orderBean.setId(100);
+		// 設定總數量
 		orderBean.setCount(items.size());
+		// 設定總金額
 		orderBean.setPrice(totalPrice);
+		// 設定訂單所屬人
 		orderBean.setMemberTest(member);
+		// 設定收件人
+		orderBean.setName(mname);
+		// 設定收件人電話
+		orderBean.setTel(mtel);
+		// 設定收件人email
+		orderBean.setMail(memail);
+		// 設定收件人地址
+		orderBean.setAddr(address);
+		//  設定訂單項目
 		List<OrderItems> oiList = new ArrayList<OrderItems>();
 		for (ShoppingCartItem item : items) {
+			//創建訂單項目
 			OrderItems orderItem = new OrderItems();
 			orderItem.setCount(item.getCount());
 			orderItem.setTotalPrice(item.getCount() * item.getProduct().getPrice());
@@ -266,7 +272,7 @@ public class FrontendController {
 		}
 		orderBean.setOrderItems(oiList);
 		orderBeanService.save(orderBean);
-		return "送到支付畫面";
+		return "myorderpage";
 	}
 	
 	@GetMapping("/changeCartItem")

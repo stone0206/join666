@@ -70,16 +70,16 @@
 							<div class="row g-3">
 								<div class="col-md-3">
 									<label for="validationServer01" class="form-label">收件人姓名</label>
-									<input type="text" class="form-control" id="validationServer01" required>
+									<input type="text" class="form-control" id="validationServer01" name="mname" required>
 								</div>
 								<div class="col-md-3">
 									<label for="validationServer02" class="form-label">收件人電話</label>
-									<input type="tel" class="form-control" id="validationServer02" required>
+									<input type="tel" class="form-control" id="validationServer02" name="mtell" required>
 									<div id="tel-feedback"></div>
 								</div>
 								<div class="col-md-6">
 									<label for="validationServer3" class="form-label">E-mail</label>
-									<input type="text" class="form-control" id="validationServer3" required
+									<input type="text" class="form-control" id="validationServer3" name="memail" required
 										onblur="checkEmail(value)" onfocus="cleanMailFeeback()">
 									<div id="mail-feedback"></div>
 								</div>
@@ -93,13 +93,13 @@
 
 								<div class="col-md-2">
 									<label for="area" class="form-label">地區</label>
-									<select class="form-select" id="area" required>
+									<select class="form-select" id="area" name="area" required>
 										<option selected disabled value="">請選擇</option>
 									</select>
 								</div>
 								<div class="col-md-8">
 									<label for="validationServer05" class="form-label">詳細地址</label>
-									<input type="text" class="form-control" id="validationServer05"
+									<input type="text" class="form-control" id="addrDetail" name="addr"
 										aria-describedby="validationServer05Feedback" required>
 								</div>
 							</div>
@@ -172,16 +172,16 @@
 
 				$(document).ready(function () {
 
+					let address = '';
 					//第一層選單
 					$.ajax({
 						url: 'https://raw.githubusercontent.com/donma/TaiwanAddressCityAreaRoadChineseEnglishJSON/master/CityCountyData.json',
 						type: "get",
 						dataType: "json",
 						success: function (data) {
-							console.log(data);
 							$.each(data, function (key, value) {
-								console.log(key, value)
 								$('#city').append('<option value="' + key + '">' + data[key].CityName + '</option>')
+								address += data[key].CityName
 							})
 						},
 						error: function (data) {

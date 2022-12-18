@@ -48,12 +48,23 @@ public class OrderBean {
 	@Column(name = "o_addr")
 	private String addr;
 	
+	@Column(name = "o_email")
+	private String mail;
+	
 	@Column(name = "o_tel")
 	private String tel;
 	
 	@Column(name = "o_name")
 	private String name;
 	
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "o_memberid")
 	private MemberTest memberTest;
