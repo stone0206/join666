@@ -8,8 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ispan6.bean.mallsystem.ShoppingCartItem;
+import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.bean.reunionsystem.Payment;
 import com.ispan6.bean.reunionsystem.Reunion;
 import com.ispan6.bean.reunionsystem.Reuniontype;
@@ -109,6 +113,34 @@ public class ReunionsystemController {
 		
 		
 		return "detailedparty";
+	}
+	
+	@PostMapping("/insertReunion")
+	public String insertReunion(Reunion reunion) {
+		reunionsystemService.insertReunion(reunion);
+		return "reunion";
+	}
+	
+	
+	
+	@GetMapping("/test")
+	public String test(Model model) {
+		
+		
+		return "NewFile";
+	}
+	
+	@GetMapping("/myreunion")	
+	public String myreunion(HttpSession session) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		if(member != null) {
+			System.out.println(member);
+			 reunionsystemService.findAllByMemberId(member.getId());
+			
+		}
+		
+		
+		return "myreunion";
 	}
 	
 	
