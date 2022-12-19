@@ -188,5 +188,10 @@ public class MemberTestController {
 		return "memberbackend";
 	}
 	
-	
+	@GetMapping("/findByGender")
+	public String findByGender(HttpSession session, @RequestParam(value = "male") int male, @RequestParam(value = "female") int female) {
+		List<MemberTest> members = mService.findByGender(male, female);
+		session.setAttribute("members", members);
+		return "memberbackend";
+	}
 }

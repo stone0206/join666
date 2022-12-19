@@ -71,8 +71,8 @@
 						<div class="col">
 							性別
 							<div id="status-status">
-								<input type="checkbox" name="" id="">男<br> 
-								<input type="checkbox" name="" id="">女<br>
+								<input type="checkbox" name="male" id="male" value="1" onchange="getGender()">男<br> 
+								<input type="checkbox" name="female" id="female" value="2" onchange="getGender()">女<br>
 							</div>
 						</div>
 
@@ -153,9 +153,26 @@
 			</div>
 		</main>
 	</div>
-
+<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
+ <script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 	<script type="text/javascript">
-		
+		function getGender(){
+			var m= $('#male').is(':checked');
+			var f= $('#female').is(':checked');
+			var male=1;
+			var female=2;
+			if (!m){
+				male=0;
+			}
+			if(!f){
+				female=0;
+			}
+			if(!f&&!m){
+				var male=1;
+				var female=2;
+			}
+			console.log(male+","+female)
+		}
 	
 		// 新增商品時轉換圖片的方式
 		let img = document.getElementById('img');

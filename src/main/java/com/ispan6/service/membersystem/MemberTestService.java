@@ -45,6 +45,10 @@ public class MemberTestService {
 			return mDAO.findAll();
 		}
 		
+		public List<MemberTest> findByGender(int male, int female) {
+			if(male==0&&female==0) {return mDAO.findAll();}else
+			return mDAO.findByGender(male, female);
+		}
 		
 		//易查會員資料
 		public List<MemberTest> senderFile(HashSet<Integer> id){
