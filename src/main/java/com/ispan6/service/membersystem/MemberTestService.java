@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ispan6.bean.mallsystem.Product;
 import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.dao.membersystem.MemberTestDAO;
 
@@ -38,6 +39,10 @@ public class MemberTestService {
 //			System.out.println(mDAO.existsByAccount(account));
 			return mDAO.existsByAccount(account);				
 		
+		}
+		
+		public List<MemberTest> getAllMemberTest() {
+			return mDAO.findAll();
 		}
 		
 		

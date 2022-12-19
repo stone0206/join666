@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
 import java.util.Base64;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -23,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.ispan6.bean.mallsystem.Product;
+import com.ispan6.bean.mallsystem.ProductLabel;
+import com.ispan6.bean.mallsystem.ProductType;
 import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.service.matchsystem.MatchService;
 import com.ispan6.service.membersystem.MemberTestService;
@@ -175,6 +179,13 @@ public class MemberTestController {
 		session.setAttribute("loginUser", mt);
 		
 		return "index";
+	}
+	
+	@GetMapping("/memberBackendSet")
+	public String backEndSet(HttpSession session) {
+		List<MemberTest> members = mService.getAllMemberTest();
+		session.setAttribute("members", members);
+		return "memberbackend";
 	}
 	
 	
