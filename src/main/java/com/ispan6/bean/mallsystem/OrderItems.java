@@ -30,7 +30,6 @@ public class OrderItems {
 	@Column(name = "item_totalprice")
 	private Integer totalPrice;
 	
-	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="item_pid", referencedColumnName="p_id")
 	private Product product;
