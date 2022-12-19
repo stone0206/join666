@@ -305,5 +305,11 @@ public class FrontendController {
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
 		return orderBeanService.findByMemberId(member.getId());
 	}
+	
+	@GetMapping("/openMyOrderDetail")
+	@ResponseBody
+	public List<OrderItems> openMyOrderDetail(@RequestParam Integer orderId){
+		return orderItemService.findAllByOrderId(orderId);
+	}
 
 }
