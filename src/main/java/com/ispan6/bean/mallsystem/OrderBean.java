@@ -37,7 +37,7 @@ public class OrderBean {
 	@Column(name = "o_date")
 	@Temporal(TemporalType.TIMESTAMP) //sql上顯示
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss") //java上顯示
-	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")  //瀏覽器上顯示
+	@JsonFormat(pattern = "yyyy/MM/dd")  //瀏覽器上顯示
 	private Date date;
 	
 	@Column(name = "o_count")
