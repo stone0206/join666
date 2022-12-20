@@ -145,6 +145,14 @@
                     </a>
                   </li>
                   
+                  
+                  
+                    <li>
+                    <a class="dropdown-item" href="/myreunion">
+                      <i class="fa-fw bi bi-card-text me-2"></i>我的聚會
+                    </a>
+                  </li>
+                  
                   <li>
                     <a class="dropdown-item" href="/msg/insertreunion">
                       <i class="fa-fw bi bi-card-text me-2"></i>新增聚會

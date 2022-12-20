@@ -22,10 +22,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Table(name = "Reunion")
 public class Reunion {
 
-//	@Id
-//	@Column(name = "reunionid")
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Integer reunionid;
 	
 	@Id
 	@Column(name = "reunionid")
@@ -35,17 +31,6 @@ public class Reunion {
 	@Column(name = "topic", columnDefinition = "nvarchar(50)")
 	private String topic;
 
-	public Integer getReunionid() {
-		return reunionid;
-	}
-
-
-
-
-
-	public void setReunionid(Integer reunionid) {
-		this.reunionid = reunionid;
-	}
 
 	@Column(name = "content", columnDefinition = "nvarchar(50)")
 	private String content;
@@ -87,10 +72,6 @@ public class Reunion {
 //	@JoinColumn(name="memberId", columnDefinition = "nvarchar(50)")
 //	private Integer memberId;
 
-
-
-
-
 	public String getTopic() {
 		return topic;
 	}
@@ -100,14 +81,9 @@ public class Reunion {
 	}
 
 
-
-
-
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
-
-
 
 
 
@@ -130,6 +106,10 @@ public class Reunion {
 	public void setPlace(String place) {
 		this.place = place;
 	}
+
+
+
+	
 
 	public Date getHoldTime() {
 		return holdTime;
@@ -156,21 +136,14 @@ public class Reunion {
 	}
 
 	
-
 	public Reuniontype getReuniontype() {
 		return reuniontype;
 	}
 
 
-
-
-
 	public void setReuniontype(Reuniontype reuniontype) {
 		this.reuniontype = reuniontype;
 	}
-
-
-
 
 
 	public Payment getPayment() {
@@ -189,13 +162,13 @@ public class Reunion {
 		this.budget = budget;
 	}
 
-//	public Integer getMemberId() {
-//		return memberId;
-//	}
-//
-//
-//	public void setMemberId(Integer memberId) {
-//		this.memberId = memberId;
-//	}
+	public Integer getReunionid() {
+		return reunionid;
+	}
+
+
+	public void setReunionid(Integer reunionid) {
+		this.reunionid = reunionid;
+	}
 
 }

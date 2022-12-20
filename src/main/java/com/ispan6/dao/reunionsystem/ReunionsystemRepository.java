@@ -26,6 +26,9 @@ public interface ReunionsystemRepository extends JpaRepository<Reunion,Integer> 
 	public List<Reunion> findByReuniontype(@Param("activity") String activity);
 	@Query("from Reunion where activity = ?1")
 	public List<Reunion> findByReuniontypeId(Integer id);
+	
+	@Query(value = "select * from Reunion where memberid = ?1",nativeQuery = true)
+	public List<Reunion> findAllByMemberId(int i);
 
 //	@Query("from WorkMessages where text=?1")
 //	public List<Reunion> findMsgByText(String text);

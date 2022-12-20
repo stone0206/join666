@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ispan6.bean.mallsystem.Product;
 import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.dao.membersystem.MemberTestDAO;
 
@@ -40,6 +41,14 @@ public class MemberTestService {
 		
 		}
 		
+		public List<MemberTest> getAllMemberTest() {
+			return mDAO.findAll();
+		}
+		
+		public List<MemberTest> findByGender(int male, int female) {
+			if(male==0&&female==0) {return mDAO.findAll();}else
+			return mDAO.findByGender(male, female);
+		}
 		
 		//易查會員資料
 		public List<MemberTest> senderFile(HashSet<Integer> id){
