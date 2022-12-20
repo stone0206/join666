@@ -24,8 +24,14 @@ public class MatchController {
 	
 	
 	
+	@GetMapping("/getFriendNotice")
+	public String getFriendNotice() {
+
+		return "friendNotice";
+	}
+	
 	@GetMapping("/addfriend")
-	public String getProduct() {
+	public String addFriendPage() {
 
 		return "addfriend";
 	}
@@ -50,11 +56,15 @@ public class MatchController {
 			return "請先登入";
 		}
 		MemberTest fuid = matchService.findById(id);
+		MatchBean match = matchService.findFriend(member.getId(), fuid.getId());
+		if(match==null) {
 		MatchBean matchBean=new MatchBean() ;
 		matchBean.setUserid(member);
 		matchBean.setFuid(fuid);
 		matchBean.setIsFriend(0);
 		matchService.addNewFriend(matchBean);
 		return "送出邀請成功";
+		}
+		return"您已送出邀請，等待對方回覆";
 	}
 }

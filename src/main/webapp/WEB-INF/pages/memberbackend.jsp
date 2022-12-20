@@ -172,8 +172,53 @@
 				var female=2;
 			}
 			console.log(male+","+female)
+			let formData = new FormData();
+			formData.append("male", male)
+			formData.append("female", female)
+			
+			fetch("${contextRoot}/findByGender", {method:"POST", body:formData}).then(result=>result.json()).then(members2=>{
+				console.log(members2.length);
+				var table=$('#table');
+				var gender="";
+				var birth="";
+				var member2='';
+				for(i=0;i<members2.length;i++){	
+					birth = new Date(members2[i].birth).toLocaleDateString();
+					if(members2[i].gender==1){
+					gender='男';
+				}else{
+					gender='女';
+				}
+// 				member2+='<td>';
+// 				member2+=birth;
+// 				member2+='</td>';
+				member2+='<tr><td rowspan="2" valign="middle">';
+				member2+=members2[i].id;
+				member2+='</td><td rowspan="1" valign="middle">帳號: ';
+				member2+=members2[i].account;
+				member2+='</td><td rowspan="2" valign="middle">';
+				member2+=members2[i].name;
+				member2+='</td><td rowspan="2" valign="middle">';
+				member2+=birth;
+				member2+='</td><td rowspan="1" valign="middle">手機: ';
+				member2+=members2[i].phone;
+				member2+='</td><td rowspan="2" valign="middle">';
+				member2+=members2[i].address;
+				member2+='</td><td rowspan="2" ><img alt="" src="';
+				member2+=members2[i].avator;
+				member2+='" style="width: 130px; height: 100px;"></td>';
+				member2+='<td rowspan="2" valign="middle">';
+				member2+=gender;
+				member2+='</td></tr><tr>';
+				member2+='<td valign="middle">密碼: ';
+				member2+=members2[i].password;
+				member2+='</td><td valign="middle">信箱: ';
+				member2+=members2[i].email;
+				member2+='</td></tr>';
+				}
+				table.html(member2);
+			})
 		}
-	
 		// 新增商品時轉換圖片的方式
 		let img = document.getElementById('img');
 		img.addEventListener('change', function(e) {

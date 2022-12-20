@@ -45,8 +45,15 @@
 					border: 1px solid grey;
 					border-radius: 38px;
 					background-color: white;
-					display: inline-block;
+					position: relative;
 				}
+
+				#img-form {
+					position: absolute;
+					right: 10px;
+					top: 7px;
+				}
+
 
 				/* 購物車位置固定 */
 				#shopping-cart {
@@ -179,21 +186,23 @@
 							</ul>
 						</div>
 
-
-						<!-- 搜尋表單 -->
-						<form class="d-flex" id="search-form" action="/searchByKey" method="post">
-							<!-- 搜尋框 -->
-							<input id="text-btn" type="text" placeholder="請輸入欲搜尋的關鍵字">
-							<!-- 以圖搜圖 -->
-							<button id="img-btn">
-								<i class="bi bi-card-image"></i>
-							</button>
-							<!-- 搜尋按鈕 -->
-							<button id="search-btn" type="submit">
-								<i class="bi bi-search"></i>
-							</button>
-						</form>
-
+						<div id="search-div">
+							<!-- 搜尋表單 -->
+							<form class="d-flex" id="search-form" action="/searchByKey" method="post">
+								<!-- 搜尋框 -->
+								<input id="text-btn" type="text" placeholder="請輸入欲搜尋的關鍵字">
+								<!-- 搜尋按鈕 -->
+								<button id="search-btn" type="submit">
+									<i class="bi bi-search"></i>
+								</button>
+							</form>
+							<!-- 以圖搜尋 -->
+							<form action="" id="img-form">
+								<button id="img-btn">
+									<i class="bi bi-card-image"></i>
+								</button>
+							</form>
+						</div>
 						<!-- 下拉選單做排序 -->
 						<div class="dropdown">
 							<a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink"
@@ -222,8 +231,8 @@
 								<div class="col mb-5">
 									<div class="card h-100">
 										<!-- Sale badge-->
-										<div class="badge bg-dark text-white position-absolute"
-											style="top: 0.5rem; right: 0.5rem">
+										<div class="badge position-absolute"
+											style="top: 0.5rem; right: 0.5rem;box-shadow: #212529 0 0 6px; color: red; background-color:yellow;">
 											<c:choose>
 												<c:when test="${p.label == 1}">
 													New
