@@ -59,31 +59,6 @@ public class Product {
 	@Column(name = "p_type")
 	private Integer type;
 
-	
-//	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-//	@JoinColumn(name = "p_label") //透過外來鍵去找
-//	private ProductLabel labels;
-//	
-//	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-//	@JoinColumn(name = "p_type") //透過外來鍵去找
-//	private ProductType types;
-	
-//	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "product")
-//	private Set<ProductType> types;
-//	
-//	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "product")
-//	private Set<ProductLabel> labels;
-	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "pt_id")
-//	private ProductType productType;
-
-
-//	@Temporal(TemporalType.TIMESTAMP)
-//	@Column(name = "p_create")
-//	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
-//	private Date date;
-
 	@PrePersist
 	public void prePersist() {
 		

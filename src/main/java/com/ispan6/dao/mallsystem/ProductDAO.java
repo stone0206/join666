@@ -45,6 +45,9 @@ public interface ProductDAO extends JpaRepository<Product, Integer>,CrudReposito
 	// show product order by price inventory
 	@Query(value = "select * from WorkMessage where text like %?1%", nativeQuery = true)
 	public List<Product> findBySearch(String keyword);
+	
+	@Query("from Product where status = 0")
+	public List<Product> getAllProductOnSell();
 
 
 

@@ -1,5 +1,7 @@
 package com.ispan6.controller.mallsystem;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,11 +14,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ispan6.bean.mallsystem.OrderBean;
+import com.ispan6.bean.mallsystem.OrderItems;
 import com.ispan6.bean.mallsystem.Product;
 import com.ispan6.bean.mallsystem.ProductLabel;
 import com.ispan6.bean.mallsystem.ProductType;
 import com.ispan6.bean.mallsystem.ShoppingCartItem;
 import com.ispan6.bean.membersystem.MemberTest;
+import com.ispan6.service.mallsystem.OrderBeanService;
+import com.ispan6.service.mallsystem.OrderItemService;
 import com.ispan6.service.mallsystem.ProductLabelService;
 import com.ispan6.service.mallsystem.ProductService;
 import com.ispan6.service.mallsystem.ProductTypeService;
@@ -37,6 +43,12 @@ public class FrontendController {
 	@Autowired
 	private ShoppingCartItemService shoppingCartItemService;
 
+	@Autowired
+	private OrderBeanService orderBeanService;
+
+	@Autowired
+	private OrderItemService orderItemService;
+
 	/**
 	 * 重置整個網頁，同時將資料product、label、type存進session
 	 * @param session
@@ -44,16 +56,16 @@ public class FrontendController {
 	 */
 	@GetMapping("/product")
 	public String getProduct(HttpSession session) {
-		//先將網頁全部重置
+		// 先將網頁全部重置
 		List<ProductLabel> labels = productLabelService.findAllLabel();
 		List<ProductType> types = productTypeService.findAllType();
-		List<Product> products = productService.getAllProduct();
+		List<Product> products = productService.getAllProductOnSell();
 		session.setAttribute("products", products);
 		session.setAttribute("types", types);
 		session.setAttribute("labels", labels);
 		return "productpage";
 	}
-	
+
 	/**
 	 * 開啟購物車時取得商品資料
 	 * @param session
@@ -63,8 +75,7 @@ public class FrontendController {
 	@ResponseBody
 	public List<ShoppingCartItem> openShoppingCart(HttpSession session) {
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
-		if(member != null) {
-			System.out.println(member);
+		if (member != null) {
 			return shoppingCartItemService.findAllByMemberId(member.getId());
 		}
 		return null;
@@ -143,28 +154,28 @@ public class FrontendController {
 	@GetMapping("/addToCart")
 	@ResponseBody
 	public String addToCart(@RequestParam Integer id, HttpSession session) {
-		//先取得會員和商品id
+		// 先取得會員和商品id
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
-		if(member == null) {
+		if (member == null) {
 			return "請先登入";
 		}
 		Product product = productService.findById(id);
 		Integer memberId = member.getId();
 
-		//查詢購物車項目是否有重複（判斷方式為是不是空的）
+		// 查詢購物車項目是否有重複（判斷方式為是不是空的）
 		boolean flag = shoppingCartItemService.itemEmpty(memberId, id);
-		
-		//如果不是空的
+
+		// 如果不是空的
 		if (flag == false) {
-			//先查詢是哪個用戶的哪個商品
+			// 先查詢是哪個用戶的哪個商品
 			ShoppingCartItem shoppingCartItem = shoppingCartItemService.findByMemberIdAndProductId(memberId, id);
-			//然後把數量加1再保存
+			// 然後把數量加1再保存
 			shoppingCartItem.setCount(shoppingCartItem.getCount() + 1);
 			shoppingCartItemService.addToCart(shoppingCartItem);
 			return "商品已存在，數量加1";
 		}
-		
-		//如果是空的
+
+		// 如果是空的
 		if (flag == true) {
 			ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
 			shoppingCartItem.setCount(1);
@@ -173,21 +184,132 @@ public class FrontendController {
 			shoppingCartItemService.addToCart(shoppingCartItem);
 			return "商品添加成功";
 		}
-		
-		//如果都不是
+
+		// 如果都不是
 		return "unexpect wrong please contact with engineer";
 	}
-	
+
+	/**
+	 * 刪除購物車商品
+	 * @param sciId
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("/deleteShoppingCart")
 	@ResponseBody
-	public List<ShoppingCartItem> deleteShoppingCart(@RequestParam Integer sciId,HttpSession session) {
-		MemberTest member=(MemberTest) session.getAttribute("loginUser");
+	public List<ShoppingCartItem> deleteShoppingCart(@RequestParam Integer sciId, HttpSession session) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
 		shoppingCartItemService.deleteShoppingCartItem(sciId);
 		return shoppingCartItemService.findAllByMemberId(member.getId());
 	}
+
+	/**
+	 * 點擊確認結帳後送出到訂單確認頁面
+	 * @return
+	 */
+	@GetMapping("/sendCartToCheck")
+	public String sendCartToCheck() {
+		return "ordercheck";
+	}
+
+	@GetMapping("checkCartItem")
+	@ResponseBody
+	public List<ShoppingCartItem> checkCartItem(HttpSession session) {
+		// 取得會員id
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		// 取得會員當前購物車商品
+		List<ShoppingCartItem> items = shoppingCartItemService.findAllByMemberId(member.getId());
+		return items;
+	}
+
+	/**
+	 * 新增訂單
+	 * @param session
+	 * @return
+	 */
+	@PostMapping("/checkedOrder")
+	public String sendOrderToCheck(@RequestParam String mname,String mtel,String memail,String city,String area,String addrDetail,HttpSession session) {
+		//串接會員地址
+		String address = city + area + addrDetail;
+		// 取得會員id
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		// 取得會員當前購物車商品
+		List<ShoppingCartItem> items = shoppingCartItemService.findAllByMemberId(member.getId());
+		// 計算總金額
+		int totalPrice = 0;
+		for (ShoppingCartItem item : items) {
+			totalPrice += item.getProduct().getPrice();
+		}
+
+		// 生成訂單
+		OrderBean orderBean = new OrderBean();
+		// 設定訂單編號
+		orderBean.setId(new Date().hashCode());
+		// 設定總數量
+		orderBean.setCount(items.size());
+		// 設定總金額
+		orderBean.setPrice(totalPrice);
+		// 設定訂單所屬人
+		orderBean.setMemberId(member.getId());
+		// 設定收件人
+		orderBean.setName(mname);
+		// 設定收件人電話
+		orderBean.setTel(mtel);
+		// 設定收件人email
+		orderBean.setMail(memail);
+		// 設定收件人地址
+		orderBean.setAddr(address);
+		//  設定訂單項目
+		List<OrderItems> oiList = new ArrayList<OrderItems>();
+		for (ShoppingCartItem item : items) {
+			//創建訂單項目
+			OrderItems orderItem = new OrderItems();
+			orderItem.setCount(item.getCount());
+			orderItem.setTotalPrice(item.getCount() * item.getProduct().getPrice());
+			orderItem.setProduct(item.getProduct());
+			orderItem.setOrderBean(orderBean);
+			oiList.add(orderItem);
+		}
+		orderBean.setOrderItems(oiList);
+		orderBeanService.save(orderBean);
+		//清空購物車
+		
+		return "redirect:/toMyOrderPage";
+	}
 	
+	@GetMapping("/toMyOrderPage")
+	public String toMyOrderPage() {
+		return "myorderpage";
+	}
 	
+	/**
+	 * 調整購物車數量
+	 * @param count
+	 * @param id
+	 * @param session
+	 * @return
+	 */
+	@GetMapping("/changeCartItem")
+	@ResponseBody
+	public List<ShoppingCartItem> changeCartItem(@RequestParam Integer count,Integer id,HttpSession session){
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		ShoppingCartItem items = shoppingCartItemService.findByMemberIdAndProductId(member.getId(),id);
+		items.setCount(count);
+		shoppingCartItemService.addToCart(items);
+		return shoppingCartItemService.findAllByMemberId(member.getId());
+	}
 	
+	@GetMapping("/openMyOrder")
+	@ResponseBody
+	public List<OrderBean> openMyOrder(HttpSession session) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		return orderBeanService.findByMemberId(member.getId());
+	}
 	
+	@GetMapping("/openMyOrderDetail")
+	@ResponseBody
+	public List<OrderItems> openMyOrderDetail(@RequestParam Integer orderId){
+		return orderItemService.findAllByOrderId(orderId);
+	}
 
 }

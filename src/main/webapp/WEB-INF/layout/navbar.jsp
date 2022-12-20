@@ -72,8 +72,6 @@
 
                 <!-- 聊天室連結位置 -->
                 <a class="nav-link icon-md btn btn-light p-0" href="聊天室連結位置">
-                  <img class="avatar-img rounded-2" src="${contextRoot}/assets/messageicon.png" alt="">
-
                   <img class="avatar-img rounded-2" src="assets/bell.png" alt="">
 
                 </a>
@@ -137,7 +135,7 @@
                       Privacy</a></li>
 
                   <li>
-                    <a class="dropdown-item" href="##">
+                    <a class="dropdown-item" href="/toMyOrderPage">
                       <i class="fa-fw bi bi-card-text me-2"></i>我的訂單
                     </a>
                   </li>

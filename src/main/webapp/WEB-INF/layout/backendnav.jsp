@@ -51,7 +51,7 @@
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">member</div>
 
-                        <a class="nav-link" href="member">
+                        <a class="nav-link" href="/memberBackendSet">
                             <div class="sb-nav-link-icon"><i class='fas fa-user-alt'></i></div>
                             用戶管理
                         </a>

@@ -35,8 +35,9 @@ public interface MemberTestDAO extends JpaRepository<MemberTest, Integer> {
 		@Query(value="FROM MemberTest where m_account= :account")
 		public MemberTest existsByAccount(@Param("account") String account);
 		
+		@Query(value="FROM MemberTest where gender= :male or gender= :female")
+		public List<MemberTest> findByGender(@Param("male") int m, @Param("female") int f);
 		
-
 		@Query(value = "SELECT top 3* from memberTest where m_id != ?1 ORDER BY NEWID()", nativeQuery = true)
 		public List<MemberTest> random3Members(Integer id);
 		
