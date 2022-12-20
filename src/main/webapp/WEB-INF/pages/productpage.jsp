@@ -234,8 +234,8 @@
 								<div class="col mb-5">
 									<div class="card h-100">
 										<!-- Sale badge-->
-										<div class="badge bg-dark text-white position-absolute"
-											style="top: 0.5rem; right: 0.5rem">
+										<div class="badge position-absolute"
+											style="top: 0.5rem; right: 0.5rem;box-shadow: #212529 0 0 6px; color: red; background-color:yellow;">
 											<c:choose>
 												<c:when test="${p.label == 1}">
 													New
