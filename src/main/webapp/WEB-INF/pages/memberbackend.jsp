@@ -47,8 +47,8 @@
 
 						<div class="col">
 							<div id="search-search">
-								<input type="text" id="name"> <input type="submit" value="找帳號"><br>
-								<input type="text" id="address"> <input type="submit" value="找暱稱">
+								找帳號:<input type="text" id="account" onchange="findMember()"><br>
+								找暱稱:<input type="text" id="name" onchange="findMember()">
 							</div>
 						</div>
 
@@ -71,8 +71,8 @@
 						<div class="col">
 							性別
 							<div id="status-status">
-								<input type="checkbox" name="male" id="male" value="1" onchange="getGender()">男<br> 
-								<input type="checkbox" name="female" id="female" value="2" onchange="getGender()">女<br>
+								<input type="checkbox" name="male" id="male" value="1" onchange="findMember()">男<br> 
+								<input type="checkbox" name="female" id="female" value="2" onchange="findMember()">女<br>
 							</div>
 						</div>
 
@@ -156,7 +156,9 @@
 <script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
  <script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 	<script type="text/javascript">
-		function getGender(){
+		function findMember(){
+			var account= $('#account').val();
+			var name=$('#name').val();
 			var m= $('#male').is(':checked');
 			var f= $('#female').is(':checked');
 			var male=1;
@@ -173,10 +175,11 @@
 			}
 			console.log(male+","+female)
 			let formData = new FormData();
-			formData.append("male", male)
-			formData.append("female", female)
-			
-			fetch("${contextRoot}/findByGender", {method:"POST", body:formData}).then(result=>result.json()).then(members2=>{
+			formData.append("male", male);
+			formData.append("female", female);
+			formData.append("account", account);
+			formData.append("name", name);
+			fetch("${contextRoot}/findMem", {method:"POST", body:formData}).then(result=>result.json()).then(members2=>{
 				console.log(members2.length);
 				var table=$('#table');
 				var gender="";
@@ -189,9 +192,6 @@
 				}else{
 					gender='女';
 				}
-// 				member2+='<td>';
-// 				member2+=birth;
-// 				member2+='</td>';
 				member2+='<tr><td rowspan="2" valign="middle">';
 				member2+=members2[i].id;
 				member2+='</td><td rowspan="1" valign="middle">帳號: ';
@@ -209,7 +209,7 @@
 				member2+='" style="width: 130px; height: 100px;"></td>';
 				member2+='<td rowspan="2" valign="middle">';
 				member2+=gender;
-				member2+='</td></tr><tr>';
+				member2+='</td><td rowspan="2" valign="middle"><button >停權</button></td></tr><tr>';
 				member2+='<td valign="middle">密碼: ';
 				member2+=members2[i].password;
 				member2+='</td><td valign="middle">信箱: ';
@@ -217,7 +217,7 @@
 				member2+='</td></tr>';
 				}
 				table.html(member2);
-			})
+			}).then(hello())
 		}
 		// 新增商品時轉換圖片的方式
 		let img = document.getElementById('img');
@@ -232,6 +232,10 @@
 				pimg.value = this.result
 			}
 		})
+		
+		function hello(){
+			console.log("Hello World");
+		}
 	</script>
 </body>
 

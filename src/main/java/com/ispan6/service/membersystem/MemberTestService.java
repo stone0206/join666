@@ -50,6 +50,9 @@ public class MemberTestService {
 			return mDAO.findByGender(male, female);
 		}
 		
+		public List<MemberTest> findMem(int male, int female, String account, String name) {
+			return mDAO.findMem(male, female, account, name);
+		}
 		//易查會員資料
 		public List<MemberTest> senderFile(HashSet<Integer> id){
 			return mDAO.senderFile(id);
