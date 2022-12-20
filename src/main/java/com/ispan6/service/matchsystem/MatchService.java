@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.ispan6.bean.mallsystem.Product;
 import com.ispan6.bean.matchsystem.MatchBean;
 import com.ispan6.bean.membersystem.MemberTest;
+import com.ispan6.controller.reunionsystem.reunionbackendController;
 import com.ispan6.dao.matchsystem.MatchDAO;
 import com.ispan6.dao.membersystem.MemberTestDAO;
 
@@ -50,5 +51,8 @@ public class MatchService {
 		 }
 		 return null;
 	}
-
+	public MatchBean findFriend(Integer uid,Integer fid) {
+		return matchDao.findFriend(uid, fid);
+	};
+	
 }
