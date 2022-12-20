@@ -45,9 +45,6 @@
 					border: 1px solid grey;
 					border-radius: 38px;
 					background-color: white;
-				}
-
-				#search-div {
 					position: relative;
 				}
 

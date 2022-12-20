@@ -49,21 +49,21 @@ public class FrontendController {
 	@Autowired
 	private OrderItemService orderItemService;
 
+	@GetMapping("/product")
+	public String goToMall() {
+		return "productpage2";
+	}
+	
 	/**
 	 * 重置整個網頁，同時將資料product、label、type存進session
 	 * @param session
 	 * @return
 	 */
-	@GetMapping("/product")
-	public String getProduct(HttpSession session) {
-		// 先將網頁全部重置
-		List<ProductLabel> labels = productLabelService.findAllLabel();
-		List<ProductType> types = productTypeService.findAllType();
+	@GetMapping("/getProduct")
+	@ResponseBody
+	public List<Product> getProduct() {
 		List<Product> products = productService.getAllProductOnSell();
-		session.setAttribute("products", products);
-		session.setAttribute("types", types);
-		session.setAttribute("labels", labels);
-		return "productpage";
+		return productService.getAllProductOnSell();
 	}
 
 	/**
@@ -86,11 +86,10 @@ public class FrontendController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/priceHightToLow")
-	public String priceHightToLow(Model model) {
-		List<Product> productByType = productService.findAllProductOrderByPriceDesc();
-		model.addAttribute("products", productByType);
-		return "productpage";
+	@GetMapping("/priceH2L")
+	@ResponseBody
+	public List<Product> priceHightToLow() {
+		return productService.findAllProductOrderByPriceDesc();
 	}
 
 	/**
@@ -98,11 +97,16 @@ public class FrontendController {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping("/priceLowToHight")
-	public String priceLowToHight(Model model) {
-		List<Product> productByType = productService.findAllProductOrderByPriceAsc();
-		model.addAttribute("products", productByType);
-		return "productpage";
+	@GetMapping("/priceL2H")
+	@ResponseBody
+	public List<Product> priceLowToHight() {
+		return productService.findAllProductOrderByPriceAsc();
+	}
+	
+	@GetMapping("/salesH2L")
+	@ResponseBody
+	public List<Product> salesLowToHight() {
+		return productService.findAllProductOrderBySales();
 	}
 
 	/**

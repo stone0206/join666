@@ -45,7 +45,5 @@ public class pageController {
 	public String goSignUp() {
 		return "signup3";
 	}
-	
-	
 
 }

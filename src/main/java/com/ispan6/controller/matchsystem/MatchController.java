@@ -24,8 +24,14 @@ public class MatchController {
 	
 	
 	
+	@GetMapping("/getFriendNotice")
+	public String getFriendNotice() {
+
+		return "friendNotice";
+	}
+	
 	@GetMapping("/addfriend")
-	public String getProduct() {
+	public String addFriendPage() {
 
 		return "addfriend";
 	}
