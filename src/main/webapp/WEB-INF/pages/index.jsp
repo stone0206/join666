@@ -269,7 +269,7 @@ a {
 							changefriend += '<div class="box"><p style="font-size: 30px;">'
 									+ random.name + '</p></div>'
 							changefriend += '<div style="text-align: center;"><a style="font-size: 25px; margin: auto;"><button onclick="changeone()">換一個'
-							changefriend += '</button></a> <a style="font-size: 25px; margin: auto;"><button id="addBtn" onclick="addNewFriend(${random.id})">送出邀請</button></a></div></div>'
+							changefriend += '</button></a> <a style="font-size: 25px; margin: auto;"><button id="addBtn" onclick="addNewFriend('+random.id+')">送出邀請</button></a></div></div>'
 
 							console.log(changefriend);
 							document.getElementById('onefriend').innerHTML = changefriend;
