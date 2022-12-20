@@ -70,6 +70,10 @@ public class ProductService {
 	public List<Product> getAllProductOnSell() {
 		return productDAO.getAllProductOnSell();
 	}
+
+	public List<Product> findAllProductOrderBySales() {
+		return productDAO.findAllProductOrderBySales();
+	}
 	
 	
 	
