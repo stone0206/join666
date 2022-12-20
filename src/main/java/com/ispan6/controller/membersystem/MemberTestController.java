@@ -188,10 +188,11 @@ public class MemberTestController {
 		return "memberbackend";
 	}
 	
-	@GetMapping("/findByGender")
-	public String findByGender(HttpSession session, @RequestParam(value = "male") int male, @RequestParam(value = "female") int female) {
-		List<MemberTest> members = mService.findByGender(male, female);
-		session.setAttribute("members", members);
-		return "memberbackend";
+	@PostMapping("/findByGender")
+	@ResponseBody
+	public List<MemberTest> findByGender(HttpSession session, @RequestParam(value = "male") Integer male, @RequestParam(value = "female") Integer female) {
+		List<MemberTest> members2 = mService.findByGender(male, female);
+		System.out.println(members2);
+		return members2;
 	}
 }

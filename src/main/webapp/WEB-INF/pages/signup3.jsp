@@ -228,6 +228,7 @@ input, button {
 						if (rex.test(accValue)) {
 							let formData = new FormData();
 							formData.append("account", accValue)
+// 							console.log(formData)
 							fetch("${contextRoot}/CheckAcc", { method: "POST", body: formData }).then(result => result.text()).then(message => {
 								if (message == "帳號重複") {
 									accLabel.html("<font color='red' size='-1'>帳號重複</font>");
