@@ -13,6 +13,7 @@
     <meta name="description" content="">
     <title>Page 1</title>
     <link rel="stylesheet" href="${contextRoot}/css/nicepage.css" media="screen">
+    <link rel="stylesheet" href="${contextRoot}/css/Page-1.css" media="screen">
 <link rel="stylesheet" href="Page-1.css" media="screen">
     <script class="u-script" type="text/javascript" src="${contextRoot}/js/jquery.js" defer=""></script>
     <script class="u-script" type="text/javascript" src="${contextRoot}/js/nicepage.js" defer=""></script>
@@ -34,8 +35,8 @@
     <meta property="og:type" content="website">
   </head>
   <body data-home-page="Page-1.html" data-home-page-title="Page 1" class="u-body u-xl-mode" data-lang="en"><header class="u-clearfix u-header u-header" id="sec-aa6a"><div class="u-clearfix u-sheet u-sheet-1">
-        <a href="https://nicepage.com" class="u-image u-logo u-image-1">
-          <img src="images/default-logo.png" class="u-logo-image u-logo-image-1">
+        <a href="" class="u-image u-logo u-image-1">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzwB-OrdgtRDu9vc4zg3aQTgxlzK62A79g2A&usqp=CAU" class="u-logo-image u-logo-image-1">
         </a>
         <nav class="u-menu u-menu-mega u-offcanvas u-menu-1">
           <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 700;">
@@ -44,23 +45,14 @@
               <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
 </g></svg>
             </a>
-          </div>
-          <div class="u-nav-container">
-            <ul class="u-nav u-spacing-20 u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-border-4 u-border-active-palette-1-base u-border-hover-grey-30 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-1-base" href="Home.html" style="padding: 15px 5px;">Home</a>
-</li><li class="u-nav-item"><a class="u-border-4 u-border-active-palette-1-base u-border-hover-grey-30 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-1-base" href="About.html" style="padding: 15px 5px;">About</a>
-</li><li class="u-nav-item"><a class="u-border-4 u-border-active-palette-1-base u-border-hover-grey-30 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-1-base" href="Contact.html" style="padding: 15px 5px;">Contact</a>
-</li><li class="u-nav-item"><a class="u-border-4 u-border-active-palette-1-base u-border-hover-grey-30 u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-1-base u-text-grey-90 u-text-hover-palette-1-base" href="Page-1.html" style="padding: 15px 5px;">Page 1</a>
-</li></ul>
+         
+
           </div>
           <div class="u-nav-container-collapse">
             <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
               <div class="u-inner-container-layout u-sidenav-overflow">
                 <div class="u-menu-close"></div>
-                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Home.html">Home</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="About.html">About</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Contact.html">Contact</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Page-1.html">Page 1</a>
-</li></ul>
+    
               </div>
             </div>
             <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
@@ -72,13 +64,7 @@
         <div class="u-clearfix u-gutter-0 u-layout-wrap u-layout-wrap-1">
           <div class="u-gutter-0 u-layout">
             <div class="u-layout-col">
-              <div class="u-size-30">
-                <div class="u-layout-row">
-                  <div class="u-container-style u-image u-layout-cell u-size-60 u-image-1" data-image-width="1280" data-image-height="853">
-                    <div class="u-container-layout u-valign-middle u-container-layout-1"></div>
-                  </div>
-                </div>
-              </div>
+ 
               <div class="u-size-30">
                 <div class="u-layout-row">
                   <div class="u-align-left u-container-style u-layout-cell u-size-60 u-layout-cell-2">

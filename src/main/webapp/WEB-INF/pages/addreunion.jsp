@@ -167,7 +167,7 @@
 							<div class="col-12">
 								<label for="address" class="form-label">聚會類型</label> <select
 									name="deptno" type="text" class="form-control" id="deptno"
-									autocomplete="off" name="reuniontype.reutid">
+									autocomplete="off" name="reuniontype">
 
 									<option value="none" selected disabled hidden>請選擇選項</option>
 									<option value="1">一般聚會</option>
@@ -184,7 +184,7 @@
 							<div class="col-12">
 								<label for="address" class="form-label">付款方式</label> <select
 									name="deptno" type="text" class="form-control" id="deptno"
-									autocomplete="off" name="payment.payid">
+									autocomplete="off" name="payment">
 
 									<option value="none" selected disabled hidden>請選擇付款方式</option>
 									<option value="1">男方請客</option>
@@ -220,6 +220,10 @@
 		</footer>
 	</div>
 
+
+				<!-- Bootstrap core JS-->
+				<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
+				<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 
 <script type="text/javascript" src="${contextRoot}/js/jquery-3.6.1.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="${contextRoot}/js/bootstrap.min.js"></script>

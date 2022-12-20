@@ -8,18 +8,15 @@
 
 <html>
 <head>
-      	    <link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet" />
 
-			<link id="style-switch" rel="stylesheet" type="text/css" href="${contextRoot}/css/style.css">
-			<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-			<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
+       <link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet" />
 
-<style>
-   
-</style>
+      <link id="style-switch" rel="stylesheet" type="text/css" href="${contextRoot}/css/style.css">
+						
+
+</head>
 
 
 <body>
@@ -169,9 +166,10 @@
 										</div>
 										<div class="flex-parent" style="margin-top: 4px;">
 											<div class=" long-and-truncated">
-												<span class="subtitle is-6 is-size-7-mobile"><fmt:formatDate
-														pattern="yyyy/MM/dd HH:mm EEEE"
-														value="${reunion.holdTime}" /></span>
+											<span class="subtitle is-6 is-size-7-mobile">${reunion.holdTime}</span>
+<%-- 												<span class="subtitle is-6 is-size-7-mobile"><fmt:formatDate --%>
+<%-- 														pattern="yyyy/MM/dd HH:mm EEEE" --%>
+<%-- 														value="${reunion.holdTime}" /></span> --%>
 											</div>
 
 										</div>
@@ -218,6 +216,9 @@
 </div>
 </div>
 </main>
+<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
+<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
+
 	<footer>
 		<jsp:include page="/WEB-INF/layout/footer.jsp" />
 	</footer>
