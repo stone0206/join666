@@ -38,17 +38,20 @@ public class Reunion {
 	@Column(name = "place", columnDefinition = "nvarchar(50)")
 	private String place;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "holdTime")
-	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss") // Java 環境內的格式
-	private Date holdTime;
+	
+	@Column(name = "holdTime")		// Java 環境內的格式
+	private String holdTime;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	
+//	@Temporal(TemporalType.TIMESTAMP)
+//	@Column(name = "reviewTime")
+//	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
+//	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss") // Java 環境內的格式
+//	private Date reviewTime;
+	
+	
 	@Column(name = "reviewTime")
-	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss") // Java 環境內的格式
-	private Date reviewTime;
+	private String reviewTime;
 
 	@Column(name = "people")
 	private Integer people;
@@ -111,19 +114,21 @@ public class Reunion {
 
 	
 
-	public Date getHoldTime() {
+
+
+	public String getHoldTime() {
 		return holdTime;
 	}
 
-	public void setHoldTime(Date holdTime) {
+	public void setHoldTime(String holdTime) {
 		this.holdTime = holdTime;
 	}
 
-	public Date getReviewTime() {
+	public String getReviewTime() {
 		return reviewTime;
 	}
 
-	public void setReviewTime(Date reviewTime) {
+	public void setReviewTime(String reviewTime) {
 		this.reviewTime = reviewTime;
 	}
 

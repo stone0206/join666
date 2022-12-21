@@ -118,7 +118,7 @@ public class ReunionsystemController {
 	@PostMapping("/insertReunion")
 	public String insertReunion(Reunion reunion) {
 		reunionsystemService.insertReunion(reunion);
-		return "reunion";
+		return "redirect:/msg/page";
 	}
 	
 	
@@ -130,12 +130,22 @@ public class ReunionsystemController {
 		return "NewFile";
 	}
 	
+	
+	
+	@GetMapping("/test2")
+	public String test2(Model model) {
+		
+		
+		return "detailedparty";
+	}
+	
 	@GetMapping("/myreunion")	
 	public String myreunion(HttpSession session) {
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
 		if(member != null) {
 			System.out.println(member);
-			 reunionsystemService.findAllByMemberId(member.getId());
+			List<Reunion> reunion=reunionsystemService.findAllByMemberId(member.getId());
+			session.setAttribute("reunion", reunion);
 			
 		}
 		
