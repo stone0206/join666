@@ -53,9 +53,10 @@ public class FrontendController {
 	public String goToMall() {
 		return "productpage2";
 	}
-	
+
 	/**
 	 * 重置整個網頁，同時將資料product、label、type存進session
+	 * 
 	 * @param session
 	 * @return
 	 */
@@ -68,6 +69,7 @@ public class FrontendController {
 
 	/**
 	 * 開啟購物車時取得商品資料
+	 * 
 	 * @param session
 	 * @param model
 	 */
@@ -83,6 +85,7 @@ public class FrontendController {
 
 	/**
 	 * 商品按照價格高到低進行排序
+	 * 
 	 * @param model
 	 * @return
 	 */
@@ -94,6 +97,7 @@ public class FrontendController {
 
 	/**
 	 * 商品按照價格低到高進行排序
+	 * 
 	 * @param model
 	 * @return
 	 */
@@ -102,7 +106,7 @@ public class FrontendController {
 	public List<Product> priceLowToHight() {
 		return productService.findAllProductOrderByPriceAsc();
 	}
-	
+
 	@GetMapping("/salesH2L")
 	@ResponseBody
 	public List<Product> salesLowToHight() {
@@ -110,47 +114,35 @@ public class FrontendController {
 	}
 
 	/**
-	 * 按照商品類型進行查找
-	 * @param id
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("/searchByTypeId")
-	public String searchByTypeId(@RequestParam Integer id, Model model) {
-		List<Product> products = productService.findByTypeId(id);
-		model.addAttribute("products", products);
-		return "productpage";
-	}
-
-	/**
-	 * 按照商品標籤進行查找
-	 * @param id
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("/searchByLabelId")
-	public String searchByLabelId(@RequestParam Integer id, Model model) {
-		List<Product> products = productService.findByLabelId(id);
-		model.addAttribute("products", products);
-		return "productpage";
-	}
-
-	/**
 	 * 按照商品價格範圍進行查找
+	 * 
 	 * @param lowPrice
 	 * @param highPrice
 	 * @param model
 	 * @return
 	 */
-	@PostMapping("/searchByHLPrice")
-	public String searchByHLPrice(@RequestParam Integer lowPrice, Integer highPrice, Model model) {
-		List<Product> products = productService.findAllByPrice(lowPrice, highPrice);
-		model.addAttribute("products", products);
-		return "productpage";
+	@GetMapping("/searchByHLPrice")
+	@ResponseBody
+	public List<Product> searchByHLPrice(@RequestParam Integer lowPrice, Integer highPrice) {
+		return productService.findAllByPrice(lowPrice, highPrice);
+	}
+
+	@GetMapping("/searchByKey")
+	@ResponseBody
+	public List<Product> searchByKey(@RequestParam String keyword) {
+		return productService.findAllProductByName(keyword);
+	}
+
+	@GetMapping("/getRecommand")
+	@ResponseBody
+	public Product getRecommand() {
+		int id = (int) (Math.random() * 24 + 1);
+		return productService.findById(id);
 	}
 
 	/**
 	 * 新增商品進購物車
+	 * 
 	 * @param id
 	 * @param session
 	 * @return
@@ -195,6 +187,7 @@ public class FrontendController {
 
 	/**
 	 * 刪除購物車商品
+	 * 
 	 * @param sciId
 	 * @param session
 	 * @return
@@ -209,6 +202,7 @@ public class FrontendController {
 
 	/**
 	 * 點擊確認結帳後送出到訂單確認頁面
+	 * 
 	 * @return
 	 */
 	@GetMapping("/sendCartToCheck")
@@ -228,12 +222,14 @@ public class FrontendController {
 
 	/**
 	 * 新增訂單
+	 * 
 	 * @param session
 	 * @return
 	 */
 	@PostMapping("/checkedOrder")
-	public String sendOrderToCheck(@RequestParam String mname,String mtel,String memail,String city,String area,String addrDetail,HttpSession session) {
-		//串接會員地址
+	public String sendOrderToCheck(@RequestParam String mname, String mtel, String memail, String city, String area,
+			String addrDetail, HttpSession session) {
+		// 串接會員地址
 		String address = city + area + addrDetail;
 		// 取得會員id
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
@@ -263,10 +259,10 @@ public class FrontendController {
 		orderBean.setMail(memail);
 		// 設定收件人地址
 		orderBean.setAddr(address);
-		//  設定訂單項目
+		// 設定訂單項目
 		List<OrderItems> oiList = new ArrayList<OrderItems>();
 		for (ShoppingCartItem item : items) {
-			//創建訂單項目
+			// 創建訂單項目
 			OrderItems orderItem = new OrderItems();
 			orderItem.setCount(item.getCount());
 			orderItem.setTotalPrice(item.getCount() * item.getProduct().getPrice());
@@ -276,18 +272,19 @@ public class FrontendController {
 		}
 		orderBean.setOrderItems(oiList);
 		orderBeanService.save(orderBean);
-		//清空購物車
-		
+		// 清空購物車
+		shoppingCartItemService.deleteAll(items);
 		return "redirect:/toMyOrderPage";
 	}
-	
+
 	@GetMapping("/toMyOrderPage")
 	public String toMyOrderPage() {
 		return "myorderpage";
 	}
-	
+
 	/**
 	 * 調整購物車數量
+	 * 
 	 * @param count
 	 * @param id
 	 * @param session
@@ -295,24 +292,24 @@ public class FrontendController {
 	 */
 	@GetMapping("/changeCartItem")
 	@ResponseBody
-	public List<ShoppingCartItem> changeCartItem(@RequestParam Integer count,Integer id,HttpSession session){
+	public List<ShoppingCartItem> changeCartItem(@RequestParam Integer count, Integer id, HttpSession session) {
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
-		ShoppingCartItem items = shoppingCartItemService.findByMemberIdAndProductId(member.getId(),id);
+		ShoppingCartItem items = shoppingCartItemService.findByMemberIdAndProductId(member.getId(), id);
 		items.setCount(count);
 		shoppingCartItemService.addToCart(items);
 		return shoppingCartItemService.findAllByMemberId(member.getId());
 	}
-	
+
 	@GetMapping("/openMyOrder")
 	@ResponseBody
 	public List<OrderBean> openMyOrder(HttpSession session) {
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
 		return orderBeanService.findByMemberId(member.getId());
 	}
-	
+
 	@GetMapping("/openMyOrderDetail")
 	@ResponseBody
-	public List<OrderItems> openMyOrderDetail(@RequestParam Integer orderId){
+	public List<OrderItems> openMyOrderDetail(@RequestParam Integer orderId) {
 		return orderItemService.findAllByOrderId(orderId);
 	}
 

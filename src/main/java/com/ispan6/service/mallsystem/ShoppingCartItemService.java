@@ -42,5 +42,9 @@ public class ShoppingCartItemService {
 		shoppingCartItemDao.deleteById(sciId);
 	}
 
+	public void deleteAll(List<ShoppingCartItem> items) {
+		shoppingCartItemDao.deleteAll(items);
+	}
+
 	
 }

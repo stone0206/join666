@@ -74,6 +74,10 @@ public class ProductService {
 	public List<Product> findAllProductOrderBySales() {
 		return productDAO.findAllProductOrderBySales();
 	}
+
+	public List<Product> findAllProductByName(String keyword) {
+		return productDAO.findBySearch(keyword);
+	}
 	
 	
 	
