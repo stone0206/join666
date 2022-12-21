@@ -82,6 +82,13 @@ public class MemberTest {
 	public MemberTest() {
 		super();
 	}
+	
+	//嘗試用這個建構子去接Google登入傳回來的資料，尚未成功
+	public MemberTest(String email, String name, String picture) {
+		this.email = email;
+		this.name = name;
+		this.avator = picture;
+	}
 
 	@PrePersist  // 當物件要從 Transient 狀態轉換成 Persistent 狀態時，先做...
 	public void prePersist() {
