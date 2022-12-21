@@ -148,9 +148,12 @@
 				
 				
 				<c:forEach var="reunion" items="${reunion}">
+				
 					<div class="col">
 						<div class="card shadow-sm">
+						<a href="/detailedreunion?id=${reunion.reunionid}">
 							<img src="${reunion.picture}" style="max-width: 100%;  height: 450px;  ">
+							</a>
 							<div class="card-body">
 								<p class="card-text">${reunion.topic}</p>
 								<div class="d-flex justify-content-between align-items-center">
@@ -204,6 +207,7 @@
 							</div>
 						</div>
 					</div>
+					
 				</c:forEach>
 				
 				

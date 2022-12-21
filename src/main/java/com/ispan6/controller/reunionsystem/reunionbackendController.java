@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ispan6.bean.reunionsystem.Reunionreport;
 import com.ispan6.service.reunionsystem.ReunionreportService;
@@ -23,6 +24,14 @@ public class reunionbackendController {
 		List<Reunionreport> reunionreport = ReunionreportService.getAllReunionreport();
 		model.addAttribute("reunionreport",reunionreport);
 		return "reunionbackend";
+	}
+	@GetMapping("/msg/testGet")
+	@ResponseBody
+	public Reunionreport test(Model model) {
+		
+		List<Reunionreport> reunionreport = ReunionreportService.getAllReunionreport();
+		model.addAttribute("reunionreport",reunionreport);
+		return reunionreport.get(0);
 	}
 	//deleteReunionreport
 	

@@ -121,6 +121,13 @@ public class ReunionsystemController {
 		return "redirect:/msg/page";
 	}
 	
+	//新增報名
+	@PostMapping("/insertRegister")
+	public String insertRegister(Register register) {
+		reunionsystemService.insertReunion(reunion);
+		return "redirect:/msg/page";
+	}
+	
 	
 	
 	@GetMapping("/test")
@@ -136,7 +143,7 @@ public class ReunionsystemController {
 	public String test2(Model model) {
 		
 		
-		return "detailedparty";
+		return "detailedreunion";
 	}
 	
 	@GetMapping("/myreunion")	
@@ -153,6 +160,12 @@ public class ReunionsystemController {
 		return "myreunion";
 	}
 	
+	@GetMapping("/detailedreunion")
+	public String detailedreunion(@RequestParam Integer id, Model model) {
+		Reunion reunion = reunionsystemService.findByReunionId(id);
+		model.addAttribute("reunion", reunion);
+		return "detailedreunion";
+	}
 	
 	
 	

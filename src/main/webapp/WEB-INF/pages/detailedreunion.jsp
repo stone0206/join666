@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="keywords" content="INTUITIVE">
     <meta name="description" content="">
-    <title>Page 1</title>
+    <title>detailedreunion</title>
      <link rel="stylesheet" href="${contextRoot}/css/nicepage.css" media="screen">
     <link rel="stylesheet" href="${contextRoot}/css/Home.css" media="screen">
     <script class="u-script" type="text/javascript" src="${contextRoot}/js/jquery.js" defer=""></script>
@@ -41,24 +41,22 @@
           <img src="images/default-logo.png" class="u-logo-image u-logo-image-1">
         </a>
       </div></header>
+      
     <section class="u-clearfix u-section-1" id="sec-0a24">
       <div class="u-clearfix u-sheet u-sheet-1">
-        <img class="u-image u-image-default u-image-1" src="images/514461518fe094f82566474a9e859106779838a987d033e8284259ffa7fa8151c1bb708f7c0d1b20a71934f5c583d65fd12ae64858e66205a89ad0_1280.jpg" alt="" data-image-width="1280" data-image-height="853">
-        <h1 class="u-text u-text-default u-text-1">輕鬆打網球，健康不發胖</h1>
-        <p class="u-text u-text-2"> 星期日,十二月 4日 10:20(最後審核星期日,十二月 4日 10:20)</p>
+        <img class="u-image u-image-default u-image-1" src="${reunion.picture}">
+        <h1 class="u-text u-text-default u-text-1">${reunion.topic}</h1>
+        <p class="u-text u-text-2"> ${reunion.holdTime}(最後審核${reunion.reviewTime})</p>
         <a href="https://nicepage.best" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius-6 u-text-body-color u-text-hover-white u-btn-1">檢舉</a>
         <p class="u-text u-text-3">報名人數</p>
         <p class="u-text u-text-4">4人</p>
+        <c:if test="${loginUser==null}">
         <a href="https://nicepage.com/html-website-builder" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">報名</a>
-        <p class="u-text u-text-5"> 📣歡迎大家以球會友<br>欸v八底跟我動起來🏸️<br>
-          <br>⚠️輕鬆打、開心打<br>⚠️新手友善<br>⚠️好相處的優先<br>
-          <br>
-          <br>💰可以接受先付款再報名喔<br>（保護其他準時到的乖寶寶）<br>
-          <br>還有其他朋友，可以接受再報名喔😊📣歡迎大家以球會友<br>欸v八底跟我動起來🏸️<br>
-          <br>⚠️輕鬆打、開心打<br>⚠️新手友善<br>⚠️好相處的優先<br>
-          <br>
-          <br>💰可以接受先付款再報名喔<br>（保護其他準時到的乖寶寶）<br>
-          <br>還有其他朋友，可以接受再報名喔😊
+        </c:if>
+        <c:if test="${loginUser!=null}">
+        <a href="https://nicepage.com/html-website-builder" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">請登入報名</a>
+        </c:if>
+        <p class="u-text u-text-5"> ${reunion.content}
         </p><span class="u-icon u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 59.51 59.51" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-e5a9"></use></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content" viewBox="0 0 59.51 59.51" x="0px" y="0px" id="svg-e5a9" style="enable-background:new 0 0 59.51 59.51;"><polygon style="fill:#FFFFFF;" points="53.057,24.76 43.057,24.76 17.057,24.76 7.057,24.76 3.402,53.76 56.171,53.76 "></polygon><path style="fill:#556080;" d="M53.057,24.76l3.114,29H3.402l3.655-29h10h26H53.057 M55.752,21.76h-2.695h-10h-26h-10H4.411
 	L4.08,24.385l-3.655,29L0,56.76h3.402h52.769h3.339l-0.357-3.32l-3.114-29L55.752,21.76L55.752,21.76z"></path><path style="fill:#EBBA16;" d="M13.684,49.76c-0.257,0-0.513-0.016-0.769-0.047c-0.218-0.026-0.438-0.067-0.653-0.124
 	c-0.535-0.138-0.856-0.684-0.718-1.218c0.138-0.535,0.683-0.86,1.218-0.718c0.132,0.033,0.264,0.059,0.396,0.075
@@ -98,16 +96,17 @@
 		s7.346-3.295,7.346-7.346C37.368,9.276,34.073,5.981,30.023,5.981z M30.023,18.672c-2.947,0-5.346-2.398-5.346-5.346
 		s2.398-5.345,5.346-5.345s5.346,2.397,5.346,5.345S32.97,18.672,30.023,18.672z"></path>
 </g></svg></span>
-        <p class="u-text u-text-6"> 台北市中山區長安東路二段長安東路二段</p><span class="u-file-icon u-icon u-icon-2"><img src="images/1235446.png" alt=""></span><span class="u-file-icon u-icon u-icon-3"><img src="images/4305512.png" alt=""></span><span class="u-file-icon u-icon u-icon-4"><img src="images/1769041.png" alt=""></span>
-        <p class="u-text u-text-7">我請客<span style="font-size: 1.125rem;"></span>
+        <p class="u-text u-text-6"> ${reunion.place}</p><span class="u-file-icon u-icon u-icon-2"><img src="images/1235446.png" alt=""></span><span class="u-file-icon u-icon u-icon-3"><img src="images/4305512.png" alt=""></span><span class="u-file-icon u-icon u-icon-4"><img src="images/1769041.png" alt=""></span>
+        <p class="u-text u-text-7">${reunion.payment.paytype}<span style="font-size: 1.125rem;"></span>
         </p>
-        <p class="u-text u-text-8">4人</p>
-        <p class="u-text u-text-default u-text-9">300</p>
+        <p class="u-text u-text-8">${reunion.people}人</p>
+        <p class="u-text u-text-default u-text-9">${reunion.budget}</p>
       </div>
     </section>
     <section class="u-align-center u-clearfix u-section-2" id="sec-39b4">
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1"></div>
     </section>
+
     
     
     			<!-- Bootstrap core JS-->

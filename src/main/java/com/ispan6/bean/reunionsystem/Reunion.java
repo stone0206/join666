@@ -1,7 +1,5 @@
 package com.ispan6.bean.reunionsystem;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,12 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ispan6.bean.membersystem.MemberTest;
 
 @Entity
 @Table(name = "Reunion")
@@ -71,9 +65,17 @@ public class Reunion {
 	@Column(name = "picture")
 	private String picture;
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name="memberId", columnDefinition = "nvarchar(50)")
-//	private Integer memberId;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="memberid")
+	private MemberTest memberTest;
+
+	public MemberTest getMemberTest() {
+		return memberTest;
+	}
+
+	public void setMemberTest(MemberTest memberTest) {
+		this.memberTest = memberTest;
+	}
 
 	public String getTopic() {
 		return topic;
