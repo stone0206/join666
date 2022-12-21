@@ -40,7 +40,7 @@
 
 				/* 搜索欄位置固定 */
 				#search-form {
-					width: 400px;
+					width: 370px;
 					height: 38px;
 					border: 1px solid grey;
 					border-radius: 5px;
@@ -159,36 +159,38 @@
 						<div class="row">
 							<!-- 左側邊欄 -->
 							<div class="col-3">
-								<div id="dailyrecommand">
-									<h3>本日推薦</h3>
-									<div class="commandhead" style="margin-bottom: 10px;">
-										<a href="#">
-											<img src="${contextRoot}/assets/productimg/1.jpeg"></a>
-									</div>
-									<div class="commandbody">
-										<div>
-											<h5>商品名稱</h5>
-										</div>
-										<div>
-											<span>信箱之類熟悉點頭，版權類熟悉點頭，版權類熟悉點頭，版權類熟悉點頭，版權...</span>
-										</div>
+								<div id="dailyrecommand" style="background-color: white;">
+									<h3>推薦商品</h3>
+									<div id="recommandItems">
+
 									</div>
 								</div>
 
 								<div id="query" style="background-color: white;">
 									<h6>類型</h6>
-									<div id="type-query">
-										<a href="">123</a>
-										<a href="">123</a>
-										<a href="">123</a>
+									<div class="row">
+										<div class="col-6"><input type="checkbox" name="" id="">派對道具</div>
+										<div class="col-6"><input type="checkbox" name="" id="">桌遊</div>
+									</div>
+									<div class="row" style="margin-bottom: 10px;">
+										<div class="col-6"><input type="checkbox" name="" id="">裝飾用品</div>
+										<div class="col-6"><input type="checkbox" name="" id="">票券</div>
 									</div>
 									<h6>標籤</h6>
-									<div id="label-query">
-										<a href="">123</a>
-										<a href="">123</a>
-										<a href="">123</a>
+									<div class="row">
+										<div class="col-6"><input type="checkbox" name="" id="">New</div>
+										<div class="col-6"><input type="checkbox" name="" id="">Discount</div>
+									</div>
+									<div class="row" style="margin-bottom: 10px;">
+										<div class="col-6"><input type="checkbox" name="" id="">Hot</div>
 									</div>
 									<h6>價格</h6>
+									<form action="/" method="post">
+										<input type="text" style="width: 60px;" placeholder="最低價" id="lP"> 一
+										<input type="text" style="width: 60px; margin-right: 10px;" placeholder="最高價"
+											id="hP">
+										<input type="submit" value="送出" id="form-btn">
+									</form>
 								</div>
 
 							</div>
@@ -197,7 +199,7 @@
 								<div class="row">
 									<div id="search-div" class="col-9">
 										<!-- 搜尋表單 -->
-										<form class="d-flex" id="search-form" action="/searchByKey" method="post">
+										<form class="d-flex" id="search-form" method="get">
 											<!-- 搜尋框 -->
 											<input id="text-btn" type="text" placeholder="請輸入欲搜尋的關鍵字">
 											<!-- 搜尋按鈕 -->
@@ -206,11 +208,11 @@
 											</button>
 										</form>
 										<!-- 以圖搜尋 -->
-										<form action="" id="img-form">
+										<!-- <form action="" id="img-form">
 											<button id="img-btn">
 												<i class="bi bi-card-image"></i>
 											</button>
-										</form>
+										</form> -->
 									</div>
 									<!-- 排序 -->
 									<div class="col-3">
@@ -231,6 +233,9 @@
 											</ul>
 										</div>
 									</div>
+								</div>
+								<div class="col" style="margin-bottom: 10px;font-size: 10px; color: grey;">
+									123
 								</div>
 								<!-- 商品欄位 -->
 								<div class="row row-cols-md-3 justify-content-center" id="productDiv">
@@ -270,7 +275,6 @@
 								<!-- 訂單表格 -->
 								<table id="order-list-table">
 									<!-- 訂單標題 -->
-									<th><input type="checkbox"></th>
 									<th>圖片</th>
 									<th>名稱</th>
 									<th>數量</th>
@@ -299,12 +303,28 @@
 
 				<!-- 結帳單裡面的js元素 -->
 				<script>
+					//資料暫存區
+					var temp = [];
+
+
 					//商品欄位刷新
 					window.onload = function () {
-						fetch("${contextRoot}/getProduct").then(res => res.json()).then(data => changeProductItem(data))
+						fetch("${contextRoot}/getProduct").then(res => res.json()).then(data => temp = data).then(temp => changeProductItem(temp)),
+							fetch("${contextRoot}/getRecommand").then(res => res.json()).then(data => changeRecommandItem(data))
 					}
 
-
+					function changeRecommandItem(json) {
+						let recommandItem = '';
+						recommandItem += '<div class="commandhead" style="margin-bottom: 10px;">'
+						recommandItem += '<a href="#"><img src="${contextRoot}/' + json.img + '"></a></div>'
+						recommandItem += '<div class="commandbody"><div><h5>' + json.name + '</h5></div>'
+						let desc = json.desc;
+						if (desc.length > 35) {
+							desc = desc.substring(0, 35) + '...  <a href="" style="text-decoration:none;">(查看更多)</a>';
+						}
+						recommandItem += '<div><span>' + desc + '</span></div></div>'
+						document.getElementById('recommandItems').innerHTML = recommandItem
+					}
 
 					function changeProductItem(json) {
 						let productData = '';
@@ -338,18 +358,47 @@
 						document.getElementById('productDiv').innerHTML = productData;
 					}
 
+
+
 					//排序系統
 					function priceH2L() {
-						fetch('${contextRoot}/priceH2L').then(res => res.json()).then(json => changeProductItem(json))
+						temp.sort(function (a, b) {
+							return b.price - a.price;
+						})
+						changeProductItem(temp)
 					}
 
 					function priceL2H() {
-						fetch('${contextRoot}/priceL2H').then(res => res.json()).then(json => changeProductItem(json))
+						temp.sort(function (a, b) {
+							return a.price - b.price;
+						})
+						changeProductItem(temp)
 					}
 
 					function salesH2L() {
-						fetch('${contextRoot}/salesH2L').then(res => res.json()).then(json => changeProductItem(json))
+						temp.sort(function (a, b) {
+							return b.sales - a.sales;
+						})
+						changeProductItem(item)
 					}
+
+					//使用
+					$('#form-btn').click(function (e) {
+						e.preventDefault();
+						let hp = $('#hP').val();
+						let lp = $('#lP').val();
+						fetch('${contextRoot}/searchByHLPrice?lowPrice=' + lp + '&highPrice=' + hp).then(res => res.json()).then(json => temp = json)
+						changeProductItem(temp)
+						$('#hP').val('')
+						$('#lP').val('')
+					})
+
+					$('#search-btn').click(function (e) {
+						e.preventDefault();
+						let keyword = $('#text-btn').val();
+						fetch('${contextRoot}/searchByKey?keyword=' + keyword).then(res => res.json()).then(json => temp = json)
+						changeProductItem(temp)
+					})
 
 
 					//購物車系統
@@ -357,7 +406,7 @@
 						let shoppingCartData = '';
 						let totalPrice = 0;
 						$.each(json, function (index, value) {
-							shoppingCartData += '<tr><td style="width:20px"><input type="checkbox"></td><td><div id="imgbox"><img src='
+							shoppingCartData += '<tr><td><div id="imgbox"><img src='
 							shoppingCartData += value.product.img + ' alt=""></div></td>'
 							shoppingCartData += '<td style="width:150px">' + value.product.name + '</td>'
 							shoppingCartData += '<td><input type="tel" value="' + value.count + '" style="width:40px;text-align:center"'
