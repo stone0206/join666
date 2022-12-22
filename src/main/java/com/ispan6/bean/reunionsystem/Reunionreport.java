@@ -23,14 +23,20 @@ public class Reunionreport {
 	private Integer reunionreportid ;
 	
 	
+	@Column(name="reunionid ")
+	private Integer reunionid ;
+	
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="reunionid")
+	@JoinColumn(name="reunionid",referencedColumnName ="reunionid",insertable=false,updatable=false)
 	private Reunion reunion ;
 	
-
+	@Column(name="memberid ")
+	private Integer memberid ;
 	
+
+
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="memberid")
+	@JoinColumn(name="memberid",referencedColumnName="m_id",insertable=false,updatable=false)
 	private MemberTest memberTest ;
 	
 	@Column(name="content",columnDefinition ="nvarchar(50)")
@@ -68,6 +74,22 @@ public class Reunionreport {
 
 	public void setMemberTest(MemberTest memberTest) {
 		this.memberTest = memberTest;
+	}
+
+	public Integer getReunionid() {
+		return reunionid;
+	}
+
+	public void setReunionid(Integer reunionid) {
+		this.reunionid = reunionid;
+	}
+
+	public Integer getMemberid() {
+		return memberid;
+	}
+
+	public void setMemberid(Integer memberid) {
+		this.memberid = memberid;
 	}
 	
 	

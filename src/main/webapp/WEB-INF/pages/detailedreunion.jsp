@@ -47,14 +47,57 @@
         <img class="u-image u-image-default u-image-1" src="${reunion.picture}">
         <h1 class="u-text u-text-default u-text-1">${reunion.topic}</h1>
         <p class="u-text u-text-2"> ${reunion.holdTime}(最後審核${reunion.reviewTime})</p>
-        <a href="https://nicepage.best" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius-6 u-text-body-color u-text-hover-white u-btn-1">檢舉</a>
+<%--         <c:if test="${loginUser!=null}"> --%>
+<%--         <a href="/insertReunionreport?id=${reunion.reunionid}" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius-6 u-text-body-color u-text-hover-white u-btn-1">檢舉</a> --%>
+<%--          </c:if> --%>
+         <c:if test="${loginUser==null}">
+        <a href="" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius-6 u-text-body-color u-text-hover-white u-btn-1">請登入檢舉</a>
+        </c:if>
+         <c:if test="${loginUser!=null}">
+        <button type="button" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius-6 u-text-body-color u-text-hover-white u-btn-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">檢舉</button>
+        </c:if>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">檢舉聚會</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form  action="/insertReunionreport" method="post">
+          <div class="mb-3">
+<!--             <label for="recipient-name" class="col-form-label" type="hidden">聚會id</label> -->
+            <input type="hidden" class="form-control" id="recipient-name" name="reunionid" value="${reunion.reunionid}" readonly  >
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">檢舉內容</label>
+            <textarea class="form-control" id="message-text" name="content"></textarea>
+          </div>
+          
+           <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">離開</button>
+        <button type="submit" class="btn btn-primary"  >確定</button>
+      </div>
+        </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
+        
+ 
         <p class="u-text u-text-3">報名人數</p>
         <p class="u-text u-text-4">4人</p>
-        <c:if test="${loginUser==null}">
-        <a href="https://nicepage.com/html-website-builder" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">報名</a>
-        </c:if>
         <c:if test="${loginUser!=null}">
-        <a href="https://nicepage.com/html-website-builder" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">請登入報名</a>
+<%--         <c:if test="${loginUser.reunion.reunionid!=null}"> --%>
+         <a href="" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">審核</a>
+<%--         </c:if> --%>
+<%--         ${loginUser} --%>
+        <a href="/insertRegister?id=${reunion.reunionid}" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">報名</a>
+        
+        </c:if>
+        <c:if test="${loginUser==null}">
+        <a href="" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">請登入報名</a>
         </c:if>
         <p class="u-text u-text-5"> ${reunion.content}
         </p><span class="u-icon u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 59.51 59.51" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-e5a9"></use></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content" viewBox="0 0 59.51 59.51" x="0px" y="0px" id="svg-e5a9" style="enable-background:new 0 0 59.51 59.51;"><polygon style="fill:#FFFFFF;" points="53.057,24.76 43.057,24.76 17.057,24.76 7.057,24.76 3.402,53.76 56.171,53.76 "></polygon><path style="fill:#556080;" d="M53.057,24.76l3.114,29H3.402l3.655-29h10h26H53.057 M55.752,21.76h-2.695h-10h-26h-10H4.411
@@ -96,8 +139,8 @@
 		s7.346-3.295,7.346-7.346C37.368,9.276,34.073,5.981,30.023,5.981z M30.023,18.672c-2.947,0-5.346-2.398-5.346-5.346
 		s2.398-5.345,5.346-5.345s5.346,2.397,5.346,5.345S32.97,18.672,30.023,18.672z"></path>
 </g></svg></span>
-        <p class="u-text u-text-6"> ${reunion.place}</p><span class="u-file-icon u-icon u-icon-2"><img src="images/1235446.png" alt=""></span><span class="u-file-icon u-icon u-icon-3"><img src="images/4305512.png" alt=""></span><span class="u-file-icon u-icon u-icon-4"><img src="images/1769041.png" alt=""></span>
-        <p class="u-text u-text-7">${reunion.payment.paytype}<span style="font-size: 1.125rem;"></span>
+        <p class="u-text u-text-6" ><a href="https://www.google.com.tw/maps/place/${reunion.place}" target="_blank">${reunion.place}</a></p><span class="u-file-icon u-icon u-icon-2"><img src="images/1235446.png" alt=""></span><span class="u-file-icon u-icon u-icon-3"><img src="images/4305512.png" alt=""></span><span class="u-file-icon u-icon u-icon-4"><img src="images/1769041.png" alt=""></span>
+        <p class="u-text u-text-7">${reunion.pay.paytype}<span style="font-size: 1.125rem;"></span>
         </p>
         <p class="u-text u-text-8">${reunion.people}人</p>
         <p class="u-text u-text-default u-text-9">${reunion.budget}</p>
