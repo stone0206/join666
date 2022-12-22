@@ -122,13 +122,9 @@ input, button {
 	<jsp:include page="/WEB-INF/layout/navbar.jsp" />
 	<form action="/insertMember" id="form1" method="post">
 		<div class="signup_page">
-			<div id="container2">
-
+			<div id="container1">
 				<div class="signup">
-
 					<h3>請輸入個人資料</h3>
-
-					<%-- 				<form action="/insertMember" id="form2" method="post"> --%>
 					<input type="text" id="name" class="fullname" name="name"
 						placeholder="暱稱" required>
 					<div class="tab"></div>
@@ -146,9 +142,8 @@ input, button {
 							id="gender" name="gender" value="2">女
 					</div>
 					<div class="tab"></div>
-
 					<button type="submit" class="submit" id="submitBoth">註冊</button>
-					<button class="submit" id="lastBtn">上一步</button>
+					<button class="submit" id="lastBtn">取消</button>
 
 				</div>
 			</div>
@@ -260,7 +255,7 @@ input, button {
 					$("#cancel").click(function(event) {
 						event.preventDefault(); //取消預設行為
 						location.href='https://localhost:8080/index';
-						window.history.back(); //返回上一頁
+// 						window.history.back(); //返回上一頁
 						})
 
 				</script>
