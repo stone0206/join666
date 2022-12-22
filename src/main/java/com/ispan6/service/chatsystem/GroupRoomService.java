@@ -28,6 +28,7 @@ public class GroupRoomService {
 		groupRoomDAO.save(groupRoom);
 	}
 	
+	//查群組
 	public List<GroupRoom> userHaveGroupSelect(List<Participants> pList) {
 		ArrayList<Integer> id=new ArrayList<Integer>();
 		if (pList.isEmpty()) {
@@ -47,5 +48,9 @@ public class GroupRoomService {
 		}
 	}
 	
-//	public List<GroupRoom> 
+	
+	//查聊天室所有東西
+	public List<GroupRoom> selectGroupRoom(ArrayList<Integer> groupId){
+		return groupRoomDAO.userHaveGroupSelect(groupId);
+	}
 }

@@ -39,4 +39,9 @@ public class MessageService {
 		
 		return messageDAO.findWhoSender(senderId);
 	}
+	
+	//查某群組有什麼訊息
+	public List<MessageContent>	findeGroupMessage(Integer groupId){
+		return messageDAO.findeGroupMessage(groupId);
+	}
 }

@@ -107,6 +107,7 @@ public class ReunionsystemController {
 	}
 	
 	//新增報名
+
 	@GetMapping("/insertRegister")
 	@ResponseBody
 	public String insertRegister(@RequestParam Integer id,HttpSession session) {				
@@ -152,6 +153,14 @@ public class ReunionsystemController {
 		return "reunion";
 	}
 	
+
+//	@PostMapping("/insertRegister")
+//	public String insertRegister(Register register) {
+//		reunionsystemService.insertReunion(reunion);
+//		return "redirect:/msg/page";
+//	}
+//	
+
 	
 	
 	@GetMapping("/test")

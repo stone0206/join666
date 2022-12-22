@@ -10,8 +10,16 @@ import com.ispan6.bean.matchsystem.MatchBean;
 
 public interface MatchDAO extends JpaRepository<MatchBean, Integer> {
 	
-	@Query(value = "SELECT * from friend where userid = ?1 and isfriend=1 ", nativeQuery = true)
-	public MatchBean findMyFriend(Integer id);
+	@Query(value = "SELECT * from friend where (userid = ?1 or fuid=?2)and isfriend=1 ", nativeQuery = true)
+	public List<MatchBean> findMyFriend(Integer id,Integer fid);
+	
+	
+	
+	@Query(value = "SELECT * from friend where userid = ?1 and isfriend=0 ", nativeQuery = true)
+	public List<MatchBean> findMyInvitation(Integer id);
+	
+	@Query(value = "SELECT * from friend where fuid = ?1 and isfriend=0 ", nativeQuery = true)
+	public List<MatchBean> findWhoSendInvitation(Integer id);
 	
 	@Query(value = "SELECT * from friend where userid = ?1 and fuid=?2 ", nativeQuery = true)
 	public MatchBean findFriend(Integer uid,Integer fid);

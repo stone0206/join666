@@ -27,14 +27,7 @@ public class MessageController {
 	@Autowired
 	private MessageService messageService;
 	
-	//新增訊息
-	@PostMapping(path="/msg/add",produces = "application/json; charset=UTF-8")
-	@ResponseBody
-	public MessageContent insertMessage(@RequestParam String text,@RequestParam Integer senderId,@RequestParam Integer groupId,Model m) {
-		MessageContent msgText = messageService.insertMessage(text, senderId, groupId);
-		
-		return msgText;
-	}
+	
 	
 	
 	
