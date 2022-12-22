@@ -49,6 +49,9 @@ public class GroupRoom {
 	@Column(name="GROUPTYPE")
 	private int groupType;
 	
+	@Column(name="GROUPPHOTO")
+	private String groupPhoto;
+	
 	//一個聊天室 不重複玩家
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "groupRoomId",cascade = CascadeType.ALL)
 	private Set<Participants> participants=new HashSet<Participants>();
@@ -81,7 +84,15 @@ public class GroupRoom {
 	public void setGroupType(int groupType) {
 		this.groupType = groupType;
 	}
+	
+	
 
+	public String getGroupPhoto() {
+		return groupPhoto;
+	}
+	public void setGroupPhoto(String groupPhoto) {
+		this.groupPhoto = groupPhoto;
+	}
 	public Set<Participants> getParticipants() {
 		return participants;
 	}
