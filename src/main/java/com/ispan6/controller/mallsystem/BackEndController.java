@@ -52,7 +52,6 @@ public class BackEndController {
 		List<ProductType> types = productTypeService.findAllType();
 		session.setAttribute("types", types);
 		session.setAttribute("labels", labels);
-		session.setAttribute("products", products);
 		return "productbackend";
 	}
 

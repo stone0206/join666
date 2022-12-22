@@ -45,8 +45,15 @@
 					border: 1px solid grey;
 					border-radius: 38px;
 					background-color: white;
-					display: inline-block;
+					position: relative;
 				}
+
+				#img-form {
+					position: absolute;
+					right: 10px;
+					top: 7px;
+				}
+
 
 				/* 購物車位置固定 */
 				#shopping-cart {
@@ -179,21 +186,23 @@
 							</ul>
 						</div>
 
-
-						<!-- 搜尋表單 -->
-						<form class="d-flex" id="search-form" action="/searchByKey" method="post">
-							<!-- 搜尋框 -->
-							<input id="text-btn" type="text" placeholder="請輸入欲搜尋的關鍵字">
-							<!-- 以圖搜圖 -->
-							<button id="img-btn">
-								<i class="bi bi-card-image"></i>
-							</button>
-							<!-- 搜尋按鈕 -->
-							<button id="search-btn" type="submit">
-								<i class="bi bi-search"></i>
-							</button>
-						</form>
-
+						<div id="search-div">
+							<!-- 搜尋表單 -->
+							<form class="d-flex" id="search-form" action="/searchByKey" method="post">
+								<!-- 搜尋框 -->
+								<input id="text-btn" type="text" placeholder="請輸入欲搜尋的關鍵字">
+								<!-- 搜尋按鈕 -->
+								<button id="search-btn" type="submit">
+									<i class="bi bi-search"></i>
+								</button>
+							</form>
+							<!-- 以圖搜尋 -->
+							<form action="" id="img-form">
+								<button id="img-btn">
+									<i class="bi bi-card-image"></i>
+								</button>
+							</form>
+						</div>
 						<!-- 下拉選單做排序 -->
 						<div class="dropdown">
 							<a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownMenuLink"
@@ -222,8 +231,8 @@
 								<div class="col mb-5">
 									<div class="card h-100">
 										<!-- Sale badge-->
-										<div class="badge bg-dark text-white position-absolute"
-											style="top: 0.5rem; right: 0.5rem">
+										<div class="badge position-absolute"
+											style="top: 0.5rem; right: 0.5rem;box-shadow: #212529 0 0 6px; color: red; background-color:yellow;">
 											<c:choose>
 												<c:when test="${p.label == 1}">
 													New
@@ -324,7 +333,7 @@
 					<div class="modal-dialog modal-dialog-scrollable modal-lg">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="staticBackdropLabel">您的訂單</h5>
+								<h5 class="modal-title" id="staticBackdropLabel">您的購物車</h5>
 								<button type="button" class="btn-close" data-bs-dismiss="modal"
 									aria-label="Close"></button>
 							</div>
@@ -332,6 +341,7 @@
 								<!-- 訂單表格 -->
 								<table id="order-list-table">
 									<!-- 訂單標題 -->
+									<th><input type="checkbox"></th>
 									<th>圖片</th>
 									<th>名稱</th>
 									<th>數量</th>
@@ -347,7 +357,7 @@
 								<!-- 取消結帳繼續選購 -->
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">繼續選購</button>
 								<!-- 購物車訂單確認結帳 -->
-								<button type="button" class="btn btn-primary">確認結帳</button>
+								<a type="button" class="btn btn-primary" href="/sendCartToCheck">確認結帳</a>
 							</div>
 						</div>
 					</div>
@@ -364,15 +374,18 @@
 					//購物車系統
 					function chageCartItem(json) {
 						let shoppingCartData = '';
+						let totalPrice = 0;
 						$.each(json, function (index, value) {
-							shoppingCartData += '<tr><td><div id="imgbox"><img src='
+							shoppingCartData += '<tr><td style="width:20px"><input type="checkbox"></td><td><div id="imgbox"><img src='
 							shoppingCartData += value.product.img + ' alt=""></div></td>'
 							shoppingCartData += '<td style="width:150px">' + value.product.name + '</td>'
-							shoppingCartData += '<td>' + value.count + '</td>'
+							shoppingCartData += '<td><input type="tel" value="' + value.count + '" style="width:40px;text-align:center"'
+							shoppingCartData += ';width:40px;text-align:center" onchange="sciCountChange(value,' + value.product.id + ')"></td>'
 							shoppingCartData += '<td>' + value.product.price + '</td>'
 							shoppingCartData += '<td>' + value.count * value.product.price + '</td>'
 							shoppingCartData += '<td>' + '<a class="btn" style="text-decoration: none;color:blue;" onclick="deleteShoppingCart(' + value.id + ')">刪除</a>' + '</td>'
 							shoppingCartData += '</tr>'
+							totalPrice += value.product.price;
 						})
 						shoppingCartData += '</tbody>'
 						document.getElementById('order-list').innerHTML = shoppingCartData;
@@ -390,6 +403,10 @@
 
 					function deleteShoppingCart(sciId) {
 						fetch('${contextRoot}/deleteShoppingCart?sciId=' + sciId).then(res => res.json()).then(json => chageCartItem(json))
+					}
+
+					function sciCountChange(count, id) {
+						fetch('${contextRoot}/changeCartItem?count=' + count + '&id=' + id).then(res => res.json()).then(json => chageCartItem(json))
 					}
 
 				</script>

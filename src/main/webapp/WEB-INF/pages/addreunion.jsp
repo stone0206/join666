@@ -16,6 +16,11 @@
 <title>新增聚會</title>
 
 
+    <link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="${contextRoot}/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+   
+   
+   
 <!-- CSS only -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
@@ -87,19 +92,19 @@
 
 				<div class="col-md-7 col-lg-8">
 
-					<form class="needs-validation" novalidate>
+					<form  action="/insertReunion" method="post" class="needs-validation" novalidate>
 						<div class="row g-3">
 
 
 
 							<div class="input-group mb-3 ">
-								<input type="file" class="form-control" id="inputGroupFile02">
+								<input type="file" class="form-control" id="inputGroupFile02" name="picture">
 								<label class="input-group-text" for="inputGroupFile02">Upload</label>
 							</div>
 
 							<div class="col-12">
 								<label for="address" class="form-label">聚會主題</label> <input
-									type="text" class="form-control" id="address"
+									type="text" class="form-control" id="address" name="topic"
 									placeholder="請填寫聚會主題" required>
 								<div class="invalid-feedback">請輸入主題</div>
 							</div>
@@ -108,13 +113,13 @@
 
 
 							<div class="col-12">
-								<label for="address" class="form-label">聚會主題</label>
+								<label for="address" class="form-label">聚會內容</label>
 								<div class="control ">
 									<textarea class="textarea form-control" placeholder="請填寫聚會描述"
 										name="content"></textarea>
 								</div>
 
-								<div class="invalid-feedback">請輸入主題</div>
+								<div class="invalid-feedback">請輸入內容</div>
 							</div>
 
 
@@ -122,48 +127,54 @@
 							<div class="col-12">
 								<label for="address" class="form-label">聚會地點</label> <input
 									type="text" class="form-control" id="address"
-									placeholder="搜尋聚會地點" required>
-								<div class="invalid-feedback">請輸入主題</div>
+									placeholder="搜尋聚會地點" required name="place">
+								<div class="invalid-feedback">請輸入地點</div>
 							</div>
 
 
 
+               <div class="control-group">
+                <label for="address" class="form-label">聚會時間</label>
+                <div class="controls  date form_datetime" data-date="2022-12-16T05:25:07Z" data-date-format="yyyy MM dd- HH:ii p" data-link-field="dtp_input1">
+                    <input size="16" type="text" value="" name="holdTime"  class="form-control" >
+                    <span class="add-on"><i class="icon-remove"></i></span>
+					<span class="add-on"><i class="icon-th"></i></span>
+                </div>
+				<input type="hidden" id="dtp_input1" value="" /><br/>
+            </div>
+						
 
-							<div class="col-12">
-								<label for="address" class="form-label">聚會時間</label> <input
-									type="date" class="form-control" id="address"
-									placeholder="請輸入聚會時間" required>
-								<div class="invalid-feedback">請輸入主題</div>
-							</div>
+       <div class="control-group">
+                <label for="address" class="form-label">審核時間</label>
+                <div class=" input-append date form_datetime" data-date="2022-12-16T05:25:07Z" data-date-format="yyyy MM dd- HH:ii p" data-link-field="dtp_input1">
+                    <input size="16" type="text" value="" name="reviewTime" class="form-control">
+                    <span class="add-on"><i class="icon-remove"></i></span>
+					<span class="add-on"><i class="icon-th"></i></span>
+                </div>
+				<input type="hidden" id="dtp_input1" value="" /><br/>
+            </div>
 
+		
 
-
-							<div class="col-12">
-								<label for="address" class="form-label">最晚審核時間</label> <input
-									type="date" class="form-control" id="address"
-									placeholder="請輸入最晚審核時間" required>
-								<div class="invalid-feedback">請輸入主題</div>
-							</div>
-
-							<div class="col-12">
+							<div class="v">
 								<label for="address" class="form-label">聚會人數</label> <input
 									type="text" class="form-control" id="address"
-									placeholder="請輸入人數" required>
-								<div class="invalid-feedback">請輸入主題</div>
+									placeholder="請輸入人數" required name="people">
+								<div class="invalid-feedback">請輸入聚會人數</div>
 							</div>
 
 
 							<div class="col-12">
 								<label for="address" class="form-label">聚會類型</label> <select
 									name="deptno" type="text" class="form-control" id="deptno"
-									autocomplete="off">
+									autocomplete="off" name="reuniontype">
 
 									<option value="none" selected disabled hidden>請選擇選項</option>
-									<option>電影</option>
-									<option>唱歌</option>
-									<option>出遊</option>
+									<option value="1">一般聚會</option>
+									<option value="2">男女聯誼</option>
+									<option value="3">正常交友</option>
 								</select>
-								<div class="invalid-feedback">請輸入主題</div>
+								<div class="invalid-feedback">請輸入類型</div>
 							</div>
 
 
@@ -173,14 +184,14 @@
 							<div class="col-12">
 								<label for="address" class="form-label">付款方式</label> <select
 									name="deptno" type="text" class="form-control" id="deptno"
-									autocomplete="off">
+									autocomplete="off" name="payment">
 
 									<option value="none" selected disabled hidden>請選擇付款方式</option>
-									<option>各付各</option>
-									<option>你買單</option>
-									<option>我請客</option>
+									<option value="1">男方請客</option>
+									<option value="2">先匯款</option>
+									<option value="3">AA</option>
 								</select>
-								<div class="invalid-feedback">請輸入主題</div>
+								<div class="invalid-feedback">請選擇付款方式</div>
 							</div>
 
 
@@ -188,13 +199,15 @@
 							<div class="col-12">
 								<label for="address" class="form-label">用餐預算</label> <input
 									type="text" class="form-control" id="address" placeholder=""
-									required>
-								<div class="invalid-feedback">請輸入主題</div>
+									required name="budget">
+								<div class="invalid-feedback">請輸入預算</div>
 							</div>
+	
+             
 
 							<button
 								class="button is-fullwidth is-warning is-rounded has-text-black has-text-weight-bold"
-								type="submit">預覽</button>
+								type="submit" onclick="return confirm('確定')">確定</button>
 
 						</div>
 					</form>
@@ -206,6 +219,49 @@
 			<jsp:include page="/WEB-INF/layout/footer.jsp" />
 		</footer>
 	</div>
+
+
+				<!-- Bootstrap core JS-->
+				<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
+				<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
+
+<script type="text/javascript" src="${contextRoot}/js/jquery-3.6.1.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="${contextRoot}/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${contextRoot}/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="${contextRoot}/js/locales/bootstrap-datetimepicker.zh-TW.js" charset="UTF-8"></script>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+    	language:  'zh-TW',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+	$('.form_date').datetimepicker({
+        language:  'zh-TW',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
+	$('.form_time').datetimepicker({
+        language:  'zh-TW',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 1,
+		minView: 0,
+		maxView: 1,
+		forceParse: 0
+    });
+</script>
 
 </body>
 

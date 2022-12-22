@@ -66,10 +66,10 @@
 						<tbody id="table">
 							<c:forEach var="reunionreport" items="${reunionreport}">
 								<tr>
-									<td>${reunionreport.reunionreportid }</td>
-									<td>${reunionreport.reunionid }</td>
-									<td>發起人</td>
-									<td>${reunionreport.memberid }</td>
+									<td>${reunionreport.reunionreportid}</td>
+									<td>${reunionreport.reunion.topic}</td>
+									<td>${reunionreport.reunion.memberTest.name}</td>
+									<td>${reunionreport.memberTest.name}</td> 
 									<td>${reunionreport.content}</td>
 									
 									
@@ -78,8 +78,8 @@
 									<td>
 																				<!-- return confirm('是否刪除 ${productContent.name }') -->
 										 <a class="btn"
-										onclick="return confirm('是否刪除 ${reunionreport.reunionid }')"
-										href="/deleteReunionreport?id=${reunionreport.reunionid }"
+										onclick="return confirm('是否刪除 ${reunionreport.reunion.reunionid}')"
+										href="/deleteReunionreport?id=${reunionreport.reunion.reunionid }"
 										style="color: red;">刪除</a> 
 									</td>
 								</tr>

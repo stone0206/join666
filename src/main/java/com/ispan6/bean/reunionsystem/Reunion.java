@@ -1,7 +1,5 @@
 package com.ispan6.bean.reunionsystem;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,21 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ispan6.bean.membersystem.MemberTest;
 
 @Entity
 @Table(name = "Reunion")
 public class Reunion {
 
-//	@Id
-//	@Column(name = "reunionid")
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Integer reunionid;
 	
 	@Id
 	@Column(name = "reunionid")
@@ -35,17 +25,6 @@ public class Reunion {
 	@Column(name = "topic", columnDefinition = "nvarchar(50)")
 	private String topic;
 
-	public Integer getReunionid() {
-		return reunionid;
-	}
-
-
-
-
-
-	public void setReunionid(Integer reunionid) {
-		this.reunionid = reunionid;
-	}
 
 	@Column(name = "content", columnDefinition = "nvarchar(50)")
 	private String content;
@@ -53,17 +32,20 @@ public class Reunion {
 	@Column(name = "place", columnDefinition = "nvarchar(50)")
 	private String place;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "holdTime")
-	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss") // Java 環境內的格式
-	private Date holdTime;
+	
+	@Column(name = "holdTime")		// Java 環境內的格式
+	private String holdTime;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	
+//	@Temporal(TemporalType.TIMESTAMP)
+//	@Column(name = "reviewTime")
+//	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
+//	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss") // Java 環境內的格式
+//	private Date reviewTime;
+	
+	
 	@Column(name = "reviewTime")
-	@JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
-	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss") // Java 環境內的格式
-	private Date reviewTime;
+	private String reviewTime;
 
 	@Column(name = "people")
 	private Integer people;
@@ -83,13 +65,17 @@ public class Reunion {
 	@Column(name = "picture")
 	private String picture;
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name="memberId", columnDefinition = "nvarchar(50)")
-//	private Integer memberId;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="memberid")
+	private MemberTest memberTest;
 
+	public MemberTest getMemberTest() {
+		return memberTest;
+	}
 
-
-
+	public void setMemberTest(MemberTest memberTest) {
+		this.memberTest = memberTest;
+	}
 
 	public String getTopic() {
 		return topic;
@@ -100,14 +86,9 @@ public class Reunion {
 	}
 
 
-
-
-
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
-
-
 
 
 
@@ -131,19 +112,25 @@ public class Reunion {
 		this.place = place;
 	}
 
-	public Date getHoldTime() {
+
+
+	
+
+
+
+	public String getHoldTime() {
 		return holdTime;
 	}
 
-	public void setHoldTime(Date holdTime) {
+	public void setHoldTime(String holdTime) {
 		this.holdTime = holdTime;
 	}
 
-	public Date getReviewTime() {
+	public String getReviewTime() {
 		return reviewTime;
 	}
 
-	public void setReviewTime(Date reviewTime) {
+	public void setReviewTime(String reviewTime) {
 		this.reviewTime = reviewTime;
 	}
 
@@ -156,21 +143,14 @@ public class Reunion {
 	}
 
 	
-
 	public Reuniontype getReuniontype() {
 		return reuniontype;
 	}
 
 
-
-
-
 	public void setReuniontype(Reuniontype reuniontype) {
 		this.reuniontype = reuniontype;
 	}
-
-
-
 
 
 	public Payment getPayment() {
@@ -189,13 +169,13 @@ public class Reunion {
 		this.budget = budget;
 	}
 
-//	public Integer getMemberId() {
-//		return memberId;
-//	}
-//
-//
-//	public void setMemberId(Integer memberId) {
-//		this.memberId = memberId;
-//	}
+	public Integer getReunionid() {
+		return reunionid;
+	}
+
+
+	public void setReunionid(Integer reunionid) {
+		this.reunionid = reunionid;
+	}
 
 }

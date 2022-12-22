@@ -27,24 +27,26 @@ public interface ProductDAO extends JpaRepository<Product, Integer>,CrudReposito
 	public List<Product> findByLabelId(Integer id);
 
 	// show product by price
-	@Query("from Product where price between ?1 and ?2")
+	@Query("from Product where price between ?1 and ?2 and status = 0")
 	public List<Product> findByPriceBetween(Integer lowpeice, Integer highprice);
 
 	// show product order by price desc
-	@Query("from Product order by price desc")
+	@Query("from Product where status = 0 order by price desc")
 	public List<Product> orderByPriceDesc();
 	
 	// show product order by price asc
-	@Query("from Product order by price asc")
+	@Query("from Product where status = 0 order by price asc")
 	public List<Product> orderByPriceAsc();
-
-	// show product order by price inventory
-	@Query("from Product order by inventory")
-	public List<Product> orderByInventory();
 	
 	// show product order by price inventory
-	@Query(value = "select * from WorkMessage where text like %?1%", nativeQuery = true)
+	@Query(value = "select * from product where p_status = 0 and p_name like %?1%", nativeQuery = true)
 	public List<Product> findBySearch(String keyword);
+	
+	@Query("from Product where status = 0")
+	public List<Product> getAllProductOnSell();
+	
+	@Query("from Product where status = 0 order by sales desc")
+	public List<Product> findAllProductOrderBySales();
 
 
 

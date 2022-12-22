@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ispan6.bean.mallsystem.Product;
 import com.ispan6.bean.reunionsystem.Reunion;
 import com.ispan6.dao.reunionsystem.ReunionsystemRepository;
 
@@ -34,7 +33,18 @@ public class ReunionsystemService {
 		return reunionsystemRepository.findByReuniontypeId(id);
 	}
 	
+	public void insertReunion(Reunion reunion) {
+		reunionsystemRepository.save(reunion);
+	}
 	
+	
+	public List<Reunion> findAllByMemberId(Integer i) {
+		return reunionsystemRepository.findAllByMemberId(i);
+	}
+	
+	public Reunion findByReunionId(Integer i) {
+		return reunionsystemRepository.findByReunionId(i);
+	}
 	
 //	public void insert(Reunion msg) {
 //		wRepo.save(msg);

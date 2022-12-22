@@ -8,8 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ispan6.bean.mallsystem.ShoppingCartItem;
+import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.bean.reunionsystem.Payment;
 import com.ispan6.bean.reunionsystem.Reunion;
 import com.ispan6.bean.reunionsystem.Reuniontype;
@@ -111,6 +115,57 @@ public class ReunionsystemController {
 		return "detailedparty";
 	}
 	
+	@PostMapping("/insertReunion")
+	public String insertReunion(Reunion reunion) {
+		reunionsystemService.insertReunion(reunion);
+		return "redirect:/msg/page";
+	}
+	
+	//新增報名
+//	@PostMapping("/insertRegister")
+//	public String insertRegister(Register register) {
+//		reunionsystemService.insertReunion(reunion);
+//		return "redirect:/msg/page";
+//	}
+//	
+	
+	
+	@GetMapping("/test")
+	public String test(Model model) {
+		
+		
+		return "NewFile";
+	}
+	
+	
+	
+	@GetMapping("/test2")
+	public String test2(Model model) {
+		
+		
+		return "detailedreunion";
+	}
+	
+	@GetMapping("/myreunion")	
+	public String myreunion(HttpSession session) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		if(member != null) {
+			System.out.println(member);
+			List<Reunion> reunion=reunionsystemService.findAllByMemberId(member.getId());
+			session.setAttribute("reunion", reunion);
+			
+		}
+		
+		
+		return "myreunion";
+	}
+	
+	@GetMapping("/detailedreunion")
+	public String detailedreunion(@RequestParam Integer id, Model model) {
+		Reunion reunion = reunionsystemService.findByReunionId(id);
+		model.addAttribute("reunion", reunion);
+		return "detailedreunion";
+	}
 	
 	
 	
