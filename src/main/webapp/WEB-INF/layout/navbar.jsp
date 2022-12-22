@@ -71,27 +71,26 @@
               <li class="nav-item ms-2">
 
                 <!-- 聊天室連結位置 -->
-                
-                  <li class="nav-item ms-2 dropdown">
+                <c:if test="${loginUser==null}">       
+                <li class="nav-item ms-2 dropdown">
                 <a class="nav-link btn icon-md p-0" id="profileDropdown" role="button" data-bs-auto-close="outside"
-                  data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
+                  data-bs-display="static"  aria-expanded="false" href="/login">
                   <!-- 預設是灰頭像，登入後改成用戶頭像 -->
-                  <img class="avatar-img rounded-2" src="assets/bell.png" alt="" />
+                  <img class="avatar-img rounded-2" src="assets/human.png" alt=""  />
                 </a>
-                <ul class="dropdown-menu dropdown-animation dropdown-menu-end pt-3 small me-md-n3"
-                  aria-labelledby="profileDropdown">
-           
-                  <!-- Links -->
-                  <li><a class="dropdown-item" href="/getFriendNotice"><i class="bi bi-gear fa-fw me-2">好友邀請列表</i></a></li>
-
-              <li><a class="dropdown-item" href="/"><i class="bi bi-gear fa-fw me-2"></i></a></li>
-
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-
-                </ul>
               </li>
+              </c:if>
+              <c:if test="${loginUser!=null }">
+                <li class="nav-item ms-2 dropdown">
+                <a class="nav-link btn icon-md p-0" id="profileDropdown" role="button" data-bs-auto-close="outside"
+                  data-bs-display="static"  aria-expanded="false" href="/getFriendNotice">
+                <span class="badge-notif animation-blink"></span>
+                  
+                  <!-- 預設是灰頭像，登入後改成用戶頭像 -->
+                  <img class="avatar-img rounded-2" src="assets/human.png" alt="" />
+                </a>
+              </c:if>
+                
 
               <!-- 登入位置 -->
 					<!-- 未登入 -->

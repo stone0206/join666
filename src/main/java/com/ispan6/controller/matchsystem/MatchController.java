@@ -21,19 +21,27 @@ public class MatchController {
 
 	@Autowired
 	private MatchService matchService;
-	
-	
-	
+
 	@GetMapping("/getFriendNotice")
 	public String getFriendNotice() {
 
 		return "friendNotice";
 	}
-	
+
 	@GetMapping("/addfriend")
 	public String addFriendPage() {
 
 		return "addfriend";
+	}
+
+	
+	@GetMapping("/friendlist")
+	@ResponseBody
+	public List<MatchBean> friendList(HttpSession session) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		
+		return matchService.findMyFriend(member.getId(),member.getId());
+
 	}
 	
 	
@@ -41,30 +49,55 @@ public class MatchController {
 	@ResponseBody
 	public MemberTest newfriend(HttpSession session) {
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
-		if(member == null) {
+		if (member == null) {
 			return matchService.random1();
 		}
-		return 	matchService.random1(member.getId());
+		return matchService.random1(member.getId());
 
 	}
-	
+
 	@GetMapping("/addNewFriend")
 	@ResponseBody
-	public String addNewFriend(@RequestParam Integer id,HttpSession session) {
+	public String addNewFriend(@RequestParam Integer id, HttpSession session) {
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
-		if(member == null) {
+		if (member == null) {
 			return "請先登入";
 		}
 		MemberTest fuid = matchService.findById(id);
-		MatchBean match = matchService.findFriend(member.getId(), fuid.getId());
-		if(match==null) {
-		MatchBean matchBean=new MatchBean() ;
-		matchBean.setUserid(member);
-		matchBean.setFuid(fuid);
-		matchBean.setIsFriend(0);
-		matchService.addNewFriend(matchBean);
-		return "送出邀請成功";
+		MatchBean match1 = matchService.findFriend(member.getId(), fuid.getId());
+		MatchBean match2 = matchService.findFriend(fuid.getId(),member.getId());
+
+		if (match1 == null && match2==null) {
+			MatchBean matchBean = new MatchBean();
+			matchBean.setUserid(member);
+			matchBean.setFuid(fuid);
+			matchBean.setIsFriend(0);
+			matchService.addNewFriend(matchBean);
+			return "送出邀請成功";
 		}
-		return"您已送出邀請，等待對方回覆";
+		return "您已送出邀請，等待對方回覆";
+	}
+
+	@GetMapping("/sendinvitation")
+	@ResponseBody
+	public List<MatchBean> sendinvitation(HttpSession session) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		return matchService.findMyInvitation(member.getId());
+	}
+
+	@GetMapping("/whosendinvitation")
+	@ResponseBody
+	public List<MatchBean> whosendInvitation(HttpSession session) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		return matchService.findWhoSendInvitation(member.getId());
+	}
+
+	@GetMapping("/agreeInvitation")
+	@ResponseBody
+	public List<MatchBean> agreeInvitation(@RequestParam Integer id, HttpSession session) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		int userid = member.getId();
+		matchService.agreeInvitation(id,userid);
+		return matchService.findWhoSendInvitation(userid);
 	}
 }
