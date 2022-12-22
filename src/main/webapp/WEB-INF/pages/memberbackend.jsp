@@ -217,7 +217,7 @@
 				member2+='</td></tr>';
 				}
 				table.html(member2);
-			}).then(hello())
+			})
 		}
 		// 新增商品時轉換圖片的方式
 		let img = document.getElementById('img');
@@ -233,9 +233,7 @@
 			}
 		})
 		
-		function hello(){
-			console.log("Hello World");
-		}
+
 	</script>
 </body>
 

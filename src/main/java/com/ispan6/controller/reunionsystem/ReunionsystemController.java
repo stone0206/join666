@@ -122,12 +122,12 @@ public class ReunionsystemController {
 	}
 	
 	//新增報名
-	@PostMapping("/insertRegister")
-	public String insertRegister(Register register) {
-		reunionsystemService.insertReunion(reunion);
-		return "redirect:/msg/page";
-	}
-	
+//	@PostMapping("/insertRegister")
+//	public String insertRegister(Register register) {
+//		reunionsystemService.insertReunion(reunion);
+//		return "redirect:/msg/page";
+//	}
+//	
 	
 	
 	@GetMapping("/test")
