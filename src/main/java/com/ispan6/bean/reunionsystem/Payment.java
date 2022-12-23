@@ -18,7 +18,7 @@ public class Payment {
 	private Integer payid ;
 	
 	
-	@Column(name="paytype", columnDefinition = "nvarchar(50)")
+	@Column(name="paytype")
 	private String paytype;
 
 //	@OneToOne(fetch = FetchType.LAZY,mappedBy = "payment",cascade=CascadeType.ALL)

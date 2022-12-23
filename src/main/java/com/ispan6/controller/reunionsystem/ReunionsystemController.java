@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ispan6.bean.mallsystem.ShoppingCartItem;
 import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.bean.reunionsystem.Payment;
+import com.ispan6.bean.reunionsystem.Register;
 import com.ispan6.bean.reunionsystem.Reunion;
+import com.ispan6.bean.reunionsystem.Reunionreport;
 import com.ispan6.bean.reunionsystem.Reuniontype;
 import com.ispan6.service.reunionsystem.PaymentService;
+import com.ispan6.service.reunionsystem.ReunionregisterService;
+import com.ispan6.service.reunionsystem.ReunionreportService;
 import com.ispan6.service.reunionsystem.ReunionsystemService;
 import com.ispan6.service.reunionsystem.ReuniontypeService;
 
@@ -36,35 +39,14 @@ public class ReunionsystemController {
 	@Autowired
 	private ReuniontypeService reuniontypeService;
 	
+	@Autowired
+	private ReunionregisterService reunionregisterService;
 	
-//	@GetMapping("/msg/add")
-//	public String insert1(Model model) {
-//		Reunion m1 = new Reunion();
-//		
-//		model.addAttribute("workMessages", m1);
-//		
-//		Reunion latestMsg = wService.getLatest();
-//		
-//		model.addAttribute("latestMsg", latestMsg);
-//		
-//		return "message/addMessage";
-//	}
+	@Autowired
+	private ReunionreportService reunionreportService;
 	
-//	@PostMapping("/msg/post")
-//	public String postInsert(@ModelAttribute("workMessages") Reunion msg ) {
-//		// insert
-//		wService.insert(msg);
-//		
-//		return "redirect:/msg/add";
-//	}
 	
 
-//	@GetMapping("/msg/page")
-//	public String pageList(@RequestParam(name = "p", defaultValue = "1") Integer pageNumber, Model model) {
-//		Page<Reunion> page = wService.findByPage(pageNumber);
-//		model.addAttribute("page", page);
-//		return "reunion";
-//	}
 	
 	
 	@GetMapping("/msg/page")
@@ -114,20 +96,71 @@ public class ReunionsystemController {
 		
 		return "detailedparty";
 	}
-	
+	//新增聚會
 	@PostMapping("/insertReunion")
-	public String insertReunion(Reunion reunion) {
+	public String insertReunion(Reunion reunion,HttpSession session) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		int memberid = member.getId();
+		reunion.setMemberid(memberid);
 		reunionsystemService.insertReunion(reunion);
 		return "redirect:/msg/page";
 	}
 	
 	//新增報名
+
+	@GetMapping("/insertRegister")
+	@ResponseBody
+	public String insertRegister(@RequestParam Integer id,HttpSession session) {				
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		int memberid = member.getId();
+		
+		boolean flag = reunionregisterService.registerEmpty(id, memberid);
+		if(flag==true) {
+		Register register = new Register();
+		register.setMemberid(memberid);
+		register.setReunionid(id);
+		reunionregisterService.insertRegister(register);
+		return "報名成功";
+		}
+		if(flag==false) {
+		return"已報名";	
+		}
+		return "unexpect wrong please contact with engineer";
+	}
+	
+	
+	
+	
+	
+	//新增檢舉
+//	@GetMapping("/insertReunionreport")
+//	public String insertReunionreport(@RequestParam Integer id,HttpSession session) {
+//		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+//		int memberid = member.getId();
+//		Reunionreport reunionreport = new Reunionreport();
+//		reunionreport.setMemberid(memberid);
+//		reunionreport.setReunionid(id);
+//		reunionreportService.insertReunionreport(reunionreport);
+//		return "reunion";
+//	}
+	//新增檢舉
+	@PostMapping("/insertReunionreport")
+	public String insertReunionreport(Reunionreport reunionreport ,HttpSession session) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		int memberid = member.getId();
+		reunionreport.setMemberid(memberid);
+		reunionreportService.insertReunionreport(reunionreport);
+		return "reunion";
+	}
+	
+
 //	@PostMapping("/insertRegister")
 //	public String insertRegister(Register register) {
 //		reunionsystemService.insertReunion(reunion);
 //		return "redirect:/msg/page";
 //	}
 //	
+
 	
 	
 	@GetMapping("/test")
@@ -167,7 +200,13 @@ public class ReunionsystemController {
 		return "detailedreunion";
 	}
 	
-	
+	@ResponseBody
+	@GetMapping("/TestM")
+	public MemberTest insert2(HttpSession session) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+
+		return member;
+	}
 	
 	
 //	@ResponseBody

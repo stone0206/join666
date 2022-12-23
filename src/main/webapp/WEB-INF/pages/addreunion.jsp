@@ -99,7 +99,10 @@
 
 							<div class="input-group mb-3 ">
 								<input type="file" class="form-control" id="inputGroupFile02" name="picture">
+								
 								<label class="input-group-text" for="inputGroupFile02">Upload</label>
+								<br>
+								<input type="hidden" value="" name="img" id="p_img">
 							</div>
 
 							<div class="col-12">
@@ -166,8 +169,8 @@
 
 							<div class="col-12">
 								<label for="address" class="form-label">聚會類型</label> <select
-									name="deptno" type="text" class="form-control" id="deptno"
-									autocomplete="off" name="reuniontype">
+									 type="text" class="form-control" id="deptno"
+									autocomplete="off" name="activity">
 
 									<option value="none" selected disabled hidden>請選擇選項</option>
 									<option value="1">一般聚會</option>
@@ -183,7 +186,7 @@
 
 							<div class="col-12">
 								<label for="address" class="form-label">付款方式</label> <select
-									name="deptno" type="text" class="form-control" id="deptno"
+									 type="text" class="form-control" id="deptno"
 									autocomplete="off" name="payment">
 
 									<option value="none" selected disabled hidden>請選擇付款方式</option>
@@ -262,6 +265,23 @@
 		forceParse: 0
     });
 </script>
+
+			<script type="text/javascript">
+
+				// 新增商品時轉換圖片的方式
+				let img = document.getElementById('img');
+				img.addEventListener('change', function (e) {
+					let file = this.files[0]
+					let reader = new FileReader()
+					// 轉換成 DataURL
+					reader.readAsDataURL(file)
+					let pimg = document.getElementById('p_img');
+					reader.onload = function (e) {
+						console.log(e);
+						pimg.value = this.result
+					}
+				})
+			</script>
 
 </body>
 

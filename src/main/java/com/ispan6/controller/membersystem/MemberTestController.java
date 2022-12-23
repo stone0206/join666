@@ -208,22 +208,21 @@ public class MemberTestController {
 		String accessToken = getToken(code);
 		UserGoogleDto user = getUserInfo(accessToken);
 		HttpSession session = request.getSession();
-//		if (mService.existsByAccount(user.getEmail()) != null) {
-//			MemberTest mt = mService.findByAcc(user.getEmail());
-//			session.setAttribute("loginUser", mt);
-//			return "/";
-//		}
-		
+		if (mService.existsByAccount(user.getEmail()) != null) {
+			MemberTest mt = mService.findByAcc(user.getEmail());
+			session.setAttribute("loginUser", mt);
+			return "/index";
+		}
+		else
+//		if (mService.existsByAccount(user.getEmail()) == null) 
+		{
 		MemberTest mt= new MemberTest();
 		mt.setAccount(user.getEmail());
 		mt.setName(user.getName());
 		mt.setAvator(user.getPicture());
-		
-		session.setAttribute("loginUser", mt);
-		return "/index";
-//		response.sendRedirect("http://localhost:8080/index");
-//		return user;
-//		request.getRequestDispatcher(user.getPicture()).forward(request, response);
+//		session.setAttribute("loginUser", mt);
+		return "/signup3";
+		}
 	}
 
 	public static String getToken(String code) throws ClientProtocolException, IOException {
@@ -248,19 +247,5 @@ public class MemberTestController {
 		System.out.println(googlePojo);
 		return googlePojo;
 	}
-	
-	public static MemberTest getUserInfo2(final String accessToken) throws ClientProtocolException, IOException {
-		String link = Constants.GOOGLE_LINK_GET_USER_INFO + accessToken;
-		String response = Request.Get(link).execute().returnContent().asString();
 
-		MemberTest googlePojo = new Gson().fromJson(response, MemberTest.class);
-		System.out.println(googlePojo);
-		return googlePojo;
-	}
-	
-	@RequestMapping("/googlelogin2")
-	public void googleLogin2(UserGoogleDto gto) {
-		System.out.println(gto.getName());
-	}
-	
 }

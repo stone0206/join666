@@ -48,9 +48,9 @@ public class pageController {
 		return "redirect:https://accounts.google.com/o/oauth2/auth?scope=email+profile&redirect_uri=http://localhost:8080/LoginGoogleHandler&response_type=code&client_id=378093448501-ebvinmo23u9l8lmljs9souqd3953nbqg.apps.googleusercontent.com&approval_prompt=force";
 	}
 	
-	@RequestMapping("/googlesignup")
+	@RequestMapping("/signup4")
 	public String googlesignup() {
-		return "redirect:https://accounts.google.com/o/oauth2/auth?scope=email+profile&redirect_uri=http://localhost:8080/LoginGoogleHandler&response_type=code&client_id=378093448501-ebvinmo23u9l8lmljs9souqd3953nbqg.apps.googleusercontent.com&approval_prompt=force";
+		return "signup4";
 	}
 	
 }
