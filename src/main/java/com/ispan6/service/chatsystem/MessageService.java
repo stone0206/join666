@@ -44,4 +44,9 @@ public class MessageService {
 	public List<MessageContent>	findeGroupMessage(Integer groupId){
 		return messageDAO.findeGroupMessage(groupId);
 	}
+	
+	//收回訊息
+	public void backMessage(String text,Integer messageId) {
+		messageDAO.backMessage(text, messageId);
+	}
 }

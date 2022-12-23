@@ -444,7 +444,7 @@
 								<div class="sender-name" id="messageTitle"></div>
 							</div>
 							<div class="messages-area" data-viewport="true">
-								<ul class="touch-y" id="message">
+								<ul class="touch-y" id="message" participants="">
 									<!-- <li class="recive" style="display:none"><img
 											src="https://raw.githubusercontent.com/yousefsami/social-app-assets/master/user1.jpg"
 											style="width: 35px; height: 35px; border-radius: 50%; display: flex; float: left; margin-top: 10px" />
@@ -539,6 +539,7 @@
 						}).then(function (result) {
 							return result.json()
 						}).then(function (data) {
+							let participantsId = [];
 							let message = '';
 							let messageTitle = '';
 							let groomList = data.groomList;
@@ -552,7 +553,10 @@
 									// message += '<div class="status-bar"><div class="back-arrow"><i class="material-icons">navigate_before</i></div>'
 									if (groupList.groupType === 0) {
 										$.each(groupList.participants, function (index, participants) {
+
 											if (participants.personId != data.userId) {
+
+												participantsId.push(participants.personId)
 												$.each(memList, function (index, member) {
 													if (member.id == participants.personId) {
 														messageTitle += member.name;
@@ -562,6 +566,11 @@
 										})
 
 									} else {
+										$.each(groupList.participants, function (index, participants) {
+											if (participants.personId != data.userId) {
+												participantsId.push(participants.personId)
+											}
+										})
 										messageTitle += groupList.groupName;
 									}
 									// message += '<div class="messages-area" data-viewport="true"><ul class="touch-y">'
@@ -600,10 +609,8 @@
 							// 	console.log($(this).attr("messageId"))
 							// 	e.button == 2
 							// })
-
-
-
-
+							// console.log(participantsId)
+							$("#message").attr("participants", participantsId)
 
 						})
 
@@ -633,11 +640,15 @@
 					function backArrow() {
 						$(".back-arrow").click(function (e) {
 							callChatRoom()
+							$("#message").empty();
+
 							function removeMessage() {
 								$('.view-main').removeClass("deactive");
 								$('.view-message').removeClass("active");
 							}
 							setTimeout(() => removeMessage(), 300)
+							$("#message").attr("participants", "")
+
 
 						})
 					}
@@ -653,6 +664,14 @@
 
 						let groupRoom = $("#message-text").attr("groupRoom")
 						let senderId = $("#message-text").attr("senderId")
+						// console.log($("#message").attr("participants"))
+						// console.log(websocket)
+						let data = {};
+						data["from"] = "${loginUser.avator}";
+						data["to"] = $("#message").attr("participants");
+						data["text"] = $("#message-text").val();
+						// console.log("AAA", JSON.stringify(data))
+						websocket.send(JSON.stringify(data)); // 使用 send() 方法发送数据
 						sendMassage(groupRoom, senderId)
 					});
 					$(document).keyup(
@@ -666,8 +685,8 @@
 							}
 						})
 					function sendMassage(groupRoom, senderId) {
-						console.log(groupRoom)
-						console.log(senderId)
+						// console.log(groupRoom)
+						// console.log(senderId)
 						var date = new Date();
 						var message = $("#message-text").val();
 						//輸入歸零
@@ -952,6 +971,9 @@
 								// 	$('.view-main').removeClass("deactive");
 								// 	$('.view-message').removeClass("active");
 								// })
+
+
+
 							});
 					// 好友聊天關閉 為何不能放在ready裡
 					function closeFriendTable() {
@@ -1050,12 +1072,29 @@
 									name: "編輯", icon: "edit",
 									callback: function () {
 										let messageId = $(this).attr("messageId")
-										console.log($(this).attr("messageId"))
+										// console.log($(this).attr("messageId"))
+										let defalutMessage = $("li[messageId='" + messageId + "'] > div span:first-child").text()
+										var nickname = prompt('請輸入修改內容', defalutMessage);
+										if (nickname == null) {
+											$("li[messageId='" + messageId + "'] > div span:first-child").text(defalutMessage)
+										} else {
+											$("li[messageId='" + messageId + "'] > div span:first-child").text(nickname)
+											// 	let formData = new FormData();
+											// 	formData.append('messageId', messageId);
+											// formData.append('text', nickname);
+											// fetch("${contextRoot}/msg/add", {
+											// 	method: "POST",
+											// 	body: formData
+
+											// }).then(function (result) {
+											// 	return result.json()
+											// }).then(function (data) {
+
+											// })
+										}
+
 										// let s = $("li[messageId='" + messageId + "'] > div span:first-child").text()
-										var nickname = prompt('請輸入修改內容');
-										$("li[messageId='" + messageId + "'] > div span:first-child").text(nickname)
-										// let s = $("li[messageId='" + messageId + "'] > div span:first-child").text()
-										let formData = new FormData();
+
 
 										// formData.append('messageId', messageId);
 										// formData.append('text', nickname);
@@ -1068,37 +1107,50 @@
 										// }).then(function (data) {
 
 										// }
-									},
-									// "cut": { name: "剪下", icon: "cut" },
-									// "copy": { name: "複製", icon: "copy" },
-									// "paste": { name: "貼上", icon: "paste" },
-									"delete": {
-										name: "刪除", icon: "delete",
-										callback: function () {
-											// console.log($(this).attr("messageId"))
-											let messageId = $(this).attr("messageId")
+									}
+								},
+								// "cut": { name: "剪下", icon: "cut" },
+								// "copy": { name: "複製", icon: "copy" },
+								// "paste": { name: "貼上", icon: "paste" },
+								"delete": {
+									name: "收回", icon: "delete",
+									callback: function () {
+										// console.log($(this).attr("messageId"))
+										let messageId = $(this).attr("messageId")
 
-											let yes = confirm('你確定嗎？');
+										let yes = confirm('你確定嗎？');
 
-											if (yes) {
-												// $("li[messageId='" + messageId + "']").addClass("deleteMessage")
-												$("li[messageId='" + messageId + "']").hide();
+										if (yes) {
+											// $("li[messageId='" + messageId + "']").addClass("deleteMessage")
+											// $("li[messageId='" + messageId + "']").hide();
+											// alert('你按了確定按鈕');
+											// $("li[messageId='" + messageId + "']").addClass("deleteMessage")
+											let defalutMessage = '<span style="color:blue;font-weight:800;font-style:italic;">訊息已被收回</span>'
 
-												// alert('你按了確定按鈕');
-												// $("li[messageId='" + messageId + "']").addClass("deleteMessage")
-											} else {
+											$("li[messageId='" + messageId + "'] > div span:first-child").text(null)
+											$("li[messageId='" + messageId + "'] > div span:first-child").append(defalutMessage)
 
-											}
+											let formData = new FormData();
+											formData.append('messageId', messageId);
+											formData.append('text', defalutMessage);
+											fetch("${contextRoot}/msg/updateMessage", {
+												method: "POST",
+												body: formData
+
+											})
+										} else {
 
 										}
-									},
-									// "sep1": "---------",
-									// "quit": {
-									// 	name: "離開", icon: function () {
-									// 		return 'context-menu-icon context-menu-icon-quit';
-									// 	}
-									// }
-								}
+
+									}
+								},
+								// "sep1": "---------",
+								// "quit": {
+								// 	name: "離開", icon: function () {
+								// 		return 'context-menu-icon context-menu-icon-quit';
+								// 	}
+								// }
+
 							}
 						});
 					}
@@ -1200,6 +1252,50 @@
 							}
 						})
 					}
+
+					// 	$(document).ready(function() {
+					// 		let websocket=null;
+					// 		if ('WebSocket' in window) { // 浏览器支持 WebSocket
+					// 	websocket = new WebSocket("ws://localhost:8080/webSocket/" + username); // 打开一个 web socket
+					// }
+					// 	})
+					let websocket = null;
+					if ("${loginUser.id}" != null) {
+						console.log("userId" + "${loginUser.id}")
+
+						if ('WebSocket' in window) { // 浏览器支持 WebSocket
+							websocket = new WebSocket("ws://localhost:8080/webSocket/${loginUser.id}"); // 打开一个 web socket
+							// console.log(websocket)
+						}
+
+					}
+					websocket.onmessage = function (event) {
+						var data = JSON.parse(event.data);
+						// if (data.to == 0) { //上线消息
+						// 	if (data.text != username) {
+						// 		$("#users").append('<a href="#" onclick="talk(this)" class="list-group-item">' + data.text + '</a>');
+						// 		$("#log-container").append("<div class='bg-info'><label class='text-danger'>" + data.from + "&nbsp;" + data.date + "</label><div class='text-success'>" + data.text + "上线了" + "</div></div><br>");
+						// 		scrollToBottom();
+						// 	}
+						// } else if (data.to == -2) { //下线消息
+						// 	if (data.text != username) {
+						// 		$("#users > a").remove(":contains('" + data.text + "')");
+						// 		$("#log-container").append("<div class='bg-info'><label class='text-danger'>" + data.from + "&nbsp;" + data.date + "</label><div class='text-success'>" + data.text + "下线了" + "</div></div><br>");
+						// 		scrollToBottom();
+						// 	}
+						// } else { // 普通消息
+						if ($("#message").children().length == 0) {
+
+
+							console.log("messagefalse")
+						} else {
+							$("#message").append('<li class="recive"><img src="' + data.from + '"style="width: 35px; height: 35px; border-radius: 50%; display: flex; float: left; margin-top: 10px" /><div>' + data.text + '<span>' + getTime(new Date()) + '</span></div></li>');
+
+						}
+
+
+					}
+				// };
 
 
 				</script>

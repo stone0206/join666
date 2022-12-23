@@ -203,4 +203,13 @@ public class ParticipantsController {
 			System.out.println(msgText.getMessageId());
 			return msgText;
 		}
+		
+		
+		//收回訊息
+		@PostMapping(path="/msg/updateMessage",produces = "application/json; charset=UTF-8")
+		public void backMessage(@RequestParam String text,@RequestParam Integer messageId) {
+			System.out.println(text);
+			System.out.println(messageId);
+			messageService.backMessage(text, messageId);
+		}
 }
