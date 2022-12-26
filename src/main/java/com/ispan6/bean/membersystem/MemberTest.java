@@ -3,6 +3,7 @@ package com.ispan6.bean.membersystem;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,7 +12,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -25,44 +28,50 @@ import com.ispan6.bean.chatsystem.MessageContent;
 import com.ispan6.bean.chatsystem.Participants;
 import com.ispan6.bean.mallsystem.ShoppingCartItem;
 import com.ispan6.bean.matchsystem.MatchBean;
+import com.ispan6.bean.reunionsystem.Reunion;
 
 @Entity
 @Table(name = "memberTest")
 public class MemberTest {
 	@Id
-	@Column(name="m_id")
+	@Column(name = "m_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	@Column(name="m_account")
+
+	// 博宇
+//	@OneToMany(mappedBy = "memberTest")
+//	@JsonIgnore
+//	private Set<Reunion> reunionlist;
+
+	@Column(name = "m_account")
 	private String account;
-	
-	@Column(name="m_password")
+
+	@Column(name = "m_password")
 	private String password;
-	
-	@Column(name="m_name")
+
+	@Column(name = "m_name")
 	private String name;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="birth")
-	@DateTimeFormat(pattern ="yyyy-MM-dd")
+	@Column(name = "birth")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
-	
-	@Column(name="gender")
+
+	@Column(name = "gender")
 	private int gender;
-	
-	@Column(name="phone")
+
+	@Column(name = "phone")
 	private String phone;
-	
-	@Column(name="email")
+
+	@Column(name = "email")
 	private String email;
-	
-	@Column(name="avatar")
+
+	@Column(name = "avatar")
 	private String avator;
-	
-	@Column(name="address")
+
+	@Column(name = "address")
 	private String address;
-	
+
 	@OneToMany(mappedBy = "memberTest")
 	private List<ShoppingCartItem> sciList = new ArrayList<ShoppingCartItem>();
 
@@ -72,30 +81,35 @@ public class MemberTest {
 	@OneToMany(mappedBy = "fuid")
 	private List<MatchBean> fuid = new ArrayList<MatchBean>();
 
-	//易
+	// 易
 	@OneToMany(mappedBy = "participantsUserId")
-	private List<Participants> participantsUserId=new ArrayList<Participants>();
-	//易
+	private List<Participants> participantsUserId = new ArrayList<Participants>();
+	// 易
 	@OneToMany(mappedBy = "messageContentUserId")
-	private List<MessageContent> messageContentUserId=new ArrayList<MessageContent>();
-	
+	private List<MessageContent> messageContentUserId = new ArrayList<MessageContent>();
+
 	public MemberTest() {
 		super();
 	}
 
-	@PrePersist  // 當物件要從 Transient 狀態轉換成 Persistent 狀態時，先做...
+	// 嘗試用這個建構子去接Google登入傳回來的資料，尚未成功
+	public MemberTest(String email, String name, String picture) {
+		this.email = email;
+		this.name = name;
+		this.avator = picture;
+	}
+
+	@PrePersist // 當物件要從 Transient 狀態轉換成 Persistent 狀態時，先做...
 	public void prePersist() {
-		if(birth == null) {
+		if (birth == null) {
 			birth = new Date();
 		}
 	}
-	
 
 	public int getId() {
 		return id;
 	}
 
-	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -187,6 +201,15 @@ public class MemberTest {
 	public void setMessageContentUserId(List<MessageContent> messageContentUserId) {
 		this.messageContentUserId = messageContentUserId;
 	}
+//
+//	public Set<Reunion> getReunionlist() {
+//		return reunionlist;
+//	}
+//
+//	public void setReunionlist(Set<Reunion> reunionlist) {
+//		this.reunionlist = reunionlist;
+//	}
+
 	
-	
+
 }

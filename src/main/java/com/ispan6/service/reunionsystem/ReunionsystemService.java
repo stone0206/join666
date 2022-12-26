@@ -38,8 +38,12 @@ public class ReunionsystemService {
 	}
 	
 	
-	public List<Reunion> findAllByMemberId(int i) {
+	public List<Reunion> findAllByMemberId(Integer i) {
 		return reunionsystemRepository.findAllByMemberId(i);
+	}
+	
+	public Reunion findByReunionId(Integer i) {
+		return reunionsystemRepository.findByReunionId(i);
 	}
 	
 //	public void insert(Reunion msg) {

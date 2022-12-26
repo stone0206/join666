@@ -149,7 +149,9 @@
 				<c:forEach var="reunion" items="${reunion}">
 					<div class="col">
 						<div class="card shadow-sm">
+						<a href="/detailedreunion?id=${reunion.reunionid}">
 							<img src="${reunion.picture}" style="max-width: 100%;  height: 450px;  ">
+							</a>
 							<div class="card-body">
 								<p class="card-text">${reunion.topic}</p>
 								<div class="d-flex justify-content-between align-items-center">
@@ -176,14 +178,14 @@
 											<div class="columns is-variable is-1 is-mobile">
 												<div class="column is-3 has-text-left">
 													<img loading="lazy"
-														src="https://cdn.eatgether.com/member/60cd09c0-af2b-4376-bbd3-7a8faf753617/avatar/8e15ac4c-85bb-437f-bc7f-7cd90277286d.jpg"
+														src="${reunion.memberTest.avator}"
 														width="30" heigh="30" style="border-radius: 50px;">
 												</div>
 												<div class="column is-9 has-text-left">
 													<div class="columns is-mobile">
 														<div class="column is-6">
 															<div class="long-and-truncated" style="width: 80px;">
-																<span class="" style=>${reunion.reunionid}</span>
+																<span class="" style=>${reunion.memberTest.name}</span>
 															</div>
 														</div>
 														<div class="column is-8">

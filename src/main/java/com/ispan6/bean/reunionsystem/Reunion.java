@@ -1,7 +1,5 @@
 package com.ispan6.bean.reunionsystem;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,14 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ispan6.bean.membersystem.MemberTest;
 
 @Entity
 @Table(name = "Reunion")
@@ -55,40 +51,47 @@ public class Reunion {
 
 	@Column(name = "people")
 	private Integer people;
+	
+	@Column(name = "activity")
+	private Integer activity;
 
 //	@Column(name = "activity", columnDefinition = "nvarchar(50)")
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "activity", columnDefinition = "nvarchar(50)")
+	@JoinColumn(name = "activity",referencedColumnName ="reutid",insertable=false,updatable=false)
 	private Reuniontype reuniontype;
-
+    
+	
+	@Column(name = "payment")
+	private Integer payment;
+	
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "payment",columnDefinition = "nvarchar(50)")
-	private Payment payment;
+	@JoinColumn(name = "payment",referencedColumnName ="payid",insertable=false,updatable=false)
+	private Payment pay;
 
 	@Column(name = "budget")
 	private Integer budget;
 
 	@Column(name = "picture")
 	private String picture;
+    
+	@Column(name = "memberid")
+	private Integer memberid;
+	
+	@ManyToOne
+	@JoinColumn(name="memberid",insertable=false,updatable=false)
+	private MemberTest memberTest;
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name="memberId", columnDefinition = "nvarchar(50)")
-//	private Integer memberId;
+	public Integer getReunionid() {
+		return reunionid;
+	}
+
+	public void setReunionid(Integer reunionid) {
+		this.reunionid = reunionid;
+	}
 
 	public String getTopic() {
 		return topic;
 	}
-
-	public String getPicture() {
-		return picture;
-	}
-
-
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
-
-
 
 	public void setTopic(String topic) {
 		this.topic = topic;
@@ -109,12 +112,6 @@ public class Reunion {
 	public void setPlace(String place) {
 		this.place = place;
 	}
-
-
-
-	
-
-
 
 	public String getHoldTime() {
 		return holdTime;
@@ -140,23 +137,37 @@ public class Reunion {
 		this.people = people;
 	}
 
-	
+	public Integer getActivity() {
+		return activity;
+	}
+
+	public void setActivity(Integer activity) {
+		this.activity = activity;
+	}
+
 	public Reuniontype getReuniontype() {
 		return reuniontype;
 	}
-
 
 	public void setReuniontype(Reuniontype reuniontype) {
 		this.reuniontype = reuniontype;
 	}
 
-
-	public Payment getPayment() {
+	public Integer getPayment() {
 		return payment;
 	}
 
-	public void setPayment(Payment payment) {
+	public void setPayment(Integer payment) {
 		this.payment = payment;
+	}
+
+
+	public Payment getPay() {
+		return pay;
+	}
+
+	public void setPay(Payment pay) {
+		this.pay = pay;
 	}
 
 	public Integer getBudget() {
@@ -167,13 +178,29 @@ public class Reunion {
 		this.budget = budget;
 	}
 
-	public Integer getReunionid() {
-		return reunionid;
+	public String getPicture() {
+		return picture;
 	}
 
-
-	public void setReunionid(Integer reunionid) {
-		this.reunionid = reunionid;
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 
+	public Integer getMemberid() {
+		return memberid;
+	}
+
+	public void setMemberid(Integer memberid) {
+		this.memberid = memberid;
+	}
+
+	public MemberTest getMemberTest() {
+		return memberTest;
+	}
+
+	public void setMemberTest(MemberTest memberTest) {
+		this.memberTest = memberTest;
+	}
+
+	
 }

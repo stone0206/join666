@@ -3,7 +3,6 @@ package com.ispan6.controller.membersystem;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
 import java.util.Base64;
 import java.util.List;
 
@@ -14,20 +13,25 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.fluent.Form;
+import org.apache.http.client.fluent.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.ispan6.bean.mallsystem.Product;
-import com.ispan6.bean.mallsystem.ProductLabel;
-import com.ispan6.bean.mallsystem.ProductType;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.ispan6.Constants;
 import com.ispan6.bean.membersystem.MemberTest;
+import com.ispan6.dao.membersystem.UserGoogleDto;
 import com.ispan6.service.matchsystem.MatchService;
 import com.ispan6.service.membersystem.MemberTestService;
 
@@ -187,7 +191,7 @@ public class MemberTestController {
 		session.setAttribute("members", members);
 		return "memberbackend";
 	}
-	
+
 	@PostMapping("/findMem")
 	@ResponseBody
 	public List<MemberTest> findByGender(HttpSession session, @RequestParam(value = "male") Integer male, @RequestParam(value = "female") Integer female, @RequestParam(value="account") String account, @RequestParam(value="name") String name) {
@@ -196,4 +200,52 @@ public class MemberTestController {
 		System.out.println(members2);
 		return members2;
 	}
+	
+	@RequestMapping("/LoginGoogleHandler")
+	public String processRequest(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String code = request.getParameter("code");
+		String accessToken = getToken(code);
+		UserGoogleDto user = getUserInfo(accessToken);
+		HttpSession session = request.getSession();
+		if (mService.existsByAccount(user.getEmail()) != null) {
+			MemberTest mt = mService.findByAcc(user.getEmail());
+			session.setAttribute("loginUser", mt);
+			return "/index";
+		}
+		else
+//		if (mService.existsByAccount(user.getEmail()) == null) 
+		{
+		MemberTest mt= new MemberTest();
+		mt.setAccount(user.getEmail());
+		mt.setName(user.getName());
+		mt.setAvator(user.getPicture());
+//		session.setAttribute("loginUser", mt);
+		return "/signup3";
+		}
+	}
+
+	public static String getToken(String code) throws ClientProtocolException, IOException {
+		// call api to get token
+		String response = Request.Post(Constants.GOOGLE_LINK_GET_TOKEN)
+				.bodyForm(Form.form().add("client_id", Constants.GOOGLE_CLIENT_ID)
+						.add("client_secret", Constants.GOOGLE_CLIENT_SECRET)
+						.add("redirect_uri", Constants.GOOGLE_REDIRECT_URI).add("code", code)
+						.add("grant_type", Constants.GOOGLE_GRANT_TYPE).build())
+				.execute().returnContent().asString();
+
+		JsonObject jobj = new Gson().fromJson(response, JsonObject.class);
+		String accessToken = jobj.get("access_token").toString().replaceAll("\"", "");
+		return accessToken;
+	}
+
+	public static UserGoogleDto getUserInfo(final String accessToken) throws ClientProtocolException, IOException {
+		String link = Constants.GOOGLE_LINK_GET_USER_INFO + accessToken;
+		String response = Request.Get(link).execute().returnContent().asString();
+
+		UserGoogleDto googlePojo = new Gson().fromJson(response, UserGoogleDto.class);
+		System.out.println(googlePojo);
+		return googlePojo;
+	}
+
 }

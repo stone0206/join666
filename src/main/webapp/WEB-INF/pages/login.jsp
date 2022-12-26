@@ -45,7 +45,7 @@
 			</div>
 			<div class=" mb-2">
 				<input type="button" class="w-25 btn btn-lg btn-primary"
-					onclick="location.href='https://accounts.google.com/o/oauth2/auth?scope=email+profile&redirect_uri=http://localhost:8080/Login/LoginGoogleHandler&response_type=code&client_id=378093448501-ebvinmo23u9l8lmljs9souqd3953nbqg.apps.googleusercontent.com&approval_prompt=force';"
+					onclick="location.href='googlelogin';"
 					value="Google登入" />
 			</div>
 			<div>
