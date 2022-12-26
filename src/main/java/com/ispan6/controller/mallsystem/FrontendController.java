@@ -1,12 +1,14 @@
 package com.ispan6.controller.mallsystem;
 
 import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -119,7 +121,7 @@ public class FrontendController {
 	 * @param lowPrice
 	 * @param highPrice
 	 * @param model
-	 * @return
+	 * @return 
 	 */
 	@GetMapping("/searchByHLPrice")
 	@ResponseBody
@@ -149,7 +151,7 @@ public class FrontendController {
 	 */
 	@GetMapping("/addToCart")
 	@ResponseBody
-	public String addToCart(@RequestParam Integer id, HttpSession session) {
+	public String addToCart(@RequestParam Integer id, HttpSession session,@RequestParam(required = false) Integer quantity) {
 		// 先取得會員和商品id
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
 		if (member == null) {
@@ -166,11 +168,17 @@ public class FrontendController {
 			// 先查詢是哪個用戶的哪個商品
 			ShoppingCartItem shoppingCartItem = shoppingCartItemService.findByMemberIdAndProductId(memberId, id);
 			// 然後把數量加1再保存
-			shoppingCartItem.setCount(shoppingCartItem.getCount() + 1);
-			shoppingCartItemService.addToCart(shoppingCartItem);
-			return "商品已存在，數量加1";
+			if(quantity == null) {
+				shoppingCartItem.setCount(shoppingCartItem.getCount() + 1);
+				shoppingCartItemService.addToCart(shoppingCartItem);
+				return "商品已存在，數量加1";
+			}
+			if(quantity > 0) {
+				shoppingCartItem.setCount(shoppingCartItem.getCount() + quantity);
+				shoppingCartItemService.addToCart(shoppingCartItem);
+				return "商品已存在，數量加" + quantity;
+			}		
 		}
-
 		// 如果是空的
 		if (flag == true) {
 			ShoppingCartItem shoppingCartItem = new ShoppingCartItem();
@@ -295,6 +303,10 @@ public class FrontendController {
 	public List<ShoppingCartItem> changeCartItem(@RequestParam Integer count, Integer id, HttpSession session) {
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
 		ShoppingCartItem items = shoppingCartItemService.findByMemberIdAndProductId(member.getId(), id);
+		Product p = items.getProduct();
+		if(count > p.getInventory()) {
+			count = p.getInventory();
+		}
 		items.setCount(count);
 		shoppingCartItemService.addToCart(items);
 		return shoppingCartItemService.findAllByMemberId(member.getId());
@@ -311,6 +323,21 @@ public class FrontendController {
 	@ResponseBody
 	public List<OrderItems> openMyOrderDetail(@RequestParam Integer orderId) {
 		return orderItemService.findAllByOrderId(orderId);
+	}
+
+	@GetMapping("/mutipleConditionsQuery")
+	@ResponseBody
+	public List<Product> mutipleConditionsQuery(@RequestParam Integer[] typeCondi, Integer[] labelCondi) {
+		return productService.findByTypeAndLabel(typeCondi,labelCondi);
+	}
+	
+	@GetMapping("openProductDetail")
+	public String openProductDetail(@RequestParam Integer productId,Model model) {
+		Product product = productService.findById(productId);
+		List<Product> pList = new ArrayList<Product>();
+		pList.add(product);
+		model.addAttribute("product",pList);
+		return "productdetail";
 	}
 
 }

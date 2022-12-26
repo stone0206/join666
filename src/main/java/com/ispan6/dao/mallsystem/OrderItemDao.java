@@ -13,4 +13,6 @@ public interface OrderItemDao  extends JpaRepository<OrderItems, Integer>,CrudRe
 
 	
 	List<OrderItems> findAllByOrderBeanId(Integer orderId);
+	
+	List<OrderItems> findByProductId(Integer id);
 }

@@ -38,7 +38,7 @@ public class pageController {
 
 	@GetMapping("/productbackend")
 	public String backend() {
-		return "productbackend";
+		return "productbackend2";
 	}
 	
 	@GetMapping("/signup")

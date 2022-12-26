@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -58,6 +59,9 @@ public class Product {
 
 	@Column(name = "p_type")
 	private Integer type;
+	
+//	@OneToOne(mappedBy = "product", cascade = CascadeType.REMOVE)
+//	private ShoppingCartItem shoppingCartItem;
 
 	@PrePersist
 	public void prePersist() {

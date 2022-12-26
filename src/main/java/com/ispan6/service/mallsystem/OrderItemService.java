@@ -21,6 +21,10 @@ public class OrderItemService {
 		return orderItemDao.findAllByOrderBeanId(orderId);
 	}
 
+	public List<OrderItems> findByProductId(Integer id) {
+		return orderItemDao.findByProductId(id);
+	}
+
 //	private OrderItemServiceDao orderItemServiceDao;
 	
 	
