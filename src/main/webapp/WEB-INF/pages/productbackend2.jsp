@@ -93,11 +93,11 @@ ${contextRoot}<%@ page language="java" contentType="text/html; charset=UTF-8" pa
 										</div>
 									</div>
 									<div class="col-5" style="border-right: 3px dashed grey;">
-										<form action="">
+										<form action="/" method="post">
 											<div class="row">
 												<div class="col">
 													<div>更換類型:
-														<select name="type" id=""
+														<select name="type" id="type"
 															style="width: 90px;height: 30px;margin: 0px 20px 10px;">
 															<option selected>請選擇</option>
 															<option value="1">派對道具</option>
@@ -107,7 +107,7 @@ ${contextRoot}<%@ page language="java" contentType="text/html; charset=UTF-8" pa
 														</select>
 													</div>
 													<div>更換標籤:
-														<select name="label" id=""
+														<select name="label" id="label"
 															style="width: 90px;height: 30px;margin: 10px 20px;">
 															<option selected>請選擇</option>
 															<option value="1">New</option>
@@ -117,7 +117,7 @@ ${contextRoot}<%@ page language="java" contentType="text/html; charset=UTF-8" pa
 														</select>
 													</div>
 													<div>更換狀態:
-														<select name="status" id=""
+														<select name="status" id="status"
 															style="width: 90px;height: 30px;margin: 10px 20px 0px;">
 															<option selected>請選擇</option>
 															<option value="0">上架</option>
@@ -127,7 +127,8 @@ ${contextRoot}<%@ page language="java" contentType="text/html; charset=UTF-8" pa
 													</div>
 												</div>
 												<div class="col" style="text-align: center;">
-													<input class="btn btn-primary" type="submit" value="確認送出"></input>
+													<input class="btn btn-primary" type="submit" value="確認送出"
+														id="smform"></input>
 												</div>
 											</div>
 										</form>
@@ -145,13 +146,13 @@ ${contextRoot}<%@ page language="java" contentType="text/html; charset=UTF-8" pa
 
 						<div class="card mb-4">
 							<div class="card-header">
-								<i class="fas fa-table me-1"></i> 商品列表
+								<i style="font-size:16px;cursor:pointer" class="fa" onclick="render()">&#xf021;</i> 商品列表
 							</div>
 							<div class="card-body container-fluid">
 								<table class="table table-striped table-sm">
 									<thead>
 										<tr style="text-align: center;">
-											<th><input type="checkbox" name="checkBody"></th>
+											<th><input type="checkbox" name="checkHead"></th>
 											<th>id</th>
 											<th>名稱</th>
 											<th>圖片</th>
@@ -191,7 +192,7 @@ ${contextRoot}<%@ page language="java" contentType="text/html; charset=UTF-8" pa
 				function showProductItem(data) {
 					let productData = '';
 					$.each(data, function (index, value) {
-						productData += '<tr><td style="vertical-align:middle;"><input type="checkbox" name="checkBody" id="' + value.id + '"></td>'
+						productData += '<tr><td style="vertical-align:middle;"><input type="checkbox" name="checkBody" value="' + value.id + '"></td>'
 						productData += '<td>' + value.id + '</td>'
 						productData += '<td style="width:300px;">' + value.name + '</td>';
 						productData += '<td><img src="' + value.img + '"style="width:100px;height:100px;cursor:pointer;" onclick=updateProduct(' + value.id + ') ></td>';
@@ -241,6 +242,7 @@ ${contextRoot}<%@ page language="java" contentType="text/html; charset=UTF-8" pa
 						productData += '<a style="color:red;cursor:pointer;" onclick="deleteProduct(' + value.id + ')">刪除</a></td></tr>';
 					})
 					document.getElementById('table').innerHTML = productData;
+					giveEvent()
 				}
 
 				function deleteProduct(id) {
@@ -280,6 +282,59 @@ ${contextRoot}<%@ page language="java" contentType="text/html; charset=UTF-8" pa
 					fetch('${contextRoot}/mutipleConditionsQuery?typeCondi=' + typeArr + '&labelCondi=' + labelArr).then(res => res.json()).then(json => showProductItem(json))
 				}
 
+				//全選功能與選中
+				let checkHead = document.getElementsByName('checkHead');
+				let checkBody = document.getElementsByName('checkBody');
+				let scbtn = document.getElementsByName('selectedChange');
+				var productArr = []
+				checkHead[0].onclick = function () {
+					for (let i = 0; i < checkBody.length; i++) {
+						checkBody[i].checked = this.checked;
+					}
+					productArr = []
+					if (checkHead[0].checked) {
+						for (let i = 0; i < checkBody.length; i++) {
+							productArr.push(checkBody[i].value)
+						}
+						// console.log(productArr);
+					}
+				}
+
+				function giveEvent() {
+					for (let i = 0; i < checkBody.length; i++) {
+						checkBody[i].onchange = function (e) {
+							let flag = true;
+							productArr = []
+							for (let i = 0; i < checkBody.length; i++) {
+								if (!checkBody[i].checked) {
+									flag = false;
+								} else {
+									productArr.push(checkBody[i].value)
+								}
+							}
+							checkHead[0].checked = flag;
+						}
+					}
+				}
+
+				$('#smform').click(function (e) {
+					e.preventDefault();
+					let type = $('#type').val();
+					if (type == '請選擇') {
+						type = 0
+					}
+					let label = $('#label').val();
+					if (label == '請選擇') {
+						label = 0
+					}
+					let status = $('#status').val();
+					if (status == '請選擇') {
+						status = 3
+					}
+					if (confirm('是否確定編輯？')) {
+						fetch('${contextRoot}/mutipleUpdate?type=' + type + '&label=' + label + '&status=' + status + '&target=' + productArr).then(res => res.json()).then(json => showProductItem(json))
+					}
+				})
 
 			</script>
 		</body>

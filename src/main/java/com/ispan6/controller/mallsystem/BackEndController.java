@@ -109,10 +109,32 @@ public class BackEndController {
 		return productService.getAllProduct();
 	}
 	
-	@GetMapping("insertproduct")
+	@GetMapping("/insertproduct")
 	public String insertproduct() {
 		return "insertproduct";
 	}
 	
-	
+	@GetMapping("/mutipleUpdate")
+	@ResponseBody
+	public List<Product> mutipleUpdate(@RequestParam Integer type,Integer label,Integer status,Integer[] target) {
+		ArrayList aL = new ArrayList();
+		for(int i = 0 ; i < target.length ; i++) {
+			Product productBefore = productService.findById(target[i]);
+			if(type != 0) {
+				System.out.println("type");
+				productBefore.setType(type);
+			}
+			if(label != 0) {
+				System.out.println("label");
+				productBefore.setLabel(label);
+			}
+			if(status != 3) {
+				productBefore.setStatus(status);
+			}
+			productService.insertProduct(productBefore);
+			Product productAfter = productService.findById(target[i]);
+			aL.add(productAfter);
+		}
+		return aL;
+	}
 }
