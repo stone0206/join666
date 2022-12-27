@@ -60,14 +60,6 @@
 							<class class="card-body">
 								<div class="row">
 									<div class="col-5" style="border-right: 3px dashed grey;">
-										<div>
-											<div>
-												<form action="">搜尋:
-													<input type="text" name="" id="search-input" placeholder="key word">
-													<input type="submit" class="btn" value="送出">
-												</form>
-											</div>
-										</div>
 										<div class="fatherDiv" style="margin-bottom: 20px;"
 											onchange="searchCondition()">
 											<div>類型:</div>
@@ -80,17 +72,7 @@
 											<div><input type="checkbox" id="4" value="4" name="type"><label
 													for="4">票券</label></div>
 										</div>
-										<div class="fatherDiv" onchange="searchCondition()">
-											<div>標籤:</div>
-											<div><input type="checkbox" id="5" value="1" name="label"><label
-													for="5">New</label></div>
-											<div><input type="checkbox" id="6" value="2" name="label"><label
-													for="6">Discount</label></div>
-											<div><input type="checkbox" id="7" value="3" name="label"><label
-													for="7">Hot</label></div>
-											<div><input type="checkbox" id="8" value="4" name="label"><label
-													for="8">Sales</label></div>
-										</div>
+										
 									</div>
 									<div class="col-5" style="border-right: 3px dashed grey;">
 										<form action="/" method="post">
@@ -106,25 +88,6 @@
 															<option value="4">票券</option>
 														</select>
 													</div>
-													<div>更換標籤:
-														<select name="label" id="label"
-															style="width: 90px;height: 30px;margin: 10px 20px;">
-															<option selected>請選擇</option>
-															<option value="1">New</option>
-															<option value="2">Discount</option>
-															<option value="3">Hot</option>
-															<option value="4">Sales</option>
-														</select>
-													</div>
-													<div>更換狀態:
-														<select name="status" id="status"
-															style="width: 90px;height: 30px;margin: 10px 20px 0px;">
-															<option selected>請選擇</option>
-															<option value="0">上架</option>
-															<option value="1">下架</option>
-														</select>
-
-													</div>
 												</div>
 												<div class="col" style="text-align: center;">
 													<input class="btn btn-primary" type="submit" value="確認送出"
@@ -132,12 +95,6 @@
 												</div>
 											</div>
 										</form>
-									</div>
-									<div class="col-2">
-										<div style="margin-bottom: 20px;"><button class="btn btn-primary"
-												onclick="insertProduct()">新增商品</button>
-										</div>
-										<div><button class="btn btn-primary">批量新增</button></div>
 									</div>
 								</div>
 							</class>
@@ -244,98 +201,6 @@
 					document.getElementById('table').innerHTML = productData;
 					giveEvent()
 				}
-
-				function deleteProduct(id) {
-					if (confirm('是否刪除' + id + '號商品')) {
-						fetch('${contextRoot}/deleteProduct?id=' + id).then(res => res.text()).then(data => alert(data)).then(data => render())
-					}
-				}
-				function updateProduct(id) {
-					location.href = '${contextRoot}/updataProduct?id=' + id
-				}
-
-				function changeStatus(id) {
-					fetch('${contextRoot}/changeStatus?id=' + id).then(res => res.json()).then(data => showProductItem(data))
-				}
-
-				function insertProduct() {
-					location.href = '${contextRoot}/insertproduct';
-				}
-
-				function searchCondition() {
-					let types = document.getElementsByName('type');
-					let typeArr = []
-					for (let i = 0; i < types.length; i++) {
-						if (types[i].checked) {
-							typeArr.push(types[i].value)
-						}
-					}
-					let labels = document.getElementsByName('label');
-					let labelArr = []
-					for (let i = 0; i < labels.length; i++) {
-						if (labels[i].checked) {
-							labelArr.push(labels[i].value)
-						}
-					}
-					console.log(typeArr);
-					console.log(labelArr);
-					fetch('${contextRoot}/mutipleConditionsQuery?typeCondi=' + typeArr + '&labelCondi=' + labelArr).then(res => res.json()).then(json => showProductItem(json))
-				}
-
-				//全選功能與選中
-				let checkHead = document.getElementsByName('checkHead');
-				let checkBody = document.getElementsByName('checkBody');
-				let scbtn = document.getElementsByName('selectedChange');
-				var productArr = []
-				checkHead[0].onclick = function () {
-					for (let i = 0; i < checkBody.length; i++) {
-						checkBody[i].checked = this.checked;
-					}
-					productArr = []
-					if (checkHead[0].checked) {
-						for (let i = 0; i < checkBody.length; i++) {
-							productArr.push(checkBody[i].value)
-						}
-						// console.log(productArr);
-					}
-				}
-
-				function giveEvent() {
-					for (let i = 0; i < checkBody.length; i++) {
-						checkBody[i].onchange = function (e) {
-							let flag = true;
-							productArr = []
-							for (let i = 0; i < checkBody.length; i++) {
-								if (!checkBody[i].checked) {
-									flag = false;
-								} else {
-									productArr.push(checkBody[i].value)
-								}
-							}
-							checkHead[0].checked = flag;
-						}
-					}
-				}
-
-				$('#smform').click(function (e) {
-					e.preventDefault();
-					let type = $('#type').val();
-					if (type == '請選擇') {
-						type = 0
-					}
-					let label = $('#label').val();
-					if (label == '請選擇') {
-						label = 0
-					}
-					let status = $('#status').val();
-					if (status == '請選擇') {
-						status = 3
-					}
-					if (confirm('是否確定編輯？')) {
-						fetch('${contextRoot}/mutipleUpdate?type=' + type + '&label=' + label + '&status=' + status + '&target=' + productArr).then(res => res.json()).then(json => showProductItem(json))
-					}
-				})
-
 			</script>
 		</body>
 

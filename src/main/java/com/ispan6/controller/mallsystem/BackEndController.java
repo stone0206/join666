@@ -137,4 +137,9 @@ public class BackEndController {
 		}
 		return aL;
 	}
+	
+	@GetMapping("/order")
+	public String goToOrderBackend() {
+		return "orderbackend";
+	}
 }
