@@ -77,7 +77,7 @@ public class Reunion {
 	@Column(name = "memberid")
 	private Integer memberid;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="memberid",insertable=false,updatable=false)
 	private MemberTest memberTest;
 

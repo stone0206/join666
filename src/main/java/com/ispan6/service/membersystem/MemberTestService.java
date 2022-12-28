@@ -2,21 +2,23 @@ package com.ispan6.service.membersystem;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.ispan6.bean.mallsystem.Product;
 import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.dao.membersystem.MemberTestDAO;
+import com.ispan6.utils.CodeUtils;
 
 @Service
 public class MemberTestService {
 		@Autowired
 		private MemberTestDAO mDAO;
+		
+		@Autowired
+	    CodeUtils codeUtils;
 		
 		public void insertMember(MemberTest mt) {
 			mDAO.save(mt);			
@@ -53,10 +55,18 @@ public class MemberTestService {
 		public List<MemberTest> findMem(int male, int female, String account, String name) {
 			return mDAO.findMem(male, female, account, name);
 		}
+		
+	    public boolean sendCode(HttpSession session, MemberTest mt) {
+	       if ( codeUtils.sendCode(session, mt)) 
+	           return true;
+	       else
+	           return false;
+	    }
+
+		
 		//易查會員資料
 		public List<MemberTest> senderFile(HashSet<Integer> id){
 			return mDAO.senderFile(id);
 		}
-		
 
 }

@@ -23,16 +23,10 @@ public class MatchService {
 	@Autowired
 	private MatchDAO matchDao;
 
-	public List<MemberTest> random3Members(Integer id) {
-		return memberTestDao.random3Members(id);
-	};
 
-	public List<MemberTest> random3Members() {
-		return memberTestDao.random3Members();
-	};
 
-	public MemberTest random1(Integer id) {
-		return memberTestDao.random1(id);
+	public MemberTest random1(Integer id,Integer fid) {
+		return memberTestDao.random1(id,fid);
 	};
 
 	public MemberTest random1() {
@@ -71,6 +65,22 @@ public class MatchService {
 
 	public void agreeInvitation(Integer uid,Integer fid) {
 	matchDao.agreeInvitation(uid, fid);
+	};
+	
+	public void blockfriend(Integer uid,Integer id) {
+		matchDao.blockfriend(uid,id);
+	};
+	
+	public List<MatchBean> findMyBlock(Integer id){
+		return matchDao.findMyBlock(id);
+	};
+
+	public void cancelfriend(Integer uid) {
+		matchDao.deleteById(uid);
+	};
+
+	public void cancelblock(Integer uid) {
+		matchDao.cancelblock(uid);
 	};
 
 }

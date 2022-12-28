@@ -37,6 +37,10 @@ public class Register {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="memberid",referencedColumnName="m_id",insertable=false,updatable=false)
 	private MemberTest memberTest ;
+	
+	
+	@Column(name="review ")
+	private Integer review ;
 
 	public Integer getRegisterid() {
 		return registerid;
@@ -76,6 +80,14 @@ public class Register {
 
 	public void setMemberTest(MemberTest memberTest) {
 		this.memberTest = memberTest;
+	}
+
+	public Integer getReview() {
+		return review;
+	}
+
+	public void setReview(Integer review) {
+		this.review = review;
 	}
 	
 	

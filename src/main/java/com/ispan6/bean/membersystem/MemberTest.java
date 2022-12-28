@@ -39,9 +39,9 @@ public class MemberTest {
 	private int id;
 
 	// 博宇
-//	@OneToMany(mappedBy = "memberTest")
-//	@JsonIgnore
-//	private Set<Reunion> reunionlist;
+	@OneToMany(mappedBy = "memberTest",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@JsonIgnore
+	private Set<Reunion> reunionlist;
 
 	@Column(name = "m_account")
 	private String account;
@@ -201,14 +201,14 @@ public class MemberTest {
 	public void setMessageContentUserId(List<MessageContent> messageContentUserId) {
 		this.messageContentUserId = messageContentUserId;
 	}
-//
-//	public Set<Reunion> getReunionlist() {
-//		return reunionlist;
-//	}
-//
-//	public void setReunionlist(Set<Reunion> reunionlist) {
-//		this.reunionlist = reunionlist;
-//	}
+
+	public Set<Reunion> getReunionlist() {
+		return reunionlist;
+	}
+
+	public void setReunionlist(Set<Reunion> reunionlist) {
+		this.reunionlist = reunionlist;
+	}
 
 	
 
