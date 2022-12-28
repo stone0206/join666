@@ -120,8 +120,8 @@ input, button {
 
 <body>
 	<jsp:include page="/WEB-INF/layout/navbar.jsp" />
-	<%-- 	<form action="/insertMember" id="form1" method="post"> --%>
-	<form action="/sendCode" id="form1" method="post">
+		<form action="/insertMember" id="form1" method="post">
+<%-- 	<form action="/sendCode" id="form1" method="post"> --%>
 		<div class="login_page">
 			<div id="container1">
 				<div class="login">
@@ -141,8 +141,8 @@ input, button {
 
 					<button class="submit" onclick="" id="cancel">取消</button>
 					<input type="button" class="submit"
-						onclick="location.href='https://accounts.google.com/o/oauth2/auth?scope=email+profile&redirect_uri=http://localhost:8080/Login/LoginGoogleHandler&response_type=code&client_id=378093448501-ebvinmo23u9l8lmljs9souqd3953nbqg.apps.googleusercontent.com&approval_prompt=force';"
-						value="Google登入" disabled style="background-color: gray" />
+						onclick="location.href='https://accounts.google.com/o/oauth2/auth?scope=email+profile&redirect_uri=http://localhost:8080/LoginGoogleHandler&response_type=code&client_id=378093448501-ebvinmo23u9l8lmljs9souqd3953nbqg.apps.googleusercontent.com&approval_prompt=force';"
+						value="Google登入"  style="background-color: #31C1DD" />
 					<%-- 				</form> --%>
 				</div>
 			</div>
