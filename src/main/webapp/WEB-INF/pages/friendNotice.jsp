@@ -52,7 +52,7 @@
               	<li class="nav-item"> <a class="nav-link" onclick="getlist()" id="listbtn"> 好友列表 <span class="badge bg-success bg-opacity-10 text-success small" id="friendlist"> </span></a> </li>
                 <li class="nav-item"> <a class="nav-link" onclick="sendinvitation()" id="sendbtn"> 已送出的邀請 <span class="badge bg-success bg-opacity-10 text-success small" id="sendcount"> </span></a> </li>
                 <li class="nav-item"> <a class="nav-link" onclick="whosend()" id="getsendbtn"> 已收到的邀請 <span class="badge bg-success bg-opacity-10 text-success small" id="getcount"> </span></a> </li>
-                <li class="nav-item"> <a class="nav-link" href="my-profile-connections.html"> 封鎖名單 <span class="badge bg-success bg-opacity-10 text-success small"></span> </a> </li>
+                <li class="nav-item"> <a class="nav-link" onclick="blocklist()" id="blockbtn"> 封鎖名單 <span class="badge bg-success bg-opacity-10 text-success small" id="blockmember"></span> </a> </li>
               </ul>
             </div>
           </div>
@@ -98,15 +98,16 @@ window.onload = function () {
 						 $.each(random, function (index, value) {
 					    sendInvit +=' <div class="card-body"> <div class="d-md-flex align-items-center mb-4" ><div class="avatar me-3 mb-3 mb-md-0">';
 						if(value.fuid.id==loginid){
-						sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.userid.avator+'" alt=""> </a></div>';
-						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h6 class="mb-0"><a href="#!">'+ value.userid.name+'</a></h6></div></div>';
+						sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.userid.avator+'" alt=""> </a></div>'
+						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h3 class="mb-0"><a href="#!">'+ value.userid.name+'</a></h3></div></div>';
 						}
 						if(value.userid.id==loginid){
 						sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.fuid.avator+'" alt=""> </a></div>';
 						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h6 class="mb-0"><a href="#!">'+ value.fuid.name+'</a></h6></div></div>';
 						}
-						sendInvit +=' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2"> 解除好友 </button>'
+						sendInvit +=' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2"onclick="unfriendfromlist('+value.friendid+')"> 解除好友 </button>'
 						sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0"> 傳訊息給他 </button>'
+						sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0" onclick="blockmemberfromlist('+value.friendid+')"> 封鎖 </button>'
 						sendInvit +='</div> </div></div> </div>' 
 						})
 						
@@ -115,6 +116,7 @@ window.onload = function () {
 						document.getElementById("listbtn").className="nav-link active";
 						document.getElementById("sendbtn").className="nav-link";
 						document.getElementById("getsendbtn").className="nav-link";
+						document.getElementById("blockbtn").className="nav-link";
 						document.getElementById('friendlist').innerHTML = random.length;
  					})
 }
@@ -135,14 +137,15 @@ function getlist() {
 					    sendInvit +=' <div class="card-body"> <div class="d-md-flex align-items-center mb-4" ><div class="avatar me-3 mb-3 mb-md-0">';
 						if(value.fuid.id==loginid){
 						sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.userid.avator+'" alt=""> </a></div>';
-						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h6 class="mb-0"><a href="#!">'+ value.userid.name+'</a></h6></div></div>';
+						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h3 class="mb-0"><a href="#!">'+ value.userid.name+'</a></h3></div></div>';
 						}
 						if(value.userid.id==loginid){
 						sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.fuid.avator+'" alt=""> </a></div>';
 						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h6 class="mb-0"><a href="#!">'+ value.fuid.name+'</a></h6></div></div>';
 						}
-						sendInvit +=' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2"> 解除好友 </button>'
+						sendInvit +=' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2"onclick="unfriendfromlist('+value.friendid+')"> 解除好友 </button>'
 						sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0"> 傳訊息給他 </button>'
+						sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0" onclick="blockmemberfromlist('+value.friendid+')"> 封鎖 </button>'
 						sendInvit +='</div> </div></div> </div>' 
 						})
 						
@@ -151,7 +154,39 @@ function getlist() {
 						document.getElementById("listbtn").className="nav-link active";
 						document.getElementById("sendbtn").className="nav-link";
 						document.getElementById("getsendbtn").className="nav-link";
+						document.getElementById("blockbtn").className="nav-link";
 						document.getElementById('friendlist').innerHTML = random.length;
+ 					})
+}
+
+function unfriendfromlist(friendid){
+	fetch('${contextRoot}/unfriendfromlist?id='+friendid)
+			.then(function(response) {
+				return response.json();
+			})
+			.then(
+					function(random) {
+						document.getElementById('mysend').remove;
+						let sendInvit = '';
+						console.log(random);
+						 
+
+						 $.each(random, function (index, value) {
+					    sendInvit +=' <div class="card-body"> <div class="d-md-flex align-items-center mb-4" ><div class="avatar me-3 mb-3 mb-md-0">';
+						sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.fuid.avator+'" alt=""> </a></div>';
+						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h3 class="mb-0"><a href="#!">'+ value.fuid.name+'</a></h3></div></div>';
+						sendInvit +=' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2">收回邀請</button>'
+						sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0" onclick="blocksendinvitation('+value.friendid+')"> 封鎖 </button>'
+						sendInvit +='</div> </div></div> </div>' 
+						})
+						
+						console.log(sendInvit);
+						document.getElementById('mysend').innerHTML = sendInvit;
+						document.getElementById("sendbtn").className="nav-link active";
+						document.getElementById("getsendbtn").className="nav-link";
+						document.getElementById("listbtn").className="nav-link";				
+						document.getElementById("blockbtn").className="nav-link";
+						document.getElementById('sendcount').innerHTML = random.length;
  					})
 }
 
@@ -170,8 +205,9 @@ function sendinvitation() {
 						 $.each(random, function (index, value) {
 					    sendInvit +=' <div class="card-body"> <div class="d-md-flex align-items-center mb-4" ><div class="avatar me-3 mb-3 mb-md-0">';
 						sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.fuid.avator+'" alt=""> </a></div>';
-						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h6 class="mb-0"><a href="#!">'+ value.fuid.name+'</a></h6></div></div>';
-						sendInvit +=' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2"> 取消 </button>'
+						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h3 class="mb-0"><a href="#!">'+ value.fuid.name+'</a></h3></div></div>';
+						sendInvit +=' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2">收回邀請</button>'
+						sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0" onclick="blocksendinvitation('+value.friendid+')"> 封鎖 </button>'
 						sendInvit +='</div> </div></div> </div>' 
 						})
 						
@@ -179,7 +215,39 @@ function sendinvitation() {
 						document.getElementById('mysend').innerHTML = sendInvit;
 						document.getElementById("sendbtn").className="nav-link active";
 						document.getElementById("getsendbtn").className="nav-link";
-						document.getElementById("listbtn").className="nav-link";
+						document.getElementById("listbtn").className="nav-link";				
+						document.getElementById("blockbtn").className="nav-link";
+						document.getElementById('sendcount').innerHTML = random.length;
+ 					})
+}
+
+function blocksendinvitation(friendid){
+	fetch('${contextRoot}/blocksendinvitation?id='+friendid)
+			.then(function(response) {
+				return response.json();
+			})
+			.then(
+					function(random) {
+						document.getElementById('mysend').remove;
+						let sendInvit = '';
+						console.log(random);
+						 
+
+						 $.each(random, function (index, value) {
+					    sendInvit +=' <div class="card-body"> <div class="d-md-flex align-items-center mb-4" ><div class="avatar me-3 mb-3 mb-md-0">';
+						sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.fuid.avator+'" alt=""> </a></div>';
+						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h3 class="mb-0"><a href="#!">'+ value.fuid.name+'</a></h3></div></div>';
+						sendInvit +=' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2">收回邀請</button>'
+						sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0" onclick="blocksendinvitation('+value.friendid+')"> 封鎖 </button>'
+						sendInvit +='</div> </div></div> </div>' 
+						})
+						
+						console.log(sendInvit);
+						document.getElementById('mysend').innerHTML = sendInvit;
+						document.getElementById("sendbtn").className="nav-link active";
+						document.getElementById("getsendbtn").className="nav-link";
+						document.getElementById("listbtn").className="nav-link";				
+						document.getElementById("blockbtn").className="nav-link";
 						document.getElementById('sendcount').innerHTML = random.length;
  					})
 }
@@ -199,17 +267,19 @@ function whosend() {
 						 $.each(random, function (index, value) {
 					    sendInvit +=' <div class="card-body"> <div class="d-md-flex align-items-center mb-4" ><div class="avatar me-3 mb-3 mb-md-0">';
 						sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.userid.avator+'" alt=""> </a></div>';
-						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h6 class="mb-0"><a href="#!">'+ value.userid.name+'</a></h6></div></div>';
+						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h3 class="mb-0"><a href="#!">'+ value.userid.name+'</a></h3></div></div>';
 						sendInvit +=' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2"> 拒絕 </button>'
 						sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0" onclick="agreeInvitation('+value.userid.id+')"> 同意 </button>'
-							sendInvit +='</div> </div></div> </div>' 
+						sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0" onclick="blocksendinvitation('+value.friendid+')"> 封鎖 </button>'
+						sendInvit +='</div> </div></div> </div>' 
 						})
 						
 						console.log(sendInvit);
 						document.getElementById('mysend').innerHTML = sendInvit;
 						document.getElementById("getsendbtn").className="nav-link active";
 						document.getElementById("sendbtn").className="nav-link";
-						document.getElementById("listbtn").className="nav-link";
+						document.getElementById("listbtn").className="nav-link";				
+						document.getElementById("blockbtn").className="nav-link";
 						document.getElementById('getcount').innerHTML = random.length;
 
 					})
@@ -230,10 +300,11 @@ function agreeInvitation(fuid) {
 				 $.each(random, function (index, value) {
 			    sendInvit +=' <div class="card-body"> <div class="d-md-flex align-items-center mb-4" ><div class="avatar me-3 mb-3 mb-md-0">';
 				sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.userid.avator+'" alt=""> </a></div>';
-				sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h6 class="mb-0"><a href="#!">'+ value.userid.name+'</a></h6></div></div>';
+				sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h3 class="mb-0"><a href="#!">'+ value.userid.name+'</a></h3></div></div>';
 				sendInvit +=' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2"> 拒絕 </button>'
-				sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0" onclick="agreeInvitation('+value.userid+')"> 同意 </button>'
-					sendInvit +='</div> </div></div> </div>' 
+				sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0" onclick="agreeInvitation('+value.userid.id+')"> 同意 </button>'
+				sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0"> 封鎖 </button>'
+				sendInvit +='</div> </div></div> </div>' 
 				})
 				
 				console.log(sendInvit);
@@ -241,10 +312,119 @@ function agreeInvitation(fuid) {
 				document.getElementById("getsendbtn").className="nav-link active";
 				document.getElementById("sendbtn").className="nav-link";
 				document.getElementById("listbtn").className="nav-link";
+				document.getElementById("blockbtn").className="nav-link";
 				document.getElementById('getcount').innerHTML = random.length;
 
 		})
 	}
+	
+	function blockmemberfromlist(friendid) {
+	fetch('${contextRoot}/blockmemberfromlist?id='+friendid)
+	.then(function(response) {
+		return response.json();
+	})
+	.then(
+			function(random) {
+				document.getElementById('mysend').remove;
+				let sendInvit = '';
+				console.log(random);
+				 
+
+				$.each(random, function (index, value) {
+			    sendInvit +=' <div class="card-body"> <div class="d-md-flex align-items-center mb-4" ><div class="avatar me-3 mb-3 mb-md-0">';
+				if(value.fuid.id==loginid){
+				sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.userid.avator+'" alt=""> </a></div>';
+				sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h3 class="mb-0"><a href="#!">'+ value.userid.name+'</a></h3></div></div>';
+				}
+				if(value.userid.id==loginid){
+				sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.fuid.avator+'" alt=""> </a></div>';
+				sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h6 class="mb-0"><a href="#!">'+ value.fuid.name+'</a></h6></div></div>';
+				}
+				sendInvit +=' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2"> 解除好友 </button>'
+				sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0"> 傳訊息給他 </button>'
+				sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0" onclick="blockmemberfromlist('+value.friendid+')"> 封鎖 </button>'
+				sendInvit +='</div> </div></div> </div>' 
+				})
+				
+				console.log(sendInvit);
+				document.getElementById('mysend').innerHTML = sendInvit;
+				document.getElementById("listbtn").className="nav-link active";
+				document.getElementById("sendbtn").className="nav-link";
+				document.getElementById("getsendbtn").className="nav-link";
+				document.getElementById("blockbtn").className="nav-link";
+				document.getElementById('friendlist').innerHTML = random.length;
+				})
+}
+
+function blocklist() {
+	fetch('${contextRoot}/blocklist')
+			.then(function(response) {
+				return response.json();
+			})
+			.then(
+					function(random) {
+						document.getElementById('mysend').remove;
+						let sendInvit = '';
+						console.log(random);
+						 
+
+						$.each(random, function (index, value) {
+					    sendInvit +=' <div class="card-body"> <div class="d-md-flex align-items-center mb-4" ><div class="avatar me-3 mb-3 mb-md-0">';
+						if(value.fuid.id==loginid){
+						sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.userid.avator+'" alt=""> </a></div>';
+						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h3 class="mb-0"><a href="#!">'+ value.userid.name+'</a></h3></div></div>';
+						}
+						if(value.userid.id==loginid){
+						sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.fuid.avator+'" alt=""> </a></div>';
+						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h6 class="mb-0"><a href="#!">'+ value.fuid.name+'</a></h6></div></div>';
+						}
+						sendInvit +=' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2"> 解除封鎖 </button>'
+						sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0" onclick="blockmemberfromlist('+value.friendid+')"> 刪除 </button>'
+						sendInvit +='</div> </div></div> </div>' 
+						})
+						
+						console.log(sendInvit);
+						document.getElementById('mysend').innerHTML = sendInvit;
+						document.getElementById("listbtn").className="nav-link";
+						document.getElementById("sendbtn").className="nav-link";
+						document.getElementById("getsendbtn").className="nav-link";
+						document.getElementById("blockbtn").className="nav-link active";
+						document.getElementById('blockmember').innerHTML = random.length;
+ 					})
+}
+	function blocksendinvitation(friendid){
+		fetch('${contextRoot}/blocksendinvitation?id='+friendid)
+			.then(function(response) {
+				return response.json();
+			})
+			.then(
+					function(random) {
+						document.getElementById('mysend').remove;
+						let sendInvit = '';
+						console.log(random);
+						 
+
+						 $.each(random, function (index, value) {
+					    sendInvit +=' <div class="card-body"> <div class="d-md-flex align-items-center mb-4" ><div class="avatar me-3 mb-3 mb-md-0">';
+						sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.userid.avator+'" alt=""> </a></div>';
+						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h3 class="mb-0"><a href="#!">'+ value.userid.name+'</a></h3></div></div>';
+						sendInvit +=' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2"> 拒絕 </button>'
+						sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0" onclick="agreeInvitation('+value.userid.id+')"> 同意 </button>'
+						sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0" onclick="blocksendinvitation('+value.friendid+')"> 封鎖 </button>'
+						sendInvit +='</div> </div></div> </div>' 
+						})
+						
+						console.log(sendInvit);
+						document.getElementById('mysend').innerHTML = sendInvit;
+						document.getElementById("getsendbtn").className="nav-link active";
+						document.getElementById("sendbtn").className="nav-link";
+						document.getElementById("listbtn").className="nav-link";				
+						document.getElementById("blockbtn").className="nav-link";
+						document.getElementById('getcount').innerHTML = random.length;
+
+					})
+}
+	
 
 
 </script>

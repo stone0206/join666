@@ -72,7 +72,7 @@ public class MemberTestController {
 		String password = request.getParameter("password");
 		MemberTest mt = mService.findByAccAndPwd(account, password);
 
-		MemberTest random = matchService.random1(mt.getId());
+		MemberTest random = matchService.random1(mt.getId(),mt.getId());
 		m.addAttribute("random", random);
 
 		HttpSession session = request.getSession();
