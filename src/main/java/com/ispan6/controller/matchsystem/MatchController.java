@@ -126,23 +126,6 @@ public class MatchController {
 		return matchService.findMyFriend(member.getId(), member.getId());
 	}
 	
-	//從我寄給誰清單封鎖別人
-	@GetMapping("/blocksendinvitation")
-	@ResponseBody
-	public List<MatchBean> blocksendinvitation(@RequestParam Integer id,HttpSession session) {
-		MemberTest member = (MemberTest) session.getAttribute("loginUser");
-		matchService.blockfriend(member.getId(),id);
-		return matchService.findMyInvitation(member.getId());
-	}
-	
-	//從誰寄給我清單封鎖別人
-	@GetMapping("/blockwhosendinvitation")
-	@ResponseBody
-	public List<MatchBean> blockwhosendinvitation(@RequestParam Integer id,HttpSession session) {
-		MemberTest member = (MemberTest) session.getAttribute("loginUser");
-		matchService.blockfriend(member.getId(),id);
-		return matchService.findWhoSendInvitation(member.getId());
-	}
 	
 	//從好友清單刪除好友
 		@GetMapping("/unfriendfromlist")
@@ -168,5 +151,22 @@ public class MatchController {
 			MemberTest member = (MemberTest) session.getAttribute("loginUser");
 			matchService.cancelfriend(id);
 			return matchService.findWhoSendInvitation(member.getId());
+		}
+		
+		//從封鎖名單刪除
+		@GetMapping("/unfriendfromblock")
+		@ResponseBody
+		public List<MatchBean> unfriendfromblock(@RequestParam Integer id, HttpSession session) {
+			MemberTest member = (MemberTest) session.getAttribute("loginUser");
+			matchService.cancelfriend(id);
+			return matchService.findMyBlock(member.getId());
+		}
+		//解除封鎖
+		@GetMapping("/cancelblock")
+		@ResponseBody
+		public List<MatchBean> cancelblock(@RequestParam Integer id, HttpSession session) {
+			MemberTest member = (MemberTest) session.getAttribute("loginUser");
+			matchService.cancelblock(id);
+			return matchService.findMyBlock(member.getId());
 		}
 }

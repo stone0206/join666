@@ -79,5 +79,8 @@ public class MatchService {
 		matchDao.deleteById(uid);
 	};
 
+	public void cancelblock(Integer uid) {
+		matchDao.cancelblock(uid);
+	};
 
 }

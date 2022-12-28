@@ -32,4 +32,8 @@ public interface MatchDAO extends JpaRepository<MatchBean, Integer> {
 	@Modifying
 	@Query(value = "update friend set isfriend=2 , whoblocked = ?1 where friendid=?2 ", nativeQuery = true)
 	public void blockfriend(Integer uid,Integer id);
+	
+	@Modifying
+	@Query(value = "update friend set isfriend=1 where friendid=?1 ", nativeQuery = true)
+	public void cancelblock(Integer id);
 }
