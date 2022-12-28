@@ -213,10 +213,17 @@ a {
 									</div>
 									<div style="text-align: center;">
 										<a style="font-size: 25px; margin: auto;"><button
-												onclick="changeone()">換一個</button></a> <a
-											style="font-size: 25px; margin: auto;"><button
-												id="addBtn" onclick="addNewFriend(${random.id})">
-												送出邀請</button></a>
+												onclick="changeone()">換一個</button></a>
+										<c:if test="${loginUser ==null}">
+											<a style="font-size: 25px; margin: auto;" href="/login"><button
+													id="addBtn">請先登入</button></a>
+										</c:if>
+										<c:if test="${loginUser !=null}">
+											<a style="font-size: 25px; margin: auto;" id="logina"><button
+													id="addBtn" onclick="addNewFriend(${random.id})">
+													送出邀請</button></a>
+										</c:if>
+
 									</div>
 								</div>
 
@@ -280,10 +287,11 @@ a {
 	function addNewFriend(fuid) {
 		fetch('${contextRoot}/addNewFriend?id=' + fuid).then(res => res.text()).then(text => {
 			alert(text);
-			if(text!=='請先登入'){
+			if(text=='送出邀請成功'){
 			document.getElementById('addBtn').innerHTML = '已送出邀請';
 			document.getElementById("addBtn").disabled=true;
 			}
+			
 		})
 	}
 </script>
