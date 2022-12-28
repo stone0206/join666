@@ -13,7 +13,7 @@
 			<style>
 				#table tr {
 					text-align: center;
-					line-height: 100px;
+					vertical-align: middle;
 				}
 
 				#table tr td a {
@@ -28,22 +28,13 @@
 					float: left;
 				}
 
-				#insertProductForm input {
-					margin-bottom: 10px;
-				}
-
-				.fatherDiv {
-					display: flex;
-				}
-
-				.fatherDiv div {
-					margin-right: 30px;
-				}
-
-				#search-input {
-					border-radius: 3px;
-					border: 1px solid grey;
-					margin-left: 30px;
+				#editor,
+				#cancel {
+					padding: 0px 0px;
+					height: 30px;
+					width: 90px;
+					font-size: 16px;
+					line-height: 30px;
 				}
 			</style>
 		</head>
@@ -55,47 +46,39 @@
 					<div class="container-fluid px-4">
 						<div class="card mb-4" style="margin-top: 20px;">
 							<div class="card-header">
-								<i class="fas fa-table me-1"></i> 功能區
+								<i class='fas fa-wrench'></i> 功能區
 							</div>
 							<class class="card-body">
 								<div class="row">
-									<div class="col-5" style="border-right: 3px dashed grey;">
-										<div class="fatherDiv" style="margin-bottom: 20px;"
-											onchange="searchCondition()">
-											<div>類型:</div>
-											<div><input type="checkbox" id="1" value="1" name="type"><label
-													for="1">派對道具</label></div>
-											<div><input type="checkbox" id="2" value="2" name="type"><label
-													for="2">桌遊</label></div>
-											<div><input type="checkbox" id="3" value="3" name="type"><label
-													for="3">裝飾用品</label></div>
-											<div><input type="checkbox" id="4" value="4" name="type"><label
-													for="4">票券</label></div>
-										</div>
-										
+									<button class="btn btn-primary" onclick="changeStatus()">一鍵發貨</button>
+								</div>
+							</class>
+						</div>
+						<div class="card mb-4" style="margin-top: 20px;">
+							<div class="card-header">
+								<i class='fas fa-eraser'></i> 編輯區
+							</div>
+							<class class="card-body">
+								<div class="row">
+
+								</div>
+								<div class="row">
+									<div id="orderId">
 									</div>
-									<div class="col-5" style="border-right: 3px dashed grey;">
-										<form action="/" method="post">
-											<div class="row">
-												<div class="col">
-													<div>更換類型:
-														<select name="type" id="type"
-															style="width: 90px;height: 30px;margin: 0px 20px 10px;">
-															<option selected>請選擇</option>
-															<option value="1">派對道具</option>
-															<option value="2">桌遊</option>
-															<option value="3">裝飾用品</option>
-															<option value="4">票券</option>
-														</select>
-													</div>
-												</div>
-												<div class="col" style="text-align: center;">
-													<input class="btn btn-primary" type="submit" value="確認送出"
-														id="smform"></input>
-												</div>
-											</div>
-										</form>
-									</div>
+									<table>
+										<thead>
+											<tr>
+												<th>總金額</th>
+												<th>收件人</th>
+												<th>電話</th>
+												<th>地址</th>
+												<th>操作</th>
+											</tr>
+										</thead>
+										<tbody id="editorArea">
+
+										</tbody>
+									</table>
 								</div>
 							</class>
 						</div>
@@ -103,22 +86,27 @@
 
 						<div class="card mb-4">
 							<div class="card-header">
-								<i style="font-size:16px;cursor:pointer" class="fa" onclick="render()">&#xf021;</i> 商品列表
+								<i style="font-size:16px;cursor:pointer" class="fa" onclick="render()">&#xf021;</i> 訂單列表
 							</div>
 							<div class="card-body container-fluid">
 								<table class="table table-striped table-sm">
 									<thead>
-										<tr style="text-align: center;">
-											<th><input type="checkbox" name="checkHead"></th>
-											<th>id</th>
-											<th>名稱</th>
-											<th>圖片</th>
-											<th>價格</th>
-											<th>銷量</th>
-											<th>庫存</th>
-											<th>類型</th>
-											<th>標籤</th>
-											<th>狀態</th>
+										<tr style="text-align: center;vertical-align: middle;">
+											<th><input type="checkbox" name="checkHead" id=""></th>
+											<th>編號</th>
+											<th style="cursor: pointer;" onclick="sortByDate()">下單日期<i
+													style="margin-bottom: 3px;" class='fas fa-sort-down middle'></i>
+											</th>
+											<th>數量</th>
+											<th>總金額</th>
+											<th style="cursor: pointer;" onclick="sortByName()">收件人<i
+													style="margin-bottom: 3px;" class='fas fa-sort-down middle'></i>
+											</th>
+											<th>電話</th>
+											<th>地址</th>
+											<th style="cursor: pointer;" onclick="sortByStatus()">狀態<i
+													style="margin-bottom: 3px;" class='fas fa-sort-down middle'></th>
+											<th>詳情</th>
 											<th>操作</th>
 										</tr>
 									</thead>
@@ -128,8 +116,34 @@
 							</div>
 						</div>
 					</div>
-
 				</main>
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">訂單詳情</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body" id="detailBody">
+								<table class="table table-striped table-sm">
+									<thead>
+										<tr>
+											<th>名稱</th>
+											<th>圖片</th>
+											<th>數量</th>
+											<th>單價</th>
+											<th>金額</th>
+										</tr>
+									</thead>
+									<tbody id="detailTable">
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -140,67 +154,175 @@
 			<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 			<script type="text/javascript">
 
-				window.onload = render();
+				window.onload = render()
 
 				function render() {
-					fetch("${contextRoot}/backendProduct").then(res => res.json()).then(data => showProductItem(data))
+					fetch("${contextRoot}/openBackendOrder").then(res => res.json()).then(data => changeItem(data))
 				}
 
-				function showProductItem(data) {
-					let productData = '';
+				function changeItem(data) {
+					let itemData = '';
 					$.each(data, function (index, value) {
-						productData += '<tr><td style="vertical-align:middle;"><input type="checkbox" name="checkBody" value="' + value.id + '"></td>'
-						productData += '<td>' + value.id + '</td>'
-						productData += '<td style="width:300px;">' + value.name + '</td>';
-						productData += '<td><img src="' + value.img + '"style="width:100px;height:100px;cursor:pointer;" onclick=updateProduct(' + value.id + ') ></td>';
-						productData += '<td>' + value.price + '</td>';
-						productData += '<td>' + value.sales + '</td>';
-						productData += '<td>' + value.inventory + '</td>';
-						// type
-						switch (value.type) {
-							case 1:
-								productData += '<td>派對道具</td>';
-								break;
-							case 2:
-								productData += '<td>桌遊</td>';
-								break;
-							case 3:
-								productData += '<td>裝飾用品</td>';
-								break;
-							case 4:
-								productData += '<td>票券</td>';
-								break;
-						}
-						//label
-						switch (value.label) {
-							case 1:
-								productData += '<td>New</td>';
-								break;
-							case 2:
-								productData += '<td>Discount</td>';
-								break;
-							case 3:
-								productData += '<td>Hot</td>';
-								break;
-							case 4:
-								productData += '<td>Sale</td>';
-								break;
-						}
-						//status
+						itemData += '<tr><td><input type="checkbox" name="checkBody" value="' + value.id + '"></td>'
+						itemData += '<td>' + value.id + '</td>';
+						itemData += '<td>' + value.date + '</td>'
+						itemData += '<td>' + value.count + '</td>'
+						itemData += '<td>' + value.price + '</td>'
+						itemData += '<td>' + value.name + '</td>'
+						itemData += '<td>' + value.tel + '</td>'
+						itemData += '<td>' + value.addr + '</td>'
 						switch (value.status) {
 							case 0:
-								productData += '<td style="cursor:pointer;" onclick=changeStatus(' + value.id + ')>上架</td>';
+								itemData += '<td>未付款</td>'
 								break;
 							case 1:
-								productData += '<td style="cursor:pointer;" onclick=changeStatus(' + value.id + ')>下架</td>';
+								itemData += '<td>待發貨</td>'
+								break;
+							case 2:
+								itemData += '<td>已發貨</td>'
+								break;
+							case 3:
+								itemData += '<td>已簽收</td>'
+								break;
+							default:
+								itemData += '<td></td>'
 								break;
 						}
-						productData += '<td><a style="color:blue;cursor:pointer;margin-right:5px" onclick="updateProduct(' + value.id + ')">編輯</a>';
-						productData += '<a style="color:red;cursor:pointer;" onclick="deleteProduct(' + value.id + ')">刪除</a></td></tr>';
+						itemData += '<td>'
+						itemData += '<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" style="color:red;border:0px;" onclick="openOrderDetail(' + value.id + ')">詳情</button>'
+						itemData += '</td>'
+						itemData += '<td>'
+						itemData += '<button type="button" class="btn" style="color:blue;border:0px;" onclick="check(' + value.id + ')">編輯</button>'
+						itemData += '</td></tr>'
 					})
-					document.getElementById('table').innerHTML = productData;
+					itemData += '</tbody>'
+					let table = document.getElementById('table');
+					table.innerHTML = itemData;
 					giveEvent()
 				}
+
+				function openOrderDetail(orderId) {
+					fetch("${contextRoot}/openMyOrderDetail?orderId=" + orderId).then(res => res.json()).then(data => changeDetailItem(data))
+				}
+
+				function changeDetailItem(data) {
+					let itemData = '';
+					$.each(data, function (index, value) {
+						itemData += '<tr>'
+						itemData += '<td>' + value.product.name + '</td>';
+						itemData += '<td><img src="' + value.product.img + '" style="width: 100px; height: 100px;"></td>'
+						itemData += '<td>' + value.count + '</td>'
+						itemData += '<td>' + value.product.price + '</td>'
+						itemData += '<td>' + value.totalPrice + '</td>'
+					})
+					itemData += '</tbody>'
+					let table = document.getElementById('detailTable');
+					table.innerHTML = itemData;
+				}
+
+				function check(id) {
+					if (confirm('是否確定編輯編號：' + id + '的訂單')) {
+						fetch("${contextRoot}/searchOrderById?orderId=" + id).then(res => res.json()).then(data => renderEditor(data))
+					}
+				}
+
+				function renderEditor(data) {
+					let itemData = '';
+					let orderId = ''
+
+					orderId = '<h5>訂單編號' + data.id + '</h5>'
+					itemData += '<tr>'
+					itemData += '<input type="hidden" id="updateOrderId" value="' + data.id + '">';
+					itemData += '<td class="col-2"><input type="text" id="price" value="' + data.price + '"></td>';
+					itemData += '<td class="col-2"><input type="text" id="name" value="' + data.name + '"></td>';
+					itemData += '<td class="col-2"><input type="text" id="tel" value="' + data.tel + '"></td>';
+					itemData += '<td class="col-2"><input type="text" id="addr" value="' + data.addr + '"></td>';
+					itemData += '<td class="col-1"><button class="btn btn-primary" id="editor" onclick="updateChecked()">確定編輯</button></td>'
+					itemData += '<td class="col-1"><button class="btn btn-primary" id="cancel" onclick="cancelOrder()">取消訂單</button></td>'
+
+					itemData += '</tr></tbody>'
+					let table = document.getElementById('editorArea');
+					table.innerHTML = itemData;
+					document.getElementById('orderId').innerHTML = orderId;
+				}
+
+				function updateChecked() {
+					let id = $('#updateOrderId').val();
+					let price = $('#price').val();
+					let name = $('#name').val();
+					let tel = $('#tel').val();
+					let addr = $('#addr').val();
+					fetch("${contextRoot}/updateOrder?id=" + id + "&price=" + price + "&name=" + name + "&tel=" + tel + "&addr=" + addr).then(res => res.text()).then(text => render())
+					aler('修改成功')
+				}
+
+				//全選功能與選中
+				let checkHead = document.getElementsByName('checkHead');
+				let checkBody = document.getElementsByName('checkBody');
+				var orderArr = []
+				checkHead[0].onclick = function () {
+					for (let i = 0; i < checkBody.length; i++) {
+						checkBody[i].checked = this.checked;
+					}
+					orderArr = []
+					if (checkHead[0].checked) {
+						for (let i = 0; i < checkBody.length; i++) {
+							orderArr.push(checkBody[i].value)
+						}
+					}
+				}
+
+				function giveEvent() {
+					for (let i = 0; i < checkBody.length; i++) {
+						checkBody[i].onchange = function (e) {
+							let flag = true;
+							orderArr = []
+							for (let i = 0; i < checkBody.length; i++) {
+								if (!checkBody[i].checked) {
+									flag = false;
+								} else {
+									orderArr.push(checkBody[i].value)
+								}
+							}
+							checkHead[0].checked = flag;
+						}
+					}
+				}
+
+
+				function cancelOrder() {
+					let id = $('#updateOrderId').val();
+					if (confirm('是否確定取消訂單' + id)) {
+						fetch("${contextRoot}/deleteOrder?id=" + id).then(res => res.text()).then(text => render())
+					}
+					aler('取消成功')
+				}
+
+				//調整點擊後desc asc 用前端排序做
+
+				function sortByDate() {
+					fetch("${contextRoot}/sortByDate").then(res => res.json()).then(json => changeItem(json))
+				}
+
+				function sortByName() {
+					fetch("${contextRoot}/sortByName").then(res => res.json()).then(json => changeItem(json))
+				}
+
+				function sortByStatus() {
+					fetch("${contextRoot}/sortByStatus").then(res => res.json()).then(json => changeItem(json))
+				}
+
+				function changeStatus() {
+					if (orderArr.length == 0) {
+						alert('請先選中商品')
+						return;
+					}
+					if (confirm('是否確定' + orderArr + '已發貨'))
+						fetch("${contextRoot}/changeOrderStatus?targets=" + orderArr).then(res => res.json()).then(json => changeItem(json))
+					orderArr = []
+				}
+
+
 			</script>
 		</body>
 

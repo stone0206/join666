@@ -150,9 +150,8 @@
 				<main>
 					<div class="container-fluid" style="width: 85%;">
 						<div class="row">
-							<div class="col-12"
-								style="height: 400px; background-color: grey; margin-bottom: 15px; padding: 10px; background-image: sr;">
-								<div style="background-color: white; height: 380px;">123</div>
+							<div class="col-12" style="height: 400px;margin-bottom: 5px; padding: 10px;">
+								<div style="height: 30px;"><img src="/assets/mallsystemimg.png" alt=""></div>
 							</div>
 						</div>
 						<div class="row">
@@ -243,7 +242,6 @@
 														style="cursor: pointer;">按照價格：低-高</a></li>
 												<li><a class="dropdown-item" onclick="salesH2L()"
 														style="cursor: pointer;">銷量：高-低</a></li>
-												<li><a class="dropdown-item" href="#">相關程度：高-低</a></li>
 											</ul>
 										</div>
 									</div>
@@ -391,7 +389,7 @@
 						temp.sort(function (a, b) {
 							return b.sales - a.sales;
 						})
-						changeProductItem(item)
+						changeProductItem(temp)
 					}
 
 					//使用

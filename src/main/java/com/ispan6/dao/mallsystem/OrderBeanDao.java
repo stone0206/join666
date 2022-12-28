@@ -14,5 +14,14 @@ public interface OrderBeanDao extends JpaRepository<OrderBean, Integer>,CrudRepo
 	
 	@Query(value = "select * from orders where o_memberid = ?1" ,nativeQuery = true)
 	public List<OrderBean> findByMemberId(int id);
+
+	@Query("from OrderBean order by date desc")
+	public List<OrderBean> findAllOrderByDate();
+	
+	@Query("from OrderBean order by name desc")
+	public List<OrderBean> findAllOrderByName();
+	
+	@Query("from OrderBean order by status desc")
+	public List<OrderBean> findAllOrderByStatus();
 	
 }

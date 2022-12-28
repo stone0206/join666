@@ -245,8 +245,13 @@ public class FrontendController {
 		List<ShoppingCartItem> items = shoppingCartItemService.findAllByMemberId(member.getId());
 		// 計算總金額
 		int totalPrice = 0;
+		int totalCount = 0;
 		for (ShoppingCartItem item : items) {
 			totalPrice += item.getProduct().getPrice();
+			totalCount += item.getCount();
+			item.getProduct().setSales(item.getCount());
+			item.getProduct().setInventory(item.getProduct().getInventory() - item.getCount());
+			shoppingCartItemService.addToCart(item);
 		}
 
 		// 生成訂單
@@ -254,7 +259,7 @@ public class FrontendController {
 		// 設定訂單編號
 		orderBean.setId(new Date().hashCode());
 		// 設定總數量
-		orderBean.setCount(items.size());
+		orderBean.setCount(totalCount);
 		// 設定總金額
 		orderBean.setPrice(totalPrice);
 		// 設定訂單所屬人
