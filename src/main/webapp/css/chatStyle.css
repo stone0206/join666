@@ -537,6 +537,7 @@
     right: 25px;
     display: none;
     position: fixed;
+   
 }
 
 .app-wrapp .app-container {
@@ -569,7 +570,9 @@
     width: 100%;
     height: 36%;
     position: relative;
-    background: #FFC107;
+    /* background: #FFC107; */
+    background-image: linear-gradient(-20deg, #d558c8 0%, #24d292 100%);
+    /* background-image: linear-gradient(to right, #92fe9d 0%, #00c9ff 100%); */
 }
 
 .view-main .header-wrapp .app-detail {
@@ -682,6 +685,7 @@
     font-size: 20px;
     padding: 5px 0;
     margin: 0 13px;
+    
 }
 
 .view-main .content-wrapp #master-nav ul li i {
@@ -755,20 +759,30 @@
     height: 75px;
     overflow: hidden;
     border-bottom: 1px solid #f2f2f2;
+   background: #ECE9E6;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 .view-main .content-wrapp .messages-list ul>li .sender-image {
-    width: 75px;
-    height: 75px;
+    width: 70px;
+    height: 70px;
     float: left;
     text-align: center;
     padding-top: 8px;
+    /* background-color:green; */
+    /* background-size:70px 70px; */
+    border-radius:35px;
+   /*  border:0px solid #FF2400;
+    border-width:0 3px 0 0; */
 }
 
 .view-main .content-wrapp .messages-list ul>li .sender-image img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    background-color:green;
 }
 
 .view-main .content-wrapp .messages-list ul>li .mes-detail {
@@ -1263,4 +1277,33 @@
 	#messageMenu ul{list-style: none;}
 	#messageMenu ul li{width:50px;height:20px;background:#FFE4B5;margin-bottom:5px;text-align:center;margin-left:-25px}
 	
+/* websocket提示訊息	 */
+.removeRemind{
+	display:none;
+}
+#remind{
+	right:0px;
+	top:100px;
+	display:none;
+	float:right;
 	
+	position:fixed
+}
+
+#onlineCount{
+	right:0px;
+	top:72px;
+	
+	float:right;
+	position:absolute;
+	/* position:fixed */
+}
+	
+/* 預覽圖片	 */
+#previewDiv{
+	float:right;
+	position:fixed;
+	right:358px;
+	bottom:20px;
+	}
+

@@ -12,12 +12,15 @@
 				<title>Document</title>
 				<link rel="stylesheet" href="${contextRoot}/css/chatStyle.css" />
 
+				<!-- <script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
+				<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script> -->
+				<link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet" />
 				<!-- Latest compiled and minified CSS -->
 				<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 				<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
 					integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 					crossorigin="anonymous"></script>
-				<link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet" />
+
 
 				<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 				<link rel="stylesheet"
@@ -26,10 +29,14 @@
 					src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.contextMenu.min.js"></script>
 				<script
 					src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
+
+				<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
 			</head>
 
 			<body>
-
+				<div id="onlineCount">
+					<span></span>
+				</div>
 				<div>
 					<div class="container text-center">
 						<div class="row">
@@ -45,12 +52,12 @@
 								<c:if test="${loginUser==null }">
 
 
-									<a href="/login"><img src="${contextRoot}/images/friendChat.png"
+									<a href="/login"><img src="${contextRoot}/images/iMessage.png"
 											style="width: 65px; margin-top: 15px; flex-direction: column-reverse; position: fixed; right: 0px; bottom: 70px; z-index: 99999;" /></a>
 								</c:if>
 								<c:if test="${loginUser!=null }">
 									<a href="#" id="addFriendTable"><img class="chatImg2"
-											src="${contextRoot}/images/friendChat.png" /></a>
+											src="${contextRoot}/images/iMessage.png" /></a>
 								</c:if>
 							</div>
 						</div>
@@ -196,7 +203,7 @@
 										<img src="${loginUser.getAvator()}" alt=""
 											style="width: 90px; height: 90px; border-radius: 50%">
 									</div>
-									<div>Yousef Sami</div>
+									<div>${loginUser.getName()}</div>
 									<div class="status">online</div>
 								</div>
 								<div class="wave-wrapp">
@@ -234,8 +241,9 @@
 										<ul>
 											<li class="ac"><i class="material-icons">perm_identity</i></li>
 											<li class="active"><i class="material-icons">chat_bubble_outline</i></li>
-											<li><i class="material-icons">favorite_border</i></li>
-											<li><i class="material-icons"><img src="${contextRoot}/images/customer.png"
+											<!-- <li><i class="material-icons">favorite_border</i></li> -->
+											<li class="navClick" grouproom=""><i class="material-icons"><img
+														src="${contextRoot}/images/customer.png"
 														style="width: 30px; margin-bottom: 15px" /></i></li>
 											<li id="active-line"></li>
 										</ul>
@@ -376,14 +384,14 @@
 									</div>
 
 									<!-- 愛心 -->
-									<div id="item-3">
+									<!-- <div id="item-3">
 										<div class="touch-y activity">
 											<i class="material-icons">sentiment_dissatisfied</i>
 											<h1>Sorry !</h1>
 											<p>You don't have any Activity</p>
 										</div>
-									</div>
-									<div id="item-4">
+									</div> -->
+									<!-- <div id="item-4">
 										<div class="profile-setting">
 											<div class="touch-y">
 												<div class="information">
@@ -428,7 +436,7 @@
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
@@ -444,7 +452,7 @@
 								<div class="sender-name" id="messageTitle"></div>
 							</div>
 							<div class="messages-area" data-viewport="true">
-								<ul class="touch-y" id="message" participants="">
+								<ul class="touch-y" id="message" participants="" grouproom="">
 									<!-- <li class="recive" style="display:none"><img
 											src="https://raw.githubusercontent.com/yousefsami/social-app-assets/master/user1.jpg"
 											style="width: 35px; height: 35px; border-radius: 50%; display: flex; float: left; margin-top: 10px" />
@@ -466,7 +474,7 @@
 									</li> -->
 								</ul>
 							</div>
-							<div class="text-media-area">
+							<div class="text-media-area" id="dragArea">
 								<div class=message-form>
 									<button id="send-message">
 										<i class="material-icons">send</i>
@@ -481,9 +489,12 @@
 						<!-- -------------------- -->
 					</div>
 				</div>
-
-
-
+				<!-- 預覽圖片 -->
+				<div id="previewDiv"></div>
+				<div id="remind" class="alert alert-info alert-dismissible ">
+					<button type="button" class="close" id="removeRemind">&times;</button>
+					<strong>信息!</strong> 你有一則新訊息。
+				</div>
 
 
 				<script>
@@ -500,8 +511,9 @@
 						// $(document).ready(function () {
 						//搜聊天室
 						callChatRoom()
-
-
+						$("#remind").hide("fold", {
+							direction: "down"
+						}, "slow");
 					})
 
 
@@ -515,6 +527,7 @@
 
 
 							let roomId = $(this).attr("id")
+							$("#message-text").attr("groupRoom", roomId)
 							// if (roomId === null) {
 							// 	console.log("no")
 							// } else {
@@ -556,10 +569,11 @@
 
 											if (participants.personId != data.userId) {
 
-												participantsId.push(participants.personId)
+												// participantsId.push(participants.personId)
 												$.each(memList, function (index, member) {
 													if (member.id == participants.personId) {
 														messageTitle += member.name;
+														participantsId.push(member.account)
 													}
 												})
 											}
@@ -568,7 +582,13 @@
 									} else {
 										$.each(groupList.participants, function (index, participants) {
 											if (participants.personId != data.userId) {
-												participantsId.push(participants.personId)
+												// participantsId.push(participants.personId)
+												$.each(memList, function (index, member) {
+													if (member.id == participants.personId) {
+
+														participantsId.push(member.account)
+													}
+												})
 											}
 										})
 										messageTitle += groupList.groupName;
@@ -579,20 +599,20 @@
 										if (messageContent.senderId != data.userId) {
 											$.each(memList, function (index, member) {
 												if (messageContent.senderId === member.id) {
-													message += '<li class="recive"><img src="' + member.avator + '"style="width: 35px; height: 35px; border-radius: 50%; display: flex; float: left; margin-top: 10px" />';
+													message += '<li class="recive" messageId="' + messageContent.messageId + '"><img src="' + member.avator + '"style="width: 35px; height: 35px; border-radius: 50%; display: flex; float: left; margin-top: 10px" />';
 
 												}
 
 											})
 											let startTime = new Date(Date.parse(messageContent.createAt));
 											let strTime = getTime(startTime);
-											message += '<div>' + messageContent.messageText + '<span>' + strTime + '</span></div></li>';
+											message += '<div><span style="display:flex">' + messageContent.messageText + '</span><span>' + strTime + '</span></div></li>';
 
 
 										} else {
 											let startTime = new Date(Date.parse(messageContent.createAt));
 											let strTime = getTime(startTime);
-											message += '<li class="sent context-menu-one" messageId="' + messageContent.messageId + '"><div><span>' + messageContent.messageText + '</span><span>' + strTime + '</span></div></li>';
+											message += '<li class="sent context-menu-one" onclick="conTextM()" messageId="' + messageContent.messageId + '"><div><span>' + messageContent.messageText + '</span><span>' + strTime + '</span></div></li>';
 										}
 									})
 									// message += '</ul></div><div class="text-media-area"><div class=message-form><button id="send-message"><i class="material-icons">send</i></button><input id="message-text" type="text" placeholder="Type Something + Enter"></div></div></div>';
@@ -603,7 +623,7 @@
 
 							viewMessage.innerHTML = message;
 							viewTitle.innerHTML = messageTitle;
-							$("#message-text").attr("groupRoom", roomId)
+							$("#message").attr("groupRoom", roomId)
 							$("#message-text").attr("senderId", data.userId)
 							// $('.sent').click(function (e) {
 							// 	console.log($(this).attr("messageId"))
@@ -649,7 +669,12 @@
 							setTimeout(() => removeMessage(), 300)
 							$("#message").attr("participants", "")
 
+							// navItemPos($("#master-nav ul .active").index());
 
+							$("#messageTitle").text("");
+							$("#message-text").attr("groupRoom", "")
+							$("#message-text").attr("senderId", "")
+							$("#message").attr("groupRoom", "")
 						})
 					}
 
@@ -663,16 +688,22 @@
 					$("#send-message").click(function () {
 
 						let groupRoom = $("#message-text").attr("groupRoom")
+						let groupRoomId = $("#message").attr("groupRoom")
 						let senderId = $("#message-text").attr("senderId")
 						// console.log($("#message").attr("participants"))
 						// console.log(websocket)
-						let data = {};
-						data["from"] = "${loginUser.avator}";
-						data["to"] = $("#message").attr("participants");
-						data["text"] = $("#message-text").val();
-						// console.log("AAA", JSON.stringify(data))
-						websocket.send(JSON.stringify(data)); // 使用 send() 方法发送数据
-						sendMassage(groupRoom, senderId)
+						// let data = {};
+						// data["from"] = "${loginUser.avator}";
+						// data["to"] = $("#message").attr("participants");
+						// data["text"] = $("#message-text").val();
+						// // console.log("AAA", JSON.stringify(data))
+						// websocket.send(JSON.stringify(data)); // 使用 send() 方法发送数据
+						if (groupRoom != "") {
+							sendMassage(groupRoom, senderId)
+						} else {
+							customerServiceAuto();
+
+						}
 					});
 					$(document).keyup(
 						function (e) {
@@ -680,8 +711,13 @@
 								&& $('.view-message').hasClass(
 									"active")) {
 								let groupRoom = $("#message-text").attr("groupRoom")
+								let groupRoomId = $("#message").attr("groupRoom")
 								let senderId = $("#message-text").attr("senderId")
-								sendMassage(groupRoom, senderId);
+								if (groupRoom != "") {
+									sendMassage(groupRoom, senderId);
+								} else {
+									customerServiceAuto();
+								}
 							}
 						})
 					function sendMassage(groupRoom, senderId) {
@@ -689,6 +725,12 @@
 						// console.log(senderId)
 						var date = new Date();
 						var message = $("#message-text").val();
+						let messageImg;
+						if ($("#previewDiv").html() != null) {
+							messageImg = $("#previewDiv").html();
+							$("#previewDiv").html("");
+							message += messageImg
+						}
 						//輸入歸零
 						$("#message-text").val("");
 						// let messageIte = ""
@@ -708,7 +750,7 @@
 						}).then(function (data) {
 
 							// console.log(data.messageId)
-							let messageItem = "<li class='sent goto ' messageId='" + data.messageId + "'><div><span>"
+							let messageItem = "<li class='sent goto context-menu-one' messageId='" + data.messageId + "'><div><span>"
 								+ message + "</span><span>" + getTime(date)
 								+ "</span></div></li>";
 							$(".messages-area > ul").append(messageItem);
@@ -722,14 +764,101 @@
 							}, 50);
 							// $('.sent').unbind();
 
-							// setTimeout(() => conTextM(), 300)
+							setTimeout(() => conTextM(), 1000)
 
 							// $('.sent').click(function (e) {
 
 							// 	console.log($(this).attr("messageId"))
 							// })
+							let dataMessage = {};
+							dataMessage["type"] = 1
+							dataMessage["from"] = "${loginUser.avator}";
+							dataMessage["to"] = $("#message").attr("participants");
+							dataMessage["text"] = message;
+							dataMessage["messageId"] = data.messageId;
+							// console.log("AAA", JSON.stringify(data))
+							websocket.send(JSON.stringify(dataMessage)); // 使用 send() 方法发送数据
 						});
 					}
+
+
+					function customerServiceAuto() {
+						var date = new Date();
+						var message = $("#message-text").val();
+						let messageImg;
+						if ($("#previewDiv").html() != null) {
+							messageImg = $("#previewDiv").html();
+							$("#previewDiv").html("");
+							message += messageImg
+						}
+						//輸入歸零
+						$("#message-text").val("");
+						let messageItem = "<li class='sent goto'><div><span>"
+							+ message + "</span><span>" + getTime(date)
+							+ "</span></div></li>";
+						$(".messages-area > ul").append(messageItem);
+						setTimeout(function () {
+							$(document).find(".goto").removeClass(
+								"goto");
+
+
+							// systemMessage(date);
+							// messageScrollFix();
+						}, 50);
+						if (message == "") {
+							setTimeout(function () {
+								let message = '<li class="recive"><img src="${contextRoot}/images/customer.png"style="width: 35px; height: 35px; border-radius: 50%; display: flex; float: left; margin-top: 10px" />';
+								message += '<div>我不太了解您的意思，您可以轉<a href="#" onclick="customerService()">專員</a>，讓他為您服務<span>' + getTime(new Date) + '</span></div></li>';
+								$(".messages-area > ul").append(message);
+
+
+
+							}, 500);
+
+						} else {
+							let formData = new FormData();
+							formData.append('text', message);
+							fetch("${contextRoot}/customerService/like", {
+								method: "POST",
+								body: formData
+
+							}).then(function (result) {
+								// console.log(result)
+								return result.json()
+							}).catch(function (error) {
+								setTimeout(function () {
+									let message = '<li class="recive"><img src="${contextRoot}/images/customer.png"style="width: 35px; height: 35px; border-radius: 50%; display: flex; float: left; margin-top: 10px" />';
+									message += '<div>我可能不太懂您的意思，您可以轉<a href="#"" onclick="customerService()"">專員</a>，讓他為您服務<span>' + getTime(new Date) + '</span></div></li>';
+									$(".messages-area > ul").append(message);
+
+
+
+								}, 500);
+							}).then(function (data) {
+								// console.log(date)
+								// if (data == null) {
+								// 	setTimeout(function () {
+								// 		let message = '<li class="recive"><img src="${contextRoot}/images/customer.png"style="width: 35px; height: 35px; border-radius: 50%; display: flex; float: left; margin-top: 10px" />';
+								// 		message += '<div>我可能不太懂您的意思，您可以轉<a href="#"" onclick="customerService()"">專員</a>，讓他為您服務<span>' + getTime(new Date) + '</span></div></li>';
+								// 		$(".messages-area > ul").append(message);
+
+
+
+								// 	}, 500);
+
+								// } else {
+								if (data != null) {
+									let message = '<li class="recive"><img src="${contextRoot}/images/customer.png"style="width: 35px; height: 35px; border-radius: 50%; display: flex; float: left; margin-top: 10px" />';
+									message += '<div>' + data.toMessageText + '<span>' + getTime(new Date) + '</span></div></li>';
+									$(".messages-area > ul").append(message);
+								}
+
+							})
+						}
+					}
+
+
+
 					//訊息超過會自動往下
 					function messageScrollFix() {
 						setTimeout(
@@ -867,14 +996,26 @@
 								// 點擊選項功能    
 								$("#master-nav ul li").click(function () {
 									$el = $(this);
-									$("#master-nav ul li").removeClass('active');
-									$el.addClass('active');
-									navItemPos($el.index());
-									leftPos = $el.position().left;
-									newWidth = $el.parent().width();
-									$active_line.stop().animate({
-										left: leftPos
-									});
+									console.log($el)
+									if ($el.hasClass("navClick")) {
+										// $("#master-nav ul li").removeClass('active');
+										// $el.addClass('active');
+
+										let roomId = $("#message").attr("groupRoom")
+										// 	// setTimeout(() => controllMessage(), 1000)
+										groupRoom(roomId)
+										let messageDate = new Date;
+										systemMessage(messageDate);
+									} else {
+										$("#master-nav ul li").removeClass('active');
+										$el.addClass('active');
+										navItemPos($el.index());
+										leftPos = $el.position().left;
+										newWidth = $el.parent().width();
+										$active_line.stop().animate({
+											left: leftPos
+										})
+									};
 								});
 
 								function navItemPos(index) {
@@ -897,19 +1038,32 @@
 
 
 								// 自動回覆
-								// function systemMessage(date) {
-								//     var messages = [
-								//         "Hi my name is yousef sami",
-								//         "سلام خوبی؟",
-								//         "If you want contact with me please send email to this address <br/> 'yousef.sami19@gmail.com'",
-								//         "Thank you for watching this pen"
-								//     ]
-								//     setTimeout(function () {
-								//         var messageItem = "<li class='recive'><div>" + messages[parseInt(Math.random(1, 4) * 4)] + "<span>" + getTime(date) + "</span></div></li>";
-								//         $(".messages-area > ul").append(messageItem);
-								//         messageScrollFix();
-								//     }, 1500);
-								// }
+								function systemMessage(date) {
+									let messages = [
+										"有什麼需要幫忙的嗎？目前為自動訊息回覆，如需由<a href='#' onclick='customerService()'>專員</a>為您服務，請點此"
+									]
+									setTimeout(function () {
+										let messageItem = "<li class='recive'><div>" + messages + "<span>" + getTime(date) + "</span></div></li>";
+										$(".messages-area > ul").append(messageItem);
+
+									}, 1000);
+								}
+								// [parseInt(Math.random(1, 4) * 4)]
+
+								window.customerService = function () {
+
+									let messageItem = "<li class='sent'><div>轉專員<span>" + getTime(new Date) + "</span></div></li>";
+									$(".messages-area > ul").append(messageItem);
+									setTimeout(function () {
+										messageItem = "<li class='recive'><div>已轉人工，接下來的對話紀錄將會被存取，以確保雙方權益，請見諒，您可先輸入問題，稍後由專員為您服務<span>" + getTime(new Date) + "</span></div></li>";
+										$(".messages-area > ul").append(messageItem);
+
+									}, 700);
+									let grouproomId = $("#message").attr("grouproom");
+									let groupRoom = $("#message-text").attr("groupRoom", grouproomId);
+									let senderId = $("#message-text").attr("senderId", "${loginUser.id}");
+
+								}
 
 								//時間格式
 								// function getTime(date) {
@@ -960,7 +1114,7 @@
 									$("#closeFriendTable").unbind();
 									setTimeout(() => closeFriendTable(), 1000)
 								}
-								好友聊天關閉
+								// 好友聊天關閉
 								// function showMessages() {
 								// 	$('.view-main').addClass("deactive");
 								// 	$('.view-message').addClass("active");
@@ -990,50 +1144,7 @@
 						})
 					};
 
-					//時間format
-					// function SimpleDateFormat(pattern) {
-					// 	var fmt = new Object();
-					// 	fmt.pattern = pattern;
-					// 	fmt.parse = function (source) {
-					// 		try {
-					// 			return new Date(source);
-					// 		} catch (e) {
-					// 			console.log("字符串 " + source + "转时间格式失败！")
-					// 			return null;
-					// 		}
-					// 	};
-					// 	fmt.format = function (date) {
-					// 		if (typeof (date) == "undefined" || date == null || date == "") {
-					// 			return "";
-					// 		}
-					// 		try {
-					// 			date = new Date(date);
-					// 		} catch (e) {
-					// 			console.log("时间 " + date + "格式化失败！");
-					// 			return ""
-					// 		}
-					// 		var strTime = this.pattern;//时间表达式的正则
-					// 		var o = {
-					// 			"M+": date.getMonth() + 1,//月份
-					// 			"d+": date.getDate(), //日
-					// 			"H+": date.getHours(), ///Ji&s
-					// 			"m+": date.getMinutes(), //5)
-					// 			"s+": date.getSeconds(), //R
-					// 			"q+": Math.floor((date.getMonth() + 3) / 3),//季度
-					// 			"S": date.getMilliseconds() //毫秒
-					// 		};
-					// 		if (/(y+)/.test(strTime)) {
-					// 			strTime = strTime.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-					// 		}
-					// 		for (var k in o) {
-					// 			if (new RegExp("(" + k + ")").test(strTime)) {
-					// 				strTime = strTime.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("0" + o[k]).substr("" + o[k].length)));
-					// 			}
-					// 		}
-					// 		return strTime;
-					// 	};
-					// 	return fmt;
-					// }
+
 					function getTime(date) {
 						var hours = date.getHours();
 						var minutes = date.getMinutes();
@@ -1048,14 +1159,14 @@
 					}
 
 
-
+					//收回選單
 					$(function () {
 
 						conTextM()
 
 					})
 
-					function conTextM() {
+					window.conTextM = function () {
 						$.contextMenu({
 							selector: '.context-menu-one',
 							callback: function (key, options) {
@@ -1138,6 +1249,14 @@
 												body: formData
 
 											})
+											let dataMessage = {};
+											dataMessage["type"] = 2
+											// dataMessage["from"] = "${loginUser.avator}";
+											dataMessage["to"] = $("#message").attr("participants");
+											dataMessage["text"] = defalutMessage;
+											dataMessage["messageId"] = messageId;
+											// console.log("AAA", JSON.stringify(data))
+											websocket.send(JSON.stringify(dataMessage)); // 使用 send() 方法发送数据
 										} else {
 
 										}
@@ -1183,10 +1302,17 @@
 											if (participants.personId != data.userId) {
 												$.each(memList, function (index, member) {
 													if (member.id == participants.personId) {
-														chatRoom += '<div class="sender-image">';
+														chatRoom += '<div class="sender-image" account="' + member.account + '">';
 														chatRoom += '<img src="' + member.avator + '">';
 														chatRoom += '</div><div class="mes-detail"><div class="mes-col1"><div class="sender-name">' + member.name + '</div>';
+														let dataMessage = {};
 
+														dataMessage["from"] = "${loginUser.account}";
+														dataMessage["to"] = 4;
+														dataMessage["text"] = member.account;
+
+														// console.log("AAA", JSON.stringify(data))
+														websocket.send(JSON.stringify(dataMessage)); // 使用 send() 方法发送数据
 														$.each(groupList.messageText, function (index, message) {
 
 															if (index === groupList.messageText.length - 1) {
@@ -1210,7 +1336,7 @@
 										})
 										chatRoom += '</li>';
 
-									} else {
+									} else if (groupList.groupType === 1) {
 										chatRoom += '<li id="' + groupList.groupId + '">';
 										if (groupList.groupPhoto == null) {
 											chatRoom += '<div class="sender-image">';
@@ -1244,6 +1370,8 @@
 										chatRoom += '</div>';
 										chatRoom += '</li>';
 
+									} else {
+										$("#message").attr("grouproom", groupList.groupId)
 									}
 
 								})
@@ -1260,11 +1388,12 @@
 					// }
 					// 	})
 					let websocket = null;
-					if ("${loginUser.id}" != null) {
-						console.log("userId" + "${loginUser.id}")
+					if ("${loginUser.account}" != null) {
+						// console.log("userId" + "${loginUser.id}")
 
 						if ('WebSocket' in window) { // 浏览器支持 WebSocket
-							websocket = new WebSocket("ws://localhost:8080/webSocket/${loginUser.id}"); // 打开一个 web socket
+							websocket = new WebSocket("ws://localhost:8080/webSocket/${loginUser.account}"); // 打开一个 web socket‘
+							// console.log("${loginUser.account}")
 							// console.log(websocket)
 						}
 
@@ -1284,20 +1413,120 @@
 						// 		scrollToBottom();
 						// 	}
 						// } else { // 普通消息
-						if ($("#message").children().length == 0) {
+						if (data.to == 0) {
+							$("#onlineCount>span").text("線上人數: " + data.text)
+
+						} else if (data.to == -2) {
+							$("#onlineCount>span").text("線上人數: " + data.text)
+						} else if (data.to == 4) {
+							console.log("account" + data.text)
+							$("div[account='" + data.text + "']").css({
+								"border": "2px solid lightgreen",
+								"border-width": "0 4px 0 0"
+							})
 
 
-							console.log("messagefalse")
+
+						} else if (data.type == 1) {
+							if ($("#message").children().length == 0) {
+
+								$("#remind").show("shake", 700);
+								$("#removeRemind").unbind();
+								$("#removeRemind").click(function () {
+									$(this).parent().hide("fold", {
+										direction: "down"
+									}, "slow");
+
+								})
+								console.log("messagefalse")
+							} else {
+								$("#message").append('<li class="recive" messageId="' + data.messageId + '"><img src="' + data.from + '"style="width: 35px; height: 35px; border-radius: 50%; display: flex; float: left; margin-top: 10px" /><div><span style="display:flex">' + data.text + '</span><span>' + getTime(new Date()) + '</span></div></li>');
+
+							}
 						} else {
-							$("#message").append('<li class="recive"><img src="' + data.from + '"style="width: 35px; height: 35px; border-radius: 50%; display: flex; float: left; margin-top: 10px" /><div>' + data.text + '<span>' + getTime(new Date()) + '</span></div></li>');
-
+							$("li[messageId='" + data.messageId + "'] > div span:first-child").text(null)
+							$("li[messageId='" + data.messageId + "'] > div span:first-child").append(data.text)
 						}
 
 
 					}
-				// };
+					// };
 
 
+
+					let base64String = "WW91IGNhdGNoZWQgbWUh"
+					// atob() 解碼
+					atob(base64String)
+					// 輸出: "You catched me!"
+					// 預覽圖片，將取得的files一個個取出丟到convertFile()
+					function previewFiles(files) {
+						if (files && files.length >= 1) {
+							$.map(files, file => {
+								convertFile(file)
+									.then(data => {
+										// console.log(data) // 把編碼後的字串輸出到console
+										showPreviewImage(data, file.name)
+									})
+									.catch(err => console.log(err))
+							})
+						}
+					}
+
+					// 使用FileReader讀取檔案，並且回傳Base64編碼後的source
+					function convertFile(file) {
+						return new Promise((resolve, reject) => {
+							// 建立FileReader物件
+							let reader = new FileReader()
+							// 註冊onload事件，取得result則resolve (會是一個Base64字串)
+							reader.onload = () => { resolve(reader.result) }
+							// 註冊onerror事件，若發生error則reject
+							reader.onerror = () => { reject(reader.error) }
+							// 讀取檔案
+							reader.readAsDataURL(file)
+						})
+					}
+
+					// 在頁面上新增<img>
+					function showPreviewImage(src, fileName) {
+						let image = new Image(250) // 設定寬250px
+						image.name = fileName
+						image.src = src // <img>中src屬性除了接url外也可以直接接Base64字串
+						$("#previewDiv").append(image)
+						// .append(`<p>File: ${image.name}`)
+					}
+
+					// 當上傳檔案改變時清除目前預覽圖，並且呼叫previewFiles()
+					$("#dragArea").change(function () {
+						$("#previewDiv").empty() // 清空當下預覽
+						previewFiles(this.files) // this即為<input>元素
+					})
+
+					// dragover事件：拖曳(滑鼠還沒鬆開)至放置區時，就要先防止瀏覽器進行開圖
+					$("#dragArea").on("dragover", function (e) {
+						e.preventDefault()
+					})
+
+					// 當拖曳區發生drop事件時，接受格式為image的資料
+					$("#dragArea").on("drop", function (e) {
+						// 防止事件傳遞及預設事件發生
+						e.stopPropagation()
+						e.preventDefault()
+						// 取得data type為image/*的資料
+						e.originalEvent.dataTransfer.getData("image/*")
+						let files = e.originalEvent.dataTransfer.files
+						// console.dir(files) // 看看File長什麼樣子
+						$("#previewDiv").empty() // 清空當下預覽
+						previewFiles(files)
+					})
+
+					//客服系統
+					// $("#master-nav ul li img").click(function () {
+					// 	setTimeout(() => showMessages(), 300)
+
+					// 	// setTimeout(() => controllMessage(), 1000)
+					// 	$(".back-arrow").unbind();
+					// 	setTimeout(() => backArrow(), 1000)
+					// })
 				</script>
 			</body>
 

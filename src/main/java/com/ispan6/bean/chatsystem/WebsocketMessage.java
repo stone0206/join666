@@ -14,10 +14,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class WebsocketMessage {
 	// 发送者name
 	public String from;
-	// 接收者name 0上线消息 -1给所有人 -2下线消息
+	// 接收者name 0上线消息 -1给所有人 -2下线消息 4上限給朋友
 	public String to;
 	// 发送的文本
 	public String text;
+	
+	public int messageId;
+	
+	public int type;
+	
 	// 发送时间
 	//發訊息時間
 		@Temporal(TemporalType.TIMESTAMP)
@@ -55,6 +60,22 @@ public class WebsocketMessage {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public int getMessageId() {
+		return messageId;
+	}
+
+	public void setMessageId(int messageId) {
+		this.messageId = messageId;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 
 }

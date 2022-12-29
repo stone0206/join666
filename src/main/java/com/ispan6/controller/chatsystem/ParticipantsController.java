@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ispan6.bean.chatsystem.CustomerServiceMessage;
 import com.ispan6.bean.chatsystem.GroupRoom;
 import com.ispan6.bean.chatsystem.MessageContent;
 import com.ispan6.bean.chatsystem.Participants;
 import com.ispan6.bean.membersystem.MemberTest;
+import com.ispan6.service.chatsystem.CustomerServiceMessageService;
 import com.ispan6.service.chatsystem.GroupRoomService;
 import com.ispan6.service.chatsystem.MessageService;
 import com.ispan6.service.chatsystem.ParticipantsService;
@@ -47,13 +49,20 @@ public class ParticipantsController {
 	@Autowired
 	private MessageService messageService;
 	
+	@Autowired
+	private CustomerServiceMessageService customerServiceMessageService;
 	
-//	新增群組
-	@RequestMapping(path = "/participants/add", method = RequestMethod.POST)
-	@ResponseBody
-	public String inserParticipants(@RequestParam Integer groupId, @RequestParam Integer personId) {
-		participantsService.insertParticipants(groupId, personId);
-		return "access";
+	
+//	新增好友群組
+	@PostMapping(path = "/participants/friendadd")
+	public void inserParticipants(@RequestParam Integer userId, @RequestParam Integer fuid) {
+		System.out.println("userId"+userId+"fuid"+fuid);
+		GroupRoom gr=groupRoomService.insertGroupRoom(null, 0, null);
+		Integer grId=gr.getGroupId();
+		System.out.println("grId"+grId);
+		participantsService.insertParticipants(grId, userId);
+		participantsService.insertParticipants(grId, fuid);
+		
 	}
 
 	// 成功 未完成 查群組 可能不需要
@@ -212,4 +221,65 @@ public class ParticipantsController {
 			System.out.println(messageId);
 			messageService.backMessage(text, messageId);
 		}
+		@GetMapping("/msg/que")
+		@ResponseBody
+		public List<MessageContent> findWhoSender(@RequestParam Integer senderId) {
+			return messageService.findWhoSender(senderId);
+		}
+		
+		
+		
+	//客服模糊搜尋
+		@PostMapping(path="/customerService/like",produces = "application/json; charset=UTF-8")
+		@ResponseBody
+		public CustomerServiceMessage findLikeMessage(@RequestParam String text) {
+			System.out.println(customerServiceMessageService.findLikeMessage(text));
+			return customerServiceMessageService.findLikeMessage(text);
+		}
+		
+		
+		
+	//後台訊息
+		
+//		@GetMapping(path = "backend/participants/select1",produces= {"application/json;charset=UTF-8"})
+//		@ResponseBody
+//		public Map<String,Object> backendSelectParticipants(HttpSession session,Model m) {
+//			
+//			MemberTest member = (MemberTest) session.getAttribute("loginUser");
+//			
+//			if(member != null) {
+//				Integer personId=Integer.valueOf(member.getId());
+//				System.out.println("personId"+personId);
+//				List<Participants> pList = participantsService.selectParticipants(personId);
+//				HashSet<Integer> userId = new HashSet<Integer>();
+//				
+//				List<GroupRoom> gList = groupRoomService.userHaveGroupSelect(pList);
+//				for (int i = 0; i < gList.size(); i++) {
+//					GroupRoom g = gList.get(i);
+//					Set<Participants> pFile = g.getParticipants();
+//					for(Participants p:pFile) {
+//						userId.add(p.getPersonId());
+//						System.out.println("personId"+p.getPersonId());
+//					}
+//		
+//		
+//				}
+//				List<MemberTest> mList = mService.senderFile(userId);
+//				for (int i = 0; i < mList.size(); i++) {
+//					System.out.println(mList.get(i));
+//				}
+//				
+//				
+//				Map<String,Object> message=new HashMap<String,Object>();
+//				message.put("groomList", gList);
+//				message.put("memList", mList);
+//				message.put("userId", member.getId());
+////				m.addAttribute("groomList", gList);
+////				m.addAttribute("memList", mList);
+////				session.setAttribute("groomList",gList);
+////				session.setAttribute("memList",mList);
+//				return message;
+//			}
+//			return null;
+//		}
 }

@@ -21,11 +21,12 @@ public class GroupRoomService {
 		groupRoomDAO.save(groupRoom);
 	}
 //	新增聊天室
-	public void insertGroupRoom(String groupName,Integer groupType) {
+	public GroupRoom insertGroupRoom(String groupName,Integer groupType,String photo) {
 		GroupRoom groupRoom = new GroupRoom();
 		groupRoom.setGroupName(groupName);
 		groupRoom.setGroupType(groupType);
-		groupRoomDAO.save(groupRoom);
+		groupRoom.setGroupPhoto(photo);
+		return groupRoomDAO.save(groupRoom);
 	}
 	
 	//查群組

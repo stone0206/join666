@@ -12,15 +12,24 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
 import com.ispan6.bean.chatsystem.WebsocketMessage;
+import com.ispan6.controller.chatsystem.JavaMailMessages;
+
+
 
 
 @ServerEndpoint("/webSocket/{username}")
 @Component
 public class WebSocketServer {
+	private static JavaMailMessages javaMailMessages;
+	@Autowired
+	public void setJavaMailMessages(JavaMailMessages javaMailMessages) {
+		WebSocketServer.javaMailMessages=javaMailMessages;
+	}
 	 //靜態變量，用來記錄當前在線連接數。應該把它設計成線程安全的。
     private static int onlineCount = 0;
     
@@ -41,12 +50,16 @@ public class WebSocketServer {
 //		msg.setTo("0");
 //		msg.setText(userId);
 //		broadcast(JSON.toJSONString(msg, true));
+		WebsocketMessage msg = new WebsocketMessage();
+		msg.setTo("0");
+		msg.setText(String.valueOf(onlineCount));
+		broadcast(JSON.toJSONString(msg, true));
 	}
 
 	// 关闭连接时调用
 	@OnClose
-	public void onClose(@PathParam(value = "username") String userName) {
-		sessionPools.remove(userName);
+	public void onClose(@PathParam(value = "username") String userId) {
+		sessionPools.remove(userId);
 		subOnlineCount();           //在線數減1
 		// 广播下线消息
 //		WebsocketMessage msg = new WebsocketMessage();
@@ -55,6 +68,10 @@ public class WebSocketServer {
 //		msg.setTo("-2");
 //		msg.setText(userName);
 //		broadcast(JSON.toJSONString(msg, true));
+		WebsocketMessage msg = new WebsocketMessage();
+		msg.setTo("0");
+		msg.setText(String.valueOf(onlineCount));
+		broadcast(JSON.toJSONString(msg, true));
 	}
 
 	// 收到客户端信息后，根据接收人的username把消息推下去或者群发
@@ -63,9 +80,16 @@ public class WebSocketServer {
 	public void onMessage(String message) throws IOException {
 //		System.out.print(message);
 		WebsocketMessage msg = JSON.parseObject(message, WebsocketMessage.class);
-		System.out.println("userId"+msg.getTo());
+		
+//		System.out.println("userId"+msg.getTo());
 		msg.setDate(new Date());
-		if (msg.getTo().equals("-1")) {
+		if (msg.getTo().equals("4")) {
+			String userName=msg.getText();
+			Session session = sessionPools.get(userName);
+			if (session!=null) {
+				sendInfo(msg.getFrom(), JSON.toJSONString(msg, true));
+			}
+		}else if (msg.getTo().equals("-1")) {
 			broadcast(JSON.toJSONString(msg, true)); // -1群发
 		} else {
 			for(String userId:msg.getTo().split(",")) {
@@ -84,8 +108,14 @@ public class WebSocketServer {
 	// 给指定用户发送信息
 	public void sendInfo(String userName, String message) {
 		Session session = sessionPools.get(userName);
+		System.out.println("session"+session);
 		try {
+			if (session!=null) {
 			sendMessage(session, message);
+			}else {
+//				System.out.println(javaMailMessages);
+//				javaMailMessages.sendToGmail(userName);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
