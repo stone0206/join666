@@ -37,9 +37,11 @@ public class pageController {
 	}
 	
 	@GetMapping("/")
-	public String homePage(Model m) {
+	public String homePage(@RequestParam(name="p",defaultValue = "1") Integer pageNumber,Model m) {
 		MemberTest random = matchService.random1();
 		m.addAttribute("random", random);
+		Page<PostBean> page= postService.findByPostPage(pageNumber);
+		m.addAttribute("page", page);
 		return "index";
 	}
 

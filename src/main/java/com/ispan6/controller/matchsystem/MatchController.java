@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ispan6.bean.matchsystem.MatchBean;
+import com.ispan6.bean.matchsystem.SelfHobbitBean;
 import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.service.matchsystem.MatchService;
+import com.ispan6.service.matchsystem.SelfHabbitService;
 import com.ispan6.service.membersystem.MemberTestService;
 
 @Controller
@@ -22,6 +24,10 @@ public class MatchController {
 	@Autowired
 	private MatchService matchService;
 
+
+	@Autowired
+	private SelfHabbitService selfService;
+	
 	@GetMapping("/getFriendNotice")
 	public String getFriendNotice() {
 
@@ -35,7 +41,6 @@ public class MatchController {
 		MemberTest random = matchService.random1(member.getId(),member.getId());
 		System.out.println(random);
 		m.addAttribute("random", random);
-
 		return "addfriend";
 	}
 
