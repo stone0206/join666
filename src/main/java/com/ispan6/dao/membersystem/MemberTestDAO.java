@@ -41,7 +41,7 @@ public interface MemberTestDAO extends JpaRepository<MemberTest, Integer> {
         @Query(value="FROM MemberTest where (gender= ?1 or gender= ?2) and m_account like %?3% and m_name like %?4%")
         public List<MemberTest> findMem(Integer male, Integer female, String account, String name);
 		
-		@Query(value = "  SELECT top 1*from membertest WHERE  not exists(select fuid from friend where (membertest.m_id=fuid or membertest.m_id=userid) and whoblocked=?1 and isfriend=2 ) and m_id !=?2 ORDER by NEWID()", nativeQuery = true)
+		@Query(value = "  SELECT top 1*from membertest WHERE  not exists(select fuid from friend where (membertest.m_id=fuid or membertest.m_id=userid) and whoblocked=?1 and isfriend !=0 ) and m_id !=?2 ORDER by NEWID()", nativeQuery = true)
 		public MemberTest random1(Integer id,Integer fid);
 		
 

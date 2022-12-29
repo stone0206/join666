@@ -103,7 +103,7 @@ window.onload = function () {
 						}
 						if(value.userid.id==loginid){
 						sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.fuid.avator+'" alt=""> </a></div>';
-						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h6 class="mb-0"><a href="#!">'+ value.fuid.name+'</a></h6></div></div>';
+						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h3 class="mb-0"><a href="#!">'+ value.fuid.name+'</a></h3></div></div>';
 						}
 						sendInvit +=' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2"onclick="unfriendfromlist('+value.friendid+')"> 解除好友 </button>'
 						sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0"> 傳訊息給他 </button>'
@@ -141,7 +141,7 @@ function getlist() {
 						}
 						if(value.userid.id==loginid){
 						sendInvit +='<a href="#!"> <img class="avatar-img rounded-circle" src="'+value.fuid.avator+'" alt=""> </a></div>';
-						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h6 class="mb-0"><a href="#!">'+ value.fuid.name+'</a></h6></div></div>';
+						sendInvit +='<div class="w-100"> <div class="d-sm-flex align-items-start"><h3 class="mb-0"><a href="#!">'+ value.fuid.name+'</a></h3></div></div>';
 						}
 						sendInvit +=' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2"onclick="unfriendfromlist('+value.friendid+')"> 解除好友 </button>'
 						sendInvit +='<button class="btn btn-primary-soft btn-sm mb-0"> 傳訊息給他 </button>'

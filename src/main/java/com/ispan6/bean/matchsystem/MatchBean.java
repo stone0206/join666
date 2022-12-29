@@ -41,6 +41,12 @@ public class MatchBean {
 	@Column(name = "whoblocked")
 	private Integer whoblocked;
 	
+	public Integer getWhoblocked() {
+		return whoblocked;
+	}
+	public void setWhoblocked(Integer whoblocked) {
+		this.whoblocked = whoblocked;
+	}
 	public Integer getFriendid() {
 		return friendid;
 	}

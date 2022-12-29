@@ -198,8 +198,10 @@ a {
 								<!-- Card body START -->
 								<div class="card-body" id="onefriend">
 									<div>
-										<a href="#!"><img src="${random.avator}"
-											style="height: 400px; width: 280px; margin: auto;"></a>
+										<a role="button" data-bs-auto-close="outside"> <img
+											class="avatar-img" src="${random.avator}"
+											style="height: 280px; width: 280px; margin: auto;">
+										</a>
 									</div>
 									<c:if test="${random.gender==1 }">
 										<a>${random.address},男</a>
@@ -228,11 +230,18 @@ a {
 								</div>
 
 								<!-- Connection item END -->
-
-								<div class="d-grid mt-3">
-									<a class="btn btn-sm btn-primary-soft" href="/addfriend"
-										style="font-size: 20px;">更多推薦</a>
-								</div>
+								<c:if test="${loginUser ==null}">
+									<div class="d-grid mt-3">
+										<a class="btn btn-sm btn-primary-soft" href="/login"
+											style="font-size: 20px;">更多推薦</a>
+									</div>
+								</c:if>
+								<c:if test="${loginUser !=null}">
+									<div class="d-grid mt-3">
+										<a class="btn btn-sm btn-primary-soft" href="/addfriend"
+											style="font-size: 20px;">更多推薦</a>
+									</div>
+								</c:if>
 							</div>
 							<!-- Card body END -->
 						</div>
@@ -263,8 +272,8 @@ a {
 						function(random) {
 							document.getElementById('onefriend').remove;
 							let changefriend = '';
-							changefriend += '<div><a href="#!"><img src="' + random.avator + '"'
-					changefriend += 'style="height: 400px; width: 280px; margin: auto;"></a></div>'
+							changefriend += '<div> <a role="button" data-bs-auto-close="outside"><img class="avatar-img" src="' + random.avator + '"'
+							changefriend += 'style="height: 280px; width: 280px; margin: auto;"></a></div>'
 							if (random.gender == 1) {
 								changefriend += '<a>' + random.address
 										+ ',男</a>'

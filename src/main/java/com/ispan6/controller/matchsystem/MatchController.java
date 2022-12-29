@@ -29,7 +29,12 @@ public class MatchController {
 	}
 
 	@GetMapping("/addfriend")
-	public String addFriendPage() {
+	public String addFriendPage(Model m,HttpSession session) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+
+		MemberTest random = matchService.random1(member.getId(),member.getId());
+		System.out.println(random);
+		m.addAttribute("random", random);
 
 		return "addfriend";
 	}
@@ -83,6 +88,7 @@ public class MatchController {
 			matchBean.setUserid(member);
 			matchBean.setFuid(fuid);
 			matchBean.setIsFriend(0);
+			matchBean.setWhoblocked(0);
 			matchService.addNewFriend(matchBean);
 			return "送出邀請成功";
 		}
