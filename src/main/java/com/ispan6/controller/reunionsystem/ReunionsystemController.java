@@ -108,6 +108,7 @@ public class ReunionsystemController {
 	
 	//新增報名
 
+
 	@GetMapping("/insertRegister")
 	@ResponseBody
 	public String insertRegister(@RequestParam Integer id,HttpSession session) {				
@@ -128,14 +129,15 @@ public class ReunionsystemController {
 		return "unexpect wrong please contact with engineer";
 	}
 	//聚會報名審核
-	@GetMapping("/searchRegisterByReunionId")
-	public String searchRegisterByReunionId(@RequestParam Integer id, Model model) {
-		List<Register> register = reunionregisterService.findRegisterByReunionid(id);
-		model.addAttribute("register", register);
-		System.out.println(register);
-		return "reviewreunion";
-	}
-	
+//	@GetMapping("/searchRegisterByReunionId")
+//	public String searchRegisterByReunionId(@RequestParam Integer id, Model model) {
+//		List<Register> register = reunionregisterService.findRegisterByReunionid(id);
+//		model.addAttribute("register", register);
+//		System.out.println(register);
+//		return "reviewreunion";
+//	}
+//>>>>>>> origin/master
+//	
 	//同意報名
 	    @GetMapping("/agreeRegister")
 		public String agreeRegisterByReunionidAndMemberid(@RequestParam Integer reunionid,Integer memberid) {

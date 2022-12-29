@@ -176,7 +176,7 @@ input, button {
 
 					<button type="submit" class="submit" id="submitBoth">註冊</button>
 					<button class="submit" id="lastBtn">上一步</button>
-
+					
 				</div>
 			</div>
 		</div>
