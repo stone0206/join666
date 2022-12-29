@@ -98,11 +98,11 @@
 
 
 							<div class="input-group mb-3 ">
-								<input type="file" class="form-control" id="inputGroupFile02" name="picture">
+								<input type="file" class="form-control" id="inputGroupFile02">
 								
 								<label class="input-group-text" for="inputGroupFile02">Upload</label>
 								<br>
-								<input type="hidden" value="" name="img" id="p_img">
+								<input type="hidden" value="" name="picture" id="p_img">
 							</div>
 
 							<div class="col-12">
@@ -269,7 +269,7 @@
 			<script type="text/javascript">
 
 				// 新增商品時轉換圖片的方式
-				let img = document.getElementById('img');
+				let img = document.getElementById('inputGroupFile02');
 				img.addEventListener('change', function (e) {
 					let file = this.files[0]
 					let reader = new FileReader()

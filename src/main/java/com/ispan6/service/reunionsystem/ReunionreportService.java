@@ -35,4 +35,11 @@ public class ReunionreportService {
 	public void insertReunionreport(Reunionreport reunionreport) {
 		ReunionreportRepository.save(reunionreport);
 	}
+	
+    public boolean reportEmpty(Integer reunionid, Integer memberid) {
+		return ReunionreportRepository.findReunionreportByReunionidAndMemberid(reunionid, memberid).isEmpty();
+			
+	}
+	
+	
 }

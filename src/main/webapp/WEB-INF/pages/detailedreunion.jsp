@@ -50,12 +50,19 @@
 <%--         <c:if test="${loginUser!=null}"> --%>
 <%--         <a href="/insertReunionreport?id=${reunion.reunionid}" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius-6 u-text-body-color u-text-hover-white u-btn-1">檢舉</a> --%>
 <%--          </c:if> --%>
-         <c:if test="${loginUser==null}">
+        <c:if test="${loginUser==null}">
+         
         <a href="" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius-6 u-text-body-color u-text-hover-white u-btn-1">請登入檢舉</a>
         </c:if>
          <c:if test="${loginUser!=null}">
+         
+        <c:if test="${flag1==false}">
+        <button type="button" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius-6 u-text-body-color u-text-hover-white u-btn-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">已檢舉</button>
+        </c:if>
+         <c:if test="${flag1==true}">
         <button type="button" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius-6 u-text-body-color u-text-hover-white u-btn-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">檢舉</button>
         </c:if>
+         </c:if>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -87,14 +94,22 @@
         
  
         <p class="u-text u-text-3">報名人數</p>
-        <p class="u-text u-text-4">4人</p>
+        <p class="u-text u-text-4">${registercount}人</p>
         <c:if test="${loginUser!=null}">
-<%--         <c:if test="${loginUser.reunion.reunionid!=null}"> --%>
-         <a href="" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">審核</a>
-<%--         </c:if> --%>
-<%--         ${loginUser} --%>
-        <a href="/insertRegister?id=${reunion.reunionid}" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">報名</a>
+        <c:if test="${loginUser.id==reunion.memberid }">
+         <a href="/searchRegisterByReunionId?id=${reunion.reunionid}" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">審核</a>
+        </c:if>
+
+        <c:if test="${loginUser.id!=reunion.memberid }">
         
+        <c:if test="${flag==false}">
+        <a href="" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">已報名</a>
+        </c:if>
+        
+        <c:if test="${flag==true}">
+        <a href="/insertRegister?id=${reunion.reunionid}" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">報名</a>
+         </c:if>
+         </c:if>
         </c:if>
         <c:if test="${loginUser==null}">
         <a href="" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">請登入報名</a>
@@ -148,10 +163,7 @@
     </section>
     <section class="u-align-center u-clearfix u-section-2" id="sec-39b4">
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1"></div>
-    </section>
-
-    
-    
+    </section>  
     			<!-- Bootstrap core JS-->
 				<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
 				<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>

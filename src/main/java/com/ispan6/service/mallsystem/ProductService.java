@@ -1,9 +1,18 @@
 package com.ispan6.service.mallsystem;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,26 +26,28 @@ import com.ispan6.dao.mallsystem.ProductDAO;
 @Service
 @Transactional
 public class ProductService {
-	
+	@PersistenceContext
+	private EntityManager entityManager;
+
 	@Autowired
 	private ProductDAO productDAO;
-	
+
 	public List<Product> getAllProduct() {
 		return productDAO.findAll();
 	}
-	
+
 	public void insertProduct(Product product) {
 		productDAO.save(product);
 	}
-	
+
 	public void deleteProduct(Integer id) {
 		productDAO.deleteById(id);
 	}
 
 	public void updateProduct(Integer id) {
-		 Product product = productDAO.findById(id).get();
-		 product.setStatus(1);
-		 productDAO.save(product);
+		Product product = productDAO.findById(id).get();
+		product.setStatus(1);
+		productDAO.save(product);
 	}
 
 	public List<Product> findByTypeId(Integer id) {
@@ -60,11 +71,11 @@ public class ProductService {
 	}
 
 	public Product findById(Integer id) {
-		 Optional<Product> product = productDAO.findById(id);
-		 if(product.isPresent()) {
-			 return product.get();
-		 }
-		 return null;
+		Optional<Product> product = productDAO.findById(id);
+		if (product.isPresent()) {
+			return product.get();
+		}
+		return null;
 	}
 
 	public List<Product> getAllProductOnSell() {
@@ -79,11 +90,36 @@ public class ProductService {
 		return productDAO.findBySearch(keyword);
 	}
 	
-	
-	
-	
+	public List<Product> findByTypeAndLabel(Integer[] typeCondi, Integer[] labelCondi) {
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Product> query = builder.createQuery(Product.class);
+		Root<Product> root = query.from(Product.class);
+		List<Integer> typeList = Arrays.asList(typeCondi);
+		List<Integer> labelList = Arrays.asList(labelCondi);
+		Predicate typePredicate = null;
+		Predicate labelPredicate = null;
+		
+		if (typeCondi.length == 0 && labelCondi.length == 0) {
+			return productDAO.getAllProductOnSell();
+		}
+		
+		if(typeCondi.length == 0) {
+			typePredicate = root.get("type").in(1,2,3,4);
+		}else {
+			typePredicate = root.get("type").in(typeList);
+		}
+		
+		if(labelCondi.length == 0) {
+			labelPredicate = root.get("label").in(1,2,3);
+		}else {
+			labelPredicate = root.get("label").in(labelList);
+		}
+		Predicate statusPredicate = root.get("status").in(0);
 
+		query.where(builder.and(typePredicate, labelPredicate,statusPredicate));
 
+		TypedQuery<Product> typedQuery = entityManager.createQuery(query);
+		return typedQuery.getResultList();
+	}
 
-	
 }

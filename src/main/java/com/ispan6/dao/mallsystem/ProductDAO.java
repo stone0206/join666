@@ -11,8 +11,6 @@ import com.ispan6.bean.mallsystem.Product;
 
 public interface ProductDAO extends JpaRepository<Product, Integer>,CrudRepository<Product, Integer> {
 
-	// show all product without any condition
-	//	用原生即可
 	
 	// show product by Type
 	@Query("from Product where p_type = :type")
@@ -47,6 +45,9 @@ public interface ProductDAO extends JpaRepository<Product, Integer>,CrudReposito
 	
 	@Query("from Product where status = 0 order by sales desc")
 	public List<Product> findAllProductOrderBySales();
+	
+	
+	
 
 
 

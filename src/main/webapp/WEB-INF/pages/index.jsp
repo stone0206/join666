@@ -198,8 +198,10 @@ a {
 								<!-- Card body START -->
 								<div class="card-body" id="onefriend">
 									<div>
-										<a href="#!"><img src="${random.avator}"
-											style="height: 400px; width: 280px; margin: auto;"></a>
+										<a role="button" data-bs-auto-close="outside"> <img
+											class="avatar-img" src="${random.avator}"
+											style="height: 280px; width: 280px; margin: auto;">
+										</a>
 									</div>
 									<c:if test="${random.gender==1 }">
 										<a>${random.address},男</a>
@@ -213,19 +215,33 @@ a {
 									</div>
 									<div style="text-align: center;">
 										<a style="font-size: 25px; margin: auto;"><button
-												onclick="changeone()">換一個</button></a> <a
-											style="font-size: 25px; margin: auto;"><button
-												id="addBtn" onclick="addNewFriend(${random.id})">
-												送出邀請</button></a>
+												onclick="changeone()">換一個</button></a>
+										<c:if test="${loginUser ==null}">
+											<a style="font-size: 25px; margin: auto;" href="/login"><button
+													id="addBtn">請先登入</button></a>
+										</c:if>
+										<c:if test="${loginUser !=null}">
+											<a style="font-size: 25px; margin: auto;" id="logina"><button
+													id="addBtn" onclick="addNewFriend(${random.id})">
+													送出邀請</button></a>
+										</c:if>
+
 									</div>
 								</div>
 
 								<!-- Connection item END -->
-
-								<div class="d-grid mt-3">
-									<a class="btn btn-sm btn-primary-soft" href="/addfriend"
-										style="font-size: 20px;">更多推薦</a>
-								</div>
+								<c:if test="${loginUser ==null}">
+									<div class="d-grid mt-3">
+										<a class="btn btn-sm btn-primary-soft" href="/login"
+											style="font-size: 20px;">更多推薦</a>
+									</div>
+								</c:if>
+								<c:if test="${loginUser !=null}">
+									<div class="d-grid mt-3">
+										<a class="btn btn-sm btn-primary-soft" href="/addfriend"
+											style="font-size: 20px;">更多推薦</a>
+									</div>
+								</c:if>
 							</div>
 							<!-- Card body END -->
 						</div>
@@ -256,8 +272,8 @@ a {
 						function(random) {
 							document.getElementById('onefriend').remove;
 							let changefriend = '';
-							changefriend += '<div><a href="#!"><img src="' + random.avator + '"'
-					changefriend += 'style="height: 400px; width: 280px; margin: auto;"></a></div>'
+							changefriend += '<div> <a role="button" data-bs-auto-close="outside"><img class="avatar-img" src="' + random.avator + '"'
+							changefriend += 'style="height: 280px; width: 280px; margin: auto;"></a></div>'
 							if (random.gender == 1) {
 								changefriend += '<a>' + random.address
 										+ ',男</a>'
@@ -280,10 +296,11 @@ a {
 	function addNewFriend(fuid) {
 		fetch('${contextRoot}/addNewFriend?id=' + fuid).then(res => res.text()).then(text => {
 			alert(text);
-			if(text!=='請先登入'){
+			if(text=='送出邀請成功'){
 			document.getElementById('addBtn').innerHTML = '已送出邀請';
 			document.getElementById("addBtn").disabled=true;
 			}
+			
 		})
 	}
 </script>

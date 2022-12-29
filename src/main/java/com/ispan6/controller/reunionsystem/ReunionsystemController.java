@@ -127,6 +127,52 @@ public class ReunionsystemController {
 		}
 		return "unexpect wrong please contact with engineer";
 	}
+	//聚會報名審核
+	@GetMapping("/searchRegisterByReunionId")
+	public String searchRegisterByReunionId(@RequestParam Integer id, Model model) {
+		List<Register> register = reunionregisterService.findRegisterByReunionid(id);
+		model.addAttribute("register", register);
+		System.out.println(register);
+		return "reviewreunion";
+	}
+	
+	//同意報名
+	    @GetMapping("/agreeRegister")
+		public String agreeRegisterByReunionidAndMemberid(@RequestParam Integer reunionid,Integer memberid) {
+	    	 Integer count = reunionregisterService.findCountRegisterByReunionid(reunionid);
+	    	Reunion reunion = reunionsystemService.findByReunionId(reunionid);
+	    	System.out.println(reunion.getPeople());
+	    	System.out.println(count);
+	    	System.out.println(reunionid);
+	    	System.out.println(memberid);
+	    	 if(reunion.getPeople()>count) {
+			reunionregisterService.agreeRegisterByReunionidAndMemberid(reunionid, memberid);
+	    	 }
+			return "reunion";
+		}
+	    
+	  //不同意報名
+	    @GetMapping("/notagreeRegister")
+		public String notagreeRegisterByReunionidAndMemberid(@RequestParam Integer reunionid,Integer memberid) {
+		   
+			reunionregisterService.notagreeRegisterByReunionidAndMemberid(reunionid, memberid);
+			return "reunion";
+		}
+	
+	
+//	@GetMapping("/insertRegister")
+//		public String insertRegister(@RequestParam Integer id,HttpSession session) {				
+//		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+//		int memberid = member.getId();
+//		
+//		boolean flag = reunionregisterService.registerEmpty(id, memberid);
+//		
+//		Register register = new Register();
+//		register.setMemberid(memberid);
+//		register.setReunionid(id);
+//		reunionregisterService.insertRegister(register);
+//	  return "redirect:/detailedreunion";
+//	}
 	
 	
 	
@@ -194,9 +240,22 @@ public class ReunionsystemController {
 	}
 	
 	@GetMapping("/detailedreunion")
-	public String detailedreunion(@RequestParam Integer id, Model model) {
+	public String detailedreunion(@RequestParam Integer id, Model model,HttpSession session) {
+		
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		if(member!=null) {
+		int memberid = member.getId();
+		boolean flag1 = reunionreportService.reportEmpty(id, memberid);
+		boolean flag = reunionregisterService.registerEmpty(id, memberid);
+		model.addAttribute("flag1",flag1);
+		model.addAttribute("flag",flag);
+		}
+		
 		Reunion reunion = reunionsystemService.findByReunionId(id);
+		Integer registercount = reunionregisterService.findCountRegisterByReunionid(id);
 		model.addAttribute("reunion", reunion);
+		model.addAttribute("registercount", registercount);
+		
 		return "detailedreunion";
 	}
 	
@@ -207,6 +266,9 @@ public class ReunionsystemController {
 
 		return member;
 	}
+	
+	
+	
 	
 	
 //	@ResponseBody

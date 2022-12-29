@@ -35,7 +35,7 @@ public class OrderItems {
 	private Product product;
 	
 	@JsonIgnore
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "item_oid")
 	private OrderBean orderBean;
 

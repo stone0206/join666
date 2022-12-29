@@ -28,6 +28,7 @@ import com.ispan6.bean.chatsystem.MessageContent;
 import com.ispan6.bean.chatsystem.Participants;
 import com.ispan6.bean.mallsystem.ShoppingCartItem;
 import com.ispan6.bean.matchsystem.MatchBean;
+import com.ispan6.bean.matchsystem.SelfHobbitBean;
 import com.ispan6.bean.reunionsystem.Reunion;
 
 @Entity
@@ -39,9 +40,9 @@ public class MemberTest {
 	private int id;
 
 	// 博宇
-//	@OneToMany(mappedBy = "memberTest")
-//	@JsonIgnore
-//	private Set<Reunion> reunionlist;
+	@OneToMany(mappedBy = "memberTest",fetch=FetchType.LAZY,cascade=CascadeType.ALL)
+	@JsonIgnore
+	private Set<Reunion> reunionlist;
 
 	@Column(name = "m_account")
 	private String account;
@@ -87,6 +88,9 @@ public class MemberTest {
 	// 易
 	@OneToMany(mappedBy = "messageContentUserId")
 	private List<MessageContent> messageContentUserId = new ArrayList<MessageContent>();
+	
+	@OneToMany(mappedBy = "userhid")
+	private List<SelfHobbitBean> userhid=new ArrayList<SelfHobbitBean>();
 
 	public MemberTest() {
 		super();
@@ -201,14 +205,14 @@ public class MemberTest {
 	public void setMessageContentUserId(List<MessageContent> messageContentUserId) {
 		this.messageContentUserId = messageContentUserId;
 	}
-//
-//	public Set<Reunion> getReunionlist() {
-//		return reunionlist;
-//	}
-//
-//	public void setReunionlist(Set<Reunion> reunionlist) {
-//		this.reunionlist = reunionlist;
-//	}
+
+	public Set<Reunion> getReunionlist() {
+		return reunionlist;
+	}
+
+	public void setReunionlist(Set<Reunion> reunionlist) {
+		this.reunionlist = reunionlist;
+	}
 
 	
 

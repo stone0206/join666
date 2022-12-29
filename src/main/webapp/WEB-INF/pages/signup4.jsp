@@ -120,13 +120,13 @@ input, button {
 
 <body>
 	<jsp:include page="/WEB-INF/layout/navbar.jsp" />
-	<form action="/insertMember" id="form1" method="post">
+	<form action="/googleSignIn" id="form1" method="post">
 		<div class="signup_page">
 			<div id="container1">
 				<div class="signup">
 					<h3>請輸入個人資料</h3>
 					<input type="text" id="name" class="fullname" name="name"
-						placeholder="暱稱" required>
+						placeholder="暱稱" required value="${member.getName() }">
 					<div class="tab"></div>
 					<input type="date" id="birth" name="birth" placeholder="出生日期"
 						required>
