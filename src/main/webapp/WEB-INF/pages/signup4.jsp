@@ -124,7 +124,9 @@ input, button {
 		<div class="signup_page">
 			<div id="container1">
 				<div class="signup">
+					<h2>您尚未註冊</h2>
 					<h3>請輸入個人資料</h3>
+					<h3>以完成註冊</h3>
 					<input type="text" id="name" class="fullname" name="name"
 						placeholder="暱稱" required value="${member.getName() }">
 					<div class="tab"></div>

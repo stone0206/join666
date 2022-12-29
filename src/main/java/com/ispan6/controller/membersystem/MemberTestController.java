@@ -199,10 +199,9 @@ public class MemberTestController {
 		mt.setEmail(account);
 		mt.setAvator(Constants.AVATOR);
 		mService.insertMember(mt);
+		
 		mt = mService.findByAccAndPwd(account, password);
-
 		HttpSession session = request.getSession();
-
 		session.setAttribute("loginUser", mt);
 
 		return "index";
