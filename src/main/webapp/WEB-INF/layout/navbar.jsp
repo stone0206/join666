@@ -52,7 +52,7 @@
 
                 <!-- 貼文 -->
                 <li class="nav-item " style="margin-right: 20px;">
-                  <a class="nav-link " href="放網址的位置" id="homeMenu" aria-haspopup="true"
+                  <a class="nav-link " href="/index" id="homeMenu" aria-haspopup="true"
                     aria-expanded="false">貼文</a>
                 </li>
 
