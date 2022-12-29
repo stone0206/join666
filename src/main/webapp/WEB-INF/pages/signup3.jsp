@@ -224,6 +224,7 @@ input, button {
 					const nextBtn = $("#nextBtn");
 					const lastBtn = $("#lastBtn");
 					const submitBtn= $("#submitBtn");
+					const form1=$("#form1");
 					
 					
 					
@@ -234,7 +235,7 @@ input, button {
 							alert("請至少選一項興趣!!")
 							return;
 						}
-						console.log(hobbit);
+						form1.submit();
 					})
 					
 					let flag1 = false;
