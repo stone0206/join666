@@ -28,6 +28,7 @@ import com.ispan6.bean.chatsystem.MessageContent;
 import com.ispan6.bean.chatsystem.Participants;
 import com.ispan6.bean.mallsystem.ShoppingCartItem;
 import com.ispan6.bean.matchsystem.MatchBean;
+import com.ispan6.bean.matchsystem.SelfHobbitBean;
 import com.ispan6.bean.reunionsystem.Reunion;
 
 @Entity
@@ -87,6 +88,9 @@ public class MemberTest {
 	// 易
 	@OneToMany(mappedBy = "messageContentUserId")
 	private List<MessageContent> messageContentUserId = new ArrayList<MessageContent>();
+	
+	@OneToMany(mappedBy = "userhid")
+	private List<SelfHobbitBean> userhid=new ArrayList<SelfHobbitBean>();
 
 	public MemberTest() {
 		super();
