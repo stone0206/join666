@@ -120,8 +120,8 @@ input, button {
 
 <body>
 	<jsp:include page="/WEB-INF/layout/navbar.jsp" />
-		<form action="/insertMember" id="form1" method="post">
-<%-- 	<form action="/sendCode" id="form1" method="post"> --%>
+	<form action="/insertMember" id="form1" method="post">
+		<%-- 	<form action="/sendCode" id="form1" method="post"> --%>
 		<div class="login_page">
 			<div id="container1">
 				<div class="login">
@@ -142,7 +142,7 @@ input, button {
 					<button class="submit" onclick="" id="cancel">取消</button>
 					<input type="button" class="submit"
 						onclick="location.href='https://accounts.google.com/o/oauth2/auth?scope=email+profile&redirect_uri=http://localhost:8080/LoginGoogleHandler&response_type=code&client_id=378093448501-ebvinmo23u9l8lmljs9souqd3953nbqg.apps.googleusercontent.com&approval_prompt=force';"
-						value="Google登入"  style="background-color: #31C1DD" />
+						value="Google登入" style="background-color: #31C1DD" />
 					<%-- 				</form> --%>
 				</div>
 			</div>
@@ -168,15 +168,46 @@ input, button {
 						required>
 					<div class="tab"></div>
 					<div style="text-align: left; margin-left: 10px" id="gen">
-						<label id="gen">性別:</label> <input type="radio" id="gender"
+						<label id="gen">性別:</label> <input type="radio" id="gender1"
 							name="gender" value="1" checked>男 <input type="radio"
-							id="gender" name="gender" value="2">女
+							id="gender2" name="gender" value="2">女
 					</div>
 					<div class="tab"></div>
-
-					<button type="submit" class="submit" id="submitBoth">註冊</button>
+					<div class="form-check form-check-inline">
+						<label class="form-check-label"><input
+							class="form-check-input" type="checkbox" id="hobbit1" name="hobbit" value="1">
+							唱歌</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<label class="form-check-label"><input
+							class="form-check-input" type="checkbox" id="hobbit2" name="hobbit" value="2">
+							爬山</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="checkbox"
+							id="inlineCheckbox3" name="hobbit" value="3"> <label
+							class="form-check-label" for="inlineCheckbox3">健身</label>
+					</div>
+					<!-- 					<div class="tab"></div> -->
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="checkbox"
+							id="inlineCheckbox4" name="hobbit" value="4"> <label
+							class="form-check-label" for="inlineCheckbox4">看電影</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="checkbox"
+							id="inlineCheckbox5" name="hobbit" value="5"> <label
+							class="form-check-label" for="inlineCheckbox5">逛街</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="checkbox"
+							id="inlineCheckbox6" name="hobbit" value="6"> <label
+							class="form-check-label" for="inlineCheckbox6">露營</label>
+					</div>
+					<button type="submit" class="submit" id="submitBtn">註冊</button>
 					<button class="submit" id="lastBtn">上一步</button>
-					
+					<button class="submit" id="cancel">回首頁</button>
+
 				</div>
 			</div>
 		</div>
@@ -192,7 +223,19 @@ input, button {
 					const comfirmPwdLabel = $("#comfirmPwdLabel");
 					const nextBtn = $("#nextBtn");
 					const lastBtn = $("#lastBtn");
-					const submitBoth= $("#submitBoth");
+					const submitBtn= $("#submitBtn");
+					
+					
+					
+					submitBtn.click(function(e){
+						e.preventDefault();
+						let hobbit=$("input[name=hobbit]:checked");
+						if(hobbit.length==0){
+							alert("請至少選一項興趣!!")
+							return;
+						}
+						console.log(hobbit);
+					})
 					
 					let flag1 = false;
 					let flag2 = false;
@@ -346,7 +389,7 @@ input, button {
 
 					$("#cancel").click(function(event) {
 						event.preventDefault(); //取消預設行為
-						window.history.back(); //返回上一頁
+// 						window.history.back(); //返回上一頁
 						})
 
 				</script>

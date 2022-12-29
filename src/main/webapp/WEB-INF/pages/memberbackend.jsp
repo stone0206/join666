@@ -220,20 +220,6 @@
 				table.html(member2);
 			})
 		}
-		// 新增商品時轉換圖片的方式
-		let img = document.getElementById('img');
-		img.addEventListener('change', function(e) {
-			let file = this.files[0]
-			let reader = new FileReader()
-			// 轉換成 DataURL
-			reader.readAsDataURL(file)
-			let pimg = document.getElementById('p_img');
-			reader.onload = function(e) {
-				console.log(e);
-				pimg.value = this.result
-			}
-		})
-		
 
 	</script>
 </body>
