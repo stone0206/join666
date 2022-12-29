@@ -145,7 +145,7 @@ input, button {
 					</div>
 					<div class="tab"></div>
 					<button type="submit" class="submit" id="submitBoth">註冊</button>
-					<button class="submit" id="lastBtn">取消</button>
+					<button class="submit" id="cancel">取消</button>
 
 				</div>
 			</div>
@@ -154,109 +154,10 @@ input, button {
 </body>
 
 <script type="text/javascript">
-					const account = $("#account");
-					const password = $("#password");
-					const comfirm_password = $("#comfirm_password");
-					const accLabel = $("#accLabel");
-					const pwdLabel = $("#pwdLabel");
-					const comfirmPwdLabel = $("#comfirmPwdLabel");
-					const nextBtn = $("#nextBtn");
-					const lastBtn = $("#lastBtn");
-					const submitBoth= $("#submitBoth");
-					
-					let flag1 = false;
-					let flag2 = false;
-					let flag3 = false;
-
-					account.keyup(function () {
-
-						checkAll()
-					})
-
-					password.keyup(function () {
-
-						checkAll()
-					})
-
-					comfirm_password.keyup(function () {
-
-						checkAll()
-					})
-					
-				
-
-
-					function checkAll() {
-
-						let rex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-						let accValue = account.val();
-
-						if (!rex.test(accValue)) {
-							accLabel.html("<font color='red' size='-1'>請輸入正確格式</font>");
-							flag1 = false
-						}
-
-						if (rex.test(accValue)) {
-							let formData = new FormData();
-							formData.append("account", accValue)
-// 							console.log(formData)
-							fetch("${contextRoot}/CheckAcc", { method: "POST", body: formData }).then(result => result.text()).then(message => {
-								if (message == "帳號重複") {
-									accLabel.html("<font color='red' size='-1'>帳號重複</font>");
-									flag1 = false
-								}
-								if (message == "此帳號可用") {
-									accLabel.html("<font color='red' size='-1'>此帳號可用</font>");
-									flag1 = true
-								}
-							})
-						}
-
-						rex = /^[a-zA-Z0-9]+$/;
-						let pwdValue = password.val();
-						if (!rex.test(pwdValue)) {
-							pwdLabel.html("<font color='red' size='-1'>請輸入正確格式</font>");
-							flag2 = false
-						}
-
-						if (rex.test(pwdValue)) {
-							pwdLabel.html("<font color='red' size='-1'>密碼格式正確</font>");
-							flag2 = true
-						}
-
-
-						if (password.val() !== comfirm_password.val()) {
-							comfirmPwdLabel.html("<font color='red' size='-1'>兩次密碼不相符</font>");
-							flag3 = false
-						}
-
-						if (password.val() == comfirm_password.val()) {
-							comfirmPwdLabel.html("<font color='red' size='-1'>二次驗證正確</font>");
-							flag3 = true
-						}
-
-						checkFlag();
-
-					}
-
-
-					function checkFlag() {
-						if (flag1 && flag2 && flag3) {
-							nextBtn.removeAttr("disabled");
-							nextBtn.attr("style","background-color:#31C1DD")
-							console.log("disabled"+flag1+","+flag2+","+flag3)
-						} else {
-							nextBtn.attr("disabled", "")
-							nextBtn.attr("style","background-color:gray")
-							console.log("undisabled"+flag1+","+flag2+","+flag3)
-						}
-					}
-
-					
 
 					$("#cancel").click(function(event) {
 						event.preventDefault(); //取消預設行為
-						location.href='https://localhost:8080/index';
+						location.href='http://localhost:8080/index';
 // 						window.history.back(); //返回上一頁
 						})
 
