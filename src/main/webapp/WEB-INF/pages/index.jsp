@@ -72,8 +72,8 @@ a {
 
 
 							<li class="nav-item dropdown ms-lg-auto"><a
-								class="nav-link bg-light py-1 px-2 mb-0" href="#"
-								id="feedActionShare" data-bs-toggle="dropdown"
+								class="nav-link bg-light py-1 px-2 mb-0" href="/#"
+								id="feedActionShare" 
 								aria-expanded="false"> <i class="bi bi-three-dots">送出</i>
 							</a> <!-- Dropdown menu --></li>
 						</ul>
