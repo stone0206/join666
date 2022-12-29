@@ -32,14 +32,21 @@ public class MatchBean {
 	
 	@ManyToOne
 	@JoinColumn(name = "userid")
-	@JsonIgnore
 	private MemberTest userid;
 	@ManyToOne
 	@JoinColumn(name = "fuid")
-	@JsonIgnore
 	private MemberTest fuid;
 	@Column(name = "isFriend")
 	private Integer isFriend;
+	@Column(name = "whoblocked")
+	private Integer whoblocked;
+	
+	public Integer getWhoblocked() {
+		return whoblocked;
+	}
+	public void setWhoblocked(Integer whoblocked) {
+		this.whoblocked = whoblocked;
+	}
 	public Integer getFriendid() {
 		return friendid;
 	}

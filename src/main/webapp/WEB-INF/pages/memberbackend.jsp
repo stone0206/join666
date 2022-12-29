@@ -159,6 +159,7 @@
 		function findMember(){
 			var account= $('#account').val();
 			var name=$('#name').val();
+			
 			var m= $('#male').is(':checked');
 			var f= $('#female').is(':checked');
 			var male=1;
@@ -177,7 +178,7 @@
 			let formData = new FormData();
 			formData.append("male", male);
 			formData.append("female", female);
-			formData.append("account", account);
+			formData.append("account", account.trim());
 			formData.append("name", name);
 			fetch("${contextRoot}/findMem", {method:"POST", body:formData}).then(result=>result.json()).then(members2=>{
 				console.log(members2.length);
@@ -217,7 +218,7 @@
 				member2+='</td></tr>';
 				}
 				table.html(member2);
-			}).then(hello())
+			})
 		}
 		// 新增商品時轉換圖片的方式
 		let img = document.getElementById('img');
@@ -233,9 +234,7 @@
 			}
 		})
 		
-		function hello(){
-			console.log("Hello World");
-		}
+
 	</script>
 </body>
 

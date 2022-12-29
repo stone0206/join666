@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ispan6.bean.reunionsystem.Register;
 import com.ispan6.bean.reunionsystem.Reunionreport;
 import com.ispan6.dao.reunionsystem.ReunionreportRepository;
 
@@ -30,4 +31,15 @@ public class ReunionreportService {
 	public List<Reunionreport> getAllReunionreport() {
 		return ReunionreportRepository.findAll();
 	}
+	
+	public void insertReunionreport(Reunionreport reunionreport) {
+		ReunionreportRepository.save(reunionreport);
+	}
+	
+    public boolean reportEmpty(Integer reunionid, Integer memberid) {
+		return ReunionreportRepository.findReunionreportByReunionidAndMemberid(reunionid, memberid).isEmpty();
+			
+	}
+	
+	
 }

@@ -58,7 +58,6 @@
 					top: 7px;
 				}
 
-
 				/* 購物車位置固定 */
 				#shopping-cart {
 					border: none;
@@ -151,9 +150,8 @@
 				<main>
 					<div class="container-fluid" style="width: 85%;">
 						<div class="row">
-							<div class="col-12"
-								style="height:400px ;background-color: grey; margin-bottom: 15px; padding: 10px; background-image: sr;">
-								<div style="background-color: white; height: 380px;">123</div>
+							<div class="col-12" style="height: 400px;margin-bottom: 5px; padding: 10px;">
+								<div style="height: 30px;"><img src="/assets/mallsystemimg.png" alt=""></div>
 							</div>
 						</div>
 						<div class="row">
@@ -161,36 +159,51 @@
 							<div class="col-3">
 								<div id="dailyrecommand" style="background-color: white;">
 									<h3>推薦商品</h3>
-									<div id="recommandItems">
-
-									</div>
+									<div id="recommandItems"></div>
 								</div>
 
 								<div id="query" style="background-color: white;">
-									<h6>類型</h6>
-									<div class="row">
-										<div class="col-6"><input type="checkbox" name="" id="">派對道具</div>
-										<div class="col-6"><input type="checkbox" name="" id="">桌遊</div>
-									</div>
-									<div class="row" style="margin-bottom: 10px;">
-										<div class="col-6"><input type="checkbox" name="" id="">裝飾用品</div>
-										<div class="col-6"><input type="checkbox" name="" id="">票券</div>
-									</div>
-									<h6>標籤</h6>
-									<div class="row">
-										<div class="col-6"><input type="checkbox" name="" id="">New</div>
-										<div class="col-6"><input type="checkbox" name="" id="">Discount</div>
-									</div>
-									<div class="row" style="margin-bottom: 10px;">
-										<div class="col-6"><input type="checkbox" name="" id="">Hot</div>
-									</div>
-									<h6>價格</h6>
-									<form action="/" method="post">
-										<input type="text" style="width: 60px;" placeholder="最低價" id="lP"> 一
-										<input type="text" style="width: 60px; margin-right: 10px;" placeholder="最高價"
-											id="hP">
-										<input type="submit" value="送出" id="form-btn">
+									<form id="conditions" onchange="check()">
+										<h6>類型</h6>
+										<div class="row">
+											<div class="col-6">
+												<input type="checkbox" name="typeCondi" value="1">派對道具
+											</div>
+											<div class="col-6">
+												<input type="checkbox" name="typeCondi" value="2">桌遊
+											</div>
+										</div>
+										<div class="row" style="margin-bottom: 10px;">
+											<div class="col-6">
+												<input type="checkbox" name="typeCondi" value="3">裝飾用品
+											</div>
+											<div class="col-6">
+												<input type="checkbox" name="typeCondi" value="4">票券
+											</div>
+										</div>
+										<h6>標籤</h6>
+										<div class="row">
+											<div class="col-6">
+												<input type="checkbox" name="label" value="1">New
+											</div>
+											<div class="col-6">
+												<input type="checkbox" name="label" value="2">Discount
+											</div>
+										</div>
+										<div class="row" style="margin-bottom: 10px;">
+											<div class="col-6">
+												<input type="checkbox" name="label" value="3">Hot
+											</div>
+										</div>
 									</form>
+									<div>
+										<h6>價格</h6>
+										<form action="/" method="post">
+											<input type="text" style="width: 60px;" placeholder="最低價" id="lP"> 一 <input
+												type="text" style="width: 60px; margin-right: 10px;" placeholder="最高價"
+												id="hP"> <input type="submit" value="送出" id="form-btn">
+										</form>
+									</div>
 								</div>
 
 							</div>
@@ -219,7 +232,7 @@
 										<div class="dropdown">
 											<a class="btn btn-outline-dark dropdown-toggle" role="button"
 												id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"
-												style="width: 160px; border-radius: 5px; float:right;">
+												style="width: 160px; border-radius: 5px; float: right;">
 												排序方式 </a>
 											<!-- 排序方式 -->
 											<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
@@ -229,17 +242,15 @@
 														style="cursor: pointer;">按照價格：低-高</a></li>
 												<li><a class="dropdown-item" onclick="salesH2L()"
 														style="cursor: pointer;">銷量：高-低</a></li>
-												<li><a class="dropdown-item" href="#">相關程度：高-低</a></li>
 											</ul>
 										</div>
 									</div>
 								</div>
-								<div class="col" style="margin-bottom: 10px;font-size: 10px; color: grey;">
-									123
+								<div class="col" style="margin-bottom: 10px; font-size: 10px; color: blue;"
+									id="showCondition">
 								</div>
 								<!-- 商品欄位 -->
-								<div class="row row-cols-md-3 justify-content-center" id="productDiv">
-								</div>
+								<div class="row row-cols-md-3 justify-content-center" id="productDiv"></div>
 							</div>
 						</div>
 
@@ -283,7 +294,6 @@
 									<th>操作</th>
 									<!-- 訂單內元素 -->
 									<tbody id='order-list'>
-
 								</table>
 							</div>
 							<div class="modal-footer">
@@ -316,11 +326,11 @@
 					function changeRecommandItem(json) {
 						let recommandItem = '';
 						recommandItem += '<div class="commandhead" style="margin-bottom: 10px;">'
-						recommandItem += '<a href="#"><img src="${contextRoot}/' + json.img + '"></a></div>'
+						recommandItem += '<a href="/openProductDetail?productId=' + json.id + '"><img src="${contextRoot}/' + json.img + '"></a></div>'
 						recommandItem += '<div class="commandbody"><div><h5>' + json.name + '</h5></div>'
 						let desc = json.desc;
 						if (desc.length > 35) {
-							desc = desc.substring(0, 35) + '...  <a href="" style="text-decoration:none;">(查看更多)</a>';
+							desc = desc.substring(0, 35) + '...  <a href="/openProductDetail?productId=' + json.id + '" style="text-decoration:none;">(查看更多)</a>';
 						}
 						recommandItem += '<div><span>' + desc + '</span></div></div>'
 						document.getElementById('recommandItems').innerHTML = recommandItem
@@ -351,7 +361,7 @@
 							productData += '<span class="text-muted text-decoration-line-through">$' + value.price + '</span>';
 							productData += '$' + value.price + '</div></div >';
 							productData += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent"><div class="text-center">'
-							productData += '<a class="btn btn-outline-dark" href="#' + value.id + '" style="margin-right:10px">查看詳情</a>'
+							productData += '<a class="btn btn-outline-dark" href="/openProductDetail?productId=' + value.id + '" style="margin-right:10px">查看詳情</a>'
 							productData += '<a class="btn btn-outline-dark" onclick="addToCart(' + value.id + ')">加入購物車</a>'
 							productData += '</div></div></div ></div >'
 						})
@@ -379,7 +389,7 @@
 						temp.sort(function (a, b) {
 							return b.sales - a.sales;
 						})
-						changeProductItem(item)
+						changeProductItem(temp)
 					}
 
 					//使用
@@ -437,6 +447,52 @@
 
 					function sciCountChange(count, id) {
 						fetch('${contextRoot}/changeCartItem?count=' + count + '&id=' + id).then(res => res.json()).then(json => chageCartItem(json))
+					}
+
+					function check() {
+						let types = document.getElementsByName('typeCondi');
+						let typeArr = []
+						let showCondition = document.getElementById('showCondition');
+						showCondition.innerHTML = "條件查詢：";
+						for (let i = 0; i < types.length; i++) {
+							if (types[i].checked) {
+								typeArr.push(types[i].value)
+								switch (i) {
+									case 0:
+										showCondition.append('派對道具/')
+										break;
+									case 1:
+										showCondition.append('桌遊/')
+										break;
+									case 2:
+										showCondition.append('裝飾用品/')
+										break;
+									case 3:
+										showCondition.append('票券/')
+										break;
+								}
+							}
+						}
+						let labels = document.getElementsByName('label');
+						let labelArr = []
+						for (let i = 0; i < labels.length; i++) {
+							if (labels[i].checked) {
+								labelArr.push(labels[i].value)
+								switch (i) {
+									case 0:
+										showCondition.append('New/')
+										break;
+									case 1:
+										showCondition.append('Discount/')
+										break;
+									case 2:
+										showCondition.append('Hot/')
+										break;
+								}
+							}
+						}
+						fetch('${contextRoot}/mutipleConditionsQuery?typeCondi=' + typeArr + '&labelCondi=' + labelArr).then(res => res.json()).then(json => changeProductItem(json))
+
 					}
 
 				</script>

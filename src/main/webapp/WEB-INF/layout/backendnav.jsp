@@ -75,7 +75,7 @@
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                             data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="productBackendSet">商品管理</a>
+                                <a class="nav-link" href="productbackend">商品管理</a>
                                 <a class="nav-link" href="order">訂單管理</a>
                             </nav>
                         </div>

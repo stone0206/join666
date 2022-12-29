@@ -1,11 +1,14 @@
 package com.ispan6.controller.chatsystem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,11 +22,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ispan6.bean.chatsystem.CustomerServiceMessage;
 import com.ispan6.bean.chatsystem.GroupRoom;
-
+import com.ispan6.bean.chatsystem.MessageContent;
 import com.ispan6.bean.chatsystem.Participants;
 import com.ispan6.bean.membersystem.MemberTest;
+import com.ispan6.service.chatsystem.CustomerServiceMessageService;
 import com.ispan6.service.chatsystem.GroupRoomService;
+import com.ispan6.service.chatsystem.MessageService;
 import com.ispan6.service.chatsystem.ParticipantsService;
 import com.ispan6.service.membersystem.MemberTestService;
 
@@ -40,15 +46,26 @@ public class ParticipantsController {
 	@Autowired
 	private MemberTestService mService;
 	
+	@Autowired
+	private MessageService messageService;
 	
-	@RequestMapping(path = "/participants/add", method = RequestMethod.POST)
-	@ResponseBody
-	public String inserParticipants(@RequestParam Integer groupId, @RequestParam Integer personId) {
-		participantsService.insertParticipants(groupId, personId);
-		return "access";
+	@Autowired
+	private CustomerServiceMessageService customerServiceMessageService;
+	
+	
+//	新增好友群組
+	@PostMapping(path = "/participants/friendadd")
+	public void inserParticipants(@RequestParam Integer userId, @RequestParam Integer fuid) {
+		System.out.println("userId"+userId+"fuid"+fuid);
+		GroupRoom gr=groupRoomService.insertGroupRoom(null, 0, null);
+		Integer grId=gr.getGroupId();
+		System.out.println("grId"+grId);
+		participantsService.insertParticipants(grId, userId);
+		participantsService.insertParticipants(grId, fuid);
+		
 	}
 
-	// 成功 未完成
+	// 成功 未完成 查群組 可能不需要
 	@GetMapping(path = "/participants/select")
 	@ResponseBody
 	public List<GroupRoom> selectParticipants(@RequestParam Integer personId) {
@@ -56,18 +73,62 @@ public class ParticipantsController {
 
 		return gList;
 	}
+	
+	//查群組jpa 可能不需要
+//	@GetMapping(path = "/participants/query")
+//	@ResponseBody
+//	public List<Participants> queryParticipants(@RequestParam Integer personId) {
+//		return participantsService.queryParticipants(personId);
+//	}
 
-	@GetMapping(path = "/participants/query")
+	// 搜尋誰傳的訊息 自己是哪個群組 群組名
+	@GetMapping(path = "/participants/select1",produces= {"application/json;charset=UTF-8"})
 	@ResponseBody
-	public List<Participants> queryParticipants(@RequestParam Integer personId) {
-		return participantsService.queryParticipants(personId);
-	}
-
-	// 搜尋誰傳的訊息 測試
-	@GetMapping(path = "/participants/select1")
-	@ResponseBody
-	public List<MemberTest>selectParticipantsTest(@RequestParam Integer personId,Model m) {
+	public Map<String,Object> selectParticipantsTest(HttpSession session,Model m) {
 		
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		
+		if(member != null) {
+			Integer personId=Integer.valueOf(member.getId());
+			System.out.println("personId"+personId);
+			List<Participants> pList = participantsService.selectParticipants(personId);
+			HashSet<Integer> userId = new HashSet<Integer>();
+			
+			List<GroupRoom> gList = groupRoomService.userHaveGroupSelect(pList);
+			for (int i = 0; i < gList.size(); i++) {
+				GroupRoom g = gList.get(i);
+				Set<Participants> pFile = g.getParticipants();
+				for(Participants p:pFile) {
+					userId.add(p.getPersonId());
+					System.out.println("personId"+p.getPersonId());
+				}
+	
+	
+			}
+			List<MemberTest> mList = mService.senderFile(userId);
+			for (int i = 0; i < mList.size(); i++) {
+				System.out.println(mList.get(i));
+			}
+			
+			
+			Map<String,Object> message=new HashMap<String,Object>();
+			message.put("groomList", gList);
+			message.put("memList", mList);
+			message.put("userId", member.getId());
+//			m.addAttribute("groomList", gList);
+//			m.addAttribute("memList", mList);
+//			session.setAttribute("groomList",gList);
+//			session.setAttribute("memList",mList);
+			return message;
+		}
+		return null;
+	}
+	
+	
+	//查member
+	@GetMapping(path = "/memberTest/select")
+	@ResponseBody
+	public List<MemberTest> selectMember (@RequestParam Integer personId){
 		List<Participants> pList = participantsService.selectParticipants(personId);
 		HashSet<Integer> userId = new HashSet<Integer>();
 		
@@ -77,28 +138,148 @@ public class ParticipantsController {
 			Set<Participants> pFile = g.getParticipants();
 			for(Participants p:pFile) {
 				userId.add(p.getPersonId());
-				System.out.println(p.getPersonId());
+				System.out.println("personId"+p.getPersonId());
 			}
 
 
 		}
 		List<MemberTest> mList = mService.senderFile(userId);
-		for (int i = 0; i < mList.size(); i++) {
-			System.out.println(mList.get(i));
-		}
-
 		
-		
-//		m.addAttribute("gList",gList);
-//		m.addAttribute("mList",mList);
-//		m.addAttribute("pList",pList);
 		return mList;
 	}
-
-	// 測試
-	@GetMapping(path = "/participants/select2")
+	
+	
+	@GetMapping(path = "/groupRoom/selectMessage")
 	@ResponseBody
-	public List<Participants> findGroupFile(@RequestParam Integer participantsId) {
-		return participantsService.findGroupFile(participantsId);
+	public List<GroupRoom> selectMessage() {
+		ArrayList<Integer> al=new ArrayList<Integer>();
+		al.add(2);
+		List<GroupRoom> g= groupRoomService.selectGroupRoom(al);
+		return g;
 	}
+	
+	@GetMapping(path = "/member/selectMessage")
+	@ResponseBody
+	public List<MemberTest> memberMessage() {
+		HashSet<Integer> id = new HashSet<Integer>();
+		id.add(2);
+		List<MemberTest> mList = mService.senderFile(id);
+		
+		return mList;
+	}
+	// 測試 查聊天室資料 可能不需要
+//	@GetMapping(path = "/participants/select2")
+//	@ResponseBody
+//	public List<Participants> findGroupFile(@RequestParam Integer participantsId) {
+//		return participantsService.findGroupFile(participantsId);
+//	}
+	
+	
+	
+	
+	
+	
+	//Message
+	
+	//查某群組有什麼訊息
+	@PostMapping(path = "/member/selectMessage")
+	@ResponseBody
+	public Map<String,Object>	findeGroupMessage(@RequestParam Integer groupId){
+		HashSet<Integer> userId = new HashSet<Integer>();
+		List<MessageContent> mesList=messageService.findeGroupMessage(groupId);
+		for (int i = 0; i < mesList.size(); i++) {
+			MessageContent g = mesList.get(i);
+			userId.add(g.getSenderId());
+			System.out.println(g.getSenderId());
+
+
+		}
+		
+		List<MemberTest> mList = mService.senderFile(userId);
+		Map<String,Object> message=new HashMap<String,Object>();
+		message.put("memList", mList);
+		message.put("messageList", mesList);
+		
+		return message;
+		
+	}
+	
+	//新增訊息
+		@PostMapping(path="/msg/add",produces = "application/json; charset=UTF-8")
+		@ResponseBody
+		public MessageContent insertMessage(@RequestParam String text,@RequestParam Integer senderId,@RequestParam Integer groupId,Model m) {
+			MessageContent msgText = messageService.insertMessage(text, senderId, groupId);
+			System.out.println(msgText.getMessageId());
+			return msgText;
+		}
+		
+		
+		//收回訊息
+		@PostMapping(path="/msg/updateMessage",produces = "application/json; charset=UTF-8")
+		public void backMessage(@RequestParam String text,@RequestParam Integer messageId) {
+			System.out.println(text);
+			System.out.println(messageId);
+			messageService.backMessage(text, messageId);
+		}
+		@GetMapping("/msg/que")
+		@ResponseBody
+		public List<MessageContent> findWhoSender(@RequestParam Integer senderId) {
+			return messageService.findWhoSender(senderId);
+		}
+		
+		
+		
+	//客服模糊搜尋
+		@PostMapping(path="/customerService/like",produces = "application/json; charset=UTF-8")
+		@ResponseBody
+		public CustomerServiceMessage findLikeMessage(@RequestParam String text) {
+			System.out.println(customerServiceMessageService.findLikeMessage(text));
+			return customerServiceMessageService.findLikeMessage(text);
+		}
+		
+		
+		
+	//後台訊息
+		
+//		@GetMapping(path = "backend/participants/select1",produces= {"application/json;charset=UTF-8"})
+//		@ResponseBody
+//		public Map<String,Object> backendSelectParticipants(HttpSession session,Model m) {
+//			
+//			MemberTest member = (MemberTest) session.getAttribute("loginUser");
+//			
+//			if(member != null) {
+//				Integer personId=Integer.valueOf(member.getId());
+//				System.out.println("personId"+personId);
+//				List<Participants> pList = participantsService.selectParticipants(personId);
+//				HashSet<Integer> userId = new HashSet<Integer>();
+//				
+//				List<GroupRoom> gList = groupRoomService.userHaveGroupSelect(pList);
+//				for (int i = 0; i < gList.size(); i++) {
+//					GroupRoom g = gList.get(i);
+//					Set<Participants> pFile = g.getParticipants();
+//					for(Participants p:pFile) {
+//						userId.add(p.getPersonId());
+//						System.out.println("personId"+p.getPersonId());
+//					}
+//		
+//		
+//				}
+//				List<MemberTest> mList = mService.senderFile(userId);
+//				for (int i = 0; i < mList.size(); i++) {
+//					System.out.println(mList.get(i));
+//				}
+//				
+//				
+//				Map<String,Object> message=new HashMap<String,Object>();
+//				message.put("groomList", gList);
+//				message.put("memList", mList);
+//				message.put("userId", member.getId());
+////				m.addAttribute("groomList", gList);
+////				m.addAttribute("memList", mList);
+////				session.setAttribute("groomList",gList);
+////				session.setAttribute("memList",mList);
+//				return message;
+//			}
+//			return null;
+//		}
 }
