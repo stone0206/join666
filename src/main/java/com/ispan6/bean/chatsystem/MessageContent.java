@@ -50,6 +50,10 @@ public class MessageContent {
 	@Column(name="MESSAGETEXT")
 	private String messageText;
 	
+	//已讀
+	@Column(name="IFREAD")
+	private String ifRead;
+	
 	//發訊息時間
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="CREATEAT")
@@ -133,6 +137,14 @@ public class MessageContent {
 
 	public void setGroupRoomId(GroupRoom groupRoomId) {
 		this.groupRoomId = groupRoomId;
+	}
+
+	public String getIfRead() {
+		return ifRead;
+	}
+
+	public void setIfRead(String ifRead) {
+		this.ifRead = ifRead;
 	}
 
 

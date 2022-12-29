@@ -19,12 +19,12 @@ public class GroupRoomController {
 	@Autowired
 	private GroupRoomService groupRoomService;
 	
-	@PostMapping("/groupRoom/add")
-	@ResponseBody
-	public String insertGroupRoom(@RequestParam String groupName,@RequestParam Integer groupType) {
-		groupRoomService.insertGroupRoom(groupName, groupType);
-		return "success";
-	}
+//	@PostMapping("/groupRoom/add")
+//	@ResponseBody
+//	public String insertGroupRoom(@RequestParam String groupName,@RequestParam Integer groupType) {
+//		groupRoomService.insertGroupRoom(groupName, groupType);
+//		return "success";
+//	}
 	
 	@GetMapping("/userHaveGroup/selcet")
 	@ResponseBody
