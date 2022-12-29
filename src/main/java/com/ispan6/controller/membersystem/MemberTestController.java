@@ -70,12 +70,12 @@ public class MemberTestController {
 
 		MemberTest random = matchService.random1(mt.getId());
 		m.addAttribute("random", random);
-
+		
 		HttpSession session = request.getSession();
 
 		session.setAttribute("loginUser", mt);
 
-		return "index";
+		return "redirect:/index";
 
 	}
 

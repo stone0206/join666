@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ispan6.bean.mallsystem.ShoppingCartItem;
 import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.bean.reunionsystem.Payment;
+import com.ispan6.bean.reunionsystem.Register;
 import com.ispan6.bean.reunionsystem.Reunion;
 import com.ispan6.bean.reunionsystem.Reuniontype;
 import com.ispan6.service.reunionsystem.PaymentService;
@@ -122,11 +123,11 @@ public class ReunionsystemController {
 	}
 	
 	//新增報名
-	@PostMapping("/insertRegister")
-	public String insertRegister(Register register) {
-		reunionsystemService.insertReunion(reunion);
-		return "redirect:/msg/page";
-	}
+//	@PostMapping("/insertRegister")
+//	public String insertRegister(Register register) {
+//		reunionsystemService.insertReunion(reunion);
+//		return "redirect:/msg/page";
+//	}
 	
 	
 	
