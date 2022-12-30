@@ -1,6 +1,5 @@
 package com.ispan6.service.mallsystem;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,8 +15,6 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.ispan6.bean.mallsystem.Product;
@@ -121,5 +118,10 @@ public class ProductService {
 		TypedQuery<Product> typedQuery = entityManager.createQuery(query);
 		return typedQuery.getResultList();
 	}
+
+	public List<Product> findTop5BySales() {
+		return productDAO.findTop5ByOrderBySalesDesc();
+	}
+	
 
 }

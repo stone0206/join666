@@ -45,6 +45,9 @@ public interface ProductDAO extends JpaRepository<Product, Integer>,CrudReposito
 	
 	@Query("from Product where status = 0 order by sales desc")
 	public List<Product> findAllProductOrderBySales();
+
+	public List<Product> findTop5ByOrderBySalesDesc();
+	
 	
 	
 	

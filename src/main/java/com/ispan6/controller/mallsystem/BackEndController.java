@@ -118,20 +118,23 @@ public class BackEndController {
 
 	@GetMapping("/mutipleUpdate")
 	@ResponseBody
-	public List<Product> mutipleUpdate(@RequestParam Integer type, Integer label, Integer status, Integer[] target) {
+	public List<Product> mutipleUpdate(@RequestParam Integer type, Integer label, Integer status, Integer[] target,Double discountNumber) {
+		System.out.println(discountNumber);
 		ArrayList aL = new ArrayList();
 		for (int i = 0; i < target.length; i++) {
 			Product productBefore = productService.findById(target[i]);
 			if (type != 0) {
-				System.out.println("type");
 				productBefore.setType(type);
 			}
 			if (label != 0) {
-				System.out.println("label");
 				productBefore.setLabel(label);
 			}
 			if (status != 3) {
 				productBefore.setStatus(status);
+			}
+			if (discountNumber != 0) {
+				int price = (int) (productBefore.getPrice() * discountNumber);
+				productBefore.setPrice(price);
 			}
 			productService.insertProduct(productBefore);
 			Product productAfter = productService.findById(target[i]);

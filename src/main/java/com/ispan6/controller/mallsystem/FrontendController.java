@@ -3,6 +3,7 @@ package com.ispan6.controller.mallsystem;
 import java.util.ArrayList;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -65,7 +66,11 @@ public class FrontendController {
 	@GetMapping("/getProduct")
 	@ResponseBody
 	public List<Product> getProduct() {
-		List<Product> products = productService.getAllProductOnSell();
+		List<Product> topsales = productService.findTop5BySales();
+		for (Product product : topsales) {
+			product.setLabel(3);
+			productService.insertProduct(product);
+		}
 		return productService.getAllProductOnSell();
 	}
 
