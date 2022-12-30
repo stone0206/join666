@@ -9,6 +9,13 @@
 
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.6.3.slim.min.js"
+	integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo="
+	crossorigin="anonymous"></script>
+<script src="${contextRoot}/js/taiwan_districts.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.15-rc1/jquery.twzipcode.min.js"></script>
+
 <title>約約-註冊頁面</title>
 <!-- <link rel="stylesheet" href="/join666/css/signup2.css"> -->
 <style type="text/css">
@@ -167,6 +174,10 @@ input, button {
 					<input type="text" id="address" name="address" placeholder="地址"
 						required>
 					<div class="tab"></div>
+
+					<div id="twzipcode"></div>
+
+
 					<div style="text-align: left; margin-left: 10px" id="gen">
 						<label id="gen">性別:</label> <input type="radio" id="gender1"
 							name="gender" value="1" checked>男 <input type="radio"
@@ -175,13 +186,13 @@ input, button {
 					<div class="tab"></div>
 					<div class="form-check form-check-inline">
 						<label class="form-check-label"><input
-							class="form-check-input" type="checkbox" id="hobbit1" name="hobbit" value="1">
-							唱歌</label>
+							class="form-check-input" type="checkbox" id="hobbit1"
+							name="hobbit" value="1"> 唱歌</label>
 					</div>
 					<div class="form-check form-check-inline">
 						<label class="form-check-label"><input
-							class="form-check-input" type="checkbox" id="hobbit2" name="hobbit" value="2">
-							爬山</label>
+							class="form-check-input" type="checkbox" id="hobbit2"
+							name="hobbit" value="2"> 爬山</label>
 					</div>
 					<div class="form-check form-check-inline">
 						<input class="form-check-input" type="checkbox"
@@ -206,7 +217,7 @@ input, button {
 					</div>
 					<button type="submit" class="submit" id="submitBtn">註冊</button>
 					<button class="submit" id="lastBtn">上一步</button>
-					<button class="submit" id="cancel">回首頁</button>
+					<button class="submit" id="cancel2">回首頁</button>
 
 				</div>
 			</div>

@@ -94,6 +94,8 @@ public class MemberTestController {
 		String account = request.getParameter("account");
 		String name = request.getParameter("name");
 		String address = request.getParameter("address");
+		String phone = request.getParameter("phone");
+		String email= request.getParameter("email");
 		String avator = "";
 		Part part = request.getPart("avator");
 		String filename = getFileName(part);
@@ -125,7 +127,7 @@ public class MemberTestController {
 			avator = mt.getAvator();
 		}
 
-		mService.updateByAcc(account, avator, name, address);
+		mService.updateByAcc(account, avator, name, address, phone, email);
 		MemberTest mt = mService.findByAcc(account);
 		session.setAttribute("loginUser", mt);
 		return "index";
@@ -180,7 +182,7 @@ public class MemberTestController {
 	@PostMapping("/googleSignIn")
 	public String googleSignIn(@ModelAttribute("memberTest") MemberTest mt, @RequestParam(value = "name") String name,
 			@RequestParam(value = "birth") String birth, @RequestParam(value = "phone") String phone,
-			@RequestParam(value = "address") String address, @RequestParam(value = "gender") Integer gender,
+			@RequestParam(value = "address") String address, @RequestParam(value = "gender") Integer gender, @RequestParam(value = "hobbit") String[] hobbit,
 			HttpSession session) throws ParseException {
 		mt = (MemberTest) session.getAttribute("member");
 		System.out.println(mt.getAccount());
@@ -211,7 +213,7 @@ public class MemberTestController {
 		session.setAttribute("loginUser", mt);
 		
 		for(int i=0;i<hobbit.length;i++) {
-		SelfHobbitBean sBean= new SelfHobbitBean();
+		SelfHobbitBean sBean = new SelfHobbitBean();
 		sBean.setUserhid(mt);
 		HobbitBean hb=new HobbitBean();
 		hb.setId(Integer.parseInt(hobbit[i]));
@@ -287,7 +289,7 @@ public class MemberTestController {
 	}
 
 	@PostMapping("/sendCode") // 寄送驗證信的註冊
-	public String sendCode(@ModelAttribute("memberTest") MemberTest mt, @RequestParam(value = "account") String account,
+	public String sendCode(@ModelAttribute("memberTest") MemberTest mt, @RequestParam(value = "account") String account, @RequestParam(value = "hobbit") String[] hobbit,
 			@RequestParam(value = "password") String password, HttpServletRequest request,
 			HttpServletResponse response) {
 		mt.setEmail(account);
@@ -296,6 +298,7 @@ public class MemberTestController {
 		System.out.println("送信中");
 		HttpSession session = request.getSession();
 		session.setAttribute("memberTest", mt);
+		session.setAttribute("hobbit", hobbit);
 		boolean flag = mService.sendCode(session, mt);
 		System.out.println(flag);
 		if (flag) {
