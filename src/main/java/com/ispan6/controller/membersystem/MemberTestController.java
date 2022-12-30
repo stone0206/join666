@@ -33,7 +33,10 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ispan6.Constants;
+import com.ispan6.bean.matchsystem.HobbitBean;
+import com.ispan6.bean.matchsystem.SelfHobbitBean;
 import com.ispan6.bean.membersystem.MemberTest;
+import com.ispan6.dao.matchsystem.SelfHobbitDto;
 import com.ispan6.dao.membersystem.UserGoogleDto;
 import com.ispan6.service.matchsystem.MatchService;
 import com.ispan6.service.membersystem.MemberTestService;
@@ -54,6 +57,9 @@ public class MemberTestController {
 	private MatchService matchService;
 
 	ServletContext ctx;
+	
+	@Autowired
+	private SelfHobbitDto hDto;
 
 	@PostMapping("/login2")
 	public String login2(@RequestParam String account, @RequestParam String password, Model model) {
@@ -88,6 +94,8 @@ public class MemberTestController {
 		String account = request.getParameter("account");
 		String name = request.getParameter("name");
 		String address = request.getParameter("address");
+		String phone = request.getParameter("phone");
+		String email= request.getParameter("email");
 		String avator = "";
 		Part part = request.getPart("avator");
 		String filename = getFileName(part);
@@ -119,7 +127,7 @@ public class MemberTestController {
 			avator = mt.getAvator();
 		}
 
-		mService.updateByAcc(account, avator, name, address);
+		mService.updateByAcc(account, avator, name, address, phone, email);
 		MemberTest mt = mService.findByAcc(account);
 		session.setAttribute("loginUser", mt);
 		return "index";
@@ -174,7 +182,7 @@ public class MemberTestController {
 	@PostMapping("/googleSignIn")
 	public String googleSignIn(@ModelAttribute("memberTest") MemberTest mt, @RequestParam(value = "name") String name,
 			@RequestParam(value = "birth") String birth, @RequestParam(value = "phone") String phone,
-			@RequestParam(value = "address") String address, @RequestParam(value = "gender") Integer gender,
+			@RequestParam(value = "address") String address, @RequestParam(value = "gender") Integer gender, @RequestParam(value = "hobbit") String[] hobbit,
 			HttpSession session) throws ParseException {
 		mt = (MemberTest) session.getAttribute("member");
 		System.out.println(mt.getAccount());
@@ -194,7 +202,7 @@ public class MemberTestController {
 
 	@PostMapping("/insertMember")
 	public String insertMember(@ModelAttribute("memberTest") MemberTest mt,
-			@RequestParam(value = "account") String account, @RequestParam(value = "password") String password,
+			@RequestParam(value = "account") String account, @RequestParam(value = "password") String password, @RequestParam(value = "hobbit") String[] hobbit,
 			HttpServletRequest request, HttpServletResponse response, Model m) {
 		mt.setEmail(account);
 		mt.setAvator(Constants.AVATOR);
@@ -203,7 +211,15 @@ public class MemberTestController {
 		mt = mService.findByAccAndPwd(account, password);
 		HttpSession session = request.getSession();
 		session.setAttribute("loginUser", mt);
-
+		
+		for(int i=0;i<hobbit.length;i++) {
+		SelfHobbitBean sBean = new SelfHobbitBean();
+		sBean.setUserhid(mt);
+		HobbitBean hb=new HobbitBean();
+		hb.setId(Integer.parseInt(hobbit[i]));
+		sBean.setHobbitid(hb);
+		hDto.save(sBean);
+		}
 		return "index";
 	}
 
@@ -273,7 +289,7 @@ public class MemberTestController {
 	}
 
 	@PostMapping("/sendCode") // 寄送驗證信的註冊
-	public String sendCode(@ModelAttribute("memberTest") MemberTest mt, @RequestParam(value = "account") String account,
+	public String sendCode(@ModelAttribute("memberTest") MemberTest mt, @RequestParam(value = "account") String account, @RequestParam(value = "hobbit") String[] hobbit,
 			@RequestParam(value = "password") String password, HttpServletRequest request,
 			HttpServletResponse response) {
 		mt.setEmail(account);
@@ -282,6 +298,7 @@ public class MemberTestController {
 		System.out.println("送信中");
 		HttpSession session = request.getSession();
 		session.setAttribute("memberTest", mt);
+		session.setAttribute("hobbit", hobbit);
 		boolean flag = mService.sendCode(session, mt);
 		System.out.println(flag);
 		if (flag) {

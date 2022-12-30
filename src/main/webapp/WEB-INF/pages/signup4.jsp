@@ -143,8 +143,39 @@ input, button {
 							name="gender" value="1" checked>男 <input type="radio"
 							id="gender" name="gender" value="2">女
 					</div>
+										<div class="form-check form-check-inline">
+						<label class="form-check-label"><input
+							class="form-check-input" type="checkbox" id="hobbit1" name="hobbit" value="1">
+							唱歌</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<label class="form-check-label"><input
+							class="form-check-input" type="checkbox" id="hobbit2" name="hobbit" value="2">
+							爬山</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="checkbox"
+							id="inlineCheckbox3" name="hobbit" value="3"> <label
+							class="form-check-label" for="inlineCheckbox3">健身</label>
+					</div>
+					<!-- 					<div class="tab"></div> -->
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="checkbox"
+							id="inlineCheckbox4" name="hobbit" value="4"> <label
+							class="form-check-label" for="inlineCheckbox4">看電影</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="checkbox"
+							id="inlineCheckbox5" name="hobbit" value="5"> <label
+							class="form-check-label" for="inlineCheckbox5">逛街</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="checkbox"
+							id="inlineCheckbox6" name="hobbit" value="6"> <label
+							class="form-check-label" for="inlineCheckbox6">露營</label>
+					</div>
 					<div class="tab"></div>
-					<button type="submit" class="submit" id="submitBoth">註冊</button>
+					<button type="submit" class="submit" id="submitBtn">註冊</button>
 					<button class="submit" id="cancel">取消</button>
 
 				</div>
@@ -154,7 +185,20 @@ input, button {
 </body>
 
 <script type="text/javascript">
+const submitBtn= $("#submitBtn");
+const form1=$("#form1");
 
+
+
+submitBtn.click(function(e){
+	e.preventDefault();
+	let hobbit=$("input[name=hobbit]:checked");
+	if(hobbit.length==0){
+		alert("請至少選一項興趣!!")
+		return;
+	}
+	form1.submit();
+})
 					$("#cancel").click(function(event) {
 						event.preventDefault(); //取消預設行為
 						location.href='http://localhost:8080/index';

@@ -20,14 +20,13 @@
 	<main class="form-signin m-5 text-center ">
 		<jsp:include page="/WEB-INF/layout/navbar.jsp" />
 		<br>
-		<form action="${contextRoot}/" method="post">
+		<form action="${contextRoot}/insertMember" method="post" id="form1">
 			<h1 class="h3 mb-3 fw-normal">請輸入驗證碼</h1>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="code"
 					placeholder="aaa" name="code" required> <label
 					for="code">驗證碼</label>
 			</div>
-		
 		
 			<div class=" mb-2">
 				<button class="w-25 btn btn-lg btn-primary" id="UUID">檢查驗證碼</button>
@@ -48,6 +47,7 @@
 
 <script type="text/javascript">
 	const code = $("#code");
+	const form1=$("#form1");
 	$("#UUID").click(function(event){
 		event.preventDefault();
 		let codeVal= code.val();
@@ -58,12 +58,10 @@
 			alert("驗證碼錯誤")
 			return;
 		}else{
-			alert("驗證碼正確")
-			return;
+			form1.submit();
 		}
 	})
 	
-
 	//取消按鈕返回上頁
 	$("#cancel").click(function(event) {
 		event.preventDefault(); //取消預設行為

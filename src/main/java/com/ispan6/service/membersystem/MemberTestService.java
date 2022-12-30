@@ -2,6 +2,7 @@ package com.ispan6.service.membersystem;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -33,8 +34,8 @@ public class MemberTestService {
 			return mDAO.findByAcc(account);
 		}
 		
-		public void updateByAcc(String account, String avator, String name, String address) {
-			mDAO.updateByAcc(account, avator, name, address);
+		public void updateByAcc(String account, String avator, String name, String address, String phone, String email) {
+			mDAO.updateByAcc(account, avator, name, address, phone, email);
 		}
 		
 		public MemberTest existsByAccount(String account) {
@@ -61,6 +62,10 @@ public class MemberTestService {
 	           return true;
 	       else
 	           return false;
+	    }
+	    
+	    public Optional<MemberTest> findById(int id) {
+	    	return mDAO.findById(id);
 	    }
 
 		

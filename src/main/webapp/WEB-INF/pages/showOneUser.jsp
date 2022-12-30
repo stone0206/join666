@@ -19,10 +19,8 @@
 	<main class="form-signin m-5 text-center ">
 	<jsp:include page="/WEB-INF/layout/navbar.jsp" />
 	<br>
-
 		<%-- 		<jsp:useBean id="loginUser" scope="session" --%>
 		<%-- 			class="com.ispan6.bean.membersystem.MemberTest" /> --%>
-
 		<form action="${contextRoot}/update" method="post"
 			enctype="multipart/form-data">
 			<h1 class="h3 mb-3 fw-normal">會員資料</h1>
@@ -43,6 +41,16 @@
 				<input type="text" class="form-control" id="floatingInput"
 					placeholder="aaa" name="name" value="${loginUser.getName()}" required>
 				<label for="floatingInput">暱稱</label>
+			</div>
+						<div class="form-floating">
+				<input type="text" class="form-control" id="floatingInput"
+					placeholder="aaa" name="phone" value="${loginUser.getPhone()}" required>
+				<label for="floatingInput">電話</label>
+			</div>
+						<div class="form-floating">
+				<input type="text" class="form-control" id="floatingInput"
+					placeholder="aaa" name="email" value="${loginUser.getEmail()}" required>
+				<label for="floatingInput">信箱</label>
 			</div>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInput"

@@ -92,6 +92,14 @@ public class MemberTest {
 	@OneToMany(mappedBy = "userhid")
 	private List<SelfHobbitBean> userhid=new ArrayList<SelfHobbitBean>();
 
+	public List<SelfHobbitBean> getUserhid() {
+		return userhid;
+	}
+
+	public void setUserhid(List<SelfHobbitBean> userhid) {
+		this.userhid = userhid;
+	}
+
 	public MemberTest() {
 		super();
 	}
