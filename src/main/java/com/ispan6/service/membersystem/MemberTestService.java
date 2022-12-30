@@ -2,6 +2,7 @@ package com.ispan6.service.membersystem;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -61,6 +62,10 @@ public class MemberTestService {
 	           return true;
 	       else
 	           return false;
+	    }
+	    
+	    public Optional<MemberTest> findById(int id) {
+	    	return mDAO.findById(id);
 	    }
 
 		

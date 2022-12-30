@@ -33,6 +33,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ispan6.Constants;
+import com.ispan6.bean.matchsystem.HobbitBean;
 import com.ispan6.bean.matchsystem.SelfHobbitBean;
 import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.dao.matchsystem.SelfHobbitDto;
@@ -203,15 +204,18 @@ public class MemberTestController {
 			HttpServletRequest request, HttpServletResponse response, Model m) {
 		mt.setEmail(account);
 		mt.setAvator(Constants.AVATOR);
-//		mService.insertMember(mt);
-//		
-//		mt = mService.findByAccAndPwd(account, password);
-//		HttpSession session = request.getSession();
-//		session.setAttribute("loginUser", mt);
-		SelfHobbitBean sBean= new SelfHobbitBean();
+		mService.insertMember(mt);
+		
+		mt = mService.findByAccAndPwd(account, password);
+		HttpSession session = request.getSession();
+		session.setAttribute("loginUser", mt);
+		
 		for(int i=0;i<hobbit.length;i++) {
-//		sBean.setUserhid(mt.getId());
-//		sBean.setHobbitid(Integer.parseInt(hobbit[i]));
+		SelfHobbitBean sBean= new SelfHobbitBean();
+		sBean.setUserhid(mt);
+		HobbitBean hb=new HobbitBean();
+		hb.setId(Integer.parseInt(hobbit[i]));
+		sBean.setHobbitid(hb);
 		hDto.save(sBean);
 		}
 		return "index";
