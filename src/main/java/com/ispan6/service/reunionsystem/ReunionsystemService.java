@@ -37,6 +37,10 @@ public class ReunionsystemService {
 		reunionsystemRepository.save(reunion);
 	}
 	
+	public void addReunionnumber(Integer id) {
+		reunionsystemRepository.addReunionnumber(id);
+	}
+	
 	
 	public List<Reunion> findAllByMemberId(Integer i) {
 		return reunionsystemRepository.findAllByMemberId(i);
@@ -44,6 +48,11 @@ public class ReunionsystemService {
 	
 	public Reunion findByReunionId(Integer i) {
 		return reunionsystemRepository.findByReunionId(i);
+	}
+	
+	
+	public void deleteReunionByReunionId(Integer Id) {
+		reunionsystemRepository.deleteById(Id);
 	}
 	
 //	public void insert(Reunion msg) {

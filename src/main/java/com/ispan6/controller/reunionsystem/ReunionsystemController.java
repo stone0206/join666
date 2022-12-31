@@ -49,7 +49,7 @@ public class ReunionsystemController {
 
 	
 	
-	@GetMapping("/msg/page")
+	@GetMapping("/page")
 	public String getReunion(HttpSession session) {
 		//先將網頁全部重置
 		List<Reunion> reunion = reunionsystemService.findAllReunion();
@@ -81,7 +81,7 @@ public class ReunionsystemController {
 	}
 	
 	
-	@GetMapping("/msg/insertreunion")
+	@GetMapping("/insertreunion")
 	public String insertreunion(Model model) {
 		
 		
@@ -106,11 +106,18 @@ public class ReunionsystemController {
 		return "redirect:/msg/page";
 	}
 	
+	
+	@GetMapping("/deleteReunion")
+	public String deleteReunion(@RequestParam Integer id) {
+		
+		reunionsystemService.deleteReunionByReunionId(id);
+		return "redirect:/myreunion";
+	}
+	
 	//新增報名
 
 
-	@GetMapping("/insertRegister")
-	@ResponseBody
+	@GetMapping("/insertRegister")	
 	public String insertRegister(@RequestParam Integer id,HttpSession session) {				
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
 		int memberid = member.getId();
@@ -121,12 +128,10 @@ public class ReunionsystemController {
 		register.setMemberid(memberid);
 		register.setReunionid(id);
 		reunionregisterService.insertRegister(register);
-		return "報名成功";
+		
 		}
-		if(flag==false) {
-		return"已報名";	
-		}
-		return "unexpect wrong please contact with engineer";
+	
+		return "redirect:/myreunion";
 	}
 	//聚會報名審核
 //	@GetMapping("/searchRegisterByReunionId")
@@ -222,8 +227,6 @@ public class ReunionsystemController {
 	
 	@GetMapping("/test2")
 	public String test2(Model model) {
-		
-		
 		return "detailedreunion";
 	}
 	
@@ -233,12 +236,15 @@ public class ReunionsystemController {
 		if(member != null) {
 			System.out.println(member);
 			List<Reunion> reunion=reunionsystemService.findAllByMemberId(member.getId());
+			List<Register> register = reunionregisterService.findRegisterByMemberid(member.getId());
+			List<Reunionreport> reunionreport = reunionreportService.findReunionreportByMemberid(member.getId());
 			session.setAttribute("reunion", reunion);
-			
+			session.setAttribute("register", register);
+			session.setAttribute("reunionreport", reunionreport);
 		}
 		
 		
-		return "myreunion";
+		return "myreunion2";
 	}
 	
 	@GetMapping("/detailedreunion")
@@ -252,7 +258,7 @@ public class ReunionsystemController {
 		model.addAttribute("flag1",flag1);
 		model.addAttribute("flag",flag);
 		}
-		
+		reunionsystemService.addReunionnumber(id);
 		Reunion reunion = reunionsystemService.findByReunionId(id);
 		Integer registercount = reunionregisterService.findCountRegisterByReunionid(id);
 		model.addAttribute("reunion", reunion);
@@ -260,6 +266,8 @@ public class ReunionsystemController {
 		
 		return "detailedreunion";
 	}
+	
+	
 	
 	@ResponseBody
 	@GetMapping("/TestM")

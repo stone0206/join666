@@ -31,6 +31,10 @@ public interface ReunionregisterReposity extends JpaRepository<Register,Integer>
 	@Query(value = "SELECT * FROM register where reunionid　=?1 ORDER BY review",nativeQuery = true)
 	List<Register> findRegisterByReunionid(Integer reunionid);
 	
+	
+	@Query(value = "SELECT * FROM register where memberid　=?1 ",nativeQuery = true)
+	List<Register> findRegisterByMemberid(Integer memberid);
+	
 	@Transactional
 	@Modifying
 	@Query(value = "UPDATE register SET review=1 where reunionid = ?1 and memberid =?2",nativeQuery = true)

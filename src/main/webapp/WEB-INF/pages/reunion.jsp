@@ -12,7 +12,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
        <link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet" />
-
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+					rel="stylesheet" />
       <link id="style-switch" rel="stylesheet" type="text/css" href="${contextRoot}/css/style.css">
 						
 
@@ -78,6 +79,16 @@
 								</li>
 							</ul>
 						</div>
+						
+<!-- 						模糊查詢 -->
+						<form class="d-flex" id="search-form" method="get">
+											<!-- 搜尋框 -->
+											<input id="text-btn" type="text" placeholder="請輸入欲搜尋的關鍵字">
+											<!-- 搜尋按鈕 -->
+											<button id="search-btn" type="submit">
+												<i class="bi bi-search"></i>
+											</button>
+										</form>
 </div>
 </nav>
 
@@ -193,7 +204,7 @@
 														<div class="column is-8">
 															<div class="long-and-truncated" style="width: 70px;">
 																<span><span class="icon"><img
-																		src="/static/media/popularity.d5eeb51c.svg" alt=""></span>1086</span>
+																		src="/static/media/popularity.d5eeb51c.svg" alt=""></span>${reunion.number}</span>
 															</div>
 														</div>
 													</div>
@@ -215,13 +226,15 @@
 				
 				
 				
-
+</div>
+</div>
 </div>
 </div>
 </div>
 </main>
-<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
+		<!-- Bootstrap core JS-->
+				<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
+				<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 
 	<footer>
 		<jsp:include page="/WEB-INF/layout/footer.jsp" />
