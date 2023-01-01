@@ -45,6 +45,14 @@
 					border: 1px solid grey;
 					margin-left: 30px;
 				}
+
+				#preview {
+					margin-top: 20px;
+				}
+
+				#preview table tr td {
+					border: 1px solid black;
+				}
 			</style>
 		</head>
 
@@ -162,11 +170,41 @@
 											<button class="btn btn-primary" onclick="insertProduct()">新增商品</button>
 										</div>
 										<div>
-											<button class="btn btn-primary">批量新增</button>
+											<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+												data-bs-target="#exampleModal">
+												批量新增
+											</button>
 										</div>
 									</div>
 								</div>
 							</class>
+						</div>
+
+						<!-- Modal -->
+						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<form action="/CSVReader" id="csv-form" method="post" enctype="multipart/form-data">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Upload File</h5>
+										</div>
+										<div class="modal-body">
+											<div class="input-group">
+												<input type="file" name="file" id="csv-file" accept=".csv"
+													class="form-control" aria-describedby="csv-file"
+													aria-label="Upload">
+											</div>
+											<div id="preview"></div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-bs-dismiss="modal">cancel</button>
+											<button type="submit" class="btn btn-primary">upload</button>
+										</div>
+									</form>
+								</div>
+							</div>
 						</div>
 
 
@@ -372,6 +410,36 @@
 						$('#discountNumer').css('display', 'inline')
 					}
 				})
+
+
+				//讀取並預覽檔案
+				document.getElementById('csv-form').addEventListener('change', function () {
+
+					var fileInput = document.getElementById('csv-file');
+					var file = fileInput.files[0];
+
+					var reader = new FileReader();
+
+					reader.readAsText(file);
+					reader.onload = function () {
+						var csvString = reader.result;
+						var lines = csvString.split('\n');
+						var table = document.createElement('table');
+						for (var i = 0; i < lines.length; i++) {
+							var fields = lines[i].split(',');
+							var row = document.createElement('tr');
+							for (var j = 0; j < fields.length; j++) {
+								var cell = document.createElement('td');
+								cell.textContent = fields[j];
+								row.appendChild(cell);
+							}
+							table.appendChild(row);
+						}
+
+						document.getElementById('preview').appendChild(table);
+					}
+				});
+
 
 			</script>
 		</body>
