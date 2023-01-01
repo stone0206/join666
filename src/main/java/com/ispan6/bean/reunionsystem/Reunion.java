@@ -77,6 +77,9 @@ public class Reunion {
 	@Column(name = "memberid")
 	private Integer memberid;
 	
+	@Column(name = "number")
+	private Integer number;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="memberid",insertable=false,updatable=false)
 	private MemberTest memberTest;
@@ -200,6 +203,14 @@ public class Reunion {
 
 	public void setMemberTest(MemberTest memberTest) {
 		this.memberTest = memberTest;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
 	}
 
 	

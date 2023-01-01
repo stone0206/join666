@@ -57,10 +57,17 @@
          <c:if test="${loginUser!=null}">
          
         <c:if test="${flag1==false}">
-        <button type="button" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius-6 u-text-body-color u-text-hover-white u-btn-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">已檢舉</button>
+        <button type="button" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius-6 u-text-body-color u-text-hover-white u-btn-1" data-bs-toggle="modal" data-bs-target="" data-bs-whatever="@mdo">已檢舉</button>
         </c:if>
          <c:if test="${flag1==true}">
+        <c:if test="${loginUser.id!=reunion.memberid}">
+         
         <button type="button" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius-6 u-text-body-color u-text-hover-white u-btn-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">檢舉</button>
+        </c:if>
+        
+        <c:if test="${loginUser.id==reunion.memberid}">
+         
+        </c:if>
         </c:if>
          </c:if>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -96,7 +103,7 @@
         <p class="u-text u-text-3">報名人數</p>
         <p class="u-text u-text-4">${registercount}人</p>
         <c:if test="${loginUser!=null}">
-        <c:if test="${loginUser.id==reunion.memberid }">
+        <c:if test="${loginUser.id==reunion.memberid}">
          <a href="/searchRegisterByReunionId?id=${reunion.reunionid}" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">審核</a>
         </c:if>
 

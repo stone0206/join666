@@ -46,7 +46,7 @@
               <ul class="navbar-nav navbar-nav-scroll ms-auto">
                 <!-- 揪團 -->
                 <li class="nav-item " style="margin-right: 20px;">
-                  <a class="nav-link " href="/msg/page" id="homeMenu" aria-haspopup="true"
+                  <a class="nav-link " href="/page" id="homeMenu" aria-haspopup="true"
                     aria-expanded="false">揪團</a>
                 </li>
 
@@ -169,7 +169,7 @@
                   </li>
                   
                   <li>
-                    <a class="dropdown-item" href="/msg/insertreunion">
+                    <a class="dropdown-item" href="/insertreunion">
                       <i class="fa-fw bi bi-card-text me-2"></i>新增聚會
                     </a>
                   </li>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-		<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
@@ -12,7 +12,8 @@
 <title>Insert title here</title>
 
 <link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet" />
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+					rel="stylesheet" />
 <link id="style-switch" rel="stylesheet" type="text/css"
 	href="${contextRoot}/css/style.css">
 
@@ -208,11 +209,158 @@
 				</c:forEach>
 				
 				
+<!-- 		報名聚會		 -->
+				
+	<section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">我的報名</h1>                
+                </div>
+            </div>
+       </section>
+				
+				
+				<c:forEach var="register" items="${register}">
+					<div class="col">
+						<div class="card shadow-sm">
+						<a href="/detailedreunion?id=${register.reunion.reunionid}">
+							<img src="${register.reunion.picture}" style="max-width: 100%;  height: 450px;  ">
+							</a>
+							<div class="card-body">
+								<p class="card-text">${register.reunion.topic}</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="content" style="margin-left: 3px;">
+										<div class="flex-parent">
+											<p class="title is-5 is-size-6-mobile long-and-truncated"
+												style="width: 100%;"></p>
+										</div>
+										<div class="flex-parent" style="margin-top: 4px;">
+											<div class=" long-and-truncated">
+												<span class="subtitle is-6 is-size-7-mobile">${register.reunion.place}</span>
+											</div>
+										</div>
+										<div class="flex-parent" style="margin-top: 4px;">
+											<div class=" long-and-truncated">
+											<span class="subtitle is-6 is-size-7-mobile">${register.reunion.holdTime}</span>
+<%-- 												<span class="subtitle is-6 is-size-7-mobile"><fmt:formatDate --%>
+<%-- 														pattern="yyyy/MM/dd HH:mm EEEE" --%>
+<%-- 														value="${reunion.holdTime}" /></span> --%>
+											</div>
+
+										</div>
+										<div class="is-hidden-tablet" style="margin-top: 9px;">
+											<div class="columns is-variable is-1 is-mobile">
+												<div class="column is-3 has-text-left">
+													<img loading="lazy"
+														src="${register.reunion.memberTest.avator}"
+														width="30" heigh="30" style="border-radius: 50px;">
+												</div>
+												<div class="column is-9 has-text-left">
+													<div class="columns is-mobile">
+														<div class="column is-6">
+															<div class="long-and-truncated" style="width: 80px;">
+																<span class="" style=>${register.reunion.memberTest.name}</span>
+															</div>
+														</div>
+														<div class="column is-8">
+															<div class="long-and-truncated" style="width: 70px;">
+																<span><span class="icon"><img
+																		src="/static/media/popularity.d5eeb51c.svg" alt=""></span>1086</span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+				
+				
+<!-- 				我的檢舉 -->
+
+	<section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">我的檢舉</h1>                
+                </div>
+            </div>
+       </section>
+				
+				<c:forEach var="reunionreport" items="${reunionreport}">
+					<div class="col">
+						<div class="card shadow-sm">
+						<a href="/detailedreunion?id=${reunionreport.reunion.reunionid}">
+							<img src="${reunionreport.reunion.picture}" style="max-width: 100%;  height: 450px;  ">
+							</a>
+							<div class="card-body">
+								<p class="card-text">${reunionreport.reunion.topic}</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<div class="content" style="margin-left: 3px;">
+										<div class="flex-parent">
+											<p class="title is-5 is-size-6-mobile long-and-truncated"
+												style="width: 100%;"></p>
+										</div>
+										<div class="flex-parent" style="margin-top: 4px;">
+											<div class=" long-and-truncated">
+												<span class="subtitle is-6 is-size-7-mobile">${reunionreport.reunion.place}</span>
+											</div>
+										</div>
+										<div class="flex-parent" style="margin-top: 4px;">
+											<div class=" long-and-truncated">
+											<span class="subtitle is-6 is-size-7-mobile">${reunionreport.reunion.holdTime}</span>
+<%-- 												<span class="subtitle is-6 is-size-7-mobile"><fmt:formatDate --%>
+<%-- 														pattern="yyyy/MM/dd HH:mm EEEE" --%>
+<%-- 														value="${reunion.holdTime}" /></span> --%>
+											</div>
+
+										</div>
+										<div class="is-hidden-tablet" style="margin-top: 9px;">
+											<div class="columns is-variable is-1 is-mobile">
+												<div class="column is-3 has-text-left">
+													<img loading="lazy"
+														src="${reunionreport.reunion.memberTest.avator}"
+														width="30" heigh="30" style="border-radius: 50px;">
+												</div>
+												<div class="column is-9 has-text-left">
+													<div class="columns is-mobile">
+														<div class="column is-6">
+															<div class="long-and-truncated" style="width: 80px;">
+																<span class="" style=>${reunionreport.reunion.memberTest.name}</span>
+															</div>
+														</div>
+														<div class="column is-8">
+															<div class="long-and-truncated" style="width: 70px;">
+																<span><span class="icon"><img
+																		src="/static/media/popularity.d5eeb51c.svg" alt=""></span>1086</span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+				
+				
 				
 				
 				
 				
 
+</div>
+</div>
 </div>
 </div>
 </div>

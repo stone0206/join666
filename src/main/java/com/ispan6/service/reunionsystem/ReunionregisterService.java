@@ -43,6 +43,10 @@ public class ReunionregisterService {
 			return ReunionregisterReposity.findRegisterByReunionid(id);
 		}
 		
+		public List<Register> findRegisterByMemberid(Integer id) {
+			return ReunionregisterReposity.findRegisterByMemberid(id);
+		}
+		
 		   public void agreeRegisterByReunionidAndMemberid(Integer reunionid, Integer memberid) {
 			 ReunionregisterReposity.agreeRegisterByReunionidAndMemberid(reunionid, memberid);
 				
