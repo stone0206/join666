@@ -202,8 +202,10 @@ public class MemberTestController {
 
 	@PostMapping("/insertMember")
 	public String insertMember(@ModelAttribute("memberTest") MemberTest mt,
-			@RequestParam(value = "account") String account, @RequestParam(value = "password") String password, @RequestParam(value = "hobbit") String[] hobbit,
-			HttpServletRequest request, HttpServletResponse response, Model m) {
+			@RequestParam(value = "account") String account, @RequestParam(value = "password") String password, @RequestParam(value = "taiwan") String taiwan, @RequestParam(value = "coun") String coun,
+			@RequestParam(value = "hobbit") String[] hobbit, HttpServletRequest request, HttpServletResponse response, Model m) {
+		String address=taiwan+coun;
+		mt.setAddress(address);
 		mt.setEmail(account);
 		mt.setAvator(Constants.AVATOR);
 		mService.insertMember(mt);

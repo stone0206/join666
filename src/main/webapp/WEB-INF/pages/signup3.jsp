@@ -169,15 +169,14 @@ input, button {
 					<div class="tab"></div>
 					<input type="tel" id="phone" name="phone" placeholder="電話" required>
 					<div class="tab"></div>
-					<input type="text" id="address" name="address" placeholder="地址"
-						required>
-					<div class="tab"></div>
+<!-- 					<input type="text" id="address" name="address" placeholder="地址" required> -->
+<!-- 					<div class="tab"></div> -->
 
 					<label for="taiwan">縣/市：</label> <select name="taiwan" id="taiwan">
 						<option value="">請選擇</option>
 					</select>
 					<div class="tab"></div>
-					<label for="coun">區/鎮/鄉：</label> <select name="count" id="coun">
+					<label for="coun">區/鎮/鄉：</label> <select name="coun" id="coun">
 						<option value="">請選擇</option>
 					</select>
 					<script>
