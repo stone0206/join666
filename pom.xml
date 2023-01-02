@@ -122,6 +122,13 @@
 			<scope>test</scope>
 		</dependency>-->
 
+		<!-- 支付寶金流串接依賴-->
+		<dependency>
+			<groupId>com.alipay.sdk</groupId>
+			<artifactId>alipay-sdk-java</artifactId>
+			<version>4.35.9.ALL</version>
+		</dependency>
+
 
 	</dependencies>
 
