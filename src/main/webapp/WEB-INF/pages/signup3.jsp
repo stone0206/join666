@@ -9,12 +9,10 @@
 
 <head>
 <meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-3.6.3.slim.min.js"
-	integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo="
-	crossorigin="anonymous"></script>
+<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
+<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 <script src="${contextRoot}/js/taiwan_districts.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.15-rc1/jquery.twzipcode.min.js"></script>
+
 
 <title>約約-註冊頁面</title>
 <!-- <link rel="stylesheet" href="/join666/css/signup2.css"> -->
@@ -175,7 +173,33 @@ input, button {
 						required>
 					<div class="tab"></div>
 
-					<div id="twzipcode"></div>
+					<label for="taiwan">縣/市：</label> <select name="taiwan" id="taiwan">
+						<option value="">請選擇</option>
+					</select>
+					<div class="tab"></div>
+					<label for="coun">區/鎮/鄉：</label> <select name="count" id="coun">
+						<option value="">請選擇</option>
+					</select>
+					<script>
+    data.forEach(function(value, index) {
+        let country = value.name
+        $("#taiwan").append("<option value='"+country+"'>"+country+"</option>")
+});
+    $("#taiwan").change(function () {
+        let val = $(this).val();
+        let districts=data.find(function(item){
+            return item.name==val;
+        })
+        $("#coun>option").remove()
+
+        districts['districts'].forEach(function(value, index){
+            let area= value.name
+            let map = "<option value='" + area + "'>" + area + "</option>" 
+            $("#coun").append(map)
+        })
+    })
+    </script>
+
 
 
 					<div style="text-align: left; margin-left: 10px" id="gen">
