@@ -26,7 +26,7 @@ public class AlipayService {
 
 		try {
 			AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();
-//		request.setNotifyUrl("");
+//			request.setNotifyUrl("https://ac4d-219-70-212-73.jp.ngrok.io/tradeNotify");
 			request.setReturnUrl("http://localhost:8080/toMyOrderPage");
 			JSONObject bizContent = new JSONObject();
 			bizContent.put("out_trade_no", orderId.toString());
@@ -49,6 +49,8 @@ public class AlipayService {
 			AlipayTradePagePayResponse response = alipayClient.pageExecute(request);
 			if (response.isSuccess()) {
 				System.out.println("调用成功");
+				order.setStatus(1);
+				orderBeanService.save(order);
 				return response.getBody();
 			} else {
 				System.out.println("调用失败");

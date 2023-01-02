@@ -73,7 +73,7 @@
 								</div>
 								<div class="modal-body" id="detailBody">
 									<table class="table table-striped table-sm">
-										<thead>
+										<thead> 
 											<tr>
 												<th>名稱</th>
 												<th>圖片</th>
