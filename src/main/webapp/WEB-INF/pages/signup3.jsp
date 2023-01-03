@@ -9,13 +9,10 @@
 
 <head>
 <meta charset="UTF-8">
-<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 <script src="${contextRoot}/js/taiwan_districts.js"></script>
 
 
 <title>約約-註冊頁面</title>
-<!-- <link rel="stylesheet" href="/join666/css/signup2.css"> -->
 <style type="text/css">
 * {
 	font-family: 微軟正黑體;
@@ -160,7 +157,6 @@ input, button {
 
 					<h3>請輸入個人資料</h3>
 
-					<%-- 				<form action="/insertMember" id="form2" method="post"> --%>
 					<input type="text" id="name" class="fullname" name="name"
 						placeholder="暱稱" required>
 					<div class="tab"></div>
@@ -424,7 +420,13 @@ input, button {
 
 					$("#cancel").click(function(event) {
 						event.preventDefault(); //取消預設行為
+						location.href='http://localhost:8080/index';
 // 						window.history.back(); //返回上一頁
+						})
+						
+						$("#cancel2").click(function(event) {
+						event.preventDefault(); //取消預設行為
+						location.href='http://localhost:8080/index';
 						})
 
 				</script>

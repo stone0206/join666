@@ -9,9 +9,6 @@
 <title>約約-個人頁面</title>
 
 
-<!-- 自訂CSS -->
-<%-- <link rel="stylesheet" href="${root}/css/showUser.css"> --%>
-
 </head>
 <body class="vh-100">
 
