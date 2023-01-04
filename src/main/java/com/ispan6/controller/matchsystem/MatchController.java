@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ispan6.bean.mallsystem.Product;
 import com.ispan6.bean.matchsystem.MatchBean;
 import com.ispan6.bean.matchsystem.SelfHobbitBean;
 import com.ispan6.bean.membersystem.MemberTest;
@@ -24,9 +25,6 @@ public class MatchController {
 	@Autowired
 	private MatchService matchService;
 
-
-	@Autowired
-	private SelfHabbitService selfService;
 	
 	@GetMapping("/getFriendNotice")
 	public String getFriendNotice() {
@@ -35,13 +33,15 @@ public class MatchController {
 	}
 
 	@GetMapping("/addfriend")
-	public String addFriendPage(Model m,HttpSession session) {
-		MemberTest member = (MemberTest) session.getAttribute("loginUser");
-
-		MemberTest random = matchService.random1(member.getId(),member.getId());
-		System.out.println(random);
-		m.addAttribute("random", random);
+	public String addFriendPage() {
 		return "addfriend";
+	}
+	
+	@GetMapping("/getMatch")
+	@ResponseBody
+	public List<MemberTest> getMatch(HttpSession session) {
+
+		return matchService.getMatch();
 	}
 
 	// 顯示好友清單

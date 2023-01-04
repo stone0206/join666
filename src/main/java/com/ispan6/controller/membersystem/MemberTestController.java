@@ -164,6 +164,11 @@ public class MemberTestController {
 
 	@GetMapping("/showprofile")
 	public String showProfile() {
+		return "userpage";
+	}
+	
+	@GetMapping("/updateprofile")
+	public String updateProfile() {
 		return "showOneUser";
 	}
 
@@ -197,13 +202,25 @@ public class MemberTestController {
 		mService.insertMember(mt);
 		mt = mService.findByAcc(mt.getAccount());
 		session.setAttribute("loginUser", mt);
+		
+		for(int i=0;i<hobbit.length;i++) {
+			SelfHobbitBean sBean = new SelfHobbitBean();
+			sBean.setUserhid(mt);
+			HobbitBean hb=new HobbitBean();
+			hb.setId(Integer.parseInt(hobbit[i]));
+			sBean.setHobbitid(hb);
+			hDto.save(sBean);
+			}
+		
 		return "index";
 	}
 
 	@PostMapping("/insertMember")
 	public String insertMember(@ModelAttribute("memberTest") MemberTest mt,
-			@RequestParam(value = "account") String account, @RequestParam(value = "password") String password, @RequestParam(value = "hobbit") String[] hobbit,
-			HttpServletRequest request, HttpServletResponse response, Model m) {
+			@RequestParam(value = "account") String account, @RequestParam(value = "password") String password, @RequestParam(value = "taiwan") String taiwan, @RequestParam(value = "coun") String coun,
+			@RequestParam(value = "hobbit") String[] hobbit, HttpServletRequest request, HttpServletResponse response, Model m) {
+		String address=taiwan+coun;
+		mt.setAddress(address);
 		mt.setEmail(account);
 		mt.setAvator(Constants.AVATOR);
 		mService.insertMember(mt);

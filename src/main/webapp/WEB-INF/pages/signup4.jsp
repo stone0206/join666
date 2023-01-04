@@ -9,6 +9,7 @@
 
 <head>
 <meta charset="UTF-8">
+<script src="${contextRoot}/js/taiwan_districts.js"></script>
 <title>約約-註冊頁面</title>
 <!-- <link rel="stylesheet" href="/join666/css/signup2.css"> -->
 <style type="text/css">
@@ -45,7 +46,7 @@ h5:hover {
 	margin: 50px;
 	padding: 10px;
 	width: 230px;
-	height: 400px;
+	height: 500px;
 	background-color: white;
 	border-radius: 5px;
 	border-top: 10px solid #31C1DD;
@@ -135,8 +136,33 @@ input, button {
 					<div class="tab"></div>
 					<input type="tel" id="phone" name="phone" placeholder="電話" required>
 					<div class="tab"></div>
-					<input type="text" id="address" name="address" placeholder="地址"
-						required>
+					
+					<label for="taiwan">縣/市：</label> <select name="taiwan" id="taiwan">
+						<option value="">請選擇</option>
+					</select>
+					<div class="tab"></div>
+					<label for="coun">區/鎮/鄉：</label> <select name="coun" id="coun">
+						<option value="">請選擇</option>
+					</select>
+					<script>
+    data.forEach(function(value, index) {
+        let country = value.name
+        $("#taiwan").append("<option value='"+country+"'>"+country+"</option>")
+});
+    $("#taiwan").change(function () {
+        let val = $(this).val();
+        let districts=data.find(function(item){
+            return item.name==val;
+        })
+        $("#coun>option").remove()
+
+        districts['districts'].forEach(function(value, index){
+            let area= value.name
+            let map = "<option value='" + area + "'>" + area + "</option>" 
+            $("#coun").append(map)
+        })
+    })
+    </script>
 					<div class="tab"></div>
 					<div style="text-align: left; margin-left: 10px" id="gen">
 						<label id="gen">性別:</label> <input type="radio" id="gender"
@@ -176,7 +202,7 @@ input, button {
 					</div>
 					<div class="tab"></div>
 					<button type="submit" class="submit" id="submitBtn">註冊</button>
-					<button class="submit" id="cancel">取消</button>
+					<button class="submit" id="cancel">取消回首頁</button>
 
 				</div>
 			</div>
