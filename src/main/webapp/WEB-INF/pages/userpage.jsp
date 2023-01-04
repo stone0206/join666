@@ -29,14 +29,14 @@
             <!-- About-->
             <section class="resume-section" id="about">
                 <div class="resume-section-content">
-                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="${loginUser.getAvator() }" alt="..." /></span>
+                <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="${member.getAvator() }" alt="..." /></span>
                     <h1 class="mb-0">
-                        ${loginUser.getName() }
+                        ${member.getName() }
                     </h1>
                     <div class="subheading mb-5">
-                    <span class="d-none d-lg-block">居住地： ${loginUser.getAddress() }</span>
-                    <span class="d-none d-lg-block">電話： ${loginUser.getPhone() }</span>
-                    <span class="d-none d-lg-block">信箱： <a href="mailto:name@email.com"> ${loginUser.getEmail() }</a></span>
+                    <span class="d-none d-lg-block">居住地： ${member.getAddress() }</span>
+                    <span class="d-none d-lg-block">電話： ${member.getPhone() }</span>
+                    <span class="d-none d-lg-block">信箱： <a href="mailto:name@email.com"> ${member.getEmail() }</a></span>
                     </div>
 <!--                     <p class="lead mb-5">I am experienced in leveraging agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition.</p> -->
                     <div class="social-icons">

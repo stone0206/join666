@@ -416,7 +416,7 @@ input, button {
 							// 			document.getElementById("comfirm_password").value = "";
 						}
 					})
-					
+
 
 					$("#cancel").click(function(event) {
 						event.preventDefault(); //取消預設行為
