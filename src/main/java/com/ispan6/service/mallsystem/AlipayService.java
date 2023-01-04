@@ -30,7 +30,9 @@ public class AlipayService {
 			request.setReturnUrl("http://localhost:8080/toMyOrderPage");
 			JSONObject bizContent = new JSONObject();
 			bizContent.put("out_trade_no", orderId.toString());
+//			在這裡進行支付換算
 			bizContent.put("total_amount", order.getPrice());
+			
 			bizContent.put("subject", "order test");
 			bizContent.put("product_code", "FAST_INSTANT_TRADE_PAY");
 			// bizContent.put("time_expire", "2022-08-01 22:00:00");

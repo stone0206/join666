@@ -38,6 +38,7 @@
 						<!-- 商品成列之標題 -->
 						<div class="card-header">
 							<i class="fas fa-table me-1"></i> 商品列表
+							<span style="color: red;margin-left: 10px;">當前匯率${ fx}</span>
 						</div>
 						<!-- 商品成列之table -->
 						<div class="card-body container-fluid">
@@ -73,7 +74,7 @@
 								</div>
 								<div class="modal-body" id="detailBody">
 									<table class="table table-striped table-sm">
-										<thead> 
+										<thead>
 											<tr>
 												<th>名稱</th>
 												<th>圖片</th>

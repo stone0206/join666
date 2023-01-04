@@ -129,6 +129,13 @@
 			<version>4.35.9.ALL</version>
 		</dependency>
 
+		<!-- Java爬蟲依賴-->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.13.1</version>
+		</dependency>
+
 
 	</dependencies>
 
