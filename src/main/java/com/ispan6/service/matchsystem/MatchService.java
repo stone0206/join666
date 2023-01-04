@@ -50,6 +50,10 @@ public class MatchService {
 		return null;
 	}
 
+	public List<MemberTest> getMatch() {
+		return memberTestDao.findAll();
+	};
+	
 	public MatchBean findFriend(Integer uid, Integer fid) {
 		return matchDao.findFriend(uid, fid);
 	};

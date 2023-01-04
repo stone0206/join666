@@ -2,6 +2,7 @@ package com.ispan6.bean.matchsystem;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,12 +24,12 @@ public class SelfHobbitBean {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer self_id;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userhid")
-//	@JsonIgnore
+	@JsonIgnore
 	private MemberTest userhid;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "hobbitid")
 	private HobbitBean hobbitid;
 	

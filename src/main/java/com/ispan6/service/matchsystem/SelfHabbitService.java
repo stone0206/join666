@@ -31,7 +31,7 @@ public class SelfHabbitService {
 	
 	@PersistenceContext
 	private EntityManager entityManager;
-	public List<SelfHobbitBean> getAllProduct() {
+	public List<SelfHobbitBean> findMatch() {
 		return selfHobbitDto.findAll();
 	}
 

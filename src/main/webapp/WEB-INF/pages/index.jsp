@@ -111,7 +111,7 @@ a {
 
 
 
-														<!-- Bootstrap core JS-->
+														<!-- Bootstrap core JS-->\
 
 													</h6>
 
