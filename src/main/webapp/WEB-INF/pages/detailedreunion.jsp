@@ -114,14 +114,19 @@
         </c:if>
         
         <c:if test="${flag==true}">
-        <a href="/insertRegister?id=${reunion.reunionid}" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">報名</a>
+        <c:if test="${reunion.getPeople()<=count}">
+					<a class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">報名已額滿</a>
+					</c:if>
+         <c:if test="${reunion.getPeople()>count}">
+        <a onclick="return confirm('確定報名')" href="/insertRegister?id=${reunion.reunionid}" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">報名</a>
          </c:if>
+          </c:if>
          </c:if>
         </c:if>
         <c:if test="${loginUser==null}">
         <a href="" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">請登入報名</a>
         </c:if>
-        <p class="u-text u-text-5"> ${reunion.content}
+        <p class=""><pre class="u-text u-text-5">${reunion.content}</pre>
         </p><span class="u-icon u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 59.51 59.51" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-e5a9"></use></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content" viewBox="0 0 59.51 59.51" x="0px" y="0px" id="svg-e5a9" style="enable-background:new 0 0 59.51 59.51;"><polygon style="fill:#FFFFFF;" points="53.057,24.76 43.057,24.76 17.057,24.76 7.057,24.76 3.402,53.76 56.171,53.76 "></polygon><path style="fill:#556080;" d="M53.057,24.76l3.114,29H3.402l3.655-29h10h26H53.057 M55.752,21.76h-2.695h-10h-26h-10H4.411
 	L4.08,24.385l-3.655,29L0,56.76h3.402h52.769h3.339l-0.357-3.32l-3.114-29L55.752,21.76L55.752,21.76z"></path><path style="fill:#EBBA16;" d="M13.684,49.76c-0.257,0-0.513-0.016-0.769-0.047c-0.218-0.026-0.438-0.067-0.653-0.124
 	c-0.535-0.138-0.856-0.684-0.718-1.218c0.138-0.535,0.683-0.86,1.218-0.718c0.132,0.033,0.264,0.059,0.396,0.075

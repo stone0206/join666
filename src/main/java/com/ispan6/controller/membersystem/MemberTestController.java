@@ -7,7 +7,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -163,13 +166,22 @@ public class MemberTestController {
 	}
 
 	@GetMapping("/showprofile")
-	public String showProfile() {
+	public String showProfile(HttpSession session) {
+		MemberTest mt= (MemberTest) session.getAttribute("loginUser");
+		session.setAttribute("member", mt);
 		return "userpage";
 	}
 	
 	@GetMapping("/updateprofile")
 	public String updateProfile() {
 		return "showOneUser";
+	}
+	
+	@GetMapping("/searchuser")
+	public String searchUser(HttpSession session) {
+		List<MemberTest> members = mService.getAllMemberTest();
+		session.setAttribute("members", members);
+		return "searchuser";
 	}
 
 	@PostMapping("/CheckAcc")
@@ -324,5 +336,12 @@ public class MemberTestController {
 			return "/index";
 		}
 	}
+	
+    @GetMapping("/lookCode/{token}")
+    public String lookCode(@PathVariable("token")String token, HttpSession session){
+    	MemberTest mt = mService.findByAcc(token);
+    	session.setAttribute("member", mt);
+    	return "userpage";
+    }
 
 }

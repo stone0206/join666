@@ -118,7 +118,6 @@ window.onload = function () {
 						document.getElementById("getsendbtn").className="nav-link";
 						document.getElementById("blockbtn").className="nav-link";
 						document.getElementById('friendlist').innerHTML = random.length;
-						console.log( random.length)
  					})
 }
 

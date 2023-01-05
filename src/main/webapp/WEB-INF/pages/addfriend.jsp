@@ -136,8 +136,8 @@
 	top: 0.5rem;
 	right: 0.5rem;
 	box-shadow: #212529 0 0 6px;
-	color: red;
-	background-color: yellow;
+	color: black;
+	background-color: white;
 }
 </style>
 
@@ -167,13 +167,10 @@
 							<h6>性別</h6>
 							<div class="row" style="margin-bottom: 10px;">
 								<div class="col-4">
-									<input type="radio" name="typeCondi" value="1">男
+									<input type="checkbox" name="typeCondi" value="1">男
 								</div>
 								<div class="col-4">
-									<input type="radio" name="typeCondi" value="2">女
-								</div>
-								<div class="col-4">
-									<input type="radio" name="typeCondi" value="">所有人
+									<input type="checkbox" name="typeCondi" value="2">女
 								</div>
 							</div>
 							<h6>興趣</h6>
@@ -221,7 +218,10 @@
 						style="margin-bottom: 10px; font-size: 10px; color: blue;"
 						id="showCondition"></div>
 					<!-- 商品欄位 -->
-					<div class="row row-cols-md-3 justify-content-center" id="userDiv"></div>
+					<div class="row row-cols-md-3 justify-content-center" id="userDiv">
+
+
+					</div>
 				</div>
 			</div>
 
@@ -252,23 +252,28 @@
 
 					//商品欄位刷新
 					window.onload = function () {
-						fetch("${contextRoot}/getMatch").then(res => res.json()).then(data => temp = data).then(temp => changeUserItem(temp))}
+						fetch("${contextRoot}/getMatch").then(res => res.json()).then(data => {
+							temp=data;
+							changeUserItem(data)
+						})}
 					function changeUserItem(json) {
-						console.log(json)
 						let userData = '';
 						$.each(json, function (index, value) {
+							console.log(value)
 							userData += '<div class="col mb-5"><div class="card h-100">';
 							userData += '<img class="avatar-img" src="' + value.avator+ '"style="height: 280px; width: 280px; margin: auto;">';
 							userData += '<div class="card-body p-4"><div class="text-center">';
 							userData += '<h5 class="fw-bolder">' + value.name + '</h5></div></div >';
-							
 							userData += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent"><div class="text-center">'
-							userData += '<a class="btn btn-outline-dark" href="/openProductDetail?productId=' + value.id + '" style="margin-right:10px">查看詳情</a>'
-							userData += '<a class="btn btn-outline-dark" onclick="addToCart(' + value.id + ')">加入購物車</a>'
+								for(var i=0; i<value.userhid.length ; i++){
+									console.log(value.userhid[i].hobbitid.id+':'+value.userhid[i].hobbitid.type);
+									userData += '<span id="fixLabel">'+value.userhid[i].hobbitid.type+'</span>';
+								}
+							userData += '<a class="btn btn-outline-dark" id="addBtn" onclick="addNewFriend(' + value.id + ')">送出邀請</a>'
 							userData += '</div></div></div ></div >'
 						})
 						document.getElementById('userDiv').innerHTML = userData;
-					}
+					} 
 
 
 
@@ -293,6 +298,43 @@
 
 					}
 
+					
+					
+				    function addNewFriend(fuid) {
+				        fetch('${contextRoot}/addNewFriend?id=' + fuid).then(res => res.text()).then(text => {
+				          alert(text);
+				          if (text == '送出邀請成功') {
+				            document.getElementById('addBtn').innerHTML = '已送出邀請';
+							$("#addBtn").attr("disabled",true).css("pointer-events","none");
+				          }
+
+				          if (text == '您已送出邀請，等待對方回覆') {
+					            document.getElementById('addBtn').innerHTML = '等待回覆中';
+					            $("#addBtn").attr("disabled",true).css("pointer-events","none");
+					          }
+				          
+				        })
+					}
+				    
+				    
+					function check() {
+						let types = document.getElementsByName('typeCondi');
+						let typeArr = []
+						for (let i = 0; i < types.length; i++) {
+							if (types[i].checked) {
+								typeArr.push(types[i].value)
+							}
+						}
+						let labels = document.getElementsByName('label');
+						let labelArr = []
+						for (let i = 0; i < labels.length; i++) {
+							if (labels[i].checked) {
+								labelArr.push(labels[i].value)
+							}
+						}
+						fetch('${contextRoot}/findByHobbitAndGender?typeCondi=' + labelArr + '&labelCondi=' + typeArr ).then(res => res.json()).then(json => changeProductItem(json))
+
+					}
 				</script>
 </body>
 

@@ -25,6 +25,9 @@ public class MatchController {
 	@Autowired
 	private MatchService matchService;
 
+	@Autowired
+	private SelfHabbitService  hService;
+	
 	
 	@GetMapping("/getFriendNotice")
 	public String getFriendNotice() {
@@ -33,15 +36,19 @@ public class MatchController {
 	}
 
 	@GetMapping("/addfriend")
-	public String addFriendPage() {
+	public String addFriendPage(HttpSession session) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		matchService.getMatch(member.getId(),member.getId());
 		return "addfriend";
 	}
 	
 	@GetMapping("/getMatch")
 	@ResponseBody
-	public List<MemberTest> getMatch(HttpSession session) {
-
-		return matchService.getMatch();
+	public List<MemberTest> getMatch(HttpSession session,Model m) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		List<SelfHobbitBean> list = hService.findMatch();
+		m.addAttribute("list",list);
+		return matchService.getMatch(member.getId(),member.getId());
 	}
 
 	// 顯示好友清單
@@ -179,5 +186,12 @@ public class MatchController {
 			MemberTest member = (MemberTest) session.getAttribute("loginUser");
 			matchService.cancelblock(id);
 			return matchService.findMyBlock(member.getId());
+		}
+		
+		//條件查詢
+		@GetMapping("/findByHobbitAndGender")
+		@ResponseBody
+		public List<MemberTest> findByHobbitAndGender(@RequestParam Integer[] typeCondi, Integer[] labelCondi) {
+			return hService.findByHobbitAndGender(typeCondi,labelCondi);
 		}
 }

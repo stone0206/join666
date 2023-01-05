@@ -50,8 +50,8 @@ public class MatchService {
 		return null;
 	}
 
-	public List<MemberTest> getMatch() {
-		return memberTestDao.findAll();
+	public List<MemberTest> getMatch(Integer id,Integer fid) {
+		return memberTestDao.findWithoutUser(id,fid);
 	};
 	
 	public MatchBean findFriend(Integer uid, Integer fid) {

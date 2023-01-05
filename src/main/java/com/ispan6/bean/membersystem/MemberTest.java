@@ -89,7 +89,7 @@ public class MemberTest {
 	@OneToMany(mappedBy = "messageContentUserId")
 	private List<MessageContent> messageContentUserId = new ArrayList<MessageContent>();
 	
-	@OneToMany(mappedBy = "userhid")
+	@OneToMany(mappedBy = "userhid",fetch = FetchType.LAZY)
 	private List<SelfHobbitBean> userhid=new ArrayList<SelfHobbitBean>();
 
 	public List<SelfHobbitBean> getUserhid() {

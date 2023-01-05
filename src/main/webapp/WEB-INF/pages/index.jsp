@@ -246,16 +246,14 @@ a {
 										<p style="font-size: 30px;">${random.name }</p>
 									</div>
 									<div style="text-align: center;">
-										<a style="font-size: 25px; margin: auto;"><button
-												onclick="changeone()">換一個</button></a>
+										<a class="btn btn-outline-dark" onclick="changeone()">換一個</a>
 										<c:if test="${loginUser ==null}">
-											<a style="font-size: 25px; margin: auto;" href="/login"><button
-													id="addBtn">請先登入</button></a>
+											<a class="btn btn-outline-dark" href="/login" id="addBtn">請先登入</a>
 										</c:if>
 										<c:if test="${loginUser !=null}">
-											<a style="font-size: 25px; margin: auto;" id="logina"><button
+											<a class="btn btn-outline-dark"
 													id="addBtn" onclick="addNewFriend(${random.id})">
-													送出邀請</button></a>
+													送出邀請</a>
 										</c:if>
 
 									</div>
@@ -316,10 +314,8 @@ a {
               }
               changefriend += '<div class="box"><p style="font-size: 30px;">'
                 + random.name + '</p></div>'
-              changefriend += '<div style="text-align: center;"><a style="font-size: 25px; margin: auto;"><button onclick="changeone()">換一個'
-              changefriend += '</button></a> <a style="font-size: 25px; margin: auto;"><button id="addBtn" onclick="addNewFriend(' + random.id + ')">送出邀請</button></a></div></div>'
-
-              console.log(changefriend);
+              changefriend += '<div style="text-align: center;"><a class="btn btn-outline-dark" onclick="changeone()">換一個'
+              changefriend += '</a><a class="btn btn-outline-dark" id="addBtn" onclick="addNewFriend(' + random.id + ')">送出邀請</a></div></div>'
               document.getElementById('onefriend').innerHTML = changefriend;
 
             })
@@ -332,7 +328,10 @@ a {
             document.getElementById('addBtn').innerHTML = '已送出邀請';
             document.getElementById("addBtn").disabled = true;
           }
-
+          if (text == '您已送出邀請，等待對方回覆') {
+	            document.getElementById('addBtn').innerHTML = '等待回覆中';
+	            $("#addBtn").attr("disabled",true).css("pointer-events","none");
+	          }
         })
       }
     </script>

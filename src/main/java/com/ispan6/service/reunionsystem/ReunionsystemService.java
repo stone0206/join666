@@ -20,7 +20,17 @@ public class ReunionsystemService {
 //	public WorkMessageService(WorkMessageRepository wRepo) {
 //		this.wRepo = wRepo;
 //	}
-//	
+	
+	
+	public List<Reunion> findDateRange(String start,String end){
+		return reunionsystemRepository.findDateRange(start,end);	
+	}
+	
+	public List<Reunion> blurrysearchReunion(String i){
+		return reunionsystemRepository.blurrysearchReunion(i);	
+	}
+	
+	
 	public List<Reunion> findAllReunion(){
 		return reunionsystemRepository.findAll();	
 	}

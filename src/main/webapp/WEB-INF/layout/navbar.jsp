@@ -151,12 +151,18 @@
                   <li><a class="dropdown-item" href="settings.html"><i class="bi bi-gear fa-fw me-2"></i>Settings &
                       Privacy</a></li>
 
-                  <li>                    
+                                 
                   <li>
                     <a class="dropdown-item" href="/updateprofile">
                       <i class="fa-fw bi bi-card-text me-2"></i>修改我的資訊
                     </a>
-                  </li>
+                  </li>    
+                      <li>
+                    <a class="dropdown-item" href="/searchuser">
+                      <i class="fa-fw bi bi-card-text me-2"></i>搜尋會員
+                    </a>
+                  </li> 
+                  <li> 
                     <a class="dropdown-item" href="/toMyOrderPage">
                       <i class="fa-fw bi bi-card-text me-2"></i>我的訂單
                     </a>

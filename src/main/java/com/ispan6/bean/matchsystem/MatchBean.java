@@ -2,6 +2,7 @@ package com.ispan6.bean.matchsystem;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,10 +31,10 @@ public class MatchBean {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer friendid;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userid")
 	private MemberTest userid;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fuid")
 	private MemberTest fuid;
 	@Column(name = "isFriend")
