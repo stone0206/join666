@@ -255,7 +255,7 @@ public class FrontendController {
 		// 取得會員當前購物車商品
 		List<ShoppingCartItem> items = shoppingCartItemService.findAllByMemberId(member.getId());
 		// 計算總金額
-		int totalPrice = 0;
+		double totalPrice = 0;
 		int totalCount = 0;
 		for (ShoppingCartItem item : items) {
 			totalPrice += item.getProduct().getPrice();
