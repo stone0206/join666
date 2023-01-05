@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +27,15 @@ import com.ispan6.dao.membersystem.MemberTestDAO;
 @Service
 @Transactional
 public class SelfHabbitService {
-	
-	
+
 	@Autowired
 	private SelfHobbitDto selfHobbitDto;
-	
+
 	private MemberTestDAO mdao;
 
-	
 	@PersistenceContext
 	private EntityManager entityManager;
+
 	public List<SelfHobbitBean> findMatch() {
 		return selfHobbitDto.findAll();
 	}
@@ -71,30 +71,35 @@ public class SelfHabbitService {
 //		TypedQuery<SelfHobbitBean> typedQuery = entityManager.createQuery(query);
 //		return null;
 //	}
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public List<MemberTest> findByHobbitAndGender(Integer[] hobbitId, Integer[] genders) {
+
+//	
+//	SELECT * FROM Membertest m 
+//	WHERE m.m_id IN 
+//	   (SELECT sh.userhid FROM SelfHobbit sh WHERE m.m_id = sh.userhid 
+//	   AND sh.hobbitid IN (1) group by userhid) 
+//	   AND m.gender IN (1,2)
+	public List<MemberTest> findByHobbitAndGender(Integer[] hobbitId, Integer[] genders,Integer id) {
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+
 		List<Integer> hobbitList = Arrays.asList(hobbitId);
 		List<Integer> genderList = Arrays.asList(genders);
-		List<Integer> hobbit = new ArrayList(hobbitList);
-		List<Integer> gender = new ArrayList(genderList);
-
-		
+		CriteriaQuery<MemberTest> query = cb.createQuery(MemberTest.class);
+		Root<MemberTest> root = query.from(MemberTest.class);
+		Subquery<String> subQuery = query.subquery(String.class);
+		Root<SelfHobbitBean> from = subQuery.from(SelfHobbitBean.class);
+		subQuery.select(from.get("userhid"));
 		if (hobbitId.length == 0) {
-			hobbit.add(0, 1);
-			hobbit.add(1, 2);
-			hobbit.add(2, 3);
-			hobbit.add(3, 4);
-			hobbit.add(4, 5);
-			hobbit.add(5, 6);
-		} 
-
+			subQuery.where(from.get("hobbitid").in(1, 2, 3, 4, 5, 6));
+		} else {
+			subQuery.where(from.get("hobbitid").in(hobbitList));
+		}
+		subQuery.groupBy(from.get("userhid"));
 		if (genders.length == 0) {
-			gender.add(0,1);
-			gender.add(1,2);
-		} 
-		System.out.println(hobbit);
-		System.out.println(gender);
-		return mdao.findByHobbitIdsAndGenders(hobbit, gender);
+			query.where(cb.and(root.get("id").in(subQuery), root.get("gender").in(1, 2),cb.notEqual(root.get("id"), id)));
+		} else {
+			query.where(cb.and(root.get("id").in(subQuery), root.get("gender").in(genderList)) ,cb.notEqual(root.get("id"), id));
+		}
+		TypedQuery<MemberTest> typedQuery = entityManager.createQuery(query);
+		return typedQuery.getResultList();
 	}
 }
