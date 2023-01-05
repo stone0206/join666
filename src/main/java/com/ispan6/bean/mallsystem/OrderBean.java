@@ -44,7 +44,7 @@ public class OrderBean {
 	private Integer count;
 	
 	@Column(name = "o_price")
-	private Integer price;
+	private Double price;
 	
 	@Column(name = "o_addr")
 	private String addr;
@@ -101,11 +101,13 @@ public class OrderBean {
 		this.count = count;
 	}
 
-	public Integer getPrice() {
+	
+
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Integer price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 

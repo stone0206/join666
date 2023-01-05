@@ -28,7 +28,7 @@ public class OrderItems {
 	private Integer count;
 	
 	@Column(name = "item_totalprice")
-	private Integer totalPrice;
+	private Double totalPrice;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="item_pid", referencedColumnName="p_id")
@@ -55,11 +55,12 @@ public class OrderItems {
 		this.count = count;
 	}
 
-	public Integer getTotalPrice() {
+
+	public Double getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(Integer totalPrice) {
+	public void setTotalPrice(Double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 

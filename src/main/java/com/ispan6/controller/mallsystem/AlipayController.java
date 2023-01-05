@@ -23,10 +23,9 @@ public class AlipayController {
 	@ResponseBody
 	public String tradePagePay(@RequestParam Integer orderId,HttpSession session) {
 		String fx = session.getAttribute("fx").toString();
-		System.out.println(fx);
-		Double exchange = Double.parseDouble(fx);
 		
-		String formStr = alipayService.payPageCreate(orderId);
+		Double exchange = Double.parseDouble(fx);
+		String formStr = alipayService.payPageCreate(orderId,exchange);
 		return formStr;
 	}
 	

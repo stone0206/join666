@@ -191,7 +191,9 @@ public class MatchController {
 		//條件查詢
 		@GetMapping("/findByHobbitAndGender")
 		@ResponseBody
-		public List<MemberTest> findByHobbitAndGender(@RequestParam Integer[] typeCondi, Integer[] labelCondi) {
-			return hService.findByHobbitAndGender(typeCondi,labelCondi);
+		public List<MemberTest> findByHobbitAndGender(@RequestParam Integer[] typeCondi, Integer[] labelCondi, HttpSession session) {
+			MemberTest member = (MemberTest) session.getAttribute("loginUser");
+
+			return hService.findByHobbitAndGender(typeCondi,labelCondi,member.getId());
 		}
 }
