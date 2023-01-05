@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class HobbitBean {
 	private String type;
 
 
-	@OneToMany(mappedBy = "hobbitid")
+	@OneToMany(mappedBy = "hobbitid",fetch = FetchType.LAZY)
 	private List<SelfHobbitBean> hoobitid=new ArrayList<SelfHobbitBean>();
 
 	

@@ -7,7 +7,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -163,8 +166,22 @@ public class MemberTestController {
 	}
 
 	@GetMapping("/showprofile")
-	public String showProfile() {
+	public String showProfile(HttpSession session) {
+		MemberTest mt= (MemberTest) session.getAttribute("loginUser");
+		session.setAttribute("member", mt);
+		return "userpage";
+	}
+	
+	@GetMapping("/updateprofile")
+	public String updateProfile() {
 		return "showOneUser";
+	}
+	
+	@GetMapping("/searchuser")
+	public String searchUser(HttpSession session) {
+		List<MemberTest> members = mService.getAllMemberTest();
+		session.setAttribute("members", members);
+		return "searchuser";
 	}
 
 	@PostMapping("/CheckAcc")
@@ -197,13 +214,25 @@ public class MemberTestController {
 		mService.insertMember(mt);
 		mt = mService.findByAcc(mt.getAccount());
 		session.setAttribute("loginUser", mt);
+		
+		for(int i=0;i<hobbit.length;i++) {
+			SelfHobbitBean sBean = new SelfHobbitBean();
+			sBean.setUserhid(mt);
+			HobbitBean hb=new HobbitBean();
+			hb.setId(Integer.parseInt(hobbit[i]));
+			sBean.setHobbitid(hb);
+			hDto.save(sBean);
+			}
+		
 		return "index";
 	}
 
 	@PostMapping("/insertMember")
 	public String insertMember(@ModelAttribute("memberTest") MemberTest mt,
-			@RequestParam(value = "account") String account, @RequestParam(value = "password") String password, @RequestParam(value = "hobbit") String[] hobbit,
-			HttpServletRequest request, HttpServletResponse response, Model m) {
+			@RequestParam(value = "account") String account, @RequestParam(value = "password") String password, @RequestParam(value = "taiwan") String taiwan, @RequestParam(value = "coun") String coun,
+			@RequestParam(value = "hobbit") String[] hobbit, HttpServletRequest request, HttpServletResponse response, Model m) {
+		String address=taiwan+coun;
+		mt.setAddress(address);
 		mt.setEmail(account);
 		mt.setAvator(Constants.AVATOR);
 		mService.insertMember(mt);
@@ -307,5 +336,12 @@ public class MemberTestController {
 			return "/index";
 		}
 	}
+	
+    @GetMapping("/lookCode/{token}")
+    public String lookCode(@PathVariable("token")String token, HttpSession session){
+    	MemberTest mt = mService.findByAcc(token);
+    	session.setAttribute("member", mt);
+    	return "userpage";
+    }
 
 }

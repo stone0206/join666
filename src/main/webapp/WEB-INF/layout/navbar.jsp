@@ -140,8 +140,10 @@
                       </div>
                       <div>
                         <!-- 用戶名稱 -->
-
-                        <p class="small m-0">${loginUser.getName()}</p>
+						<a class="dropdown-item" href="/showprofile">
+                           <h3 class="mb-0">
+                        ${loginUser.getName() }
+                    </h3></a>
                       </div>
                     </div>
                   </li>
@@ -149,19 +151,23 @@
                   <li><a class="dropdown-item" href="settings.html"><i class="bi bi-gear fa-fw me-2"></i>Settings &
                       Privacy</a></li>
 
+                                 
                   <li>
+                    <a class="dropdown-item" href="/updateprofile">
+                      <i class="fa-fw bi bi-card-text me-2"></i>修改我的資訊
+                    </a>
+                  </li>    
+                      <li>
+                    <a class="dropdown-item" href="/searchuser">
+                      <i class="fa-fw bi bi-card-text me-2"></i>搜尋會員
+                    </a>
+                  </li> 
+                  <li> 
                     <a class="dropdown-item" href="/toMyOrderPage">
                       <i class="fa-fw bi bi-card-text me-2"></i>我的訂單
                     </a>
                   </li>
-                    <li>
-                    <a class="dropdown-item" href="/showprofile">
-                      <i class="fa-fw bi bi-card-text me-2"></i>個人資訊
-                    </a>
-                  </li>
-                  
-                  
-                  
+
                     <li>
                     <a class="dropdown-item" href="/myreunion">
                       <i class="fa-fw bi bi-card-text me-2"></i>我的聚會

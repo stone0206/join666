@@ -1,5 +1,6 @@
 package com.ispan6.service.mallsystem;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -121,6 +122,19 @@ public class ProductService {
 
 	public List<Product> findTop5BySales() {
 		return productDAO.findTop5ByOrderBySalesDesc();
+	}
+
+	public void insertCSV(String[] fields) {
+		Product product = new Product();
+		product.setName(fields[0]);
+		product.setPrice(Integer.valueOf(fields[1]));
+		product.setInventory(Integer.valueOf(fields[2]));
+		product.setDesc(fields[3]);
+		product.setType(Integer.valueOf(fields[4]));
+		product.setLabel(Integer.valueOf(fields[5]));
+		product.setSales(0);
+		product.setStatus(1);
+		productDAO.save(product);
 	}
 	
 

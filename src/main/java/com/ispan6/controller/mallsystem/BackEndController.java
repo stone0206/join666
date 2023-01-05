@@ -1,5 +1,9 @@
 package com.ispan6.controller.mallsystem;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ispan6.bean.mallsystem.OrderBean;
 import com.ispan6.bean.mallsystem.OrderItems;
@@ -205,5 +210,23 @@ public class BackEndController {
 			aL.add(target);
 		}
 		return aL;
+	}
+	
+	@PostMapping("/CSVReader")
+	public String readCSV(@RequestParam("file") MultipartFile file) {
+        try (
+                InputStream inputStream = file.getInputStream();
+                BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))
+            ) {
+                String line;
+                br.readLine();
+                while ((line = br.readLine()) != null) {
+                    String[] fields = line.split(",");
+                    productService.insertCSV(fields);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+		return "productbackend2";
 	}
 }

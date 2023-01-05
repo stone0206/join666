@@ -3,14 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
-<link href="${contextRoot}/js/jquery-3.6.1.min.js" rel="stylesheet" />
+<%-- <link href="${contextRoot}/js/jquery-3.6.1.min.js" rel="stylesheet" /> --%>
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="UTF-8">
 <script src="${contextRoot}/js/taiwan_districts.js"></script>
-<title>會員管理</title>
+<title>約約－搜尋會員</title>
 <style>
 #table tr {
 	text-align: center;
@@ -37,7 +37,7 @@
 </head>
 
 <body>
-	<jsp:include page="../layout/backendnav.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/layout/navbar.jsp" />
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid px-4">
@@ -53,7 +53,7 @@
 							</div>
 						</div>
 
-			<div class="col">
+						<div class="col">
 						
 							<div id="search-search">
 							<label for="taiwan">縣/市：</label> <select name="taiwan" id="taiwan" onchange="findMember()">
@@ -92,8 +92,8 @@
 									<th>id</th>
 									<th>帳號</th>
 									<th>暱稱</th>
-									<th>出生日期</th>
-									<th>聯絡方式</th>
+<!-- 									<th>出生日期</th> -->
+<!-- 									<th>聯絡方式</th> -->
 									<th>所在地</th>
 									<th>頭像</th>
 									<th>性別</th>
@@ -103,49 +103,30 @@
 							<tbody id="table">
 								<c:forEach var="memberContent" items="${members}">
 									<tr>
-										<td rowspan="2" valign="middle">${memberContent.id }</td>
-										<td rowspan="2" valign="middle">帳號: ${memberContent.account}</td>
-										<td rowspan="2" valign="middle">${memberContent.name}</td>
-										<td rowspan="2" valign="middle"><fmt:formatDate pattern="yyyy/MM/dd"
-												value="${memberContent.birth}" /></td>
-										<td rowspan="1" valign="middle">手機: ${memberContent.phone }</td>
-										<td rowspan="2" valign="middle">${memberContent.address }</td>
-										<td rowspan="2" ><img alt="" src="${memberContent.avator }"
+										<td rowspan="1" valign="middle">${memberContent.id }</td>
+										<td rowspan="1" valign="middle">${memberContent.account}</td>
+										<td rowspan="1" valign="middle">${memberContent.name}</td>
+<%-- 										<td rowspan="2" valign="middle"><fmt:formatDate pattern="yyyy/MM/dd" --%>
+<%-- 												value="${memberContent.birth}" /></td> --%>
+<%-- 										<td rowspan="1" valign="middle">手機: ${memberContent.phone }</td> --%>
+										<td rowspan="1" valign="middle">${memberContent.address }</td>
+										<td rowspan="1" ><img alt="" src="${memberContent.avator }"
 											style="width: 130px; height: 100px;"></td>
 										<c:choose>
 											<c:when test="${memberContent.gender == 1}">
-												<td rowspan="2" valign="middle">男</td>
+												<td rowspan="1" valign="middle">男</td>
 											</c:when>
 											<c:otherwise>
-												<td rowspan="2" valign="middle">女</td>
+												<td rowspan="1" valign="middle">女</td>
 											</c:otherwise>
 										</c:choose>
-										<td rowspan="2" valign="middle"><button >停權</button></td>
-										<%-- 												<c:choose> --%>
-										<%-- 													<c:when test="${productContent.status == 0}"> --%>
-										<!-- 														<td>再售</td> -->
-										<%-- 													</c:when> --%>
-										<%-- 													<c:otherwise> --%>
-										<!-- 														<td>下架</td> -->
-										<%-- 													</c:otherwise> --%>
-										<%-- 												</c:choose> --%>
-										<!-- 												<td> -->
-										<!-- 													<button type="button" class="btn" data-bs-toggle="modal" -->
-										<%-- 														data-bs-target="#exampleModal${productContent.id}" --%>
-										<!-- 														style="color: blue;"> -->
-										<!-- 														<a>編輯</a> -->
-										<!-- 														return confirm('是否刪除 ${productContent.name }') -->
-										<!-- 													</button> / <a class="btn" -->
-										<%-- 														onclick="return confirm('是否刪除 ${productContent.name }')" --%>
-										<%-- 														href="/deleteProduct?id=${productContent.id }" --%>
-										<!-- 														style="color: red;">刪除</a> / -->
-										<%-- 													<a class="btn" href="/unSold?id=${productContent.id }">下架</a> --%>
-										<!-- 												</td> -->
+										<td rowspan="1" valign="middle">
+										<button onclick="window.open('http://localhost:8080/lookCode/${memberContent.account}', '_blank')">看看他/她的頁面</button><br><br>
+										<button >加他/她朋友</button></td>
 									</tr>
-									<tr>
-								
-									<td valign="middle">信箱: ${memberContent.email}</td>
-									</tr>
+<!-- 									<tr> -->
+<%-- 									<td valign="middle">信箱: ${memberContent.email}</td> --%>
+<!-- 									</tr> -->
 								</c:forEach>
 							</tbody>
 						</table>
@@ -154,12 +135,13 @@
 			</div>
 		</main>
 	</div>
-<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
- <script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
+
 	<script type="text/javascript">
+	
 		function findMember(){
 			var account= $('#account').val();
 			var name=$('#name').val();
+			var address=$('#taiwan').val()+$('#coun').val();
 			
 			var m= $('#male').is(':checked');
 			var f= $('#female').is(':checked');
@@ -175,7 +157,7 @@
 				var male=1;
 				var female=2;
 			}
-			console.log(male+","+female)
+			console.log(address)
 			let formData = new FormData();
 			formData.append("male", male);
 			formData.append("female", female);
@@ -194,33 +176,46 @@
 				}else{
 					gender='女';
 				}
-				member2+='<tr><td rowspan="2" valign="middle">';
+				member2+='<tr><td rowspan="1" valign="middle">';
 				member2+=members2[i].id;
 				member2+='</td><td rowspan="1" valign="middle">帳號: ';
 				member2+=members2[i].account;
-				member2+='</td><td rowspan="2" valign="middle">';
+				member2+='</td><td rowspan="1" valign="middle">';
 				member2+=members2[i].name;
-				member2+='</td><td rowspan="2" valign="middle">';
-				member2+=birth;
-				member2+='</td><td rowspan="1" valign="middle">手機: ';
-				member2+=members2[i].phone;
-				member2+='</td><td rowspan="2" valign="middle">';
+				member2+='</td><td rowspan="1" valign="middle">';
 				member2+=members2[i].address;
-				member2+='</td><td rowspan="2" ><img alt="" src="';
+				member2+='</td><td rowspan="1" ><img alt="" src="';
 				member2+=members2[i].avator;
 				member2+='" style="width: 130px; height: 100px;"></td>';
-				member2+='<td rowspan="2" valign="middle">';
+				member2+='<td rowspan="1" valign="middle">';
 				member2+=gender;
-				member2+='</td><td rowspan="2" valign="middle"><button >停權</button></td></tr><tr>';
-				member2+='<td valign="middle">密碼: ';
-				member2+=members2[i].password;
-				member2+='</td><td valign="middle">信箱: ';
-				member2+=members2[i].email;
-				member2+='</td></tr>';
+				member2+='</td><td rowspan="1" valign="middle"><button onclick="window.open(\'http://localhost:8080/lookCode/'
+				member2+=${memberContent.account};
+				member2+='\', \'_blank\')">看看他/她的頁面</button><br><br><button >加他/她朋友</button></td></tr>';
+
 				}
 				table.html(member2);
 			})
 		}
+		
+		
+	    data.forEach(function(value, index) {
+let country = value.name
+$("#taiwan").append("<option value='"+country+"'>"+country+"</option>")
+});
+$("#taiwan").change(function () {
+let val = $(this).val();
+let districts=data.find(function(item){
+return item.name==val;
+})
+$("#coun>option").remove()
+
+districts['districts'].forEach(function(value, index){
+let area= value.name
+let map = "<option value='" + area + "'>" + area + "</option>" 
+$("#coun").append(map)
+})
+})
 
 	</script>
 </body>
