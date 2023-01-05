@@ -127,7 +127,7 @@ public class ProductService {
 	public void insertCSV(String[] fields) {
 		Product product = new Product();
 		product.setName(fields[0]);
-		product.setPrice(Integer.valueOf(fields[1]));
+		product.setPrice(Double.valueOf(fields[1]));
 		product.setInventory(Integer.valueOf(fields[2]));
 		product.setDesc(fields[3]);
 		product.setType(Integer.valueOf(fields[4]));
