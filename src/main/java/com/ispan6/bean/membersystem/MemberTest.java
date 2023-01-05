@@ -72,6 +72,17 @@ public class MemberTest {
 
 	@Column(name = "address")
 	private String address;
+	
+	@Column(name = "banned")
+	private int banned;
+
+	public int getBanned() {
+		return banned;
+	}
+
+	public void setBanned(int banned) {
+		this.banned = banned;
+	}
 
 	@OneToMany(mappedBy = "memberTest")
 	private List<ShoppingCartItem> sciList = new ArrayList<ShoppingCartItem>();

@@ -7,9 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -22,6 +20,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,10 +38,12 @@ import com.ispan6.Constants;
 import com.ispan6.bean.matchsystem.HobbitBean;
 import com.ispan6.bean.matchsystem.SelfHobbitBean;
 import com.ispan6.bean.membersystem.MemberTest;
+import com.ispan6.bean.postsystem.PostBean;
 import com.ispan6.dao.matchsystem.SelfHobbitDto;
 import com.ispan6.dao.membersystem.UserGoogleDto;
 import com.ispan6.service.matchsystem.MatchService;
 import com.ispan6.service.membersystem.MemberTestService;
+import com.ispan6.service.postsystem.PostService;
 
 @Controller
 //@SessionAttribute("loginUser")
@@ -59,6 +60,9 @@ public class MemberTestController {
 	@Autowired
 	private MatchService matchService;
 
+	@Autowired
+	private PostService postService;
+	
 	ServletContext ctx;
 	
 	@Autowired
@@ -79,20 +83,28 @@ public class MemberTestController {
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
 		MemberTest mt = mService.findByAccAndPwd(account, password);
-
+		if(mt.getBanned()==1) {
+			return "/bannedpage";
+		}
 		MemberTest random = matchService.random1(mt.getId(), mt.getId());
 		m.addAttribute("random", random);
 		
 		HttpSession session = request.getSession();
 
 		session.setAttribute("loginUser", mt);
+		System.out.println("登入者是:"+mt.getAccount());
+		if (mt.getAccount().equals("admin")) {
+			List<MemberTest> members = mService.getAllMemberTest();
+			session.setAttribute("members", members);
+			return "memberbackend";
+		}else {
 
 		return "redirect:/index";
-
+		}
 	}
 
 	@PostMapping("/update")
-	public String update1(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+	public String update1(HttpServletRequest request, HttpServletResponse response, HttpSession session, @RequestParam(name="p",defaultValue = "1") Integer pageNumber,Model m)
 			throws IOException, ServletException {
 		String account = request.getParameter("account");
 		String name = request.getParameter("name");
@@ -133,6 +145,8 @@ public class MemberTestController {
 		mService.updateByAcc(account, avator, name, address, phone, email);
 		MemberTest mt = mService.findByAcc(account);
 		session.setAttribute("loginUser", mt);
+		Page<PostBean> page= postService.findByPostPage(pageNumber);
+		m.addAttribute("page", page);
 		return "index";
 	}
 
@@ -155,13 +169,14 @@ public class MemberTestController {
 	}
 
 	@GetMapping("/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response, SessionStatus status, Model m) {
+	public String logout(HttpServletRequest request, HttpServletResponse response, SessionStatus status, Model m, @RequestParam(name="p",defaultValue = "1") Integer pageNumber) {
 		HttpSession session = request.getSession();
 		status.setComplete();
 		session.invalidate();
 		MemberTest random = matchService.random1();
 		m.addAttribute("random", random);
-
+		Page<PostBean> page= postService.findByPostPage(pageNumber);
+		m.addAttribute("page", page);
 		return "index";
 	}
 
@@ -235,6 +250,7 @@ public class MemberTestController {
 		mt.setAddress(address);
 		mt.setEmail(account);
 		mt.setAvator(Constants.AVATOR);
+		mt.setBanned(0);
 		mService.insertMember(mt);
 		
 		mt = mService.findByAccAndPwd(account, password);
@@ -263,9 +279,9 @@ public class MemberTestController {
 	@ResponseBody
 	public List<MemberTest> findByGender(HttpSession session, @RequestParam(value = "male") Integer male,
 			@RequestParam(value = "female") Integer female, @RequestParam(value = "account") String account,
-			@RequestParam(value = "name") String name) {
+			@RequestParam(value = "name") String name, 	@RequestParam(value = "address") String address) {
 //		List<MemberTest> members2 = mService.findByGender(male, female);
-		List<MemberTest> members2 = mService.findMem(male, female, account, name);
+		List<MemberTest> members2 = mService.findMem(male, female, account, name, address);
 		System.out.println(members2);
 		return members2;
 	}
@@ -342,6 +358,13 @@ public class MemberTestController {
     	MemberTest mt = mService.findByAcc(token);
     	session.setAttribute("member", mt);
     	return "userpage";
+    }
+    
+    @PostMapping("/banMem")
+    @ResponseBody
+    public void banMem(@RequestParam(value = "banned") Integer banned, @RequestParam(value = "account") String account) {
+    	System.out.println(banned+","+account);
+    	mService.banMem(banned, account);
     }
 
 }

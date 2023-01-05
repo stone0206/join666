@@ -35,9 +35,14 @@ public interface MemberTestDAO extends JpaRepository<MemberTest, Integer>, JpaSp
 	@Query(value = "FROM MemberTest where (gender= :male or gender= :female)")
 	public List<MemberTest> findByGender(@Param("male") Integer male, @Param("female") Integer female);
 
-	@Query(value = "FROM MemberTest where (gender= ?1 or gender= ?2) and m_account like %?3% and m_name like %?4%")
-	public List<MemberTest> findMem(Integer male, Integer female, String account, String name);
-
+	@Query(value = "FROM MemberTest where (gender= ?1 or gender= ?2) and m_account like %?3% and m_name like %?4% and address like %?5%")
+	public List<MemberTest> findMem(Integer male, Integer female, String account, String name, String address);
+	
+	@Transactional
+	@Modifying 
+	@Query(value="UPDATE MemberTest SET banned= ?1 where m_account= ?2",nativeQuery = true)
+	public void banMem(Integer banned, String account);
+	
 	@Query(value = "SELECT top 1* from membertest  WHERE  not exists (select * from friend where  (membertest.m_id=fuid or membertest.m_id=userid) and (isfriend =2 or isfriend =1) and (whoblocked=?1 or whoblocked=0)) and m_id !=?2 ORDER by NEWID()", nativeQuery = true)
 	public MemberTest random1(Integer id, Integer fid);
 

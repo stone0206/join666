@@ -84,6 +84,12 @@
 			$d.setAttribute("src", e.target.result);
 		};
 	};
+	
+	$("#cancel").click(function(event) {
+		event.preventDefault(); //取消預設行為
+		location.href='http://localhost:8080/index';
+//			window.history.back(); //返回上一頁
+		})
 </script>
 
 </html>
