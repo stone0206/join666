@@ -21,6 +21,9 @@ public class ReunionreportService {
 	private ReunionreportRepository ReunionreportRepository;
 	
 	
+	public List<Reunionreport> findReunionreportByMemberid(Integer id) {
+		return ReunionreportRepository.findReunionreportByMemberid(id);
+	}
 	
 	public void deleteReunionreport(Integer id) {
 		 ReunionreportRepository.deleteReunionreportById(id);

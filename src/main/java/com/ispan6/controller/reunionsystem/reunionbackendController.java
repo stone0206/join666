@@ -10,13 +10,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ispan6.bean.reunionsystem.Reunionreport;
+import com.ispan6.service.reunionsystem.ReunionregisterService;
 import com.ispan6.service.reunionsystem.ReunionreportService;
+import com.ispan6.service.reunionsystem.ReunionsystemService;
 
 @Controller
 public class reunionbackendController {
 
 	@Autowired
 	private ReunionreportService ReunionreportService;
+	
+	@Autowired
+	private ReunionregisterService reunionregisterService;
+
+	@Autowired
+	private ReunionsystemService reunionsystemService;
 	
 	@GetMapping("/msg/reunionbackend")
 	public String reunionbackend(Model model) {
@@ -37,7 +45,13 @@ public class reunionbackendController {
 	
 	@GetMapping("/deleteReunionreport")
 	public String deleteReunionreport(@RequestParam Integer id) {
+		
+		boolean flag =reunionregisterService.registerEmpty2(id);
+		if(flag==false) {
+		reunionregisterService.deleteregisterById(id);
+		}
 		ReunionreportService.deleteReunionreport(id);
+		reunionsystemService.deleteReunionByReunionId(id);
 		return "redirect:/msg/reunionbackend";
 	}
 	

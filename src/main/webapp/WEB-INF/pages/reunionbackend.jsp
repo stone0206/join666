@@ -66,7 +66,7 @@
 						<tbody id="table">
 							<c:forEach var="reunionreport" items="${reunionreport}">
 								<tr>
-									<td>${reunionreport.reunionreportid}</td>
+									<td>${reunionreport.reunionid}</td>
 									<td>${reunionreport.reunion.topic}</td>
 									<td>${reunionreport.reunion.memberTest.name}</td>
 									<td>${reunionreport.memberTest.name}</td> 
@@ -79,7 +79,7 @@
 																				<!-- return confirm('是否刪除 ${productContent.name }') -->
 										 <a class="btn"
 										onclick="return confirm('是否刪除 ${reunionreport.reunion.reunionid}')"
-										href="/deleteReunionreport?id=${reunionreport.reunion.reunionid }"
+										href="/deleteReunionreport?id=${reunionreport.reunion.reunionid}"
 										style="color: red;">刪除</a> 
 									</td>
 								</tr>

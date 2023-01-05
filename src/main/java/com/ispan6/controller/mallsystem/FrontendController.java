@@ -1,12 +1,18 @@
 package com.ispan6.controller.mallsystem;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -65,7 +71,11 @@ public class FrontendController {
 	@GetMapping("/getProduct")
 	@ResponseBody
 	public List<Product> getProduct() {
-		List<Product> products = productService.getAllProductOnSell();
+		List<Product> topsales = productService.findTop5BySales();
+		for (Product product : topsales) {
+			product.setLabel(3);
+			productService.insertProduct(product);
+		}
 		return productService.getAllProductOnSell();
 	}
 
@@ -121,7 +131,7 @@ public class FrontendController {
 	 * @param lowPrice
 	 * @param highPrice
 	 * @param model
-	 * @return 
+	 * @return
 	 */
 	@GetMapping("/searchByHLPrice")
 	@ResponseBody
@@ -151,7 +161,8 @@ public class FrontendController {
 	 */
 	@GetMapping("/addToCart")
 	@ResponseBody
-	public String addToCart(@RequestParam Integer id, HttpSession session,@RequestParam(required = false) Integer quantity) {
+	public String addToCart(@RequestParam Integer id, HttpSession session,
+			@RequestParam(required = false) Integer quantity) {
 		// 先取得會員和商品id
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
 		if (member == null) {
@@ -168,16 +179,16 @@ public class FrontendController {
 			// 先查詢是哪個用戶的哪個商品
 			ShoppingCartItem shoppingCartItem = shoppingCartItemService.findByMemberIdAndProductId(memberId, id);
 			// 然後把數量加1再保存
-			if(quantity == null) {
+			if (quantity == null) {
 				shoppingCartItem.setCount(shoppingCartItem.getCount() + 1);
 				shoppingCartItemService.addToCart(shoppingCartItem);
 				return "商品已存在，數量加1";
 			}
-			if(quantity > 0) {
+			if (quantity > 0) {
 				shoppingCartItem.setCount(shoppingCartItem.getCount() + quantity);
 				shoppingCartItemService.addToCart(shoppingCartItem);
 				return "商品已存在，數量加" + quantity;
-			}		
+			}
 		}
 		// 如果是空的
 		if (flag == true) {
@@ -244,7 +255,7 @@ public class FrontendController {
 		// 取得會員當前購物車商品
 		List<ShoppingCartItem> items = shoppingCartItemService.findAllByMemberId(member.getId());
 		// 計算總金額
-		int totalPrice = 0;
+		double totalPrice = 0;
 		int totalCount = 0;
 		for (ShoppingCartItem item : items) {
 			totalPrice += item.getProduct().getPrice();
@@ -291,7 +302,24 @@ public class FrontendController {
 	}
 
 	@GetMapping("/toMyOrderPage")
-	public String toMyOrderPage() {
+	public String toMyOrderPage(HttpSession session) {
+		try {
+			//取得document
+			Document document = Jsoup.connect("https://rate.bot.com.tw/xrt?Lang=zh-TW").get();
+			//取得tbody
+			Elements tbody = document.getElementsByTag("tbody");
+			//取得tbody裡面的tr
+			Elements tr = tbody.select("tr");
+			Object[] trArray = tr.toArray();
+			String rmbLine =trArray[18].toString();
+			int positionStart = rmbLine.indexOf("<td data-table=\"本行現金賣出\" class=\"rate-content-cash text-right print_hide\">");
+			int positionEnd = rmbLine.indexOf("<td data-table=\"本行即期買入");
+			String fx = rmbLine.substring(positionStart + 72, positionEnd - 8);
+			session.setAttribute("fx", fx);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "myorderpage";
 	}
 
@@ -309,7 +337,7 @@ public class FrontendController {
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
 		ShoppingCartItem items = shoppingCartItemService.findByMemberIdAndProductId(member.getId(), id);
 		Product p = items.getProduct();
-		if(count > p.getInventory()) {
+		if (count > p.getInventory()) {
 			count = p.getInventory();
 		}
 		items.setCount(count);
@@ -333,15 +361,15 @@ public class FrontendController {
 	@GetMapping("/mutipleConditionsQuery")
 	@ResponseBody
 	public List<Product> mutipleConditionsQuery(@RequestParam Integer[] typeCondi, Integer[] labelCondi) {
-		return productService.findByTypeAndLabel(typeCondi,labelCondi);
+		return productService.findByTypeAndLabel(typeCondi, labelCondi);
 	}
-	
+
 	@GetMapping("openProductDetail")
-	public String openProductDetail(@RequestParam Integer productId,Model model) {
+	public String openProductDetail(@RequestParam Integer productId, Model model) {
 		Product product = productService.findById(productId);
 		List<Product> pList = new ArrayList<Product>();
 		pList.add(product);
-		model.addAttribute("product",pList);
+		model.addAttribute("product", pList);
 		return "productdetail";
 	}
 

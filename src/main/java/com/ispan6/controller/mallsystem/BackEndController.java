@@ -1,5 +1,9 @@
 package com.ispan6.controller.mallsystem;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ispan6.bean.mallsystem.OrderBean;
 import com.ispan6.bean.mallsystem.OrderItems;
@@ -118,20 +123,23 @@ public class BackEndController {
 
 	@GetMapping("/mutipleUpdate")
 	@ResponseBody
-	public List<Product> mutipleUpdate(@RequestParam Integer type, Integer label, Integer status, Integer[] target) {
+	public List<Product> mutipleUpdate(@RequestParam Integer type, Integer label, Integer status, Integer[] target,Double discountNumber) {
+		System.out.println(discountNumber);
 		ArrayList aL = new ArrayList();
 		for (int i = 0; i < target.length; i++) {
 			Product productBefore = productService.findById(target[i]);
 			if (type != 0) {
-				System.out.println("type");
 				productBefore.setType(type);
 			}
 			if (label != 0) {
-				System.out.println("label");
 				productBefore.setLabel(label);
 			}
 			if (status != 3) {
 				productBefore.setStatus(status);
+			}
+			if (discountNumber != 0) {
+				double price = productBefore.getPrice() * discountNumber;
+				productBefore.setPrice(price);
 			}
 			productService.insertProduct(productBefore);
 			Product productAfter = productService.findById(target[i]);
@@ -158,6 +166,7 @@ public class BackEndController {
 	}
 
 	@GetMapping("/updateOrder")
+	@ResponseBody
 	public String updateOrder(OrderBean orderBean) {
 		OrderBean target = orderBeanService.findById(orderBean.getId());
 		target.setAddr(orderBean.getAddr());
@@ -202,5 +211,23 @@ public class BackEndController {
 			aL.add(target);
 		}
 		return aL;
+	}
+	
+	@PostMapping("/CSVReader")
+	public String readCSV(@RequestParam("file") MultipartFile file) {
+        try (
+                InputStream inputStream = file.getInputStream();
+                BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))
+            ) {
+                String line;
+                br.readLine();
+                while ((line = br.readLine()) != null) {
+                    String[] fields = line.split(",");
+                    productService.insertCSV(fields);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+		return "productbackend2";
 	}
 }

@@ -29,6 +29,14 @@ public class ReunionregisterService {
 			
 	}
     
+    
+    public boolean registerEmpty2(Integer reunionid) {
+  		return ReunionregisterReposity.findRegisterByReunionid(reunionid).isEmpty();
+  			
+  	}
+    
+    
+    
 	public List<Register> findByRegisterId(Integer id) {
 		return ReunionregisterReposity.findByRegisterId(id);
 	}
@@ -43,6 +51,10 @@ public class ReunionregisterService {
 			return ReunionregisterReposity.findRegisterByReunionid(id);
 		}
 		
+		public List<Register> findRegisterByMemberid(Integer id) {
+			return ReunionregisterReposity.findRegisterByMemberid(id);
+		}
+		
 		   public void agreeRegisterByReunionidAndMemberid(Integer reunionid, Integer memberid) {
 			 ReunionregisterReposity.agreeRegisterByReunionidAndMemberid(reunionid, memberid);
 				
@@ -50,5 +62,9 @@ public class ReunionregisterService {
 		   public void notagreeRegisterByReunionidAndMemberid(Integer reunionid, Integer memberid) {
 				 ReunionregisterReposity.notagreeRegisterByReunionidAndMemberid(reunionid, memberid);
 					
+			}
+		   
+		   public void deleteregisterById(Integer id) {
+			   ReunionregisterReposity.deleteregisterById(id);
 			}
 }

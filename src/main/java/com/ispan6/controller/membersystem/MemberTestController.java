@@ -20,10 +20,12 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,10 +35,15 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ispan6.Constants;
+import com.ispan6.bean.matchsystem.HobbitBean;
+import com.ispan6.bean.matchsystem.SelfHobbitBean;
 import com.ispan6.bean.membersystem.MemberTest;
+import com.ispan6.bean.postsystem.PostBean;
+import com.ispan6.dao.matchsystem.SelfHobbitDto;
 import com.ispan6.dao.membersystem.UserGoogleDto;
 import com.ispan6.service.matchsystem.MatchService;
 import com.ispan6.service.membersystem.MemberTestService;
+import com.ispan6.service.postsystem.PostService;
 
 @Controller
 //@SessionAttribute("loginUser")
@@ -53,7 +60,13 @@ public class MemberTestController {
 	@Autowired
 	private MatchService matchService;
 
+	@Autowired
+	private PostService postService;
+	
 	ServletContext ctx;
+	
+	@Autowired
+	private SelfHobbitDto hDto;
 
 	@PostMapping("/login2")
 	public String login2(@RequestParam String account, @RequestParam String password, Model model) {
@@ -70,24 +83,34 @@ public class MemberTestController {
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
 		MemberTest mt = mService.findByAccAndPwd(account, password);
-
+		if(mt.getBanned()==1) {
+			return "/bannedpage";
+		}
 		MemberTest random = matchService.random1(mt.getId(), mt.getId());
 		m.addAttribute("random", random);
 		
 		HttpSession session = request.getSession();
 
 		session.setAttribute("loginUser", mt);
+		System.out.println("登入者是:"+mt.getAccount());
+		if (mt.getAccount().equals("admin")) {
+			List<MemberTest> members = mService.getAllMemberTest();
+			session.setAttribute("members", members);
+			return "memberbackend";
+		}else {
 
 		return "redirect:/index";
-
+		}
 	}
 
 	@PostMapping("/update")
-	public String update1(HttpServletRequest request, HttpServletResponse response, HttpSession session)
+	public String update1(HttpServletRequest request, HttpServletResponse response, HttpSession session, @RequestParam(name="p",defaultValue = "1") Integer pageNumber,Model m)
 			throws IOException, ServletException {
 		String account = request.getParameter("account");
 		String name = request.getParameter("name");
 		String address = request.getParameter("address");
+		String phone = request.getParameter("phone");
+		String email= request.getParameter("email");
 		String avator = "";
 		Part part = request.getPart("avator");
 		String filename = getFileName(part);
@@ -119,9 +142,11 @@ public class MemberTestController {
 			avator = mt.getAvator();
 		}
 
-		mService.updateByAcc(account, avator, name, address);
+		mService.updateByAcc(account, avator, name, address, phone, email);
 		MemberTest mt = mService.findByAcc(account);
 		session.setAttribute("loginUser", mt);
+		Page<PostBean> page= postService.findByPostPage(pageNumber);
+		m.addAttribute("page", page);
 		return "index";
 	}
 
@@ -144,19 +169,34 @@ public class MemberTestController {
 	}
 
 	@GetMapping("/logout")
-	public String logout(HttpServletRequest request, HttpServletResponse response, SessionStatus status, Model m) {
+	public String logout(HttpServletRequest request, HttpServletResponse response, SessionStatus status, Model m, @RequestParam(name="p",defaultValue = "1") Integer pageNumber) {
 		HttpSession session = request.getSession();
 		status.setComplete();
 		session.invalidate();
 		MemberTest random = matchService.random1();
 		m.addAttribute("random", random);
-
+		Page<PostBean> page= postService.findByPostPage(pageNumber);
+		m.addAttribute("page", page);
 		return "index";
 	}
 
 	@GetMapping("/showprofile")
-	public String showProfile() {
+	public String showProfile(HttpSession session) {
+		MemberTest mt= (MemberTest) session.getAttribute("loginUser");
+		session.setAttribute("member", mt);
+		return "userpage";
+	}
+	
+	@GetMapping("/updateprofile")
+	public String updateProfile() {
 		return "showOneUser";
+	}
+	
+	@GetMapping("/searchuser")
+	public String searchUser(HttpSession session) {
+		List<MemberTest> members = mService.getAllMemberTest();
+		session.setAttribute("members", members);
+		return "searchuser";
 	}
 
 	@PostMapping("/CheckAcc")
@@ -174,7 +214,7 @@ public class MemberTestController {
 	@PostMapping("/googleSignIn")
 	public String googleSignIn(@ModelAttribute("memberTest") MemberTest mt, @RequestParam(value = "name") String name,
 			@RequestParam(value = "birth") String birth, @RequestParam(value = "phone") String phone,
-			@RequestParam(value = "address") String address, @RequestParam(value = "gender") Integer gender,
+			@RequestParam(value = "address") String address, @RequestParam(value = "gender") Integer gender, @RequestParam(value = "hobbit") String[] hobbit,
 			HttpSession session) throws ParseException {
 		mt = (MemberTest) session.getAttribute("member");
 		System.out.println(mt.getAccount());
@@ -189,21 +229,42 @@ public class MemberTestController {
 		mService.insertMember(mt);
 		mt = mService.findByAcc(mt.getAccount());
 		session.setAttribute("loginUser", mt);
+		
+		for(int i=0;i<hobbit.length;i++) {
+			SelfHobbitBean sBean = new SelfHobbitBean();
+			sBean.setUserhid(mt);
+			HobbitBean hb=new HobbitBean();
+			hb.setId(Integer.parseInt(hobbit[i]));
+			sBean.setHobbitid(hb);
+			hDto.save(sBean);
+			}
+		
 		return "index";
 	}
 
 	@PostMapping("/insertMember")
 	public String insertMember(@ModelAttribute("memberTest") MemberTest mt,
-			@RequestParam(value = "account") String account, @RequestParam(value = "password") String password,
-			HttpServletRequest request, HttpServletResponse response, Model m) {
+			@RequestParam(value = "account") String account, @RequestParam(value = "password") String password, @RequestParam(value = "taiwan") String taiwan, @RequestParam(value = "coun") String coun,
+			@RequestParam(value = "hobbit") String[] hobbit, HttpServletRequest request, HttpServletResponse response, Model m) {
+		String address=taiwan+coun;
+		mt.setAddress(address);
 		mt.setEmail(account);
 		mt.setAvator(Constants.AVATOR);
+		mt.setBanned(0);
 		mService.insertMember(mt);
 		
 		mt = mService.findByAccAndPwd(account, password);
 		HttpSession session = request.getSession();
 		session.setAttribute("loginUser", mt);
-
+		
+		for(int i=0;i<hobbit.length;i++) {
+		SelfHobbitBean sBean = new SelfHobbitBean();
+		sBean.setUserhid(mt);
+		HobbitBean hb=new HobbitBean();
+		hb.setId(Integer.parseInt(hobbit[i]));
+		sBean.setHobbitid(hb);
+		hDto.save(sBean);
+		}
 		return "index";
 	}
 
@@ -218,9 +279,9 @@ public class MemberTestController {
 	@ResponseBody
 	public List<MemberTest> findByGender(HttpSession session, @RequestParam(value = "male") Integer male,
 			@RequestParam(value = "female") Integer female, @RequestParam(value = "account") String account,
-			@RequestParam(value = "name") String name) {
+			@RequestParam(value = "name") String name, 	@RequestParam(value = "address") String address) {
 //		List<MemberTest> members2 = mService.findByGender(male, female);
-		List<MemberTest> members2 = mService.findMem(male, female, account, name);
+		List<MemberTest> members2 = mService.findMem(male, female, account, name, address);
 		System.out.println(members2);
 		return members2;
 	}
@@ -273,7 +334,7 @@ public class MemberTestController {
 	}
 
 	@PostMapping("/sendCode") // 寄送驗證信的註冊
-	public String sendCode(@ModelAttribute("memberTest") MemberTest mt, @RequestParam(value = "account") String account,
+	public String sendCode(@ModelAttribute("memberTest") MemberTest mt, @RequestParam(value = "account") String account, @RequestParam(value = "hobbit") String[] hobbit,
 			@RequestParam(value = "password") String password, HttpServletRequest request,
 			HttpServletResponse response) {
 		mt.setEmail(account);
@@ -282,6 +343,7 @@ public class MemberTestController {
 		System.out.println("送信中");
 		HttpSession session = request.getSession();
 		session.setAttribute("memberTest", mt);
+		session.setAttribute("hobbit", hobbit);
 		boolean flag = mService.sendCode(session, mt);
 		System.out.println(flag);
 		if (flag) {
@@ -290,5 +352,19 @@ public class MemberTestController {
 			return "/index";
 		}
 	}
+	
+    @GetMapping("/lookCode/{token}")
+    public String lookCode(@PathVariable("token")String token, HttpSession session){
+    	MemberTest mt = mService.findByAcc(token);
+    	session.setAttribute("member", mt);
+    	return "userpage";
+    }
+    
+    @PostMapping("/banMem")
+    @ResponseBody
+    public void banMem(@RequestParam(value = "banned") Integer banned, @RequestParam(value = "account") String account) {
+    	System.out.println(banned+","+account);
+    	mService.banMem(banned, account);
+    }
 
 }

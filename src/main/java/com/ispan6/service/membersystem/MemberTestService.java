@@ -2,6 +2,7 @@ package com.ispan6.service.membersystem;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -33,8 +34,8 @@ public class MemberTestService {
 			return mDAO.findByAcc(account);
 		}
 		
-		public void updateByAcc(String account, String avator, String name, String address) {
-			mDAO.updateByAcc(account, avator, name, address);
+		public void updateByAcc(String account, String avator, String name, String address, String phone, String email) {
+			mDAO.updateByAcc(account, avator, name, address, phone, email);
 		}
 		
 		public MemberTest existsByAccount(String account) {
@@ -52,8 +53,8 @@ public class MemberTestService {
 			return mDAO.findByGender(male, female);
 		}
 		
-		public List<MemberTest> findMem(int male, int female, String account, String name) {
-			return mDAO.findMem(male, female, account, name);
+		public List<MemberTest> findMem(int male, int female, String account, String name, String address) {
+			return mDAO.findMem(male, female, account, name, address);
 		}
 		
 	    public boolean sendCode(HttpSession session, MemberTest mt) {
@@ -62,8 +63,15 @@ public class MemberTestService {
 	       else
 	           return false;
 	    }
+	    
+	    public Optional<MemberTest> findById(int id) {
+	    	return mDAO.findById(id);
+	    }
 
-		
+		public void banMem(int banned, String account) {
+			mDAO.banMem(banned, account);
+			
+		}
 		//易查會員資料
 		public List<MemberTest> senderFile(HashSet<Integer> id){
 			return mDAO.senderFile(id);

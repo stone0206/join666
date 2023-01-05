@@ -46,7 +46,7 @@
               <ul class="navbar-nav navbar-nav-scroll ms-auto">
                 <!-- 揪團 -->
                 <li class="nav-item " style="margin-right: 20px;">
-                  <a class="nav-link " href="/msg/page" id="homeMenu" aria-haspopup="true"
+                  <a class="nav-link " href="/page" id="homeMenu" aria-haspopup="true"
                     aria-expanded="false">揪團</a>
                 </li>
 
@@ -140,8 +140,10 @@
                       </div>
                       <div>
                         <!-- 用戶名稱 -->
-
-                        <p class="small m-0">${loginUser.getName()}</p>
+						<a class="dropdown-item" href="/showprofile">
+                           <h3 class="mb-0">
+                        ${loginUser.getName() }
+                    </h3></a>
                       </div>
                     </div>
                   </li>
@@ -149,19 +151,23 @@
                   <li><a class="dropdown-item" href="settings.html"><i class="bi bi-gear fa-fw me-2"></i>Settings &
                       Privacy</a></li>
 
+                                 
                   <li>
+                    <a class="dropdown-item" href="/updateprofile">
+                      <i class="fa-fw bi bi-card-text me-2"></i>修改我的資訊
+                    </a>
+                  </li>    
+                      <li>
+                    <a class="dropdown-item" href="/searchuser">
+                      <i class="fa-fw bi bi-card-text me-2"></i>搜尋會員
+                    </a>
+                  </li> 
+                  <li> 
                     <a class="dropdown-item" href="/toMyOrderPage">
                       <i class="fa-fw bi bi-card-text me-2"></i>我的訂單
                     </a>
                   </li>
-                    <li>
-                    <a class="dropdown-item" href="/showprofile">
-                      <i class="fa-fw bi bi-card-text me-2"></i>個人資訊
-                    </a>
-                  </li>
-                  
-                  
-                  
+
                     <li>
                     <a class="dropdown-item" href="/myreunion">
                       <i class="fa-fw bi bi-card-text me-2"></i>我的聚會
@@ -169,11 +175,16 @@
                   </li>
                   
                   <li>
-                    <a class="dropdown-item" href="/msg/insertreunion">
+                    <a class="dropdown-item" href="/insertreunion">
                       <i class="fa-fw bi bi-card-text me-2"></i>新增聚會
                     </a>
                   </li>
-
+					<c:if test="${loginUser.getAccount()=='admin' }">
+					   <li>
+                    <a class="dropdown-item" href="/memberBackendSet">
+                      <i class="fa-fw bi bi-card-text me-2"></i>前往後台
+                    </a>
+                  </li></c:if>
                   <!-- 登出位置，連接要放登入 -->
 
                   <li><a class="dropdown-item bg-danger-soft-hover" href="/logout" onclick="closeWebSocket()"><i

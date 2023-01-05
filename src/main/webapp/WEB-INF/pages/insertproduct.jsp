@@ -117,7 +117,7 @@ ${contextRoot}<%@ page language="java" contentType="text/html; charset=UTF-8" pa
 										style="width: 100%;"></h4>
 								<div id="labelTitle">標籤</div>
 								<select name="label" id="labelDiv">
-									<option value="1">New</option>
+									<option value="1" selected>New</option>
 									<option value="2">Discount</option>
 									<option value="3">Hot</option>
 									<option value="4">Sale</option>

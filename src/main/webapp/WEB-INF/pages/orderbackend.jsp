@@ -253,7 +253,7 @@
 					let tel = $('#tel').val();
 					let addr = $('#addr').val();
 					fetch("${contextRoot}/updateOrder?id=" + id + "&price=" + price + "&name=" + name + "&tel=" + tel + "&addr=" + addr).then(res => res.text()).then(text => render())
-					aler('修改成功')
+					alert('修改成功')
 				}
 
 				//全選功能與選中

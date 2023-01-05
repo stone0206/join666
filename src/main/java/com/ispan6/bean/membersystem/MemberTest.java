@@ -72,6 +72,17 @@ public class MemberTest {
 
 	@Column(name = "address")
 	private String address;
+	
+	@Column(name = "banned")
+	private int banned;
+
+	public int getBanned() {
+		return banned;
+	}
+
+	public void setBanned(int banned) {
+		this.banned = banned;
+	}
 
 	@OneToMany(mappedBy = "memberTest")
 	private List<ShoppingCartItem> sciList = new ArrayList<ShoppingCartItem>();
@@ -89,8 +100,16 @@ public class MemberTest {
 	@OneToMany(mappedBy = "messageContentUserId")
 	private List<MessageContent> messageContentUserId = new ArrayList<MessageContent>();
 	
-	@OneToMany(mappedBy = "userhid")
+	@OneToMany(mappedBy = "userhid",fetch = FetchType.LAZY)
 	private List<SelfHobbitBean> userhid=new ArrayList<SelfHobbitBean>();
+
+	public List<SelfHobbitBean> getUserhid() {
+		return userhid;
+	}
+
+	public void setUserhid(List<SelfHobbitBean> userhid) {
+		this.userhid = userhid;
+	}
 
 	public MemberTest() {
 		super();

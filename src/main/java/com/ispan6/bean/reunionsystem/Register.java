@@ -42,6 +42,7 @@ public class Register {
 	@Column(name="review ")
 	private Integer review ;
 
+	
 	public Integer getRegisterid() {
 		return registerid;
 	}

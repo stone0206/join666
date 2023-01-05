@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ispan6.bean.mallsystem.Product;
 import com.ispan6.bean.matchsystem.MatchBean;
 import com.ispan6.bean.matchsystem.SelfHobbitBean;
 import com.ispan6.bean.membersystem.MemberTest;
@@ -24,9 +25,9 @@ public class MatchController {
 	@Autowired
 	private MatchService matchService;
 
-
 	@Autowired
-	private SelfHabbitService selfService;
+	private SelfHabbitService  hService;
+	
 	
 	@GetMapping("/getFriendNotice")
 	public String getFriendNotice() {
@@ -35,13 +36,19 @@ public class MatchController {
 	}
 
 	@GetMapping("/addfriend")
-	public String addFriendPage(Model m,HttpSession session) {
+	public String addFriendPage(HttpSession session) {
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
-
-		MemberTest random = matchService.random1(member.getId(),member.getId());
-		System.out.println(random);
-		m.addAttribute("random", random);
+		matchService.getMatch(member.getId(),member.getId());
 		return "addfriend";
+	}
+	
+	@GetMapping("/getMatch")
+	@ResponseBody
+	public List<MemberTest> getMatch(HttpSession session,Model m) {
+		MemberTest member = (MemberTest) session.getAttribute("loginUser");
+		List<SelfHobbitBean> list = hService.findMatch();
+		m.addAttribute("list",list);
+		return matchService.getMatch(member.getId(),member.getId());
 	}
 
 	// 顯示好友清單
@@ -179,5 +186,14 @@ public class MatchController {
 			MemberTest member = (MemberTest) session.getAttribute("loginUser");
 			matchService.cancelblock(id);
 			return matchService.findMyBlock(member.getId());
+		}
+		
+		//條件查詢
+		@GetMapping("/findByHobbitAndGender")
+		@ResponseBody
+		public List<MemberTest> findByHobbitAndGender(@RequestParam Integer[] typeCondi, Integer[] labelCondi, HttpSession session) {
+			MemberTest member = (MemberTest) session.getAttribute("loginUser");
+
+			return hService.findByHobbitAndGender(typeCondi,labelCondi,member.getId());
 		}
 }

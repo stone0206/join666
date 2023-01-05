@@ -20,7 +20,17 @@ public class ReunionsystemService {
 //	public WorkMessageService(WorkMessageRepository wRepo) {
 //		this.wRepo = wRepo;
 //	}
-//	
+	
+	
+	public List<Reunion> findDateRange(String start,String end){
+		return reunionsystemRepository.findDateRange(start,end);	
+	}
+	
+	public List<Reunion> blurrysearchReunion(String i){
+		return reunionsystemRepository.blurrysearchReunion(i);	
+	}
+	
+	
 	public List<Reunion> findAllReunion(){
 		return reunionsystemRepository.findAll();	
 	}
@@ -37,6 +47,10 @@ public class ReunionsystemService {
 		reunionsystemRepository.save(reunion);
 	}
 	
+	public void addReunionnumber(Integer id) {
+		reunionsystemRepository.addReunionnumber(id);
+	}
+	
 	
 	public List<Reunion> findAllByMemberId(Integer i) {
 		return reunionsystemRepository.findAllByMemberId(i);
@@ -44,6 +58,11 @@ public class ReunionsystemService {
 	
 	public Reunion findByReunionId(Integer i) {
 		return reunionsystemRepository.findByReunionId(i);
+	}
+	
+	
+	public void deleteReunionByReunionId(Integer Id) {
+		reunionsystemRepository.deleteById(Id);
 	}
 	
 //	public void insert(Reunion msg) {

@@ -358,8 +358,13 @@
 							productData += '<img class="card-img-top" src="' + value.img + '"style="height: 180px" />';
 							productData += '<div class="card-body p-4"><div class="text-center">';
 							productData += '<h5 class="fw-bolder">' + value.name + '</h5>';
-							productData += '<span class="text-muted text-decoration-line-through">$' + value.price + '</span>';
-							productData += '$' + value.price + '</div></div >';
+							if (value.label == 2) {
+								let originP = Math.round(value.price / 0.8);
+								productData += '<span class="text-muted text-decoration-line-through" style="margin-right:10px">$' + originP + '</span>';
+								productData += '$' + value.price + '</div></div >';
+							} else {
+								productData += '$' + value.price + '</div></div >';
+							}
 							productData += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent"><div class="text-center">'
 							productData += '<a class="btn btn-outline-dark" href="/openProductDetail?productId=' + value.id + '" style="margin-right:10px">查看詳情</a>'
 							productData += '<a class="btn btn-outline-dark" onclick="addToCart(' + value.id + ')">加入購物車</a>'

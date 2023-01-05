@@ -35,6 +35,20 @@ public interface ReunionsystemRepository extends JpaRepository<Reunion,Integer> 
 	public Reunion findByReunionId(@Param("reunionid") String reunionid);
 	@Query("from Reunion where reunionid = ?1")
 	public Reunion findByReunionId(Integer id);
+	
+	
+	@Transactional
+	@Modifying
+	@Query(value = " UPDATE reunion	SET number = number + 1 WHERE reunionid = ?1",nativeQuery = true)
+	public void addReunionnumber(Integer id);
+	
+	
+	@Query(value = "Select * FROM reunion Where topic LIKE ?1 or　content　LIKE ?1",nativeQuery = true)
+	public List<Reunion> blurrysearchReunion(String i);
+	
+	
+	@Query(value ="Select * from reunion where holdTime between ?1 and ?2",nativeQuery = true)
+	public List<Reunion> findDateRange(String start,String end);
 
 //	@Query("from WorkMessages where text=?1")
 //	public List<Reunion> findMsgByText(String text);

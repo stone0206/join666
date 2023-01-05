@@ -45,6 +45,14 @@
 					border: 1px solid grey;
 					margin-left: 30px;
 				}
+
+				#preview {
+					margin-top: 20px;
+				}
+
+				#preview table tr td {
+					border: 1px solid black;
+				}
 			</style>
 		</head>
 
@@ -62,43 +70,60 @@
 									<div class="col-5" style="border-right: 3px dashed grey;">
 										<div>
 											<div>
-												<form action="">搜尋:
-													<input type="text" name="" id="search-input" placeholder="key word">
-													<input type="submit" class="btn" value="送出">
+												<form action="">
+													搜尋: <input type="text" name="" id="search-input"
+														placeholder="key word"> <input type="submit" class="btn"
+														value="送出">
 												</form>
 											</div>
 										</div>
 										<div class="fatherDiv" style="margin-bottom: 20px;"
 											onchange="searchCondition()">
 											<div>類型:</div>
-											<div><input type="checkbox" id="1" value="1" name="type"><label
-													for="1">派對道具</label></div>
-											<div><input type="checkbox" id="2" value="2" name="type"><label
-													for="2">桌遊</label></div>
-											<div><input type="checkbox" id="3" value="3" name="type"><label
-													for="3">裝飾用品</label></div>
-											<div><input type="checkbox" id="4" value="4" name="type"><label
-													for="4">票券</label></div>
+											<div>
+												<input type="checkbox" id="1" value="1" name="type"><label
+													for="1">派對道具</label>
+											</div>
+											<div>
+												<input type="checkbox" id="2" value="2" name="type"><label
+													for="2">桌遊</label>
+											</div>
+											<div>
+												<input type="checkbox" id="3" value="3" name="type"><label
+													for="3">裝飾用品</label>
+											</div>
+											<div>
+												<input type="checkbox" id="4" value="4" name="type"><label
+													for="4">票券</label>
+											</div>
 										</div>
 										<div class="fatherDiv" onchange="searchCondition()">
 											<div>標籤:</div>
-											<div><input type="checkbox" id="5" value="1" name="label"><label
-													for="5">New</label></div>
-											<div><input type="checkbox" id="6" value="2" name="label"><label
-													for="6">Discount</label></div>
-											<div><input type="checkbox" id="7" value="3" name="label"><label
-													for="7">Hot</label></div>
-											<div><input type="checkbox" id="8" value="4" name="label"><label
-													for="8">Sales</label></div>
+											<div>
+												<input type="checkbox" id="5" value="1" name="label"><label
+													for="5">New</label>
+											</div>
+											<div>
+												<input type="checkbox" id="6" value="2" name="label"><label
+													for="6">Discount</label>
+											</div>
+											<div>
+												<input type="checkbox" id="7" value="3" name="label"><label
+													for="7">Hot</label>
+											</div>
+											<div>
+												<input type="checkbox" id="8" value="4" name="label"><label
+													for="8">Sales</label>
+											</div>
 										</div>
 									</div>
 									<div class="col-5" style="border-right: 3px dashed grey;">
-										<form action="/" method="post">
+										<form action="/" method="post" id="functionForm">
 											<div class="row">
-												<div class="col">
-													<div>更換類型:
-														<select name="type" id="type"
-															style="width: 90px;height: 30px;margin: 0px 20px 10px;">
+												<div class="col-8">
+													<div>
+														更換類型: <select name="type" id="type"
+															style="width: 90px; height: 30px; margin: 0px 20px 10px;">
 															<option selected>請選擇</option>
 															<option value="1">派對道具</option>
 															<option value="2">桌遊</option>
@@ -106,19 +131,26 @@
 															<option value="4">票券</option>
 														</select>
 													</div>
-													<div>更換標籤:
-														<select name="label" id="label"
-															style="width: 90px;height: 30px;margin: 10px 20px;">
+													<div>
+														更換標籤: <select name="label" id="label"
+															style="width: 90px; height: 30px; margin: 10px 20px;">
 															<option selected>請選擇</option>
 															<option value="1">New</option>
 															<option value="2">Discount</option>
 															<option value="3">Hot</option>
 															<option value="4">Sales</option>
+														</select> <select name="discountNumer" id="discountNumer"
+															style="display: none; width: 80px; height: 30px;">
+															<option selected>請選擇</option>
+															<option value="0.9">9折</option>
+															<option value="0.8">8折</option>
+															<option value="0.7">7折</option>
+															<option value="0.6">6折</option>
 														</select>
 													</div>
-													<div>更換狀態:
-														<select name="status" id="status"
-															style="width: 90px;height: 30px;margin: 10px 20px 0px;">
+													<div>
+														更換狀態: <select name="status" id="status"
+															style="width: 90px; height: 30px; margin: 10px 20px 0px;">
 															<option selected>請選擇</option>
 															<option value="0">上架</option>
 															<option value="1">下架</option>
@@ -126,7 +158,7 @@
 
 													</div>
 												</div>
-												<div class="col" style="text-align: center;">
+												<div class="col-4" style="text-align: center;">
 													<input class="btn btn-primary" type="submit" value="確認送出"
 														id="smform"></input>
 												</div>
@@ -134,19 +166,52 @@
 										</form>
 									</div>
 									<div class="col-2">
-										<div style="margin-bottom: 20px;"><button class="btn btn-primary"
-												onclick="insertProduct()">新增商品</button>
+										<div style="margin-bottom: 20px;">
+											<button class="btn btn-primary" onclick="insertProduct()">新增商品</button>
 										</div>
-										<div><button class="btn btn-primary">批量新增</button></div>
+										<div>
+											<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+												data-bs-target="#exampleModal">
+												批量新增
+											</button>
+										</div>
 									</div>
 								</div>
 							</class>
 						</div>
 
+						<!-- Modal -->
+						<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<form action="/CSVReader" id="csv-form" method="post" enctype="multipart/form-data">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Upload File</h5>
+										</div>
+										<div class="modal-body">
+											<div class="input-group">
+												<input type="file" name="file" id="csv-file" accept=".csv"
+													class="form-control" aria-describedby="csv-file"
+													aria-label="Upload">
+											</div>
+											<div id="preview"></div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-bs-dismiss="modal">cancel</button>
+											<button type="submit" class="btn btn-primary">upload</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
 
 						<div class="card mb-4">
 							<div class="card-header">
-								<i style="font-size:16px;cursor:pointer" class="fa" onclick="render()">&#xf021;</i> 商品列表
+								<i style="font-size: 16px; cursor: pointer" class="fa" onclick="render()">&#xf021;</i>
+								商品列表
 							</div>
 							<div class="card-body container-fluid">
 								<table class="table table-striped table-sm">
@@ -331,10 +396,50 @@
 					if (status == '請選擇') {
 						status = 3
 					}
+					let discountNumber = $('#discountNumer').val();
+					if (discountNumber == '請選擇') {
+						discountNumber = 0;
+					}
 					if (confirm('是否確定編輯？')) {
-						fetch('${contextRoot}/mutipleUpdate?type=' + type + '&label=' + label + '&status=' + status + '&target=' + productArr).then(res => res.json()).then(json => showProductItem(json))
+						fetch('${contextRoot}/mutipleUpdate?type=' + type + '&label=' + label + '&status=' + status + '&discountNumber=' + discountNumber + '&target=' + productArr).then(res => res.json()).then(json => showProductItem(json))
 					}
 				})
+
+				$('#label').change(function () {
+					if ($('#label').val() == 2) {
+						$('#discountNumer').css('display', 'inline')
+					}
+				})
+
+
+				//讀取並預覽檔案
+				document.getElementById('csv-form').addEventListener('change', function () {
+
+					var fileInput = document.getElementById('csv-file');
+					var file = fileInput.files[0];
+
+					var reader = new FileReader();
+
+					reader.readAsText(file);
+					reader.onload = function () {
+						var csvString = reader.result;
+						var lines = csvString.split('\n');
+						var table = document.createElement('table');
+						for (var i = 0; i < lines.length; i++) {
+							var fields = lines[i].split(',');
+							var row = document.createElement('tr');
+							for (var j = 0; j < fields.length; j++) {
+								var cell = document.createElement('td');
+								cell.textContent = fields[j];
+								row.appendChild(cell);
+							}
+							table.appendChild(row);
+						}
+
+						document.getElementById('preview').appendChild(table);
+					}
+				});
+
 
 			</script>
 		</body>

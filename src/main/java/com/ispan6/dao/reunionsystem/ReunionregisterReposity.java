@@ -29,7 +29,11 @@ public interface ReunionregisterReposity extends JpaRepository<Register,Integer>
 	
 	
 	@Query(value = "SELECT * FROM register where reunionid　=?1 ORDER BY review",nativeQuery = true)
-	List<Register> findRegisterByReunionid(Integer reunionid);
+	public List<Register> findRegisterByReunionid(Integer reunionid);
+	
+	
+	@Query(value = "SELECT * FROM register where memberid　=?1 ",nativeQuery = true)
+	public List<Register> findRegisterByMemberid(Integer memberid);
 	
 	@Transactional
 	@Modifying
@@ -40,4 +44,9 @@ public interface ReunionregisterReposity extends JpaRepository<Register,Integer>
 	@Modifying
 	@Query(value = "UPDATE register SET review=2 where reunionid = ?1 and memberid =?2",nativeQuery = true)
 	void notagreeRegisterByReunionidAndMemberid(Integer reunionid, Integer memberid);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "delete from register where reunionid = ?1",nativeQuery = true)
+    void deleteregisterById(Integer id);
 }

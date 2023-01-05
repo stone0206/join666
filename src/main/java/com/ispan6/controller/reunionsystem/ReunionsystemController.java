@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.bean.reunionsystem.Payment;
@@ -49,7 +50,7 @@ public class ReunionsystemController {
 
 	
 	
-	@GetMapping("/msg/page")
+	@GetMapping("/page")
 	public String getReunion(HttpSession session) {
 		//先將網頁全部重置
 		List<Reunion> reunion = reunionsystemService.findAllReunion();
@@ -62,6 +63,23 @@ public class ReunionsystemController {
 	}
 	
 	
+	@PostMapping("/dateRange")
+	public String searchByPaymentId(String start,String end, Model model) {
+		System.out.println(start);
+		System.out.println(end);
+		List<Reunion> reunion = reunionsystemService.findDateRange(start, end);
+		model.addAttribute("reunion",reunion);
+		return "reunion";
+	}
+	
+	@PostMapping("/blurrysearchReunion")
+	public String searchByPaymentId(String keywords, Model model) {
+		System.out.println(keywords);
+		String keywords2="%"+keywords+"%";
+		List<Reunion> reunion = reunionsystemService.blurrysearchReunion(keywords2);
+		model.addAttribute("reunion", reunion);
+		return "reunion";
+	}
 	
 	
 	
@@ -81,7 +99,7 @@ public class ReunionsystemController {
 	}
 	
 	
-	@GetMapping("/msg/insertreunion")
+	@GetMapping("/insertreunion")
 	public String insertreunion(Model model) {
 		
 		
@@ -101,16 +119,27 @@ public class ReunionsystemController {
 	public String insertReunion(Reunion reunion,HttpSession session) {
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
 		int memberid = member.getId();
+		String content = reunion.getContent();
+		String content1 = content.replaceAll("<br>", "\r\n");
+		reunion.setContent(content1);
 		reunion.setMemberid(memberid);
+		reunion.setNumber(0);
 		reunionsystemService.insertReunion(reunion);
-		return "redirect:/msg/page";
+		return "redirect:/page";
+	}
+	
+	
+	@GetMapping("/deleteReunion")
+	public String deleteReunion(@RequestParam Integer id) {
+		
+		reunionsystemService.deleteReunionByReunionId(id);
+		return "redirect:/myreunion";
 	}
 	
 	//新增報名
 
 
-	@GetMapping("/insertRegister")
-	@ResponseBody
+	@GetMapping("/insertRegister")	
 	public String insertRegister(@RequestParam Integer id,HttpSession session) {				
 		MemberTest member = (MemberTest) session.getAttribute("loginUser");
 		int memberid = member.getId();
@@ -120,45 +149,51 @@ public class ReunionsystemController {
 		Register register = new Register();
 		register.setMemberid(memberid);
 		register.setReunionid(id);
+		register.setReview(0);
 		reunionregisterService.insertRegister(register);
-		return "報名成功";
+		
 		}
-		if(flag==false) {
-		return"已報名";	
-		}
-		return "unexpect wrong please contact with engineer";
+	
+		return "redirect:/detailedreunion?id="+id;
 	}
 	//聚會報名審核
-//	@GetMapping("/searchRegisterByReunionId")
-//	public String searchRegisterByReunionId(@RequestParam Integer id, Model model) {
-//		List<Register> register = reunionregisterService.findRegisterByReunionid(id);
-//		model.addAttribute("register", register);
-//		System.out.println(register);
-//		return "reviewreunion";
-//	}
-//>>>>>>> origin/master
-//	
+	@GetMapping("/searchRegisterByReunionId")
+	public String searchRegisterByReunionId(@RequestParam Integer id, Model model) {
+		List<Register> register = reunionregisterService.findRegisterByReunionid(id);
+		model.addAttribute("register", register);
+		Integer count = reunionregisterService.findCountRegisterByReunionid(id);
+	    Reunion reunion = reunionsystemService.findByReunionId(id);
+	    model.addAttribute("count", count);
+	    model.addAttribute("reunion", reunion);
+		System.out.println(register);
+		return "reviewreunion";
+	}
+
 	//同意報名
 	    @GetMapping("/agreeRegister")
-		public String agreeRegisterByReunionidAndMemberid(@RequestParam Integer reunionid,Integer memberid) {
-	    	 Integer count = reunionregisterService.findCountRegisterByReunionid(reunionid);
-	    	Reunion reunion = reunionsystemService.findByReunionId(reunionid);
+		public String agreeRegisterByReunionidAndMemberid(@RequestParam Integer id,Integer memberid, Model model) {
+	    	 Integer count = reunionregisterService.findCountRegisterByReunionid(id);
+	    	Reunion reunion = reunionsystemService.findByReunionId(id);
 	    	System.out.println(reunion.getPeople());
 	    	System.out.println(count);
-	    	System.out.println(reunionid);
+	    	System.out.println(id);
 	    	System.out.println(memberid);
+	    	
+	    	
+	    	model.addAttribute("id", id);
 	    	 if(reunion.getPeople()>count) {
-			reunionregisterService.agreeRegisterByReunionidAndMemberid(reunionid, memberid);
+			reunionregisterService.agreeRegisterByReunionidAndMemberid(id, memberid);
 	    	 }
-			return "reunion";
+			return "redirect:/searchRegisterByReunionId?id="+id;
 		}
 	    
 	  //不同意報名
 	    @GetMapping("/notagreeRegister")
-		public String notagreeRegisterByReunionidAndMemberid(@RequestParam Integer reunionid,Integer memberid) {
-		   
-			reunionregisterService.notagreeRegisterByReunionidAndMemberid(reunionid, memberid);
-			return "reunion";
+		public String notagreeRegisterByReunionidAndMemberid(@RequestParam Integer id,Integer memberid, Model model) {
+			reunionregisterService.notagreeRegisterByReunionidAndMemberid(id, memberid);			
+			model.addAttribute("id", id);
+			System.out.println(id);
+			return "redirect:/searchRegisterByReunionId?id="+id;
 		}
 	
 	
@@ -198,7 +233,8 @@ public class ReunionsystemController {
 		int memberid = member.getId();
 		reunionreport.setMemberid(memberid);
 		reunionreportService.insertReunionreport(reunionreport);
-		return "reunion";
+		Integer id = reunionreport.getReunionid();
+		return "redirect:/detailedreunion?id="+id;
 	}
 	
 
@@ -222,8 +258,6 @@ public class ReunionsystemController {
 	
 	@GetMapping("/test2")
 	public String test2(Model model) {
-		
-		
 		return "detailedreunion";
 	}
 	
@@ -233,12 +267,15 @@ public class ReunionsystemController {
 		if(member != null) {
 			System.out.println(member);
 			List<Reunion> reunion=reunionsystemService.findAllByMemberId(member.getId());
+			List<Register> register = reunionregisterService.findRegisterByMemberid(member.getId());
+			List<Reunionreport> reunionreport = reunionreportService.findReunionreportByMemberid(member.getId());
 			session.setAttribute("reunion", reunion);
-			
+			session.setAttribute("register", register);
+			session.setAttribute("reunionreport", reunionreport);
 		}
 		
 		
-		return "myreunion";
+		return "myreunion2";
 	}
 	
 	@GetMapping("/detailedreunion")
@@ -252,14 +289,25 @@ public class ReunionsystemController {
 		model.addAttribute("flag1",flag1);
 		model.addAttribute("flag",flag);
 		}
-		
+		reunionsystemService.addReunionnumber(id);
 		Reunion reunion = reunionsystemService.findByReunionId(id);
+		String content = reunion.getContent();
+		String content1 = content.replaceAll("<br>", "\r\n");
+		reunion.setContent(content1);
+		
 		Integer registercount = reunionregisterService.findCountRegisterByReunionid(id);
 		model.addAttribute("reunion", reunion);
 		model.addAttribute("registercount", registercount);
 		
+		Integer count = reunionregisterService.findCountRegisterByReunionid(id);
+	    //Reunion reunion = reunionsystemService.findByReunionId(id);
+	    model.addAttribute("count", count);
+	   // model.addAttribute("reunion", reunion);
+		
 		return "detailedreunion";
 	}
+	
+	
 	
 	@ResponseBody
 	@GetMapping("/TestM")
