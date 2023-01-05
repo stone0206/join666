@@ -138,7 +138,7 @@ public class BackEndController {
 				productBefore.setStatus(status);
 			}
 			if (discountNumber != 0) {
-				int price = (int) (productBefore.getPrice() * discountNumber);
+				double price = productBefore.getPrice() * discountNumber;
 				productBefore.setPrice(price);
 			}
 			productService.insertProduct(productBefore);
@@ -166,6 +166,7 @@ public class BackEndController {
 	}
 
 	@GetMapping("/updateOrder")
+	@ResponseBody
 	public String updateOrder(OrderBean orderBean) {
 		OrderBean target = orderBeanService.findById(orderBean.getId());
 		target.setAddr(orderBean.getAddr());
