@@ -42,5 +42,8 @@ public class ParticipantsService {
 		memberTest.setId(userId);
 		return participantsDAO.findGroupFile(memberTest);
 	}
-	
+	//群組有幾人
+	public List<Participants> findGroupId(Integer groupId){
+		return participantsDAO.findGroupId(groupId);
+	}
 }

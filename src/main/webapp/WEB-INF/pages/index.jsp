@@ -291,6 +291,7 @@ a {
 	<footer>
 		<jsp:include page="/WEB-INF/layout/footer.jsp" />
 		<jsp:include page="${contextRoot}/WEB-INF/layout/chat.jsp" />
+		<jsp:include page="${contextRoot}/WEB-INF/pages/game.jsp" />
 
 	</footer>
 </body>

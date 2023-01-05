@@ -176,7 +176,7 @@
 
                   <!-- 登出位置，連接要放登入 -->
 
-                  <li><a class="dropdown-item bg-danger-soft-hover" href="/logout"><i
+                  <li><a class="dropdown-item bg-danger-soft-hover" href="/logout" onclick="closeWebSocket()"><i
                         class="bi bi-power fa-fw me-2"></i>登出</a></li>
                   <li>
                     <hr class="dropdown-divider">

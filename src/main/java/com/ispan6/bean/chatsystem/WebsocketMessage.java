@@ -14,13 +14,16 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class WebsocketMessage {
 	// 发送者name
 	public String from;
-	// 接收者name 0上线消息 -1给所有人 -2下线消息 4上限給朋友
+	// 接收者name 0上线消息 -1给所有人 -2下线消息 4上限給朋友 
 	public String to;
 	// 发送的文本
 	public String text;
 	
 	public int messageId;
 	
+	public int groupRoom;
+	public int groupType;
+	//1傳訊息 2收回訊息 3傳遊戲同意
 	public int type;
 	
 	// 发送时间
@@ -78,4 +81,20 @@ public class WebsocketMessage {
 		this.type = type;
 	}
 
+	public int getGroupRoom() {
+		return groupRoom;
+	}
+
+	public void setGroupRoom(int groupRoom) {
+		this.groupRoom = groupRoom;
+	}
+
+	public int getGroupType() {
+		return groupType;
+	}
+
+	public void setGroupType(int groupType) {
+		this.groupType = groupType;
+	}
+	
 }

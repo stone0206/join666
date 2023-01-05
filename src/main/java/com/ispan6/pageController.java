@@ -65,4 +65,8 @@ public class pageController {
 		return "signup4";
 	}
 	
+	@RequestMapping("/game")
+	public String game() {
+		return "game";
+	}
 }

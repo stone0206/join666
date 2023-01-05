@@ -20,4 +20,8 @@ public interface ParticipantsDAO extends JpaRepository<Participants, Integer> {
 	
 	@Query("from Participants p where p.participantsUserId=?1")
 	public List<Participants> findGroupFile(MemberTest participantsUserId);
+	
+	//群組有幾人
+	@Query("from Participants p where p.groupId=?1")
+	public List<Participants> findGroupId(Integer groupId);
 }

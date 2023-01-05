@@ -53,12 +53,14 @@ public class WebSocketServer {
 		WebsocketMessage msg = new WebsocketMessage();
 		msg.setTo("0");
 		msg.setText(String.valueOf(onlineCount));
+		msg.setFrom(userId);
 		broadcast(JSON.toJSONString(msg, true));
 	}
 
 	// 关闭连接时调用
 	@OnClose
 	public void onClose(@PathParam(value = "username") String userId) {
+		
 		sessionPools.remove(userId);
 		subOnlineCount();           //在線數減1
 		// 广播下线消息
@@ -69,9 +71,11 @@ public class WebSocketServer {
 //		msg.setText(userName);
 //		broadcast(JSON.toJSONString(msg, true));
 		WebsocketMessage msg = new WebsocketMessage();
-		msg.setTo("0");
+		msg.setTo("-2");
 		msg.setText(String.valueOf(onlineCount));
+		msg.setFrom(userId);
 		broadcast(JSON.toJSONString(msg, true));
+		
 	}
 
 	// 收到客户端信息后，根据接收人的username把消息推下去或者群发
@@ -84,10 +88,14 @@ public class WebSocketServer {
 //		System.out.println("userId"+msg.getTo());
 		msg.setDate(new Date());
 		if (msg.getTo().equals("4")) {
+			
 			String userName=msg.getText();
+			
 			Session session = sessionPools.get(userName);
 			if (session!=null) {
+				System.out.println(userName);
 				sendInfo(msg.getFrom(), JSON.toJSONString(msg, true));
+				
 			}
 		}else if (msg.getTo().equals("-1")) {
 			broadcast(JSON.toJSONString(msg, true)); // -1群发

@@ -1,5 +1,6 @@
 package com.ispan6.service.chatsystem;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,13 @@ public class MessageService {
 	//收回訊息
 	public void backMessage(String text,Integer messageId) {
 		messageDAO.backMessage(text, messageId);
+	}
+	//已讀
+	public void readMessage(String ifRead,Integer groupId,Integer senderId) {
+		messageDAO.readMessage(ifRead, groupId, senderId);
+	}
+	//已讀資訊
+	public List<MessageContent> readMessageFile(Integer groupId){
+		return messageDAO.readMessageFile(groupId);
 	}
 }
