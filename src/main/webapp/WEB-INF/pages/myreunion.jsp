@@ -147,7 +147,7 @@
 				</div>
 				
 				
-				<c:forEach var="reunion" items="${reunion}">
+				<c:forEach var="reunion" items="">
 					<div class="col">
 						<div class="card shadow-sm">
 						<a href="/detailedreunion?id=${reunion.reunionid}">

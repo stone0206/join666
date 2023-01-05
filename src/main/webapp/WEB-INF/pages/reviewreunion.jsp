@@ -53,6 +53,9 @@
 					<div class="card-header">
 						<i class="fas fa-table me-1"></i> 審核報名
 					</div>
+					<c:if test="${reunion.getPeople()<=count}">
+					報名已額滿
+					</c:if>
 					<div class="card-body container-fluid">
 						<table class="table table-striped table-sm">
 							<thead>
@@ -92,20 +95,28 @@
 										
 										
 <td rowspan="2" valign="middle">
-<c:if test="${memberContent.review==0}">										<!-- Button trigger modal -->
+<c:if test="${memberContent.review==0}">
+
+<c:if test="${reunion.getPeople()<=count}">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="">
+  未審核
+</button>
+</c:if>
+<c:if test="${reunion.getPeople()>count}">								<!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${memberContent.memberid}">
   審核
 </button>
 </c:if>
+</c:if>
 
 <c:if test="${memberContent.review==1}">										<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${memberContent.memberid}" id="${memberContent.memberid}">
+<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="" id="${memberContent.memberid}">
   已同意
 </button>
 </c:if>
 
 <c:if test="${memberContent.review==2}">										<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal${memberContent.memberid}"id="${memberContent.memberid }">
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=""id="${memberContent.memberid }">
   不同意
 </button>
 </c:if>
@@ -123,8 +134,8 @@
       </div>
       <div class="modal-footer">
       
-        <a href="/notagreeRegister?reunionid=${memberContent.reunionid}&memberid=${memberContent.memberid}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">不同意</button></a>
-        <a href="/agreeRegister?reunionid=${memberContent.reunionid}&memberid=${memberContent.memberid}"><button type="button" class="btn btn-primary">同意</button></a>
+        <a href="/notagreeRegister?id=${memberContent.reunionid}&memberid=${memberContent.memberid}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">不同意</button></a>
+        <a href="/agreeRegister?id=${memberContent.reunionid}&memberid=${memberContent.memberid}"><button type="button" class="btn btn-primary">同意</button></a>
       </div>
       
      

@@ -167,10 +167,10 @@ Custom styles for this template
 		
 
 							<div class="v">
-								<label for="address" class="form-label">聚會人數</label> <input
+								<label for="address" class="form-label">報名人數</label> <input
 									type="text" class="form-control" id="address"
 									placeholder="請輸入人數" required name="people">
-								<div class="invalid-feedback">請輸入聚會人數</div>
+								<div class="invalid-feedback">請輸入報名人數</div>
 							</div>
 
 
@@ -180,9 +180,13 @@ Custom styles for this template
 									autocomplete="off" name="activity">
 
 									<option value="none" selected disabled hidden>請選擇選項</option>
-									<option value="1">一般聚會</option>
-									<option value="2">男女聯誼</option>
-									<option value="3">正常交友</option>
+									<option value="1">影音展演</option>
+									<option value="2">遊戲卡牌</option>
+									<option value="3">旅行出遊</option>
+									<option value="4">運動健身</option>
+									<option value="5">美食美酒</option>
+									<option value="6">唱歌派對</option>
+									<option value="7">其他</option>
 								</select>
 								<div class="invalid-feedback">請輸入類型</div>
 							</div>
@@ -197,9 +201,9 @@ Custom styles for this template
 									autocomplete="off" name="payment">
 
 									<option value="none" selected disabled hidden>請選擇付款方式</option>
-									<option value="1">男方請客</option>
-									<option value="2">先匯款</option>
-									<option value="3">AA</option>
+									<option value="1">各付各的</option>
+									<option value="2">我請客</option>
+									<option value="3">你買單</option>
 								</select>
 								<div class="invalid-feedback">請選擇付款方式</div>
 							</div>

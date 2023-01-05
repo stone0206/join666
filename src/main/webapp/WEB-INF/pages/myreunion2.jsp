@@ -65,6 +65,7 @@
 					<table class="table table-striped table-sm">
 						<thead>
 							<tr style="text-align: center;">
+							    <th>圖片</th>
 								<th>聚會類型</th>
 								<th>聚會名稱</th>
 								<th>發起人</th>
@@ -77,6 +78,8 @@
 						
 							<c:forEach var="reunion" items="${reunion}">
 								<tr>
+								<td><a href="/detailedreunion?id=${reunion.reunionid}"><img class="" src="${reunion.picture}" alt="avatar"width="80" height="80"style="border-radius: 50px;"></a></td>
+								    
 									<td>${reunion.reuniontype.reutype}</td>
 									<td>${reunion.topic}</td>
 									<td>${reunion.memberTest.name}</td>
@@ -120,6 +123,7 @@
 					<table class="table table-striped table-sm">
 						<thead>
 							<tr style="text-align: center;">
+							    <th>圖片</th>
 								<th>聚會類型</th>
 								<th>聚會名稱</th>
 								<th>發起人</th>
@@ -132,6 +136,7 @@
 						<tbody id="table">
 							<c:forEach var="register" items="${register}">
 								<tr>
+								<td><a href="/detailedreunion?id=${register.reunion.reunionid}"><img class="" src="${register.reunion.picture}" alt="avatar"width="80" height="80"style="border-radius: 50px;"></a></td>
 									<td>${register.reunion.reuniontype.reutype}</td>
 									<td>${register.reunion.topic}</td>
 									<td>${register.reunion.memberTest.name}</td>
@@ -172,6 +177,7 @@
 					<table class="table table-striped table-sm">
 						<thead>
 							<tr style="text-align: center;">
+							    <th>圖片</th>
 								<th>聚會類型</th>
 								<th>聚會名稱</th>
 								<th>發起人</th>
@@ -184,6 +190,7 @@
 						<tbody id="table">
 							<c:forEach var="reunionreport" items="${reunionreport}">
 								<tr>
+								    <td><a href="/detailedreunion?id=${reunionreport.reunion.reunionid}"><img class="" src="${reunionreport.reunion.picture}" alt="avatar"width="80" height="80"style="border-radius: 50px;"></a></td>
 									<td>${reunionreport.reunion.reuniontype.reutype}</td>
 									<td>${reunionreport.reunion.topic}</td>
 									<td>${reunionreport.reunion.memberTest.name}</td>
