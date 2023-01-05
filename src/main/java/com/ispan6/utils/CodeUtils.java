@@ -31,9 +31,8 @@ public class CodeUtils {
             messageHelper.setSubject("歡迎使用約約");  // 邮箱标题
             String html = "<html>\n" +
                     "<body>\n" +
-                    "<p>請點擊下面連結完成驗證</p>\n" +
+                    "<p>您的驗證碼為：</p>" +
                     token+"\n"+
-                    "<a href=\"http://localhost:8080/lookCode/"+token+"\">http://localhost:8080/lookCode/"+token+"</a>" +
                     "</body>\n" +
                     "</html>";
             messageHelper.setText(html,true); // 邮箱内容
