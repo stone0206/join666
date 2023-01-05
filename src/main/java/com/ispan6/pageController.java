@@ -65,4 +65,10 @@ public class pageController {
 		return "signup4";
 	}
 	
+	@RequestMapping("/bannedpage")
+	public String bannedPage() {
+		return "bannedpage";
+	}
+	
+	
 }

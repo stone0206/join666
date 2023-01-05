@@ -53,8 +53,8 @@ public class MemberTestService {
 			return mDAO.findByGender(male, female);
 		}
 		
-		public List<MemberTest> findMem(int male, int female, String account, String name) {
-			return mDAO.findMem(male, female, account, name);
+		public List<MemberTest> findMem(int male, int female, String account, String name, String address) {
+			return mDAO.findMem(male, female, account, name, address);
 		}
 		
 	    public boolean sendCode(HttpSession session, MemberTest mt) {
@@ -68,7 +68,10 @@ public class MemberTestService {
 	    	return mDAO.findById(id);
 	    }
 
-		
+		public void banMem(int banned, String account) {
+			mDAO.banMem(banned, account);
+			
+		}
 		//易查會員資料
 		public List<MemberTest> senderFile(HashSet<Integer> id){
 			return mDAO.senderFile(id);

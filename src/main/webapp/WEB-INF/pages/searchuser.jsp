@@ -141,7 +141,9 @@
 		function findMember(){
 			var account= $('#account').val();
 			var name=$('#name').val();
-			var address=$('#taiwan').val()+$('#coun').val();
+			var taiwan=$('#taiwan');
+			var address=taiwan.val()+$('#coun').val();
+			
 			
 			var m= $('#male').is(':checked');
 			var f= $('#female').is(':checked');
@@ -157,12 +159,13 @@
 				var male=1;
 				var female=2;
 			}
-			console.log(address)
+			console.log(address);
 			let formData = new FormData();
 			formData.append("male", male);
 			formData.append("female", female);
 			formData.append("account", account.trim());
 			formData.append("name", name);
+			formData.append("address", address);
 			fetch("${contextRoot}/findMem", {method:"POST", body:formData}).then(result=>result.json()).then(members2=>{
 				console.log(members2.length);
 				var table=$('#table');
@@ -189,10 +192,9 @@
 				member2+='" style="width: 130px; height: 100px;"></td>';
 				member2+='<td rowspan="1" valign="middle">';
 				member2+=gender;
-				member2+='</td><td rowspan="1" valign="middle"><button onclick="window.open(\'http://localhost:8080/lookCode/'
-				member2+=${memberContent.account};
+				member2+='</td><td rowspan="1" valign="middle"><button onclick="window.open(\'http://localhost:8080/lookCode/';
+				member2+=members2[i].account;
 				member2+='\', \'_blank\')">看看他/她的頁面</button><br><br><button >加他/她朋友</button></td></tr>';
-
 				}
 				table.html(member2);
 			})

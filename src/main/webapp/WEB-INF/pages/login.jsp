@@ -31,7 +31,7 @@
 					for="floatingInput">帳號</label>
 			</div>
 			<div class="form-floating">
-				<input type="text" class="form-control" id="floatingPassword"
+				<input type="password" class="form-control" id="floatingPassword"
 					placeholder="Password" name="password" required> <label
 					for="floatingPassword">密碼</label> <i id="checkEye"
 					class="fas fa-eye"></i>
@@ -60,9 +60,7 @@
 		<button class="btn btn-outline-info fastLogin2">Leo</button>
 		<button class="btn btn-outline-info fastLogin2">Amy</button>
 		<button class="btn btn-outline-info fastLogin2">Kevin</button>
-		<button class="btn btn-outline-info fastLogin2">John</button>
-		<button class="btn btn-outline-info fastLogin2">Peter</button>
-		<button class="btn btn-outline-info fastLogin2">Mary</button>
+		<button class="btn btn-outline-info fastLogin" value="admin">admin</button>
 		<!-- 		<button class="btn btn-outline-info fastLogin">易穎</button> -->
 		<!-- 		<button class="btn btn-outline-info fastLogin">博宇</button> -->
 		<!-- 		<button class="btn btn-outline-info fastLogin">宇豐</button> -->
@@ -81,7 +79,7 @@
 	});
 	$(".fastLogin").click(function() {
 		$("#floatingInput").val(this.innerHTML);
-		$("#floatingPassword").val(this.innerHTML + "001");
+		$("#floatingPassword").val(this.innerHTML);
 	});
 
 	//密碼可視切換
