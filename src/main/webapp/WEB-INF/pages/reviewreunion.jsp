@@ -18,27 +18,28 @@
     <meta charset="UTF-8">
     <title></title>
    			<style>
-				#table tr {
-					text-align: center;
-					line-height: 100px;
-				}
+#table tr {
+	text-align: center;
+/* 	line-height: 100px; */
+}
 
-				#table tr td a {
-					text-decoration: none;
-				}
+#table tr td {
+ 	align:center;  
+	text-decoration: none;
+}
 
-				#pagenav ul div {
-					margin: 0 auto;
-				}
+#pagenav ul div {
+	margin: 0 auto;
+}
 
-				#pagenav ul div li {
-					float: left;
-				}
+#pagenav ul div li {
+	float: left;
+}
 
-				#insertProductForm input {
-					margin-bottom: 10px;
-				}
-			</style>
+#insertProductForm input {
+	margin-bottom: 10px;
+}
+</style>
 </head>
 
 
@@ -46,12 +47,16 @@
  <header>
 		<jsp:include page="/WEB-INF/layout/navbar.jsp" />
 	</header>
+	<div style="width:300px;height:60px;"></div>
+		
+			
+			
     
 <div id="layoutSidenav_content">
 		<main>
 			<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table me-1"></i> 審核報名
+						<h1 class="text-center">審核報名</h1> 
 					</div>
 					<c:if test="${reunion.getPeople()<=count}">
 					報名已額滿

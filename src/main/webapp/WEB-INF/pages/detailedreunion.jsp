@@ -46,7 +46,7 @@
       <div class="u-clearfix u-sheet u-sheet-1">
         <img class="u-image u-image-default u-image-1" src="${reunion.picture}">
         <h1 class="u-text u-text-default u-text-1">${reunion.topic}</h1>
-        <p class="u-text u-text-2"> ${reunion.holdTime}(最後審核${reunion.reviewTime})</p>
+        <p class="u-text u-text-2"> 舉行時間${reunion.holdTime}<br>(最後審核${reunion.reviewTime})</p>
 <%--         <c:if test="${loginUser!=null}"> --%>
 <%--         <a href="/insertReunionreport?id=${reunion.reunionid}" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius-6 u-text-body-color u-text-hover-white u-btn-1">檢舉</a> --%>
 <%--          </c:if> --%>
@@ -101,7 +101,11 @@
         
  
         <p class="u-text u-text-3">報名人數</p>
-        <p class="u-text u-text-4">${registercount}人</p>
+        <p class="u-text u-text-4">${registercount}人</p><br>
+         <c:if test="${reunion.getPeople()<=count}">
+					<p class="u-text u-text-3">報名額滿</p>
+		 </c:if>
+        
         <c:if test="${loginUser!=null}">
         <c:if test="${loginUser.id==reunion.memberid}">
          <a href="/searchRegisterByReunionId?id=${reunion.reunionid}" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">審核</a>
