@@ -260,6 +260,8 @@
 							temp=data;
 							changeUserItem(data)
 						})}
+
+						
 					function changeUserItem(json) {
 						let userData = '';
 						$.each(json, function (index, value) {
