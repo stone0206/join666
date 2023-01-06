@@ -179,10 +179,15 @@
                       <i class="fa-fw bi bi-card-text me-2"></i>新增聚會
                     </a>
                   </li>
-
+					<c:if test="${loginUser.getAccount()=='admin' }">
+					   <li>
+                    <a class="dropdown-item" href="/memberBackendSet">
+                      <i class="fa-fw bi bi-card-text me-2"></i>前往後台
+                    </a>
+                  </li></c:if>
                   <!-- 登出位置，連接要放登入 -->
 
-                  <li><a class="dropdown-item bg-danger-soft-hover" href="/logout"><i
+                  <li><a class="dropdown-item bg-danger-soft-hover" href="/logout" onclick="closeWebSocket()"><i
                         class="bi bi-power fa-fw me-2"></i>登出</a></li>
                   <li>
                     <hr class="dropdown-divider">

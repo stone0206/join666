@@ -21,14 +21,15 @@
 		<form action="${contextRoot}/update" method="post"
 			enctype="multipart/form-data">
 			<h1 class="h3 mb-3 fw-normal">會員資料</h1>
-			<div class="form-floating" style="position: relative">
+			<div class="form-floating" style="position: absolute;width:300px;height:250px;text-align:left">
 				<input type="file" class="form-control" id="photo"
 					onchange="upload('#photo', '#avator');" placeholder="aaa"
 					name="avator" value=""
-					style="opacity: 10; width: 110px; positon: absolute"> <label
-					for="floatingInput"><img id="avator"
-					src="${loginUser.getAvator()}" style="width: 110px" /></label>
-			</div><br>
+					style="opacity: 0%; width: 300px; height: 250px; position: absolute"> 
+					<img id="avator" class="avatar-img"
+					src="${loginUser.getAvator()}" style="height: 280px; width: 280px; margin: auto;"/>
+<!-- 					<label for="photo" style="width:500px;height:300px"></label> -->
+			</div><br><br><br><br><br><br><br><br><br><br><br>
 				<div class="form-floating">
 				<input type="text" class="form-control" id="floatingInput"
 					placeholder="aaa" name="account" value="${loginUser.getAccount()}" readonly>
@@ -84,6 +85,12 @@
 			$d.setAttribute("src", e.target.result);
 		};
 	};
+	
+	$("#cancel").click(function(event) {
+		event.preventDefault(); //取消預設行為
+		location.href='http://localhost:8080/index';
+//			window.history.back(); //返回上一頁
+		})
 </script>
 
 </html>

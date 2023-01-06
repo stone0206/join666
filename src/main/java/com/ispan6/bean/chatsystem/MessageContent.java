@@ -1,6 +1,8 @@
 package com.ispan6.bean.chatsystem;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -146,6 +148,9 @@ public class MessageContent {
 	public void setIfRead(String ifRead) {
 		this.ifRead = ifRead;
 	}
+
+	
+	
 
 
 	
