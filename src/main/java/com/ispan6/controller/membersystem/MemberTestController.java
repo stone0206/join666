@@ -265,7 +265,58 @@ public class MemberTestController {
 		sBean.setHobbitid(hb);
 		hDto.save(sBean);
 		}
+		
+		
 		return "index";
+	}
+	
+	@PostMapping("/insertMember2")
+	public String insertMember2(@ModelAttribute("memberTest") MemberTest mt,
+			HttpSession session, HttpServletRequest request, HttpServletResponse response, Model m) {
+		mt=(MemberTest) session.getAttribute("memberTest");
+		mt.setAvator(Constants.AVATOR);
+		mt.setBanned(0);
+		String password=mt.getPassword();
+		System.out.println(password);
+		mService.insertMember(mt);
+		System.out.println("帳號為:"+mt.getAccount());
+		System.out.println("新密碼為:"+mt.getPassword());
+		MemberTest mt2 = mService.findByAccAndPwd(mt.getAccount(), password);
+//		HttpSession session = request.getSession();
+		session.setAttribute("loginUser", mt2);
+		String[] hobbit=(String[]) session.getAttribute("hobbit");
+		System.out.println(hobbit.length);
+		for(int i=0;i<hobbit.length;i++) {
+		SelfHobbitBean sBean = new SelfHobbitBean();
+		sBean.setUserhid(mt2);
+		HobbitBean hb=new HobbitBean();
+		hb.setId(Integer.parseInt(hobbit[i]));
+		sBean.setHobbitid(hb);
+		hDto.save(sBean);
+		}
+		
+		return "index";
+	}
+	
+	@PostMapping("/sendCode") // 寄送驗證信的註冊
+	public String sendCode(@ModelAttribute("memberTest") MemberTest mt, @RequestParam(value = "account") String account, @RequestParam(value = "hobbit") String[] hobbit,
+			@RequestParam(value = "password") String password, @RequestParam(value = "taiwan") String taiwan, @RequestParam(value = "coun") String coun,HttpServletRequest request,
+			HttpServletResponse response) {
+		mt.setEmail(account);
+		mt.setAddress(taiwan+coun);
+		String avator = Constants.AVATOR;
+		mt.setAvator(avator);
+		System.out.println("送信中");
+		HttpSession session = request.getSession();
+		session.setAttribute("memberTest", mt);
+		session.setAttribute("hobbit", hobbit);
+		boolean flag = mService.sendCode(session, mt);
+		System.out.println(flag);
+		if (flag) {
+			return "checkUUID";
+		} else {
+			return "/index";
+		}
 	}
 
 	@GetMapping("/memberBackendSet")
@@ -277,13 +328,25 @@ public class MemberTestController {
 
 	@PostMapping("/findMem")
 	@ResponseBody
-	public List<MemberTest> findByGender(HttpSession session, @RequestParam(value = "male") Integer male,
+	public List<MemberTest> findMem(HttpSession session, @RequestParam(value = "male") Integer male,
 			@RequestParam(value = "female") Integer female, @RequestParam(value = "account") String account,
 			@RequestParam(value = "name") String name, 	@RequestParam(value = "address") String address) {
 //		List<MemberTest> members2 = mService.findByGender(male, female);
 		List<MemberTest> members2 = mService.findMem(male, female, account, name, address);
 		System.out.println(members2);
 		return members2;
+	}
+	
+	@PostMapping("/checkMem")
+	@ResponseBody
+	public boolean checkMem(@RequestParam(value = "account") String account, @RequestParam(value = "password") String password) {
+		MemberTest m=mService.findByAccAndPwd(account, password);
+		boolean flag;
+		if(m!=null) {
+			flag=true;
+			return flag;}else {
+				flag=false;
+				return flag;}
 	}
 
 	@RequestMapping("/LoginGoogleHandler")
@@ -333,27 +396,9 @@ public class MemberTestController {
 		return googlePojo;
 	}
 
-	@PostMapping("/sendCode") // 寄送驗證信的註冊
-	public String sendCode(@ModelAttribute("memberTest") MemberTest mt, @RequestParam(value = "account") String account, @RequestParam(value = "hobbit") String[] hobbit,
-			@RequestParam(value = "password") String password, HttpServletRequest request,
-			HttpServletResponse response) {
-		mt.setEmail(account);
-		String avator = "";
-		mt.setAvator(avator);
-		System.out.println("送信中");
-		HttpSession session = request.getSession();
-		session.setAttribute("memberTest", mt);
-		session.setAttribute("hobbit", hobbit);
-		boolean flag = mService.sendCode(session, mt);
-		System.out.println(flag);
-		if (flag) {
-			return "checkUUID";
-		} else {
-			return "/index";
-		}
-	}
 	
-    @GetMapping("/lookCode/{token}")
+	
+    @GetMapping("/{token}")
     public String lookCode(@PathVariable("token")String token, HttpSession session){
     	MemberTest mt = mService.findByAcc(token);
     	session.setAttribute("member", mt);
