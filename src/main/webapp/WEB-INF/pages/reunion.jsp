@@ -90,7 +90,7 @@
      <div class="control-group">
                 <label for="address" class="form-label"></label>
                 <div class=" input-append date form_datetime" data-date="2022-12-16T05:25:07Z" data-date-format="yyyy MM dd- HH:ii p" data-link-field="dtp_input1">
-                    <input size="16" type="text" value="" name="start" class="form-control"style="width:230px;"placeholder="起始日期"> 
+                    <input size="16" type="text" value="" name="start" class="form-control"style="width:230px;"placeholder="起始日期"  autocomplete="off"> 
                     <span class="add-on"><i class="icon-remove"></i></span>
 					<span class="add-on"><i class="icon-th"></i></span>
                 </div>
@@ -101,7 +101,7 @@
        <div class="control-group">
                 <label for="address" class="form-label"></label>
                 <div class=" input-append date form_datetime" data-date="2022-12-16T05:25:07Z" data-date-format="yyyy MM dd- HH:ii p" data-link-field="dtp_input1">
-                    <input size="16" type="text" value="" name="end" class="form-control"style="width:230px;"placeholder="到期日期">
+                    <input size="16" type="text" value="" name="end" class="form-control"style="width:230px;"placeholder="到期日期"  autocomplete="off">
                     <span class="add-on"><i class="icon-remove"></i></span>
 					<span class="add-on"><i class="icon-th"></i></span>
                 </div>
@@ -187,8 +187,8 @@
 						<a href="/detailedreunion?id=${reunion.reunionid}">
 							<img src="${reunion.picture}" style="max-width: 100% ;max-height: 100%;  height: 350px;  width:450px ">
 							</a>
-							<div class="card-body">
-								<p class="card-text"style="font-size:24px;">${reunion.topic}</p>
+							<div class="card-body" >
+								<p class="card-text"style="font-size:24px ;height:60px;">${reunion.topic}</p>
 								<div class="">
 									<div class="content" style="margin-left: 3px;">
 										<div class="flex-parent">

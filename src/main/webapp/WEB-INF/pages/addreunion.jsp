@@ -149,19 +149,7 @@ Custom styles for this template
 							</div>
 
 
-							<div class="control-group">
-								<label for="address" class="form-label" style="float:left">審核時間</label>
-								<div class=" input-append date form_datetime"
-									data-date="2022-12-16T05:25:07Z"
-									data-date-format="yyyy MM dd- HH:ii p"
-									data-link-field="dtp_input1">
-									<input size="16" type="text" value="" name="reviewTime"
-										class="form-control"> <span class="add-on"><i
-										class="icon-remove"></i></span> <span class="add-on"><i
-										class="icon-th"></i></span>
-								</div>
-								<input type="hidden" id="dtp_input1" value="" /><br />
-							</div>
+						
 
 
 

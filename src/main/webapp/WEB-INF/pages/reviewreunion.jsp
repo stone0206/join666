@@ -59,7 +59,7 @@
 						<h1 class="text-center">審核報名</h1> 
 					</div>
 					<c:if test="${reunion.getPeople()<=count}">
-					報名已額滿
+					<span style="margin-left:20px ;font-size:20px; color:red;">報名已額滿</span >
 					</c:if>
 					<div class="card-body container-fluid">
 						<table class="table table-striped table-sm">

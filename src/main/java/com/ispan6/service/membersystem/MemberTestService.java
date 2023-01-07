@@ -34,8 +34,8 @@ public class MemberTestService {
 		
 		public MemberTest findByAccAndPwd(String account, String password) {
 //			Optional<MemberTest> optional = mDAO.findByAccAndPwd(account, password);
-			String pwd= md5Utils.md5Encryption(password);
-			return mDAO.findByAccAndPwd(account, pwd);
+//			String pwd= md5Utils.md5Encryption(password);
+			return mDAO.findByAccAndPwd(account, password);
 		}
 		
 		public MemberTest findByAcc(String account) {
