@@ -43,8 +43,8 @@ public class ReunionsystemService {
 		return reunionsystemRepository.findByReuniontypeId(id);
 	}
 	
-	public void insertReunion(Reunion reunion) {
-		reunionsystemRepository.save(reunion);
+	public Reunion insertReunion(Reunion reunion) {
+		return reunionsystemRepository.save(reunion);
 	}
 	
 	public void addReunionnumber(Integer id) {

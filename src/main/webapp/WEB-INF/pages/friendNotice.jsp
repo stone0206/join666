@@ -389,6 +389,15 @@ function agreeInvitation(fuid) {
 				document.getElementById('getcount').innerHTML = random.length;
 
 		})
+				let formData = new FormData();
+				formData.append('userId', loginid);
+				formData.append('fuid', fuid);
+				fetch("${contextRoot}/participants/friendadd", {
+					method: "POST",
+					body: formData
+
+				})
+
 	}		
 function blocklist() {
 	fetch('${contextRoot}/blocklist')
