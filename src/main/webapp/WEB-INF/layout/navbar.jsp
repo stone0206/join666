@@ -24,7 +24,7 @@
             <!-- Logo START 點擊logo返回首頁-->
             <a class="navbar-brand" href="/index">
               <!-- logo圖片位置 -->
-              <img class="light-mode-item navbar-brand-item" src="assets/favicon.ico">
+              <img class="light-mode-item navbar-brand-item" src="/assets/favicon.ico">
             </a>
             <!-- Logo END -->
 
@@ -76,7 +76,7 @@
                 <a class="nav-link btn icon-md p-0" id="profileDropdown" role="button" data-bs-auto-close="outside"
                   data-bs-display="static"  aria-expanded="false" href="/login">
                   <!-- 預設是灰頭像，登入後改成用戶頭像 -->
-                  <img class="avatar-img rounded-2" src="assets/human.png" alt=""  />
+                  <img class="avatar-img rounded-2" src="/assets/human.png" alt=""  />
                 </a>
               </li>
               </c:if>
@@ -87,7 +87,7 @@
                 <span class="badge-notif animation-blink"></span>
                   
                   <!-- 預設是灰頭像，登入後改成用戶頭像 -->
-                  <img class="avatar-img rounded-2" src="assets/human.png" alt="" />
+                  <img class="avatar-img rounded-2" src="/assets/human.png" alt="" />
                 </a>
               </c:if>
                 

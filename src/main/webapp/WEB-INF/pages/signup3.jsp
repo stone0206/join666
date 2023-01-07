@@ -46,7 +46,7 @@ h5:hover {
 #container1 {
 	margin: 50px;
 	padding: 10px;
-	width: 230px;
+	width: 235px;
 	height: 400px;
 	background-color: white;
 	border-radius: 5px;
@@ -102,6 +102,7 @@ h5:hover {
 	visibility: hidden;
 	/*剛開始消失*/
 	height: 600px;
+	width:235px;
 }
 
 #copyright {
@@ -165,9 +166,16 @@ input, button {
 					<div class="tab"></div>
 					<input type="tel" id="phone" name="phone" placeholder="電話" required>
 					<div class="tab"></div>
+					<div style="text-align: left; margin-left: 22px" id="gen">
+						<label id="gen">性別:</label> <input type="radio" id="gender1"
+							name="gender" value="1" checked>男 <input type="radio"
+							id="gender2" name="gender" value="2">女
+					</div>
 <!-- 					<input type="text" id="address" name="address" placeholder="地址" required> -->
 <!-- 					<div class="tab"></div> -->
-
+					<div class="tab"></div>
+					<br>
+					<h4>您的居住地</h4>
 					<label for="taiwan">縣/市：</label> <select name="taiwan" id="taiwan">
 						<option value="">請選擇</option>
 					</select>
@@ -195,13 +203,8 @@ input, button {
     })
     </script>
 
-
-
-					<div style="text-align: left; margin-left: 10px" id="gen">
-						<label id="gen">性別:</label> <input type="radio" id="gender1"
-							name="gender" value="1" checked>男 <input type="radio"
-							id="gender2" name="gender" value="2">女
-					</div>
+					<br><br>
+					<h4>您有什麼興趣:</h4>
 					<div class="tab"></div>
 					<div class="form-check form-check-inline">
 						<label class="form-check-label"><input
@@ -310,35 +313,36 @@ input, button {
 									flag1 = false
 								}
 								if (message == "此帳號可用") {
-									accLabel.html("<font color='red' size='-1'>此帳號可用</font>");
+									accLabel.html("<font color='green' size='-1'>此帳號可用</font>");
 									flag1 = true
 								}
 							})
 						}
 
-						rex = /^[a-zA-Z0-9]+$/;
+						let rex2 = /^[a-zA-Z0-9]{6,}$/;
 						let pwdValue = password.val();
-						if (!rex.test(pwdValue)) {
-							pwdLabel.html("<font color='red' size='-1'>請輸入正確格式</font>");
+						if (!rex2.test(pwdValue)) {
+							pwdLabel.html("<font color='red' size='-1'>密碼需至少6位英數</font>");
 							flag2 = false
 						}
 
-						if (rex.test(pwdValue)) {
-							pwdLabel.html("<font color='red' size='-1'>密碼格式正確</font>");
+						if (rex2.test(pwdValue)) {
+							pwdLabel.html("<font color='green' size='-1'>密碼格式正確</font>");
 							flag2 = true
 						}
-
-
+						let comfirmVal=comfirm_password.val();
+						console.log("確認密碼長度:"+comfirmVal.length);
+						if(comfirmVal.length!=0){
 						if (password.val() !== comfirm_password.val()) {
 							comfirmPwdLabel.html("<font color='red' size='-1'>兩次密碼不相符</font>");
 							flag3 = false
 						}
 
 						if (password.val() == comfirm_password.val()) {
-							comfirmPwdLabel.html("<font color='red' size='-1'>二次驗證正確</font>");
+							comfirmPwdLabel.html("<font color='green' size='-1'>二次驗證正確</font>");
 							flag3 = true
 						}
-
+						}
 						checkFlag();
 
 					}

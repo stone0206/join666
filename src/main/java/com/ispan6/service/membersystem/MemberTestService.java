@@ -34,8 +34,8 @@ public class MemberTestService {
 		
 		public MemberTest findByAccAndPwd(String account, String password) {
 //			Optional<MemberTest> optional = mDAO.findByAccAndPwd(account, password);
-//			String pwd= md5Utils.md5Encryption(password);
-			return mDAO.findByAccAndPwd(account, password);
+			String pwd= md5Utils.md5Encryption(password);
+			return mDAO.findByAccAndPwd(account, pwd);
 		}
 		
 		public MemberTest findByAcc(String account) {
@@ -44,6 +44,11 @@ public class MemberTestService {
 		
 		public void updateByAcc(String account, String avator, String name, String address, String phone, String email) {
 			mDAO.updateByAcc(account, avator, name, address, phone, email);
+		}
+		
+		public void updatePwd(String password, String account) {
+			String pwd= md5Utils.md5Encryption(password);
+			mDAO.updatePwd(pwd, account);
 		}
 		
 		public MemberTest existsByAccount(String account) {
@@ -71,6 +76,13 @@ public class MemberTestService {
 	       else
 	           return false;
 	    }
+	    
+	    public boolean sendCode2(HttpSession session, String account) {
+		       if ( codeUtils.sendCode2(session, account)) 
+		           return true;
+		       else
+		           return false;
+		    }
 	    
 	    public Optional<MemberTest> findById(int id) {
 	    	return mDAO.findById(id);

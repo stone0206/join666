@@ -20,12 +20,13 @@
 <body class="vh-100">
 
 
-	<main class="form-signin m-5 text-center ">
+	<main class="form-signin m-5 text-center " style="text-align:middle">
 		<jsp:include page="/WEB-INF/layout/navbar.jsp" />
 		<br>
-		<form action="${contextRoot}/login" method="post" id="form1">
+		<form action="${contextRoot}/login" method="post" id="form1" style="align-items:center">
 			<h1 class="h3 mb-3 fw-normal">會員登入</h1>
-			<div class="form-floating">
+		
+			<div class="form-floating" >
 				<input type="text" class="form-control" id="floatingAccount"
 					placeholder="aaa" name="account" required> <label
 					for="floatingInput">帳號</label>
@@ -36,8 +37,9 @@
 					for="floatingPassword">密碼</label> <i id="checkEye"
 					class="fas fa-eye"></i>
 			</div>
-			<div class="checkbox my-3">
-				<label> <input type="checkbox" name="remeberMe"> 記住我
+			<br>
+			<div class="mb-2">
+				<label> <a href="/checkEmail">忘記密碼了嗎?</a>
 				</label>
 			</div>
 			<div class=" mb-2">
@@ -84,7 +86,7 @@
 // 				alert("帳號密碼正確");
 			$("#form1").submit();}
 			else{
-				alert("帳號或密碼輸入，請輸入正確的帳號密碼");
+				alert("帳號或密碼錯誤，請輸入正確的帳號密碼");
 				return;
 			}
 		})
