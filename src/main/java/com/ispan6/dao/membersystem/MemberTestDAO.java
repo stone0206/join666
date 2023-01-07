@@ -25,7 +25,12 @@ public interface MemberTestDAO extends JpaRepository<MemberTest, Integer>, JpaSp
 	public void updateByAcc(@Param("account") String account, @Param("avator") String avator,
 			@Param("name") String name, @Param("address") String address, @Param("phone") String phone,
 			@Param("email") String email);
-
+	
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE MemberTest SET m_password= :password WHERE m_account= :account")
+	public void updatePwd(@Param("password") String password, @Param("account") String account); 
+	
 	@Query("from MemberTest where m_account= :account")
 	public MemberTest findByAcc(@Param("account") String account);
 

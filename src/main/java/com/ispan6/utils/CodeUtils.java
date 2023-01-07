@@ -44,6 +44,31 @@ public class CodeUtils {
             return false;
         }
     }
+    
+    public boolean sendCode2(HttpSession session, String account){
+        MimeMessage message = mailSender.createMimeMessage();
+        try{
+            MimeMessageHelper messageHelper = new MimeMessageHelper(message);
+            String code = UUID.randomUUID().toString(); // 生成UUID
+            session.setAttribute("code", code);
+            messageHelper.setFrom("ispandating6666@gmail.com"); //发送方的邮箱地址，而不是接收方的邮箱地址
+            messageHelper.setTo(account); // 接收方的邮箱地址
+            messageHelper.setSubject("來自約約的信");  // 邮箱标题
+            String html = "<html>\n" +
+            		 "<body>\n" +
+                     "<p>请点击下方链接注册</p>\n" +
+                     "<a href=\"http://localhost:8080/lookCode/"+code+"\">http://localhost:8080/lookCode/"+code+"</a>" +
+                     "</body>\n" +
+                     "</html>";
+            messageHelper.setText(html,true); // 邮箱内容
+            mailSender.send(message);  // 发送邮箱
+            System.out.println("成功");
+            return true;
+        }catch (Exception e){
+            System.out.println("失败");
+            return false;
+        }
+    }
 
     // 判断token是否过期
 //    public boolean eqToken(String token){
