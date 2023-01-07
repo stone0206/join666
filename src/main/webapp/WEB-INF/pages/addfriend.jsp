@@ -266,7 +266,7 @@
 						$.each(json, function (index, value) {
 							console.log(value)
 							if(value.gender==1){
-								userData += '<div class="col mb-5" ><div class="card h-100"  style="background-color: #B5FFFF">';
+								userData += '<div class="col mb-5" ><div class="card h-100"  style="background-color: #97CBFF">';
 							}
 							if(value.gender==2){
 								userData += '<div class="col mb-5"><div class="card h-100" style="background-color:#FFC9C9">';

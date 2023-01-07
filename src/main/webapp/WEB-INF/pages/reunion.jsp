@@ -185,7 +185,7 @@
 					<div class="col">
 						<div class="card shadow-sm">
 						<a href="/detailedreunion?id=${reunion.reunionid}">
-							<img src="${reunion.picture}" style="max-width: 100% ;max-height: 100%;  height: 350px;  width:450px ">
+							<img class="avatar-img" src="${reunion.picture}" style="max-width: 100% ;max-height: 100%;  height: 350px;  width:450px ">
 							</a>
 							<div class="card-body" >
 								<p class="card-text"style="font-size:24px ;height:60px;">${reunion.topic}</p>
