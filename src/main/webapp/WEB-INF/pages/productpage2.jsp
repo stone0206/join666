@@ -150,8 +150,8 @@
 				<main>
 					<div class="container-fluid" style="width: 85%;">
 						<div class="row">
-							<div class="col-12" style="height: 400px;margin-bottom: 5px; padding: 10px;">
-								<div style="height: 30px;"><img src="/assets/mallsystemimg.png" alt=""></div>
+							<div class="col-12" style="height: 520px;margin-bottom: 5px; padding: 10px;">
+								<div style="height: 30px;"><img src="/assets/mallsystemimg.png" alt="" style="width:100%"></div>
 							</div>
 						</div>
 						<div class="row">
