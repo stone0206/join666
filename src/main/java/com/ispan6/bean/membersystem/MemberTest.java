@@ -29,6 +29,7 @@ import com.ispan6.bean.chatsystem.Participants;
 import com.ispan6.bean.mallsystem.ShoppingCartItem;
 import com.ispan6.bean.matchsystem.MatchBean;
 import com.ispan6.bean.matchsystem.SelfHobbitBean;
+import com.ispan6.bean.postsystem.PostBean;
 import com.ispan6.bean.reunionsystem.Reunion;
 
 @Entity
@@ -85,23 +86,68 @@ public class MemberTest {
 	}
 
 	@OneToMany(mappedBy = "memberTest")
+	@JsonIgnore
 	private List<ShoppingCartItem> sciList = new ArrayList<ShoppingCartItem>();
 
 	@OneToMany(mappedBy = "userid")
+	@JsonIgnore
 	private List<MatchBean> userid = new ArrayList<MatchBean>();
 
 	@OneToMany(mappedBy = "fuid")
+	@JsonIgnore
 	private List<MatchBean> fuid = new ArrayList<MatchBean>();
 
 	// 易
 	@OneToMany(mappedBy = "participantsUserId")
+	@JsonIgnore
 	private List<Participants> participantsUserId = new ArrayList<Participants>();
 	// 易
 	@OneToMany(mappedBy = "messageContentUserId")
+	@JsonIgnore
 	private List<MessageContent> messageContentUserId = new ArrayList<MessageContent>();
 	
 	@OneToMany(mappedBy = "userhid",fetch = FetchType.LAZY)
 	private List<SelfHobbitBean> userhid=new ArrayList<SelfHobbitBean>();
+	
+
+	@OneToMany(mappedBy = "postid",fetch = FetchType.LAZY)
+	@JsonIgnore
+	private List<PostBean> postList=new ArrayList<PostBean>();
+	
+
+	public List<ShoppingCartItem> getSciList() {
+		return sciList;
+	}
+
+	public void setSciList(List<ShoppingCartItem> sciList) {
+		this.sciList = sciList;
+	}
+
+	public List<MatchBean> getUserid() {
+		return userid;
+	}
+
+	public void setUserid(List<MatchBean> userid) {
+		this.userid = userid;
+	}
+
+	public List<MatchBean> getFuid() {
+		return fuid;
+	}
+
+	public void setFuid(List<MatchBean> fuid) {
+		this.fuid = fuid;
+	}
+
+
+
+	public List<PostBean> getPostLists() {
+		return postList;
+	}
+
+	public void setPostList(List<PostBean> postLists) {
+		this.postList = postLists;
+	}
 
 	public List<SelfHobbitBean> getUserhid() {
 		return userhid;

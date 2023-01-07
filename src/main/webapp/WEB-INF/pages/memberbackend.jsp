@@ -56,7 +56,7 @@
 
 											<div id="search-search">
 												<label for="taiwan">縣/市：</label> <select name="taiwan" id="taiwan"
-													onchange="findMember()">
+													onchange="findMember2()">
 													<option value="">請選擇</option>
 												</select>
 											</div>
@@ -65,7 +65,7 @@
 
 											<div id="search-search">
 												<label for="coun">區/鎮/鄉：</label> <select name="coun" id="coun"
-													onchange="findMember()">
+													onclick="findMember()">
 													<option value="">請選擇</option>
 												</select>
 											</div>
@@ -301,6 +301,81 @@
 							$("#coun").append(map)
 						})
 					})
+					
+					function findMember2() {
+						var account = $('#account').val();
+						var name = $('#name').val();
+						var taiwan = $('#taiwan');
+						var address = taiwan.val();
+
+						var m = $('#male').is(':checked');
+						var f = $('#female').is(':checked');
+						var male = 1;
+						var female = 2;
+						if (!m) {
+							male = 0;
+						}
+						if (!f) {
+							female = 0;
+						}
+						if (!f && !m) {
+							var male = 1;
+							var female = 2;
+						}
+						console.log(male + "," + female)
+						let formData = new FormData();
+						formData.append("male", male);
+						formData.append("female", female);
+						formData.append("account", account.trim());
+						formData.append("name", name);
+						formData.append("address", address);
+						fetch("${contextRoot}/findMem", { method: "POST", body: formData }).then(result => result.json()).then(members2 => {
+							console.log(members2.length);
+							var table = $('#table');
+							var gender = "";
+							var birth = "";
+							var banned = "";
+							var member2 = '';
+							for (i = 0; i < members2.length; i++) {
+								birth = new Date(members2[i].birth).toLocaleDateString();
+								if (members2[i].gender == 1) {
+									gender = '男';
+								} else {
+									gender = '女';
+								}
+								if (members2[i].banned == 0) {
+									banned = '</td><td rowspan="2" valign="middle"><button class="ban" value="0">停權</button></td></tr><tr>'
+								} else {
+									banned = '</td><td rowspan="2" valign="middle"><button class="unban" value="1">解除停權</button></td></tr><tr>'
+								}
+								member2 += '<tr><td rowspan="2" valign="middle">';
+								member2 += members2[i].id;
+								member2 += '</td><td rowspan="1" valign="middle">帳號: ';
+								member2 += members2[i].account;
+								member2 += '</td><td rowspan="2" valign="middle">';
+								member2 += members2[i].name;
+								member2 += '</td><td rowspan="2" valign="middle">';
+								member2 += birth;
+								member2 += '</td><td rowspan="1" valign="middle">手機: ';
+								member2 += members2[i].phone;
+								member2 += '</td><td rowspan="2" valign="middle">';
+								member2 += members2[i].address;
+								member2 += '</td><td rowspan="2" ><img alt="" src="';
+								member2 += members2[i].avator;
+								member2 += '" style="width: 130px; height: 100px;"></td>';
+								member2 += '<td rowspan="2" valign="middle">';
+								member2 += gender;
+								// 				member2+='</td><td rowspan="2" valign="middle"><button >停權</button></td></tr><tr>';
+								member2 += banned;
+								member2 += '<td valign="middle">密碼: ';
+								member2 += members2[i].password;
+								member2 += '</td><td valign="middle">信箱: ';
+								member2 += members2[i].email;
+								member2 += '</td></tr>';
+							}
+							table.html(member2);
+						})
+					}
 				</script>
 			</body>
 

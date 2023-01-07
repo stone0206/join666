@@ -46,7 +46,7 @@
       <div class="u-clearfix u-sheet u-sheet-1">
         <img class="u-image u-image-default u-image-1" src="${reunion.picture}">
         <h1 class="u-text u-text-default u-text-1">${reunion.topic}</h1>
-        <p class="u-text u-text-2"> ${reunion.holdTime}(最後審核${reunion.reviewTime})</p>
+        <p class="u-text u-text-2"> 舉行時間&ensp;${reunion.holdTime}</p>
 <%--         <c:if test="${loginUser!=null}"> --%>
 <%--         <a href="/insertReunionreport?id=${reunion.reunionid}" class="u-border-2 u-border-palette-2-base u-btn u-btn-round u-button-style u-hover-palette-2-base u-none u-radius-6 u-text-body-color u-text-hover-white u-btn-1">檢舉</a> --%>
 <%--          </c:if> --%>
@@ -101,7 +101,11 @@
         
  
         <p class="u-text u-text-3">報名人數</p>
-        <p class="u-text u-text-4">${registercount}人</p>
+        <p class="u-text u-text-4">${registercount}人</p><br>
+         <c:if test="${reunion.getPeople()<=count}">
+					<br><p class="u-text u-text-3" style=" color:red;">報名額滿</p>
+		 </c:if>
+        
         <c:if test="${loginUser!=null}">
         <c:if test="${loginUser.id==reunion.memberid}">
          <a href="/searchRegisterByReunionId?id=${reunion.reunionid}" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">審核</a>
@@ -166,7 +170,9 @@
 		s7.346-3.295,7.346-7.346C37.368,9.276,34.073,5.981,30.023,5.981z M30.023,18.672c-2.947,0-5.346-2.398-5.346-5.346
 		s2.398-5.345,5.346-5.345s5.346,2.397,5.346,5.345S32.97,18.672,30.023,18.672z"></path>
 </g></svg></span>
+
         <p class="u-text u-text-6" ><a href="https://www.google.com.tw/maps/place/${reunion.place}" target="_blank">${reunion.place}</a></p><span class="u-file-icon u-icon u-icon-2"><img src="images/1235446.png" alt=""></span><span class="u-file-icon u-icon u-icon-3"><img src="images/4305512.png" alt=""></span><span class="u-file-icon u-icon u-icon-4"><img src="images/1769041.png" alt=""></span>
+        
         <p class="u-text u-text-7">${reunion.pay.paytype}<span style="font-size: 1.125rem;"></span>
         </p>
         <p class="u-text u-text-8">${reunion.people}人</p>

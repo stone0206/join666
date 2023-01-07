@@ -55,7 +55,7 @@
 					<table class="table table-striped table-sm">
 						<thead>
 							<tr style="text-align: center;">
-								<th>聚會id</th>
+								<th>圖片</th>
 								<th>聚會名稱</th>
 								<th>發起人ID</th>
 								<th>檢舉人ID</th>
@@ -66,7 +66,7 @@
 						<tbody id="table">
 							<c:forEach var="reunionreport" items="${reunionreport}">
 								<tr>
-									<td>${reunionreport.reunionid}</td>
+									<td><a href="http://localhost:8080/detailedreunion?id=${reunionreport.reunion.reunionid}" target="_blank"><img class="" src="${reunionreport.reunion.picture}" alt="avatar"width="80" height="80"style="border-radius: 50px;"></a></td>
 									<td>${reunionreport.reunion.topic}</td>
 									<td>${reunionreport.reunion.memberTest.name}</td>
 									<td>${reunionreport.memberTest.name}</td> 

@@ -34,4 +34,7 @@ public interface ReunionreportRepository extends JpaRepository<Reunionreport, In
 	@Query(value = "select * from Reunionreport where reunionid = ?1 and memberid = ?2",nativeQuery = true)
 	List<Reunionreport> findReunionreportByReunionidAndMemberid(Integer reunionid, Integer memberid);
 	
+	@Query(value = "SELECT * FROM Reunionreport where reunionid　=?1 ",nativeQuery = true)
+	public List<Reunionreport> findReunionreportByReunionid(Integer reunionid);
+	
 }

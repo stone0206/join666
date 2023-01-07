@@ -254,17 +254,23 @@
 					var temp = [];
 
 
-					//商品欄位刷新
 					window.onload = function () {
 						fetch("${contextRoot}/getMatch").then(res => res.json()).then(data => {
 							temp=data;
 							changeUserItem(data)
 						})}
+
+						
 					function changeUserItem(json) {
 						let userData = '';
 						$.each(json, function (index, value) {
 							console.log(value)
-							userData += '<div class="col mb-5"><div class="card h-100">';
+							if(value.gender==1){
+								userData += '<div class="col mb-5" ><div class="card h-100"  style="background-color: #97CBFF">';
+							}
+							if(value.gender==2){
+								userData += '<div class="col mb-5"><div class="card h-100" style="background-color:#FFC9C9">';
+							}
 							userData += '<img class="avatar-img" src="' + value.avator+ '"style="height: 280px; width: 280px; margin: auto;">';
 							userData += '<div class="card-body p-4"><div class="text-center">';
 							userData += '<h5 class="fw-bolder">' + value.name + '</h5>';
