@@ -11,37 +11,36 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ispan6.bean.membersystem.MemberTest;
 
 @Entity
 @Table(name = "likepost")
 public class LikepostBean {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "memberId")
-	@JsonIgnore
-	private MemberTest memberId;
-
-	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "postid")
 	@JsonIgnore
 	private PostBean post;
 
-	
 	@Id
 	@Column(name = "likeid")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer likeid;
 
+	@Column(name = "count")
+	private Integer count;
 
-	public MemberTest getMemberId() {
-		return memberId;
+	
+
+	public Integer getCount() {
+		return count;
 	}
 
 
-	public void setMemberId(MemberTest memberId) {
-		this.memberId = memberId;
+	public void setCount(Integer count) {
+		this.count = count;
 	}
+
+
 
 
 	public PostBean getPost() {

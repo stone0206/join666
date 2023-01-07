@@ -29,6 +29,7 @@ import com.ispan6.bean.chatsystem.Participants;
 import com.ispan6.bean.mallsystem.ShoppingCartItem;
 import com.ispan6.bean.matchsystem.MatchBean;
 import com.ispan6.bean.matchsystem.SelfHobbitBean;
+import com.ispan6.bean.postsystem.LikepostBean;
 import com.ispan6.bean.postsystem.PostBean;
 import com.ispan6.bean.reunionsystem.Reunion;
 
@@ -108,7 +109,7 @@ public class MemberTest {
 	@OneToMany(mappedBy = "postid",fetch = FetchType.LAZY)
 	private List<PostBean> postList=new ArrayList<PostBean>();
 	
-
+	
 	public List<ShoppingCartItem> getSciList() {
 		return sciList;
 	}
@@ -271,6 +272,11 @@ public class MemberTest {
 
 	public void setReunionlist(Set<Reunion> reunionlist) {
 		this.reunionlist = reunionlist;
+	}
+
+	
+	public List<PostBean> getPostList() {
+		return postList;
 	}
 
 	
