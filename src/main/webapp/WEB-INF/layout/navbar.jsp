@@ -24,7 +24,7 @@
             <!-- Logo START 點擊logo返回首頁-->
             <a class="navbar-brand" href="/index">
               <!-- logo圖片位置 -->
-              <img class="light-mode-item navbar-brand-item" src="/assets/favicon.ico">
+              <img class="light-mode-item navbar-brand-item" src="${contextRoot}/images/uuu.jpeg">
             </a>
             <!-- Logo END -->
 
