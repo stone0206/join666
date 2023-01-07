@@ -86,19 +86,24 @@ public class MemberTest {
 	}
 
 	@OneToMany(mappedBy = "memberTest")
+	@JsonIgnore
 	private List<ShoppingCartItem> sciList = new ArrayList<ShoppingCartItem>();
 
 	@OneToMany(mappedBy = "userid")
+	@JsonIgnore
 	private List<MatchBean> userid = new ArrayList<MatchBean>();
 
 	@OneToMany(mappedBy = "fuid")
+	@JsonIgnore
 	private List<MatchBean> fuid = new ArrayList<MatchBean>();
 
 	// 易
 	@OneToMany(mappedBy = "participantsUserId")
+	@JsonIgnore
 	private List<Participants> participantsUserId = new ArrayList<Participants>();
 	// 易
 	@OneToMany(mappedBy = "messageContentUserId")
+	@JsonIgnore
 	private List<MessageContent> messageContentUserId = new ArrayList<MessageContent>();
 	
 	@OneToMany(mappedBy = "userhid",fetch = FetchType.LAZY)
@@ -106,6 +111,7 @@ public class MemberTest {
 	
 
 	@OneToMany(mappedBy = "postid",fetch = FetchType.LAZY)
+	@JsonIgnore
 	private List<PostBean> postList=new ArrayList<PostBean>();
 	
 

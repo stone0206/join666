@@ -354,7 +354,7 @@ imgFile.addEventListener("change", function () {
           alert(text);
           if (text == '送出邀請成功') {
             document.getElementById('addBtn').innerHTML = '已送出邀請';
-            document.getElementById("addBtn").disabled = true;
+            $("#addBtn").attr("disabled",true).css("pointer-events","none");
           }
           if (text == '您已送出邀請，等待對方回覆') {
 	            document.getElementById('addBtn').innerHTML = '等待回覆中';
