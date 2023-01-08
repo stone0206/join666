@@ -49,13 +49,6 @@
                   <a class="nav-link " href="/page" id="homeMenu" aria-haspopup="true"
                     aria-expanded="false">揪團</a>
                 </li>
-
-                <!-- 貼文 -->
-                <li class="nav-item " style="margin-right: 20px;">
-                  <a class="nav-link " href="/index" id="homeMenu" aria-haspopup="true"
-                    aria-expanded="false">貼文</a>
-                </li>
-
                 <!-- 商城 -->
                 <li class="nav-item " style="margin-right: 20px;">
                   <a class="nav-link " href="/product" id="homeMenu" aria-haspopup="true"
@@ -148,19 +141,12 @@
                     </div>
                   </li>
                   <!-- Links -->
-                  <li><a class="dropdown-item" href="settings.html"><i class="bi bi-gear fa-fw me-2"></i>Settings &
-                      Privacy</a></li>
-
-                                 
                   <li>
                     <a class="dropdown-item" href="/updateprofile">
                       <i class="fa-fw bi bi-card-text me-2"></i>修改我的資訊
                     </a>
                   </li>    
                       <li>
-                    <a class="dropdown-item" href="/searchuser">
-                      <i class="fa-fw bi bi-card-text me-2"></i>搜尋會員
-                    </a>
                   </li> 
                   <li> 
                     <a class="dropdown-item" href="/toMyOrderPage">

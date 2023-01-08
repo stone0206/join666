@@ -1,20 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var="contextRoot" value="${pageContext.request.contextPath}" />
-
+<!DOCTYPE html>
 <html>
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-        crossorigin="anonymous"></script>
+    	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+				crossorigin="anonymous"></script>
+			<script src="${contextRoot}/js/scripts-backend.js"></script>
+			<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+			<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
+			<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
     <meta charset="UTF-8">
+    				<script src="${contextRoot}/js/taiwan_districts.js"></script>
+    
     <title>聚會管理</title>
    			<style>
 				#table tr {
@@ -42,7 +45,7 @@
 
 
 <body>
-    <jsp:include page="../layout/backendnav.jsp"></jsp:include>
+			<jsp:include page="../layout/backendnav.jsp"></jsp:include>
 <div id="layoutSidenav_content">
 		<main>
 			<h1 class="text-center">聚會管理</h1>

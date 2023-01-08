@@ -38,7 +38,7 @@
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="#!">登出</a></li>
+                            <li><a class="dropdown-item" href="/logout">登出</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -56,10 +56,7 @@
                                     用戶管理
                                 </a>
 
-                                <a class="nav-link" href="post">
-                                    <div class="sb-nav-link-icon"><i class='fas fa-book'></i></div>
-                                    貼文管理
-                                </a>
+                               
 
                                 <a class="nav-link" href="/msg/reunionbackend">
                                     <div class="sb-nav-link-icon"><i class='fas fa-campground'></i></i></div>
