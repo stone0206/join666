@@ -54,8 +54,8 @@ public class ParticipantsController {
 	private CustomerServiceMessageService customerServiceMessageService;
 
 //	新增好友群組
-	@PostMapping(path = "/participants/friendadd")
-	public void inserParticipants(@RequestParam Integer userId, @RequestParam Integer fuid) {
+	@PostMapping(path = "/participants/friendadd", produces = "application/json; charset=UTF-8")
+	public void inserParticipants(@RequestParam(name="userId") Integer userId, @RequestParam(name="fuid") Integer fuid) {
 		System.out.println("userId" + userId + "fuid" + fuid);
 		GroupRoom gr = groupRoomService.insertGroupRoom(null, 0, null);
 		Integer grId = gr.getGroupId();

@@ -218,9 +218,18 @@
 
 
 			function agreeInvitation(fuid) {
+				let formData = new FormData();
+				formData.append('userId', "${loginUser.id}");
+				formData.append('fuid', fuid);
+				fetch("${contextRoot}/participants/friendadd", {
+					method: "POST",
+					body: formData
+
+				})
 				fetch('${contextRoot}/agreeInvitation?id=' + fuid).then(res => res.json()).then(data => {
 					changewhosendlist(data)
 				})
+
 			}
 
 			function changewhosendlist(random) {
@@ -245,14 +254,7 @@
 				document.getElementById("listbtn").className = "nav-link";
 				document.getElementById("blockbtn").className = "nav-link";
 				document.getElementById('getcount').innerHTML = random.length;
-				let formData = new FormData();
-				formData.append('userId', loginid);
-				formData.append('fuid', fuid);
-				fetch("${contextRoot}/participants/friendadd", {
-					method: "POST",
-					body: formData
 
-				})
 			}
 
 
