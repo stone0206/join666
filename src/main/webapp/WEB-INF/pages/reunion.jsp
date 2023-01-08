@@ -100,7 +100,7 @@
 
        <div class="control-group">
                 <label for="address" class="form-label"></label>
-                <div class=" input-append date form_datetime" data-date="2022-12-16T05:25:07Z" data-date-format="yyyy MM dd- HH:ii p" data-link-field="dtp_input1">
+                <div class=" input-append date form_datetime" data-date="2023-01-13T05:25:07Z" data-date-format="yyyy MM dd- HH:ii p" data-link-field="dtp_input1">
                     <input size="16" type="text" value="" name="end" class="form-control"style="width:230px;"placeholder="到期日期"  autocomplete="off">
                     <span class="add-on"><i class="icon-remove"></i></span>
 					<span class="add-on"><i class="icon-th"></i></span>
@@ -195,9 +195,9 @@
 											<p class="title is-5 is-size-6-mobile long-and-truncated"
 												style="width: 100%;"></p>
 										</div>
-										<div class="flex-parent" style="margin-top: 4px;">
-											<div class=" long-and-truncated">
-												<span class="subtitle is-6 is-size-7-mobile">${reunion.place}</span>
+										<div class="flex-parent" style="margin-top: 4px; ">
+											<div class=" long-and-truncated" style="height:50px;">
+												<span class="subtitle is-6 is-size-7-mobile" >${reunion.place}</span>
 											</div>
 										</div>
 										<div class="flex-parent" style="margin-top: 4px;">
