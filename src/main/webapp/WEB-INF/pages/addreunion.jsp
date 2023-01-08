@@ -137,7 +137,7 @@ Custom styles for this template
 							<div class="control-group">
 								<label for="address" class="form-label" style="float:left">聚會時間</label>
 								<div class="controls  date form_datetime"
-									data-date="2022-12-16T05:25:07Z"
+									data-date="2023-01-13T05:25:07Z"
 									data-date-format="yyyy MM dd- HH:ii p"
 									data-link-field="dtp_input1">
 									<input size="16" type="text" value="" name="holdTime"
