@@ -71,125 +71,7 @@
 				</div>
 
 
-				<!--         <div class="popup-box chat-popup popup-box-on" id="qnimate"> -->
-				<!--             <div class="popup-head"> -->
-				<!--                 <div class="popup-head-left pull-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;客服</div> -->
-				<!--                 <div class="popup-head-right pull-right"> -->
-				<!--                     <div class="btn-group"> -->
-				<!--                         <button class="chat-header-button" data-toggle="dropdown" type="button" aria-expanded="false"> -->
-				<!--                             <i class="glyphicon glyphicon-cog"></i> </button> -->
-				<!--                         <ul role="menu" class="dropdown-menu pull-right"> -->
-				<!--                             <li><a href="#">Media</a></li> -->
-				<!--                             <li><a href="#">Block</a></li> -->
-				<!--                             <li><a href="#">Clear Chat</a></li> -->
-				<!--                             <li><a href="#">Email Chat</a></li> -->
-				<!--                         </ul> -->
-				<!--                     </div> -->
 
-				<!--                     <button data-widget="remove" id="removeClass" class="chat-header-button pull-right" type="button"><i -->
-				<!--                             class="glyphicon glyphicon-off"></i></button> -->
-				<!--                 </div> -->
-				<!--             </div> -->
-				<!--             <div class="popup-messages"> -->
-
-
-
-
-				<!--                 <div class="direct-chat-messages"> -->
-
-
-				<!--                     <div class="chat-box-single-line"> -->
-				<!--                         <abbr class="timestamp">October 8th, 2015</abbr> -->
-				<!--                     </div> -->
-
-
-				<!--                     Message. Default to the left -->
-				<!--                     <div class="direct-chat-msg doted-border"> -->
-				<!--                         <div class="direct-chat-info clearfix"> -->
-				<!--                             <span class="direct-chat-name pull-left">Osahan</span> -->
-				<!--                         </div> -->
-				<!--                         /.direct-chat-info -->
-				<!--                         <img alt="message user image" src="images/customer.png" class=" direct-chat-img"> -->
-				<!--                         /.direct-chat-img -->
-				<!--                         <div class="direct-chat-text"> -->
-				<!--                             Hey bro, how’s everything going ? -->
-				<!--                         </div> -->
-				<!--                         <div class="direct-chat-info clearfix"> -->
-				<!--                             <span class="direct-chat-timestamp pull-right">3.36 PM</span> -->
-				<!--                         </div> -->
-				<!--                         <div class="direct-chat-info clearfix"> -->
-
-
-				<!--                         </div> -->
-				<!--                         /.direct-chat-text -->
-				<!--                     </div> -->
-				<!--                     /.direct-chat-msg -->
-
-
-				<!--                     <div class="chat-box-single-line"> -->
-				<!--                         <abbr class="timestamp">October 9th, 2015</abbr> -->
-				<!--                     </div> -->
-
-
-				<!--                     訊息 -->
-				<!--                     Message. Default to the left -->
-				<!--                     <div class="direct-chat-msg doted-border"> -->
-				<!--                         <div class="direct-chat-info clearfix"> -->
-				<!--                             <span class="direct-chat-name pull-left">Osahan</span> -->
-				<!--                         </div> -->
-				<!--                         /.direct-chat-info -->
-				<!--                         <img alt="iamgurdeeposahan" src="images/customer.png" class="direct-chat-img"> -->
-				<!--                         /.direct-chat-img -->
-				<!--                         <div class="direct-chat-text"> -->
-				<!--                             Hey bro, how’s everything going ? -->
-				<!--                         </div> -->
-				<!--                         <div class="direct-chat-info clearfix"> -->
-				<!--                             <span class="direct-chat-timestamp pull-right">3.36 PM</span> -->
-				<!--                         </div> -->
-				<!--                         <div class="direct-chat-text"> -->
-				<!--                             Hey bro, how’s everything going ? -->
-				<!--                         </div> -->
-				<!--                         <div class="direct-chat-info clearfix"> -->
-				<!--                             <span class="direct-chat-timestamp pull-right">3.36 PM</span> -->
-				<!--                         </div> -->
-				<!--                         <div class="direct-chat-text"> -->
-				<!--                             Hey bro, how’s everything going ? -->
-				<!--                         </div> -->
-				<!--                         <div class="direct-chat-info clearfix"> -->
-				<!--                             <span class="direct-chat-timestamp pull-right">3.36 PM</span> -->
-				<!--                         </div> -->
-				<!--                         /.direct-chat-text -->
-				<!--                     </div> -->
-				<!--                     /.direct-chat-msg -->
-
-
-
-
-
-
-				<!--                 </div> -->
-
-
-
-
-
-
-
-
-
-				<!--             </div> -->
-				<!--             <div class="popup-messages-footer"> -->
-				<!--                 <textarea id="status_message" placeholder="Type a message..." rows="10" cols="40" -->
-				<!--                     name="message"></textarea> -->
-				<!--                 <div class="btn-footer"> -->
-				<!--                     <button class="bg_none"><i class="glyphicon glyphicon-film"></i> </button> -->
-				<!--                     <button class="bg_none"><i class="glyphicon glyphicon-camera"></i> </button> -->
-				<!--                     <button class="bg_none"><i class="glyphicon glyphicon-paperclip"></i> </button> -->
-				<!--                     <button id=""><i class="">send</i></button> -->
-				<!--                 </div> -->
-				<!--             </div> -->
-				<!--         </div> -->
-				<!--     </div> -->
 
 
 				<div class="app-wrapp">
@@ -242,8 +124,8 @@
 											<li class="ac"><i class="material-icons">perm_identity</i></li>
 											<li class="active"><i class="material-icons">chat_bubble_outline</i></li>
 											<!-- <li><i class="material-icons">favorite_border</i></li> -->
-											<li class="navClick" grouproom=""><i class="material-icons"><img
-														src="${contextRoot}/images/customer.png"
+											<li class="navClick" id="customerGroup" grouproom=""><i
+													class="material-icons"><img src="${contextRoot}/images/customer.png"
 														style="width: 30px; margin-bottom: 15px" /></i></li>
 											<li id="active-line"></li>
 										</ul>
@@ -251,22 +133,28 @@
 								</div>
 
 								<!-- 聯絡人好友 -->
-								<div id="master-nav-items" data-viewport="true" style="margin: 0px 0px">
+								<div id="master-nav-items" style="margin: 0px 0px">
 									<div id="item-1">
 
-										<div class="contact-list">
-											<ul class="touch-y">
-												<li id="a" class=""><a name="a" class="title">A</a>
-													<ul>
-														<li>Adam</li>
-														<li>Alex</li>
-														<li>Ali</li>
-														<li>Apple</li>
-														<li>Arthur</li>
+										<div class="" id="friendGroupList">
+											<a href="#" class="list-group-item active">
+												好友
+											</a>
 
-													</ul>
+											<!-- <ul class="list-group"> -->
+											<!-- <li id="a" class=""><a name="a" class="title">A</a>
+													<ul> -->
+											<!-- <li class="list-group-item " aria-current="true" style="width:100px">
+													Adam
 												</li>
-												<li id="b" class=""><a name="b" class="title">B</a>
+												<li>Alex</li>
+												<li>Ali</li>
+												<li>Apple</li>
+												<li>Arthur</li> -->
+											<!-- 
+													</ul>
+												</li> -->
+											<!-- <li id="b" class=""><a name="b" class="title">B</a>
 													<ul>
 														<li>Barry</li>
 														<li>Becky</li>
@@ -285,9 +173,9 @@
 														<li>Corky</li>
 														<li>Cypher</li>
 													</ul>
-												</li>
+												</li> -->
 
-											</ul>
+											<!-- </ul> -->
 										</div>
 									</div>
 
@@ -296,147 +184,13 @@
 									<div id="item-2">
 										<div class="messages-list">
 											<ul class="touch-y" id="chatRoom">
-												<!-- <li>
-													<div class="sender-image">
-														<img
-															src="https://raw.githubusercontent.com/yousefsami/social-app-assets/master/user1.jpg">
-													</div>
-													<div class="mes-detail">
-														<div class="mes-col1">
-															<div class="sender-name">Masome Sami</div>
-															<div class="mes-preview">
-																Hi how are you ? <br> What's your name?
-															</div>
-														</div>
-														<div class="mes-col2">
-															<div>
-																<div class="send-time">10:26 AM</div>
-																<div class="mes-seen-status">
-																	<i class="material-icons">done_all</i>
-																</div>
-															</div>
-															<span class="mes-count">3</span>
-														</div>
-													</div>
-												</li>
-												<li>
-													<div class="sender-image">
-														<img
-															src="https://raw.githubusercontent.com/yousefsami/social-app-assets/master/user2.jpg">
-													</div>
-													<div class="mes-detail">
-														<div class="mes-col1">
-															<div class="sender-name">Reza Sami</div>
-															<div class="mes-preview">Where are you from ...</div>
-														</div>
-														<div class="mes-col2">
-															<div>
-																<div class="send-time">9:00 AM</div>
-																<div class="mes-seen-status">
-																	<i class="material-icons">done_all</i>
-																</div>
-															</div>
-															<span class="mes-count">12</span>
-														</div>
-													</div>
-												</li>
-												<li>
-													<div class="sender-image">
-														<img
-															src="https://raw.githubusercontent.com/yousefsami/social-app-assets/master/user3.jpg">
-													</div>
-													<div class="mes-detail">
-														<div class="mes-col1">
-															<div class="sender-name">یوسف سامی</div>
-															<div class="mes-preview">Lorem ipsum a plane text</div>
-														</div>
-														<div class="mes-col2">
-															<div>
-																<div class="send-time">Tue</div>
-																<div class="mes-seen-status"></div>
-															</div>
-															<span class="mes-count">50</span>
-														</div>
-													</div>
-												</li>
-												<li>
-													<div class="sender-image">
-														<img
-															src="https://raw.githubusercontent.com/yousefsami/social-app-assets/master/user4.jpg">
-													</div>
-													<div class="mes-detail">
-														<div class="mes-col1">
-															<div class="sender-name">Ali Torabi</div>
-															<div class="mes-preview">Hey i'm here</div>
-														</div>
-														<div class="mes-col2">
-															<div>
-																<div class="send-time">Sun</div>
-																<div class="mes-seen-status"><i class="material-icons">done_all</i></div>
-															</div>
-															<span class="mes-count">3</span>
-														</div>
-													</div>
-												</li> -->
+
 
 											</ul>
 										</div>
 									</div>
 
-									<!-- 愛心 -->
-									<!-- <div id="item-3">
-										<div class="touch-y activity">
-											<i class="material-icons">sentiment_dissatisfied</i>
-											<h1>Sorry !</h1>
-											<p>You don't have any Activity</p>
-										</div>
-									</div> -->
-									<!-- <div id="item-4">
-										<div class="profile-setting">
-											<div class="touch-y">
-												<div class="information">
-													<div class="public">
-														<p>PUBLIC INFORMATION</p>
-														<div class="form-group">
-															<span> <i class="material-icons">assignment_ind</i>
-															</span> <input type="text" placeholder="USERNAME"
-																value="@yousefsami">
-														</div>
-														<div class="form-group">
-															<span> <i class="material-icons">face</i>
-															</span> <input type="text" placeholder="NAME"
-																value="Yousef Sami">
-														</div>
-														<div class="form-group">
-															<span> <i class="material-icons">public</i>
-															</span> <input type="text" placeholder="WEB SITE">
-														</div>
-														<div class="form-group h-80">
-															<span> <i class="material-icons">info</i>
-															</span>
-															<textarea placeholder="BIO" rows="3"></textarea>
-														</div>
-													</div>
-													<div class="private">
-														<p>PRIVATE INFORMATION</p>
-														<div class="form-group">
-															<span> <i class="material-icons">local_post_office</i>
-															</span> <input type="text" placeholder="EMAIL"
-																value="yousef.sami19@gmail.com">
-														</div>
-														<div class="form-group">
-															<span> <i class="material-icons">fingerprint</i>
-															</span> <input type="text" placeholder="PASSWORD">
-														</div>
-														<div class="form-group">
-															<span> <i class="material-icons">phone</i>
-															</span> <input type="text" placeholder="PHONE NUMBER">
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div> -->
+
 								</div>
 							</div>
 						</div>
@@ -444,12 +198,12 @@
 
 						<!-- 對方回覆 -->
 						<!-- @send message view -->
-						<div class="view-message">
+						<div class="view-message" style="z-index:9999">
 							<div class="status-bar">
 								<div class="back-arrow">
 									<i class="material-icons">navigate_before</i>
 								</div>
-								<div class="sender-name" id="messageTitle"></div>
+								<div class="sender-name" id="messageTitle" grouproom=""></div>
 							</div>
 							<div class="messages-area" data-viewport="true">
 								<ul class="touch-y" id="message" participants="" grouproom="" groupType="">
@@ -487,6 +241,15 @@
 							</div>
 						</div>
 						<!-- -------------------- -->
+						<div id="groupPeople">
+							<ul class="list-group listGroupRoom">
+								<li class="list-group-item disabled">成員</li>
+								<!-- <li class="list-group-item">Dapibus ac facilisis in</li> -->
+
+							</ul>
+						</div>
+
+
 					</div>
 				</div>
 				<!-- 預覽圖片 -->
@@ -504,17 +267,15 @@
 
 					<strong>哈囉!</strong> 你有一個井字遊戲邀請。來自<span></span>
 				</div>
-				<div class="dd">
-					<div></div>
-					<span></span>
+
+				<div id="friendFileList">
+
+
 				</div>
-				<div class="dd">
-					<div></div>
-					<span></span>
-				</div>
-				<div class="dd">
-					<!-- 這行須加div -->
-					<span></span>
+
+				<div class="chatimgLargeFile">
+					<div class="cloes-tag" style="top:20%;right:35%"></div>
+					<img>
 				</div>
 				<script>
 
@@ -523,6 +284,7 @@
 					let viewMessage = document.querySelector("#message");
 					let viewTitle = document.querySelector("#messageTitle")
 					let chat = document.querySelector("#chatRoom");
+
 					//聊天室資料載入
 
 
@@ -546,7 +308,7 @@
 
 
 							let roomId = $(this).attr("id")
-							$("#message-text").attr("groupRoom", roomId)
+							// $("#message-text").attr("groupRoom", roomId)
 							// if (roomId === null) {
 							// 	console.log("no")
 							// } else {
@@ -559,8 +321,8 @@
 					}
 					//延遲仔入js
 					function groupRoom(roomId) {
-
-						$("#message-text").attr("groupRoom", roomId)
+						//警告
+						// $("#message-text").attr("groupRoom", roomId)
 						console.log("roomId" + roomId)
 
 						//訊息介面
@@ -594,14 +356,32 @@
 												$.each(memList, function (index, member) {
 													if (member.id == participants.personId) {
 														messageTitle += member.name;
+
 														participantsId.push(member.account)
+														$("#message-text").attr("groupRoom", roomId)
 													}
 												})
 											}
 										})
 
-									} else {
+									} else if (groupList.groupType === 1) {
 										groupType = 1
+										$.each(groupList.participants, function (index, participants) {
+											if (participants.personId != data.userId) {
+												// participantsId.push(participants.personId)
+												$.each(memList, function (index, member) {
+													if (member.id == participants.personId) {
+
+														participantsId.push(member.account)
+														$(".listGroupRoom").append('<li class="list-group-item groupMember"><img src="' + member.avator + '" style="width:30px;height:30px;border-radius:50%"><span>' + member.name + '</span></li>')
+														$("#message-text").attr("groupRoom", roomId)
+													}
+												})
+											}
+										})
+										messageTitle += groupList.groupName;
+									} else if (groupList.groupType === 2) {
+										groupType = 2
 										$.each(groupList.participants, function (index, participants) {
 											if (participants.personId != data.userId) {
 												// participantsId.push(participants.personId)
@@ -640,7 +420,7 @@
 
 												if (groupList.groupType === 0) {
 													message += '<div class="ifReadSocket reading" style="float:left;position:absolute;color:black;bottom:1px;left:-30px">已讀</div>';
-												} else {
+												} else if (groupList.groupType === 1) {
 													// let readCount = messageContent.ifRead.length();
 													let readCount = messageContent.ifRead.split(',')
 													let readLength = readCount.length
@@ -662,6 +442,7 @@
 							viewMessage.innerHTML = message;
 							viewTitle.innerHTML = messageTitle;
 							$("#message").attr("groupRoom", roomId)
+
 							$("#message-text").attr("senderId", data.userId)
 							$("#message").attr("groupType", groupType)
 							// $('.sent').click(function (e) {
@@ -670,7 +451,7 @@
 							// })
 							// console.log(participantsId)
 							$("#message").attr("participants", participantsId)
-
+							$("#messageTitle").attr("grouproom", roomId)
 							let dataMessage = {};
 							dataMessage["type"] = 6
 							dataMessage["from"] = "${loginUser.account}";
@@ -681,6 +462,11 @@
 							// console.log("AAA", JSON.stringify(data))
 							websocket.send(JSON.stringify(dataMessage)); // 使用 send() 方法发送数据
 
+						}).then(a => {
+							imgLarge()
+							console.log(viewMessage.scrollHeight, "hhehehehe")
+							viewMessage.scrollTop = viewMessage.scrollHeight
+							console.log(viewMessage.scrollTop = viewMessage.scrollHeight)
 						})
 
 
@@ -696,6 +482,7 @@
 						// setTimeout(() => controllMessage(), 1000)
 						$(".back-arrow").unbind();
 						setTimeout(() => backArrow(), 1000)
+
 						let formData = new FormData();
 						formData.append('groupId', roomId);
 
@@ -704,6 +491,7 @@
 							body: formData
 
 						}).then(res => res.text()).then(res => console.log("ifif", res))
+
 
 					}
 
@@ -734,6 +522,8 @@
 							$("#message-text").attr("senderId", "")
 							$("#message").attr("groupRoom", "")
 							$("#message").attr("groupType", "")
+							$("#messageTitle").attr("grouproom", "")
+							$(".groupMember").remove();
 						})
 					}
 
@@ -842,6 +632,8 @@
 
 
 
+						}).then(a => {
+							imgLarge()
 						});
 
 
@@ -877,7 +669,7 @@
 						if (message == "") {
 							setTimeout(function () {
 								let message = '<li class="recive"><img src="${contextRoot}/images/customer.png"style="width: 35px; height: 35px; border-radius: 50%; display: flex; float: left; margin-top: 10px" />';
-								message += '<div>我不太了解您的意思，您可以轉<a href="#" onclick="customerService()">專員</a>，讓他為您服務<span>' + getTime(new Date) + '</span></div></li>';
+								message += '<div>我不太了解您的意思，您可以轉<a href="#" onclick="customerService()">人工客服</a>，讓他為您服務<span>' + getTime(new Date) + '</span></div></li>';
 								$(".messages-area > ul").append(message);
 
 
@@ -897,7 +689,7 @@
 							}).catch(function (error) {
 								setTimeout(function () {
 									let message = '<li class="recive"><img src="${contextRoot}/images/customer.png"style="width: 35px; height: 35px; border-radius: 50%; display: flex; float: left; margin-top: 10px" />';
-									message += '<div>我可能不太懂您的意思，您可以轉<a href="#"" onclick="customerService()"">專員</a>，讓他為您服務<span>' + getTime(new Date) + '</span></div></li>';
+									message += '<div>我可能不太懂您的意思，您可以轉<a href="#"" onclick="customerService()"">人工客服</a>，讓他為您服務<span>' + getTime(new Date) + '</span></div></li>';
 									$(".messages-area > ul").append(message);
 
 
@@ -949,42 +741,6 @@
 					// }
 
 					var customerWidth = 90;
-					// $(".chatImg1").click(function () {
-					// 	$(".chatImg1").addClass("box")
-
-					// })
-					// //跳出收回客服聊天視窗
-					// $(function () {
-					// 	$("#addClass").click(function () {
-					// 		//延遲跳出時間
-					// 		window.setTimeout(addCustomer, 300)
-					// 	});
-
-					// 	function addCustomer() {
-
-					// 		// $(".popup-box-on").show(200)
-					// 		// $(".popup-box-on").show("show", { direction: "right" }, 3000);
-					// 		//顯示客服方式
-					// 		$(".popup-box-on").show("fold", 800);
-
-					// 		$(".chatImg1").removeClass("box1");
-					// 	}
-
-					// 	$("#removeClass").click(function () {
-					// 		// $('#qnimate').hide('popup-box-on');
-					// 		// $(".popup-box-on").hide(200)
-					// 		$(".popup-box-on").hide("fold", {
-					// 			direction: "down"
-					// 		}, "slow");
-					// 		setTimeout(function () {
-					// 			$(".chatImg1").removeClass("box")
-					// 			$(".chatImg1").addClass("box1");
-					// 		}, 600);
-					// 		// $(".chatImg1").removeClass("box")
-					// 		// $(".chatImg1").addClass("box1")
-					// 	});
-					// })
-
 
 					//複雜得東西
 					$(document)
@@ -1058,7 +814,7 @@
 								var $el, leftPos, newWidth, $mainNav = $("#master-nav ul");
 								//nav橘色底線
 								var $active_line = $("#active-line");
-								$active_line.css("left", "83.9062px");
+								$active_line.css("left", "123px");
 								//a一打開的畫面（聊天）
 								navItemPos($("#master-nav ul .active").index());
 
@@ -1069,12 +825,15 @@
 									if ($el.hasClass("navClick")) {
 										// $("#master-nav ul li").removeClass('active');
 										// $el.addClass('active');
-
+										$("#message-text").attr("groupRoom", "")
 										let roomId = $("#message").attr("groupRoom")
+
 										// 	// setTimeout(() => controllMessage(), 1000)
 										groupRoom(roomId)
 										let messageDate = new Date;
-										systemMessage(messageDate);
+
+										setTimeout(() => systemMessage(messageDate), 1000)
+
 									} else {
 										$("#master-nav ul li").removeClass('active');
 										$el.addClass('active');
@@ -1109,13 +868,14 @@
 								// 自動回覆
 								function systemMessage(date) {
 									let messages = [
-										"有什麼需要幫忙的嗎？目前為自動訊息回覆，如需由<a href='#' onclick='customerService()'>專員</a>為您服務，請點此"
+										"有什麼需要幫忙的嗎？目前為自動訊息回覆，如需由<a href='#' onclick='customerService()' style='line-height:0;'>人工客服</a>為您服務，請點此"
 									]
 									setTimeout(function () {
 										let messageItem = "<li class='recive'><div>" + messages + "<span>" + getTime(date) + "</span></div></li>";
 										$(".messages-area > ul").append(messageItem);
 
 									}, 1000);
+									$("#messageTitle").text("客服")
 								}
 								// [parseInt(Math.random(1, 4) * 4)]
 
@@ -1208,6 +968,7 @@
 							setTimeout(function () {
 								$(".chatImg2").removeClass("FriendBox")
 								$(".chatImg2").addClass("FriendBox1");
+								$(".friendGroupList").remove();
 							}, 600);
 
 						})
@@ -1306,9 +1067,9 @@
 											// alert('你按了確定按鈕');
 											// $("li[messageId='" + messageId + "']").addClass("deleteMessage")
 											let defalutMessage = '<span style="color:blue;font-weight:800;font-style:italic;">訊息已被收回</span>'
-
-											$("li[messageId='" + messageId + "'] > div>span:first-child").text(null)
-											$("li[messageId='" + messageId + "'] > div>span:first-child").append(defalutMessage)
+											console.log($(".sent[messageId='" + messageId + "']>div span").text())
+											$(".sent[messageId='" + messageId + "'] > div span:eq(0)").html(null)
+											$(".sent[messageId='" + messageId + "'] > div span:eq(0)").append(defalutMessage)
 
 											let formData = new FormData();
 											formData.append('messageId', messageId);
@@ -1346,6 +1107,7 @@
 
 					//搜聊天室
 					function participantsSelect() {
+						$(".friendGroupList").remove();
 						$.ajax({
 							url: "${contextRoot}/participants/select1",
 							type: "get",
@@ -1382,6 +1144,9 @@
 
 														// console.log("AAA", JSON.stringify(data))
 														websocket.send(JSON.stringify(dataMessage)); // 使用 send() 方法发送数据
+														let friendList = '<a href="#" class="list-group-item friendGroupList" id="friendFileId' + member.id + '" friendFileAvator="' + member.avator + '" friendFileEmail="' + member.account + '" friendFileName="' + member.name + '" friendFileBirth="' + member.birth + '" friendFileGender="' + member.gender + '" onclick="selectFriendFile(' + member.id + ')"><img src="' + member.avator + '"style="width: 30px;height:30px;border-radius: 50%;">' + member.name + '</a>'
+
+														$("#friendGroupList").append(friendList)
 														$.each(groupList.messageText, function (index, message) {
 
 															if (index === groupList.messageText.length - 1) {
@@ -1432,7 +1197,11 @@
 
 												// let strStart = sdf.format(startTime);
 												let strTime = getTime(startTime);
-												chatRoom += '<div class="mes-preview">' + message.messageText + '</div></div>'
+												if (/<img/.test(message.messageText)) {
+													chatRoom += '<div class="mes-preview">圖片</div></div>'
+												} else {
+													chatRoom += '<div class="mes-preview">' + message.messageText + '</div></div>'
+												}
 												chatRoom += '<div class="mes-col2"><div><div class="send-time">' + strTime + '</div></div></div>'
 											}
 										})
@@ -1512,8 +1281,8 @@
 
 						} else if (data.type == 1) {
 							//如果沒開聊天室提醒視窗
-							if ($("#message").children().length == 0) {
-
+							// if ($("#message").children().length == 0) {
+							if ($("#message").attr("participants") == "") {
 								$("#remind").show("shake", 700);
 								$("#removeRemind").unbind();
 								$("#removeRemind").click(function () {
@@ -1558,7 +1327,8 @@
 							//4傳訊息給好友 是否玩遊戲
 						} else if (data.type == 4) {
 							$(".pac-man").hide();
-							showMain()
+							setTimeout(() => showMain(), 1500)
+
 							//5對方接受後開遊戲
 						} else if (data.type == 5) {
 							$("#waitText").text(data.text)
@@ -1581,7 +1351,7 @@
 											$(ifReadList).text('已讀1')
 										}
 									}
-								} else {
+								} else if (data.groupType == 0) {
 									for (ifReadList of ifReadAllList) {
 
 										if ($(ifReadList).hasClass('reading') == false) {
@@ -1599,7 +1369,8 @@
 					function acceptGameox() {
 						let toAccount = $(".acceptGame").attr("gameAccount");
 						$(".acceptGame").attr("gameAccount", "")
-						showMain()
+						setTimeout(() => showMain(), 500)
+
 						let dataMessage = {};
 						dataMessage["type"] = 4
 						dataMessage["from"] = "${loginUser.account}";
@@ -1672,6 +1443,7 @@
 					function showPreviewImage(src, fileName) {
 						let image = new Image(250) // 設定寬250px
 						image.name = fileName
+						image.classList = "chatImgLarge"
 						image.src = src // <img>中src屬性除了接url外也可以直接接Base64字串
 						$("#previewDiv").append(image)
 						// .append(`<p>File: ${image.name}`)
@@ -1713,7 +1485,60 @@
 						websocket.close();
 						console.log("closeWebSocket")
 					}
+					// console.log(viewMessage.scrollTop, "hhehehehe")
+					// $("#message").scrollTop = $("#message").scrollHeight;
+					// function selectGP() {
+					// 	$("#groupPeople").toggle("Blind", 1000)
+					// }
 
+					$("#messageTitle").click(function () {
+						$("#groupPeople").toggle("blind", {
+							direction: "up"
+						}, "slow");
+					})
+					function selectFriendFile(id) {
+
+						document.getElementById("friendFileList").innerHTML = "";
+						let f = $("#friendFileId" + id)
+
+						console.log(f.attr("friendFileName"))
+						let friendgender;
+						if (f.attr("friendFileGender") == 1) {
+							friendgender = '男'
+						} else if (f.attr("friendFileGender") == 2) {
+							friendgender = '女'
+
+						}
+						let friendFile = '<img src="' + f.attr("friendFileAvator") + '" style="width:30px;height:30px;border-radius:50%"><div>' + f.attr("friendFileName") + '</div><div>性別：' + friendgender + '</div><div>生日：08-15</div><div>email:' + f.attr("friendFileEmail") + '</div>'
+						$("#friendFileList").append(friendFile)
+						$("#friendFileList").toggle("drop", {
+							direction: "right"
+						}, "slow");
+					}
+
+
+					// var $ = function (obj) {
+					// 	return document.querySelector(obj);
+					// }
+					function imgLarge() {
+						$('.chatImgLarge').unbind();
+						$('.cloes-tag').unbind();
+						var initWindowWithIMGAndShow = function (src) {
+							console.log(src)
+							$('.chatimgLargeFile img').attr("src", src);
+							$('.chatimgLargeFile').addClass('window-show');
+						}
+
+						$('.chatImgLarge').click(function () {
+
+							var src = this.src;
+							initWindowWithIMGAndShow(src);
+						})
+
+						$('.cloes-tag').click(function () {
+							$('.chatimgLargeFile').removeClass('window-show');
+						})
+					}
 				</script>
 			</body>
 

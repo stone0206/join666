@@ -136,7 +136,11 @@ input, button {
 					<div class="tab"></div>
 					<input type="tel" id="phone" name="phone" placeholder="電話" required>
 					<div class="tab"></div>
-					
+										<div style="text-align: left; margin-left: 15px" id="gen">
+						<label id="gen">性別:</label> <input type="radio" id="gender"
+							name="gender" value="1" checked>男 <input type="radio"
+							id="gender" name="gender" value="2">女
+					</div>
 					<label for="taiwan">縣/市：</label> <select name="taiwan" id="taiwan">
 						<option value="">請選擇</option>
 					</select>
@@ -164,11 +168,7 @@ input, button {
     })
     </script>
 					<div class="tab"></div>
-					<div style="text-align: left; margin-left: 10px" id="gen">
-						<label id="gen">性別:</label> <input type="radio" id="gender"
-							name="gender" value="1" checked>男 <input type="radio"
-							id="gender" name="gender" value="2">女
-					</div>
+
 										<div class="form-check form-check-inline">
 						<label class="form-check-label"><input
 							class="form-check-input" type="checkbox" id="hobbit1" name="hobbit" value="1">

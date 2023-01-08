@@ -402,11 +402,12 @@
 						e.preventDefault();
 						let hp = $('#hP').val();
 						let lp = $('#lP').val();
-						fetch('${contextRoot}/searchByHLPrice?lowPrice=' + lp + '&highPrice=' + hp).then(res => res.json()).then(json => {temp = json)
-						changeProductItem(temp)})
+						fetch('${contextRoot}/searchByHLPrice?lowPrice=' + lp + '&highPrice=' + hp).then(res => res.json()).then(json => {temp = json
+						changeProductItem(temp)
 						$('#hP').val('')
-						$('#lP').val('')
-					})
+						$('#lP').val('')}
+					)})
+				
 
 					$('#search-btn').click(function (e) {
 						e.preventDefault();

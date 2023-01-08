@@ -71,6 +71,9 @@ public class pageController {
 		return "bannedpage";
 	}
 	
-	
+	@RequestMapping("/party")
+	public String partyIndex(){
+		return "party";
+	}
 
 }
