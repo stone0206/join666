@@ -60,8 +60,8 @@
 	<div class="text-center m-5">
 		快速登入:
 		<button class="btn btn-outline-info fastLogin2">Leo</button>
-		<button class="btn btn-outline-info fastLogin2">Amy</button>
-		<button class="btn btn-outline-info fastLogin2">Kevin</button>
+		<button class="btn btn-outline-info fastLogin2">John</button>
+		<button class="btn btn-outline-info fastLogin2">Mary</button>
 		<button class="btn btn-outline-info fastLogin" value="admin">admin</button>
 		<!-- 		<button class="btn btn-outline-info fastLogin">易穎</button> -->
 		<!-- 		<button class="btn btn-outline-info fastLogin">博宇</button> -->
