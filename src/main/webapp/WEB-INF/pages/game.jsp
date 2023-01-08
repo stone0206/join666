@@ -13,18 +13,19 @@
                 <style>
                     #main {
                         width: 310px;
-                        height: 500px;
+                        height: 550px;
                         border: 1px solid black;
                         right: 10px;
                         bottom: 200px;
                         position: fixed;
                         float: right;
                         display: none;
+                        background-color: white;
                     }
 
                     .gameAll {
                         float: right;
-                        right: 50px;
+                        right: 10px;
                         bottom: 200px;
                         position: fixed;
 
@@ -244,7 +245,7 @@
 
                 <!-- Button to reset game -->
                 <button id="but" onclick="reset()">
-                    重新开始
+                    重新開始
                 </button>
 
 
@@ -416,7 +417,7 @@
                     drawboard();
                     gameover = "NO";
                     document.getElementById("print2")
-                        .innerHTML = "游戏开始, 请开始放置棋子";
+                        .innerHTML = "遊戲開始, 請開始放置棋子";
                 }
 
                 // Here onwards, functions check turn of the player
@@ -461,7 +462,7 @@
 
                 function init() {
                     output = document.getElementById("output");
-                    webSocketgame = new WebSocket(getRootUri() + "/tictactoe");
+                    webSocketgame = new WebSocket(getRootUri() + "/tictactoe/${loginUser.name}");
                     console.log(webSocketgame)
                     webSocketgame.onopen = function (evt) {
                         onOpen(evt)
@@ -475,10 +476,12 @@
                 }
 
                 function onMessage(evt) {
+
                     console.log(evt.data);
+                    // console.log(evt.data.to);
                     if (evt.data == "roomfull") {
                         document.getElementById("print")
-                            .innerHTML = "游戏玩家已满";
+                            .innerHTML = "遊戲玩家已滿";
                         webSocketgame.close(-1);
                     }
                     if (evt.data == "reset") {
@@ -487,22 +490,25 @@
                     if (evt.data == "wait") {
                         //window.alert("Waiting for Second Player");
                         document.getElementById("print2")
-                            .innerHTML = "等待第二个玩家";
+                            .innerHTML = "等待第二個玩家";
 
                     }
                     if (evt.data == "start") {
                         reset();
                     }
-                    if (evt.data == "xwon") {
-                        document.getElementById("print2")
-                            .innerHTML = "玩家X赢了";
 
-                    }
-                    if (evt.data == "owon") {
-                        document.getElementById("print2")
-                            .innerHTML = "玩家O赢了";
 
-                    }
+
+                    // if (evt.data.to === "xwon") {
+                    //     document.getElementById("print2")
+                    //         .innerHTML = "玩家" + data.text + "赢了";
+
+                    // }
+                    // if (evt.data == "owon") {
+                    //     document.getElementById("print2")
+                    //         .innerHTML = "玩家O赢了";
+
+                    // }
                     if (evt.data == "tie") {
                         document.getElementById("print2")
                             .innerHTML = "平局";
@@ -515,8 +521,10 @@
                         player = words[1];
                         //window.alert(player);
                         document.getElementById("print2")
-                            .innerHTML = "玩家" + player + "已离开游戏,请退出游戏";
+                            .innerHTML = "對方已離開遊戲,請退出遊戲";
                     }
+                    // .innerHTML = "玩家" + player + "已离开游戏,请退出游戏";
+
                     if (evt.data.indexOf("player") != -1) {
                         //window.alert(evt.data);
                         words = evt.data.split("-");
@@ -533,7 +541,7 @@
                         turn = words[1];
                         //window.alert(turn);
                         document.getElementById("print")
-                            .innerHTML = "当前由玩家" + turn + "放置棋子";
+                            .innerHTML = "當前由玩家" + turn + "放置棋子";
                     }
                     if (evt.data.indexOf("place") != -1) {
                         //window.alert(evt.data);
@@ -548,7 +556,37 @@
                         gameover = words[1];
                         //window.alert(turn);
                         document.getElementById("print")
-                            .innerHTML = "游戏结束！";
+                            .innerHTML = "遊戲结束！";
+                    }
+                    if (typeof evt.data == 'string') {
+                        try {
+                            var obj = JSON.parse(evt.data);
+                            if (typeof obj == 'object' && obj) {
+                                if (obj.to == "xwon") {
+                                    if (obj.text == "${loginUser.name}") {
+                                        document.getElementById("print2")
+                                            .innerHTML = "你赢了";
+                                    } else {
+                                        document.getElementById("print2")
+                                            .innerHTML = "玩家" + obj.text + "赢了";
+                                    }
+
+
+                                } else if (obj.to == "owon") {
+                                    if (obj.text == "${loginUser.name}") {
+                                        document.getElementById("print2")
+                                            .innerHTML = "你赢了";
+                                    } else {
+                                        document.getElementById("print2")
+                                            .innerHTML = "玩家" + obj.text + "赢了";
+                                    }
+                                }
+                            } else {
+                                return false;
+                            }
+                        } catch (e) {
+                            return false;
+                        }
                     }
                 }
 

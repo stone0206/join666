@@ -16,4 +16,8 @@ public interface GroupRoomDAO extends JpaRepository<GroupRoom, Integer> {
 	
 	@Query(value="select * from grouproom where groupId in (?1)",nativeQuery = true)
 	public List<GroupRoom> userHaveGroupSelect(ArrayList<Integer> id);
+	
+	//根據ReunionId查群組
+	@Query(value="select * from grouproom where reunionId =?1",nativeQuery = true)
+	public GroupRoom reunionIdHaveGroup(Integer reunionId);
 }

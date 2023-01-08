@@ -35,12 +35,15 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ispan6.Constants;
+import com.ispan6.bean.chatsystem.GroupRoom;
 import com.ispan6.bean.matchsystem.HobbitBean;
 import com.ispan6.bean.matchsystem.SelfHobbitBean;
 import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.bean.postsystem.PostBean;
 import com.ispan6.dao.matchsystem.SelfHobbitDto;
 import com.ispan6.dao.membersystem.UserGoogleDto;
+import com.ispan6.service.chatsystem.GroupRoomService;
+import com.ispan6.service.chatsystem.ParticipantsService;
 import com.ispan6.service.matchsystem.MatchService;
 import com.ispan6.service.membersystem.MemberTestService;
 import com.ispan6.service.postsystem.PostService;
@@ -67,6 +70,13 @@ public class MemberTestController {
 	
 	@Autowired
 	private SelfHobbitDto hDto;
+	
+	@Autowired
+	private GroupRoomService groupRoomService;
+	
+	@Autowired
+	private ParticipantsService participantsService;
+
 
 	@PostMapping("/login2")
 	public String login2(@RequestParam String account, @RequestParam String password, Model model) {
@@ -74,7 +84,7 @@ public class MemberTestController {
 		MemberTest mt = mService.findByAccAndPwd(account, password);
 		System.out.println(mt.getEmail());
 		model.addAttribute("loginUser", mt);
-
+		
 		return "index";
 	}
 
@@ -101,6 +111,15 @@ public class MemberTestController {
 
 		return "redirect:/index";
 		}
+	}
+	
+	@PostMapping("/updatePwd")
+	public String updatePwd(@RequestParam(value="password") String password, HttpSession session) {
+		String account= (String) session.getAttribute("mail");
+		mService.updatePwd(password, account);
+		MemberTest mt = mService.findByAcc(account);
+		session.setAttribute("loginUser", mt);
+		return "/index";
 	}
 
 	@PostMapping("/update")
@@ -257,6 +276,13 @@ public class MemberTestController {
 		HttpSession session = request.getSession();
 		session.setAttribute("loginUser", mt);
 		
+		//易
+		GroupRoom gr = groupRoomService.insertGroupRoom("客服", 2, null);
+		Integer grId = gr.getGroupId();
+		participantsService.insertParticipants(grId, 1);
+		participantsService.insertParticipants(grId, mt.getId());
+
+		
 		for(int i=0;i<hobbit.length;i++) {
 		SelfHobbitBean sBean = new SelfHobbitBean();
 		sBean.setUserhid(mt);
@@ -316,6 +342,20 @@ public class MemberTestController {
 			return "checkUUID";
 		} else {
 			return "/index";
+		}
+	}
+	
+	@PostMapping("/sendCode2") // 寄送驗證信的註冊
+	public @ResponseBody String sendCode2(@RequestParam(value = "account") String account, HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("送信中");
+		HttpSession session = request.getSession();
+		session.setAttribute("mail", account);
+		boolean flag = mService.sendCode2(session, account);
+		System.out.println(flag);
+		if (flag) {
+			return "寄送成功，請前往您的信箱查看";
+		} else {
+			return "寄送失敗，請輸入可用的信箱";
 		}
 	}
 
@@ -405,11 +445,21 @@ public class MemberTestController {
     	return "userpage";
     }
     
+    @GetMapping("/lookCode/{code}")
+    public String lookCode2(@PathVariable("code")String code, HttpSession session){
+    	return "updatepassword";
+    }
+    
     @PostMapping("/banMem")
     @ResponseBody
     public void banMem(@RequestParam(value = "banned") Integer banned, @RequestParam(value = "account") String account) {
     	System.out.println(banned+","+account);
     	mService.banMem(banned, account);
+    }
+    
+    @GetMapping("/checkEmail")
+    public String checkEmail() {
+    	return "checkEmail";
     }
 
 }

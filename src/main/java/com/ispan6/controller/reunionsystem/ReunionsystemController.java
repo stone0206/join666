@@ -13,12 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ispan6.bean.chatsystem.GroupRoom;
 import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.bean.reunionsystem.Payment;
 import com.ispan6.bean.reunionsystem.Register;
 import com.ispan6.bean.reunionsystem.Reunion;
 import com.ispan6.bean.reunionsystem.Reunionreport;
 import com.ispan6.bean.reunionsystem.Reuniontype;
+import com.ispan6.service.chatsystem.GroupRoomService;
+import com.ispan6.service.chatsystem.ParticipantsService;
 import com.ispan6.service.reunionsystem.PaymentService;
 import com.ispan6.service.reunionsystem.ReunionregisterService;
 import com.ispan6.service.reunionsystem.ReunionreportService;
@@ -45,6 +48,13 @@ public class ReunionsystemController {
 	
 	@Autowired
 	private ReunionreportService reunionreportService;
+	
+	//易
+	@Autowired
+	private ParticipantsService participantsService;
+	//易
+	@Autowired
+	private GroupRoomService groupRoomService;
 	
 	
 
@@ -128,7 +138,13 @@ public class ReunionsystemController {
 		reunion.setContent(content1);
 		reunion.setMemberid(memberid);
 		reunion.setNumber(0);
-		reunionsystemService.insertReunion(reunion);
+		//易改回傳Reunion
+		Reunion r=reunionsystemService.insertReunion(reunion);
+		
+		//易
+		GroupRoom gr = groupRoomService.insertReunionGroupRoom(r.getTopic(), 1,r.getPicture() ,r.getReunionid());
+		Integer grId = gr.getGroupId();
+		participantsService.insertParticipants(grId,memberid );
 		return "redirect:/page";
 	}
 	
@@ -198,6 +214,11 @@ public class ReunionsystemController {
 	    	 if(reunion.getPeople()>count) {
 			reunionregisterService.agreeRegisterByReunionidAndMemberid(id, memberid);
 	    	 }
+	    	 //易
+	    	 GroupRoom gr = groupRoomService.reunionIdHaveGroup(id);
+	    	 Integer grId = gr.getGroupId();
+	 		participantsService.insertParticipants(grId,memberid );
+	    	 
 			return "redirect:/searchRegisterByReunionId?id="+id;
 		}
 	    

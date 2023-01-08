@@ -124,4 +124,6 @@ public class PostBean {
 		this.likepostList = likepostList;
 	}
 
+	
+
 }

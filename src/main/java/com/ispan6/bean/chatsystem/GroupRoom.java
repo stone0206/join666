@@ -52,6 +52,9 @@ public class GroupRoom {
 	@Column(name="GROUPPHOTO")
 	private String groupPhoto;
 	
+	@Column(name="REUNIONID")
+	private Integer reunionId;
+	
 	//一個聊天室 不重複玩家
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "groupRoomId",cascade = CascadeType.ALL)
 	private Set<Participants> participants=new HashSet<Participants>();
@@ -107,6 +110,12 @@ public class GroupRoom {
 
 	public void setMessageText(List<MessageContent> messageText) {
 		this.messageText = messageText;
+	}
+	public Integer getReunionId() {
+		return reunionId;
+	}
+	public void setReunionId(Integer reunionId) {
+		this.reunionId = reunionId;
 	}
 	
 	

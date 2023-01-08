@@ -28,7 +28,15 @@ public class GroupRoomService {
 		groupRoom.setGroupPhoto(photo);
 		return groupRoomDAO.save(groupRoom);
 	}
-	
+	//新增聚會聊天室
+	public GroupRoom insertReunionGroupRoom(String groupName,Integer groupType,String photo,Integer reunionId) {
+		GroupRoom groupRoom = new GroupRoom();
+		groupRoom.setGroupName(groupName);
+		groupRoom.setGroupType(groupType);
+		groupRoom.setGroupPhoto(photo);
+		groupRoom.setReunionId(reunionId);
+		return groupRoomDAO.save(groupRoom);
+	}
 	//查群組
 	public List<GroupRoom> userHaveGroupSelect(List<Participants> pList) {
 		ArrayList<Integer> id=new ArrayList<Integer>();
@@ -53,5 +61,9 @@ public class GroupRoomService {
 	//查聊天室所有東西
 	public List<GroupRoom> selectGroupRoom(ArrayList<Integer> groupId){
 		return groupRoomDAO.userHaveGroupSelect(groupId);
+	}
+	//根據ReunionId查群組
+	public GroupRoom reunionIdHaveGroup(Integer reunionId) {
+		return groupRoomDAO.reunionIdHaveGroup(reunionId);
 	}
 }

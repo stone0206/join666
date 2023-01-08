@@ -54,8 +54,8 @@ public class ParticipantsController {
 	private CustomerServiceMessageService customerServiceMessageService;
 
 //	新增好友群組
-	@PostMapping(path = "/participants/friendadd")
-	public void inserParticipants(@RequestParam Integer userId, @RequestParam Integer fuid) {
+	@PostMapping(path = "/participants/friendadd", produces = "application/json; charset=UTF-8")
+	public void inserParticipants(@RequestParam(name="userId") Integer userId, @RequestParam(name="fuid") Integer fuid) {
 		System.out.println("userId" + userId + "fuid" + fuid);
 		GroupRoom gr = groupRoomService.insertGroupRoom(null, 0, null);
 		Integer grId = gr.getGroupId();
@@ -277,48 +277,5 @@ public class ParticipantsController {
 		return customerServiceMessageService.findLikeMessage(text);
 	}
 
-	// 後台訊息
-
-//		@GetMapping(path = "backend/participants/select1",produces= {"application/json;charset=UTF-8"})
-//		@ResponseBody
-//		public Map<String,Object> backendSelectParticipants(HttpSession session,Model m) {
-//			
-//			MemberTest member = (MemberTest) session.getAttribute("loginUser");
-//			
-//			if(member != null) {
-//				Integer personId=Integer.valueOf(member.getId());
-//				System.out.println("personId"+personId);
-//				List<Participants> pList = participantsService.selectParticipants(personId);
-//				HashSet<Integer> userId = new HashSet<Integer>();
-//				
-//				List<GroupRoom> gList = groupRoomService.userHaveGroupSelect(pList);
-//				for (int i = 0; i < gList.size(); i++) {
-//					GroupRoom g = gList.get(i);
-//					Set<Participants> pFile = g.getParticipants();
-//					for(Participants p:pFile) {
-//						userId.add(p.getPersonId());
-//						System.out.println("personId"+p.getPersonId());
-//					}
-//		
-//		
-//				}
-//				List<MemberTest> mList = mService.senderFile(userId);
-//				for (int i = 0; i < mList.size(); i++) {
-//					System.out.println(mList.get(i));
-//				}
-//				
-//				
-//				Map<String,Object> message=new HashMap<String,Object>();
-//				message.put("groomList", gList);
-//				message.put("memList", mList);
-//				message.put("userId", member.getId());
-////				m.addAttribute("groomList", gList);
-////				m.addAttribute("memList", mList);
-////				session.setAttribute("groomList",gList);
-////				session.setAttribute("memList",mList);
-//				return message;
-//			}
-//			return null;
-//		}
 
 }

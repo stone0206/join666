@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ispan6.bean.membersystem.MemberTest;
 import com.ispan6.bean.postsystem.CommentBean;
 import com.ispan6.bean.postsystem.PostBean;
+import com.ispan6.dao.postsystem.LikepostDAO;
 import com.ispan6.dao.postsystem.PostDAO;
 import com.ispan6.service.postsystem.PostService;
 
@@ -37,6 +40,9 @@ public class PostController {
 	
 	@Autowired
 	private PostDAO postDao;
+	
+	@Autowired
+	private LikepostDAO likepostDAO;
 	
 //	@ResponseBody
 //	@GetMapping("/delete/{postid}")
@@ -157,7 +163,14 @@ public class PostController {
 	public byte[] showPicture(Integer postId) throws IOException {
 		byte[] bytes = postService.getPicture(postId);
 		return bytes;
-
+	}
+	
+	@PostMapping("/plusLike")
+	@ResponseBody
+	public Map<String, Object> plusLike(@RequestParam("postId") Integer postId) {
+	Map<String, Object> response = new HashMap<>();
+	response.put("count", postService.plusLike(postId));
+	return response;
 	}
 
 	@GetMapping(value = "/testComment")
