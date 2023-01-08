@@ -1040,7 +1040,7 @@ background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, F
     position: absolute;
    
    
-    z-index:10000000;
+    z-index:999;
     	
     float:left;
     left:20px;
