@@ -64,11 +64,9 @@
 														<form action="/editpost" method="post">
 															<textarea name="content" class="form-control" rows="5"
 																cols="80">${postBean.content}</textarea>
-																
 															<input style="color:white;" 
 												             type="file" id="imgFile" name="photo" accept="image/*" />
-												             
-															<img id="theImg" src="/assets/preview.png" style="width: 10px; float: center;" alt="Image preview" />
+															<img id="theImg" src="/assets/preview.png" style="width: 10px; float: right;" alt="Image preview" />
 															<input class="form-control bi bi-three-dots" type="submit"
 																value="貼文"
 																style="float:right; font-size:8px; background-color:AliceBlue;" />
@@ -159,7 +157,6 @@
 					  reader.onload = function(e) {
 					    document.getElementById('theImg').src = e.target.result;
 					    document.getElementById('theImg').style.width = "300px";
-					    document.getElementById('theImg').style.float = "center";
 					    
 					  }
 					  reader.readAsDataURL(this.files[0]);

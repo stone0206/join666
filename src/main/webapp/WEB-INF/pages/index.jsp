@@ -79,7 +79,8 @@
 
 												</c:if>
 												<c:if test="${message.memberId.id !=loginUser.id}">
-													<img src="assets/preview.png" id="file-img" alt="Image preview" />
+													<img src="assets/preview.png" style="width: 30px;" id="file-img"
+														alt="Image preview" />
 													<input style="display:none;" type="file" id="imgFile" name="photo"
 														accept="image/*" />
 												</c:if>
@@ -173,20 +174,31 @@
 
 													<!--FEED REACT START -->
 													<ul class="nav nav-stack py-3 small" style="padding:1px 1px">
-														<li class="nav-item">
+														<c:if test="${loginUser ==null}">
+															<li class="nav-item">
+																<button class="btn btn-primary like-button"
+																	style="background-color: transparent;width: 50%; border:none"
+																	data-post-id="123"><img
+																		src="https://img.icons8.com/arcade/64/null/filled-like.png" /></button>
+																<span
+																	id="likeCount${message.postid}">${message.likepostList[0].count}
+																</span>
+															</li>
+														</c:if>
 
-
-															<button id="likeButton${message.postid}"
-																onclick="sendAjaxRequest(${message.postid})"
-																class="btn btn-primary like-button"
-																style="background-color: transparent;width: 50%; border:none"
-																data-post-id="123"><img
-																	src="https://img.icons8.com/arcade/64/null/filled-like.png" /></button>
-															<span
-																id="likeCount${message.postid}">${message.likepostList[0].count}
-															</span>
-
-														</li>
+														<c:if test="${loginUser !=null}">
+															<li class="nav-item">
+																<button id="likeButton${message.postid}"
+																	onclick="sendAjaxRequest(${message.postid})"
+																	class="btn btn-primary like-button"
+																	style="background-color: transparent;width: 50%; border:none"
+																	data-post-id="123"><img
+																		src="https://img.icons8.com/arcade/64/null/filled-like.png" /></button>
+																<span
+																	id="likeCount${message.postid}">${message.likepostList[0].count}
+																</span>
+															</li>
+														</c:if>
 													</ul>
 													<!-- Feed react END -->
 
