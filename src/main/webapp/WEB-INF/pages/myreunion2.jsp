@@ -18,6 +18,7 @@
         crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <title>我的聚會</title>
+    
    			<style>
 				#table tr {
 					text-align: center;
@@ -49,11 +50,18 @@
 	</header>
 
 		<main>
+		<div style="width:300px;height:60px;"></div>
 		<div id="layoutSidenav_content">
 			<h1 class="text-center">我的聚會</h1>
 			
 			<c:if test="${reunion[0].reunionid==null}">
-	         沒有聚會
+	         	<br>	<div class="container-fluid px-4">
+			<div class="card mb-4">
+	<div class="card-header">
+					<i class="fas fa-table me-1"></i> 沒有聚會
+				</div>
+				</div>
+				</div>
             </c:if>
 			<c:if test="${reunion[0].reunionid!=null}">
 			<div class="container-fluid px-4">
@@ -78,7 +86,7 @@
 						
 							<c:forEach var="reunion" items="${reunion}">
 								<tr>
-								<td><a href="/detailedreunion?id=${reunion.reunionid}"><img class="" src="${reunion.picture}" alt="avatar"width="80" height="80"style="border-radius: 50px;"></a></td>
+								<td><a href="/detailedreunion?id=${reunion.reunionid}"><img class="" src="${reunion.picture}" alt="avatar" style="width:100px ;height:100px; border-radius: 50px;" ></a></td>
 								    
 									<td>${reunion.reuniontype.reutype}</td>
 									<td>${reunion.topic}</td>
@@ -109,7 +117,13 @@
 </div>
 
 <c:if test="${register[0].registerid==null}">
-	沒有報名
+		<br>	<div class="container-fluid px-4">
+			<div class="card mb-4">
+	<div class="card-header">
+					<i class="fas fa-table me-1"></i> 沒有報名
+				</div>
+				</div>
+				</div>
 </c:if>
 <c:if test="${register[0].registerid!=null}">
 	<div id="layoutSidenav_content">
@@ -129,22 +143,22 @@
 								<th>發起人</th>
 								<th>地點</th>
 								<th>舉行時間</th>
-								<th>狀態</th>
+								<th>審核狀態</th>
 					
 							</tr>
 						</thead>
 						<tbody id="table">
 							<c:forEach var="register" items="${register}">
 								<tr>
-								<td><a href="/detailedreunion?id=${register.reunion.reunionid}"><img class="" src="${register.reunion.picture}" alt="avatar"width="80" height="80"style="border-radius: 50px;"></a></td>
+								<td><a href="/detailedreunion?id=${register.reunion.reunionid}"><img class="" src="${register.reunion.picture}" alt="avatar"style="width:100px ;height:100px; border-radius: 50px;"></a></td>
 									<td>${register.reunion.reuniontype.reutype}</td>
 									<td>${register.reunion.topic}</td>
 									<td>${register.reunion.memberTest.name}</td>
 									<td>${register.reunion.place}</td> 
 									<td>${register.reunion.holdTime}</td>
 									<c:if test="${register.review==0}"><td>未審核</td></c:if>
-									<c:if test="${register.review==1}"><td>審核成功</td></c:if>
-									<c:if test="${register.review==2}"><td>審核失敗</td></c:if>
+									<c:if test="${register.review==1}"><td>報名成功</td></c:if>
+									<c:if test="${register.review==2}"><td>報名失敗</td></c:if>
 									
 
 								
@@ -163,7 +177,13 @@
 
 
 <c:if test="${reunionreport[0].reunionreportid==null}">
-	<br>沒有檢舉
+	<br>	<div class="container-fluid px-4">
+			<div class="card mb-4">
+	<div class="card-header">
+					<i class="fas fa-table me-1"></i> 沒有檢舉
+				</div>
+				</div>
+				</div>
 </c:if>
 <c:if test="${reunionreport[0].reunionreportid!=null}">
 	<div id="layoutSidenav_content">
@@ -190,7 +210,7 @@
 						<tbody id="table">
 							<c:forEach var="reunionreport" items="${reunionreport}">
 								<tr>
-								    <td><a href="/detailedreunion?id=${reunionreport.reunion.reunionid}"><img class="" src="${reunionreport.reunion.picture}" alt="avatar"width="80" height="80"style="border-radius: 50px;"></a></td>
+								    <td><a href="/detailedreunion?id=${reunionreport.reunion.reunionid}"><img class="" src="${reunionreport.reunion.picture}" alt="avatar"style="width:100px ;height:100px; border-radius: 50px;"></a></td>
 									<td>${reunionreport.reunion.reuniontype.reutype}</td>
 									<td>${reunionreport.reunion.topic}</td>
 									<td>${reunionreport.reunion.memberTest.name}</td>

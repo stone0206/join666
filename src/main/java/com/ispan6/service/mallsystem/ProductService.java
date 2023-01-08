@@ -64,7 +64,7 @@ public class ProductService {
 		return productDAO.orderByPriceAsc();
 	}
 
-	public List<Product> findAllByPrice(Integer lowPrice, Integer highPrice) {
+	public List<Product> findAllByPrice(Double lowPrice, Double highPrice) {
 		return productDAO.findByPriceBetween(lowPrice, highPrice);
 	}
 

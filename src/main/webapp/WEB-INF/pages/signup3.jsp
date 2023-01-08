@@ -122,8 +122,8 @@ input, button {
 
 <body>
 	<jsp:include page="/WEB-INF/layout/navbar.jsp" />
-	<form action="/insertMember" id="form1" method="post">
-		<%-- 	<form action="/sendCode" id="form1" method="post"> --%>
+<%-- 	<form action="/insertMember" id="form1" method="post"> --%>
+			<form action="/sendCode" id="form1" method="post">
 		<div class="login_page">
 			<div id="container1">
 				<div class="login">
@@ -134,7 +134,7 @@ input, button {
 					<label for="password" id="pwdLabel">請輸入密碼</label> <input
 						type="password" id="password" name="password" placeholder="密碼"
 						required> <label for="comfirm_password"
-						id="comfirmPwdLabel">請再次輸入密碼</label> <input type="text"
+						id="comfirmPwdLabel">請再次輸入密碼</label> <input type="password"
 						id="comfirm_password" name="comfirm_password" placeholder="確認密碼"
 						required>
 					<div class="tab"></div>

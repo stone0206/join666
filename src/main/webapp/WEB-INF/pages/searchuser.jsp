@@ -56,7 +56,7 @@
 						<div class="col">
 						
 							<div id="search-search">
-							<label for="taiwan">縣/市：</label> <select name="taiwan" id="taiwan" onchange="findMember()">
+							<label for="taiwan">縣/市：</label> <select name="taiwan" id="taiwan" onchange="findMember2()">
 						<option value="">請選擇</option>
 					</select>
 							</div>
@@ -121,7 +121,7 @@
 											</c:otherwise>
 										</c:choose>
 										<td rowspan="1" valign="middle">
-										<button onclick="window.open('http://localhost:8080/lookCode/${memberContent.account}', '_blank')">看看他/她的頁面</button><br><br>
+										<button onclick="window.open('http://localhost:8080/${memberContent.account}', '_blank')">看看他/她的頁面</button><br><br>
 										<button >加他/她朋友</button></td>
 									</tr>
 <!-- 									<tr> -->
@@ -219,6 +219,67 @@ $("#coun").append(map)
 })
 })
 
+function findMember2() {
+						var account = $('#account').val();
+						var name = $('#name').val();
+						var taiwan = $('#taiwan');
+						var address = taiwan.val();
+
+						var m = $('#male').is(':checked');
+						var f = $('#female').is(':checked');
+						var male = 1;
+						var female = 2;
+						if (!m) {
+							male = 0;
+						}
+						if (!f) {
+							female = 0;
+						}
+						if (!f && !m) {
+							var male = 1;
+							var female = 2;
+						}
+						console.log(male + "," + female)
+						let formData = new FormData();
+						formData.append("male", male);
+						formData.append("female", female);
+						formData.append("account", account.trim());
+						formData.append("name", name);
+						formData.append("address", address);
+						fetch("${contextRoot}/findMem", { method: "POST", body: formData }).then(result => result.json()).then(members2 => {
+							console.log(members2.length);
+							var table = $('#table');
+							var gender = "";
+							var birth = "";
+							var banned = "";
+							var member2 = '';
+							for (i = 0; i < members2.length; i++) {
+								birth = new Date(members2[i].birth).toLocaleDateString();
+								if (members2[i].gender == 1) {
+									gender = '男';
+								} else {
+									gender = '女';
+								}
+								member2+='<tr><td rowspan="1" valign="middle">';
+								member2+=members2[i].id;
+								member2+='</td><td rowspan="1" valign="middle">帳號: ';
+								member2+=members2[i].account;
+								member2+='</td><td rowspan="1" valign="middle">';
+								member2+=members2[i].name;
+								member2+='</td><td rowspan="1" valign="middle">';
+								member2+=members2[i].address;
+								member2+='</td><td rowspan="1" ><img alt="" src="';
+								member2+=members2[i].avator;
+								member2+='" style="width: 130px; height: 100px;"></td>';
+								member2+='<td rowspan="1" valign="middle">';
+								member2+=gender;
+								member2+='</td><td rowspan="1" valign="middle"><button onclick="window.open(\'http://localhost:8080/lookCode/';
+								member2+=members2[i].account;
+								member2+='\', \'_blank\')">看看他/她的頁面</button><br><br><button >加他/她朋友</button></td></tr>';
+							}
+							table.html(member2);
+						})
+					}
 	</script>
 </body>
 

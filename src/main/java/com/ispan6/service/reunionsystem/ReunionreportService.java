@@ -43,6 +43,12 @@ public class ReunionreportService {
 		return ReunionreportRepository.findReunionreportByReunionidAndMemberid(reunionid, memberid).isEmpty();
 			
 	}
+    
+    
+    public boolean reportEmpty2(Integer reunionid) {
+  		return ReunionreportRepository.findReunionreportByReunionid(reunionid).isEmpty();
+  			
+  	}
 	
 	
 }

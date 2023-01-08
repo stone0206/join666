@@ -20,7 +20,7 @@
 	<main class="form-signin m-5 text-center ">
 		<jsp:include page="/WEB-INF/layout/navbar.jsp" />
 		<br>
-		<form action="${contextRoot}/insertMember" method="post" id="form1">
+		<form action="${contextRoot}/insertMember2" method="post" id="form1">
 			<h1 class="h3 mb-3 fw-normal">請輸入驗證碼</h1>
 			<div class="form-floating">
 				<input type="text" class="form-control" id="code"

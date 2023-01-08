@@ -43,7 +43,7 @@ public interface ReunionsystemRepository extends JpaRepository<Reunion,Integer> 
 	public void addReunionnumber(Integer id);
 	
 	
-	@Query(value = "Select * FROM reunion Where topic LIKE ?1 or　content　LIKE ?1",nativeQuery = true)
+	@Query(value = "Select * FROM reunion Where topic LIKE ?1 or　content　LIKE ?1 or　place　LIKE ?1",nativeQuery = true)
 	public List<Reunion> blurrysearchReunion(String i);
 	
 	

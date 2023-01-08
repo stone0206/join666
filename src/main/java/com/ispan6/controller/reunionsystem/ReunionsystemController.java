@@ -67,8 +67,12 @@ public class ReunionsystemController {
 	public String searchByPaymentId(String start,String end, Model model) {
 		System.out.println(start);
 		System.out.println(end);
+		System.out.println(end.compareTo(start));
 		List<Reunion> reunion = reunionsystemService.findDateRange(start, end);
 		model.addAttribute("reunion",reunion);
+		if(end.compareTo(start)!=1) {
+			model.addAttribute("compara",0);
+		}
 		return "reunion";
 	}
 	
@@ -132,6 +136,16 @@ public class ReunionsystemController {
 	@GetMapping("/deleteReunion")
 	public String deleteReunion(@RequestParam Integer id) {
 		
+		boolean flag =reunionregisterService.registerEmpty2(id);
+		if(flag==false) {
+		reunionregisterService.deleteregisterById(id);
+		}
+		System.out.println(flag);
+		boolean flag1 =reunionreportService.reportEmpty2(id);
+		System.out.println(flag1);
+		if(flag1==false) {
+		reunionreportService.deleteReunionreport(id);
+		}
 		reunionsystemService.deleteReunionByReunionId(id);
 		return "redirect:/myreunion";
 	}

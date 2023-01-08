@@ -23,10 +23,10 @@
 	<main class="form-signin m-5 text-center ">
 		<jsp:include page="/WEB-INF/layout/navbar.jsp" />
 		<br>
-		<form action="${contextRoot}/login" method="post">
+		<form action="${contextRoot}/login" method="post" id="form1">
 			<h1 class="h3 mb-3 fw-normal">會員登入</h1>
 			<div class="form-floating">
-				<input type="text" class="form-control" id="floatingInput"
+				<input type="text" class="form-control" id="floatingAccount"
 					placeholder="aaa" name="account" required> <label
 					for="floatingInput">帳號</label>
 			</div>
@@ -41,7 +41,7 @@
 				</label>
 			</div>
 			<div class=" mb-2">
-				<button class="w-25 btn btn-lg btn-primary">登入</button>
+				<button class="w-25 btn btn-lg btn-primary" id="loginBtn">登入</button>
 			</div>
 			<div class=" mb-2">
 				<input type="button" class="w-25 btn btn-lg btn-primary"
@@ -72,13 +72,31 @@
 </body>
 
 <script type="text/javascript">
+	$("#loginBtn").click(function(event){
+		event.preventDefault();
+		var account=$("#floatingAccount").val();
+		var password=$("#floatingPassword").val();
+		let formData = new FormData();
+		formData.append("account", account);
+		formData.append("password", password);
+		fetch("${contextRoot}/checkMem", { method: "POST", body: formData }).then(result => result.json()).then(flag =>{
+			if(flag){
+// 				alert("帳號密碼正確");
+			$("#form1").submit();}
+			else{
+				alert("帳號或密碼輸入，請輸入正確的帳號密碼");
+				return;
+			}
+		})
+	})
+
 	//快速登入
 	$(".fastLogin2").click(function() {
-		$("#floatingInput").val(this.innerHTML + "001");
+		$("#floatingAccount").val(this.innerHTML + "001");
 		$("#floatingPassword").val("1234");
 	});
 	$(".fastLogin").click(function() {
-		$("#floatingInput").val(this.innerHTML);
+		$("#floatingAccount").val(this.innerHTML);
 		$("#floatingPassword").val(this.innerHTML);
 	});
 

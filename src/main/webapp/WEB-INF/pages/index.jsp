@@ -405,6 +405,7 @@
 					// 				// // 將 postId 和按讚數值儲存到本地
 					// 				// localStorage.setItem("postId_" + postId, response.count);
 
+
 					// 			}
 					// 		});
 					// 	}
@@ -426,6 +427,7 @@
 								// 在這裡你可以使用 JavaScript 更新頁面上的按讚數
 								console.log(response);
 								// 使用 response.count 更新按讚數
+
 
 								$('#likeCount' + postId).text(response.count + '個喜翻');
 
@@ -452,6 +454,7 @@
 						reader.onload = function (e) {
 							document.getElementById('theImg').src = e.target.result;
 							document.getElementById('theImg').style.width = "300px";
+
 						}
 						reader.readAsDataURL(this.files[0]);
 					});

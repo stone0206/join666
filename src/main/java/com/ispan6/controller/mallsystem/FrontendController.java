@@ -135,7 +135,7 @@ public class FrontendController {
 	 */
 	@GetMapping("/searchByHLPrice")
 	@ResponseBody
-	public List<Product> searchByHLPrice(@RequestParam Integer lowPrice, Integer highPrice) {
+	public List<Product> searchByHLPrice(@RequestParam Double lowPrice, Double highPrice) {
 		return productService.findAllByPrice(lowPrice, highPrice);
 	}
 
