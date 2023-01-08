@@ -14,6 +14,6 @@
 	
 		<jsp:include page="/WEB-INF/layout/navbar.jsp" />
 	
-	<img src="${contextRoot}/images/partys.jpeg" style="width:100%;height:100%;display:flex;margin:auto">
+	<img src="${contextRoot}/images/party.jpeg" style="width:100%;height:100%;display:flex;margin:auto">
 </body>
 </html>
