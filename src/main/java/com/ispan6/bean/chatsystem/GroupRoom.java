@@ -1,5 +1,6 @@
 package com.ispan6.bean.chatsystem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,10 +26,8 @@ import com.ispan6.bean.matchsystem.MatchBean;
 //聊天室
 @Entity
 @Table(name="grouproom")
-//如果update 值是null 則不會被更改
-@DynamicUpdate
-public class GroupRoom {
-	
+public class GroupRoom implements Serializable{
+	private static final long serialVersionUID = 1L;
 	
 	public GroupRoom() {
 		

@@ -276,11 +276,7 @@ public class MemberTestController {
 		HttpSession session = request.getSession();
 		session.setAttribute("loginUser", mt);
 		
-		//易
-		GroupRoom gr = groupRoomService.insertGroupRoom("客服", 2, null);
-		Integer grId = gr.getGroupId();
-		participantsService.insertParticipants(grId, 1);
-		participantsService.insertParticipants(grId, mt.getId());
+		
 
 		
 		for(int i=0;i<hobbit.length;i++) {
@@ -291,7 +287,6 @@ public class MemberTestController {
 		sBean.setHobbitid(hb);
 		hDto.save(sBean);
 		}
-		
 		
 		return "index";
 	}
@@ -320,7 +315,14 @@ public class MemberTestController {
 		sBean.setHobbitid(hb);
 		hDto.save(sBean);
 		}
+		//易
+		System.out.println("userId"+mt.getId());
+		GroupRoom gr = groupRoomService.insertGroupRoom("客服", 2, null);
 		
+		Integer grId = gr.getGroupId();
+		System.out.println(grId);
+		participantsService.insertParticipants(grId, 1);
+		participantsService.insertParticipants(grId, mt.getId());
 		return "index";
 	}
 	

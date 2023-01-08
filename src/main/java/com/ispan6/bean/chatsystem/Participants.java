@@ -20,8 +20,6 @@ import com.ispan6.bean.membersystem.MemberTest;
 //群組
 @Entity
 @Table(name="participants")
-//如果update 值是null 則不會被更改
-@DynamicUpdate
 public class Participants implements Serializable{
 
 	
@@ -38,8 +36,7 @@ public class Participants implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int participantsId;
 	
-//	重要：不知道要不要加
-	
+
 	
 	//參與者ID 會員外來鍵
 	@Column(name="PERSONID")

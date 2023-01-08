@@ -1,5 +1,6 @@
 package com.ispan6.bean.chatsystem;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -29,8 +30,8 @@ import com.ispan6.bean.membersystem.MemberTest;
 
 @Entity
 @Table(name="messagecontent")
-public class MessageContent {
-
+public class MessageContent implements Serializable{
+	private static final long serialVersionUID = 1L;
 	public MessageContent() {
 		
 	}

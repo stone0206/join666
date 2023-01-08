@@ -1,5 +1,7 @@
 package com.ispan6.bean.chatsystem;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,9 +13,8 @@ import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(name="customerservicemessage")
-//如果update 值是null 則不會被更改
-@DynamicUpdate
-public class CustomerServiceMessage {
+public class CustomerServiceMessage implements Serializable{
+	private static final long serialVersionUID = 1L;
 	public CustomerServiceMessage() {
 		
 	}

@@ -244,11 +244,52 @@
 						<div id="groupPeople">
 							<ul class="list-group listGroupRoom">
 								<li class="list-group-item disabled">成員</li>
+								<li class="list-group-item"><img src="${loginUser.getAvator()}"
+										style="width:30px;height:30px;border-radius:50%"><span>${loginUser.getName()}</span>
+								</li>
 								<!-- <li class="list-group-item">Dapibus ac facilisis in</li> -->
 
 							</ul>
 						</div>
 
+						<div id="setButton">
+							<div><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+									class="bi bi-gear" viewBox="0 0 16 16">
+									<path
+										d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z" />
+									<path
+										d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z" />
+								</svg></div>
+						</div>
+						<div id="chooseBackgroundColor">
+							<table style="border-collapse:separate; border-spacing:10px 10px;;
+							border-radius:15px 15px; background-image: linear-gradient( 135deg, #90F7EC 10%, #32CCBC 100%);">
+								<tr>
+									<td class="changeBackgroun"
+										style="border-radius:15px 15px;width:50px;height:50px;background-image:linear-gradient( 135deg, #F6D242 10%, #FF52E5 100%); margin:30px"
+										chooseColor="linear-gradient( 135deg, #F6D242 10%, #FF52E5 100%)"></td>
+									<td class="changeBackgroun"
+										style="border-radius:15px 15px;border:1px solid black;width:50px;height:50px;background-image:linear-gradient( 135deg, #3B2667 10%, #BC78EC 100%);margin:10px"
+										chooseColor="linear-gradient( 135deg, #3B2667 10%, #BC78EC 100%)"> </td>
+									<td class="changeBackgroun"
+										style="border-radius:15px 15px;border:1px solid black;width:50px;height:50px;background-image:linear-gradient( 135deg, #81FFEF 10%, #F067B4 100%);margin:10px"
+										chooseColor="linear-gradient( 135deg, #81FFEF 10%, #F067B4 100%)"> </td>
+								</tr>
+								<tr>
+									<td class="changeBackgroun"
+										style="border-radius:15px 15px;width:50px;height:50px;background-image:linear-gradient( 135deg, #A0FE65 10%, #FA016D 100%); margin:30px"
+										chooseColor="linear-gradient( 135deg, #A0FE65 10%, #FA016D 100%)"></td>
+									<td class="changeBackgroun"
+										style="border-radius:15px 15px;border:1px solid black;width:50px;height:50px;background-image:linear-gradient( 135deg, #FDEB71 10%, #F8D800 100%);margin:10px"
+										chooseColor="linear-gradient( 135deg, #FDEB71 10%, #F8D800 100%)"> </td>
+									<td class="changeBackgroun"
+										style="border-radius:15px 15px;border:1px solid black;width:50px;height:50px;background-image:linear-gradient( 135deg, #FFD26F 10%, #3677FF 100%);margin:10px"
+										chooseColor="linear-gradient( 135deg, #FFD26F 10%, #3677FF 100%)"> </td>
+								</tr>
+							</table>
+						</div>
+
+						background-image: linear-gradient( 135deg, #FFD26F 10%, #3677FF 100%);
 
 					</div>
 				</div>
@@ -277,7 +318,22 @@
 					<div class="cloes-tag" style="top:20%;right:35%"></div>
 					<img>
 				</div>
+
+
+
 				<script>
+
+
+					$("#setButton").click(function () {
+						$("#chooseBackgroundColor").toggle("blind", {
+							direction: "up"
+						}, "slow");
+					})
+					$(".changeBackgroun").click(function () {
+						let thisColor = $(this).attr("chooseColor");
+						console.log(thisColor)
+						$(".header-wrapp").css("background-image", thisColor)
+					})
 
 					// 客服動畫
 					const getJsonMessageFile = document.querySelector("#addFriendTable");
@@ -339,6 +395,7 @@
 							let groomList = data.groomList;
 							let memList = data.memList;
 							let groupType;
+							let people;
 							// console.log(groomList)
 							// console.log(memList)
 							$.each(groomList, function (index, groupList) {
@@ -367,6 +424,7 @@
 									} else if (groupList.groupType === 1) {
 										groupType = 1
 										$.each(groupList.participants, function (index, participants) {
+											people = groupList.participants.length
 											if (participants.personId != data.userId) {
 												// participantsId.push(participants.personId)
 												$.each(memList, function (index, member) {
@@ -381,6 +439,26 @@
 										})
 										messageTitle += groupList.groupName;
 									} else if (groupList.groupType === 2) {
+										//新加
+										if ("${loginUser.account}" == 'admin') {
+											groupType = 2
+											$.each(groupList.participants, function (index, participants) {
+
+												if (participants.personId != data.userId) {
+
+													// participantsId.push(participants.personId)
+													$.each(memList, function (index, member) {
+														if (member.id == participants.personId) {
+															messageTitle += member.name;
+
+															participantsId.push(member.account)
+															$("#message-text").attr("groupRoom", roomId)
+														}
+													})
+												}
+											})
+
+										}
 										groupType = 2
 										$.each(groupList.participants, function (index, participants) {
 											if (participants.personId != data.userId) {
@@ -440,7 +518,12 @@
 
 
 							viewMessage.innerHTML = message;
-							viewTitle.innerHTML = messageTitle;
+							//新加
+							if (groupType == 1) {
+								viewTitle.innerHTML = messageTitle + "(" + people + ")";
+							} else {
+								viewTitle.innerHTML = messageTitle
+							}
 							$("#message").attr("groupRoom", roomId)
 
 							$("#message-text").attr("senderId", data.userId)
@@ -1159,7 +1242,13 @@
 																// let strStart = sdf.format(startTime);
 																let startTime = new Date(Date.parse(message.createAt));
 																let strTime = getTime(startTime);
-																chatRoom += '<div class="mes-preview">' + message.messageText + '</div></div>'
+																//新加
+																if (/<img/.test(message.messageText)) {
+																	chatRoom += '<div class="mes-preview">圖片</div></div>'
+																} else {
+																	chatRoom += '<div class="mes-preview">' + message.messageText + '</div></div>'
+																}
+																// chatRoom += '<div class="mes-preview">' + message.messageText + '</div></div>'
 																chatRoom += '<div class="mes-col2"><div><div class="send-time">' + strTime + '</div></div></div>'
 															}
 														})
@@ -1210,6 +1299,51 @@
 
 									} else {
 										$("#message").attr("grouproom", groupList.groupId)
+										//新加
+										if ("${loginUser.account}" == 'admin') {
+											chatRoom += '<li id="' + groupList.groupId + '" onclick="groupRoom(' + groupList.groupId + ')">';
+											$.each(groupList.participants, function (index, participants) {
+
+												if (participants.personId != data.userId) {
+													$.each(memList, function (index, member) {
+														if (member.id == participants.personId) {
+															chatRoom += '<div class="sender-image" account="' + member.account + '">';
+															chatRoom += '<img src="' + member.avator + '">';
+															chatRoom += '</div><div class="mes-detail"><div class="mes-col1"><div class="sender-name">' + member.name + '</div>';
+															let dataMessage = {};
+
+															dataMessage["from"] = "${loginUser.account}";
+															dataMessage["to"] = 4;
+															dataMessage["text"] = member.account;
+
+															// console.log("AAA", JSON.stringify(data))
+															websocket.send(JSON.stringify(dataMessage)); // 使用 send() 方法发送数据
+															let friendList = '<a href="#" class="list-group-item friendGroupList" id="friendFileId' + member.id + '" friendFileAvator="' + member.avator + '" friendFileEmail="' + member.account + '" friendFileName="' + member.name + '" friendFileBirth="' + member.birth + '" friendFileGender="' + member.gender + '" onclick="selectFriendFile(' + member.id + ')"><img src="' + member.avator + '"style="width: 30px;height:30px;border-radius: 50%;">' + member.name + '</a>'
+
+															$("#friendGroupList").append(friendList)
+															$.each(groupList.messageText, function (index, message) {
+
+																if (index === groupList.messageText.length - 1) {
+																	// let fmt = SimpleDateFormat("H:mm");
+
+																	// let aTime = fmt.parse(message.createAt);
+																	// let strTime = fmt.format(aTime)
+																	// let startTime = new Date(Date.parse(message.createAt));
+
+																	// let strStart = sdf.format(startTime);
+																	let startTime = new Date(Date.parse(message.createAt));
+																	let strTime = getTime(startTime);
+																	chatRoom += '<div class="mes-preview">' + message.messageText + '</div></div>'
+																	chatRoom += '<div class="mes-col2"><div><div class="send-time">' + strTime + '</div></div></div>'
+																}
+															})
+															chatRoom += '</div>'
+														}
+													})
+												}
+											})
+											chatRoom += '</li>';
+										}
 									}
 
 								})
@@ -1313,6 +1447,8 @@
 										body: formData
 
 									})
+									//新增
+									imgLarge()
 								}
 							}
 						} else if (data.type == 2) {
