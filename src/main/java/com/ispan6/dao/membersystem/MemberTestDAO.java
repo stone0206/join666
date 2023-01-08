@@ -48,13 +48,13 @@ public interface MemberTestDAO extends JpaRepository<MemberTest, Integer>, JpaSp
 	@Query(value="UPDATE MemberTest SET banned= ?1 where m_account= ?2",nativeQuery = true)
 	public void banMem(Integer banned, String account);
 	
-	@Query(value = "SELECT top 1* from membertest  WHERE  not exists (select * from friend where  (membertest.m_id=fuid or membertest.m_id=userid) and (isfriend =2 or isfriend =1) and (whoblocked=?1 or whoblocked=0)) and m_id !=?2 ORDER by NEWID()", nativeQuery = true)
+	@Query(value = "SELECT top 1* from membertest  WHERE  not exists (select * from friend where  (membertest.m_id=fuid or membertest.m_id=userid) and (isfriend =2 or isfriend =1) and (whoblocked=?1 or whoblocked=0)) and m_id !=?2 and m_account !='admin' ORDER by NEWID()", nativeQuery = true)
 	public MemberTest random1(Integer id, Integer fid);
 
 	@Query(value = "SELECT * from membertest  WHERE  not exists (select * from friend where  (membertest.m_id=fuid or membertest.m_id=userid) and (isfriend =2 or isfriend =1) and (whoblocked=?1 or whoblocked=0)) and m_id !=?2 and m_account !='admin'", nativeQuery = true)
 	public List<MemberTest> findWithoutUser(Integer id, Integer fid);
 
-	@Query(value = "SELECT top 1* from memberTest ORDER BY NEWID()", nativeQuery = true)
+	@Query(value = "SELECT top 1* from memberTest where m_account !='admin' ORDER BY NEWID()", nativeQuery = true)
 	public MemberTest random1();
 //		@Override
 //		public String existsByMemberId(String memberId) {
