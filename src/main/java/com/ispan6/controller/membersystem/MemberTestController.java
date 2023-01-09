@@ -231,18 +231,20 @@ public class MemberTestController {
 	}
 
 	@PostMapping("/googleSignIn")
-	public String googleSignIn(@ModelAttribute("memberTest") MemberTest mt, @RequestParam(value = "name") String name,
+	public String googleSignIn(@ModelAttribute("memberTest") MemberTest mt2, @RequestParam(value = "name") String name,
 			@RequestParam(value = "birth") String birth, @RequestParam(value = "phone") String phone,
-			@RequestParam(value = "address") String address, @RequestParam(value = "gender") Integer gender, @RequestParam(value = "hobbit") String[] hobbit,
-			HttpSession session) throws ParseException {
-		mt = (MemberTest) session.getAttribute("member");
-		System.out.println(mt.getAccount());
+			@RequestParam(value = "taiwan") String taiwan, @RequestParam(value = "coun") String coun, @RequestParam(value = "gender") Integer gender, @RequestParam(value = "hobbit") String[] hobbit,
+			HttpServletRequest request, HttpServletResponse response, @RequestParam(name="p",defaultValue = "1") Integer pageNumber,Model m) throws ParseException {
+		HttpSession session=request.getSession();
+		MemberTest mt = (MemberTest) session.getAttribute("memberG");
+		System.out.println(mt);
 		mt.setPassword("P@ssw0rd");
 		mt.setName(name);
 		Date date = null;
 		date = new SimpleDateFormat("yyyy-MM-dd").parse(birth);
 		mt.setBirth(date);
 		mt.setPhone(phone);
+		String address=taiwan+coun;
 		mt.setAddress(address);
 		mt.setGender(gender);
 		mService.insertMember(mt);
@@ -257,7 +259,8 @@ public class MemberTestController {
 			sBean.setHobbitid(hb);
 			hDto.save(sBean);
 			}
-		
+		Page<PostBean> page= postService.findByPostPage(pageNumber);
+		m.addAttribute("page", page);
 		return "index";
 	}
 
@@ -268,7 +271,7 @@ public class MemberTestController {
 		String address=taiwan+coun;
 		mt.setAddress(address);
 		mt.setEmail(account);
-		mt.setAvator(Constants.AVATOR);
+		mt.setAvator(Constants.AVATOR1);
 		mt.setBanned(0);
 		mService.insertMember(mt);
 		
@@ -295,7 +298,11 @@ public class MemberTestController {
 	public String insertMember2(@ModelAttribute("memberTest") MemberTest mt,
 			HttpSession session, HttpServletRequest request, HttpServletResponse response, Model m) {
 		mt=(MemberTest) session.getAttribute("memberTest");
-		mt.setAvator(Constants.AVATOR);
+		if(mt.getGender()==1) {
+		mt.setAvator(Constants.AVATOR1);
+		}else {
+			mt.setAvator(Constants.AVATOR2);
+		}
 		mt.setBanned(0);
 		String password=mt.getPassword();
 		System.out.println(password);
@@ -332,8 +339,11 @@ public class MemberTestController {
 			HttpServletResponse response) {
 		mt.setEmail(account);
 		mt.setAddress(taiwan+coun);
-		String avator = Constants.AVATOR;
-		mt.setAvator(avator);
+		if(mt.getGender()==1) {
+			mt.setAvator(Constants.AVATOR1);
+			}else {
+				mt.setAvator(Constants.AVATOR2);
+			}
 		System.out.println("送信中");
 		HttpSession session = request.getSession();
 		session.setAttribute("memberTest", mt);
@@ -347,7 +357,7 @@ public class MemberTestController {
 		}
 	}
 	
-	@PostMapping("/sendCode2") // 寄送驗證信的註冊
+	@PostMapping("/sendCode2") // 寄送驗證信找回密碼
 	public @ResponseBody String sendCode2(@RequestParam(value = "account") String account, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("送信中");
 		HttpSession session = request.getSession();
@@ -392,25 +402,28 @@ public class MemberTestController {
 	}
 
 	@RequestMapping("/LoginGoogleHandler")
-	public String processRequest(HttpServletRequest request, HttpServletResponse response)
+	public String processRequest(@ModelAttribute MemberTest mt, HttpServletRequest request, HttpServletResponse response, @RequestParam(name="p",defaultValue = "1") Integer pageNumber,Model m)
 			throws ServletException, IOException {
 		String code = request.getParameter("code");
 		String accessToken = getToken(code);
 		UserGoogleDto user = getUserInfo(accessToken);
 		HttpSession session = request.getSession();
 		if (mService.existsByAccount(user.getEmail()) != null) {
-			MemberTest mt = mService.findByAcc(user.getEmail());
+			mt = mService.findByAcc(user.getEmail());
 			session.setAttribute("loginUser", mt);
+			Page<PostBean> page= postService.findByPostPage(pageNumber);
+			m.addAttribute("page", page);
 			return "/index";
 		} else
 //		if (mService.existsByAccount(user.getEmail()) == null) 
 		{
-			MemberTest mt = new MemberTest();
+//			MemberTest mt = new MemberTest();
 			mt.setAccount(user.getEmail());
 			mt.setEmail(user.getEmail());
 			mt.setName(user.getName());
 			mt.setAvator(user.getPicture());
-			session.setAttribute("member", mt);
+			session.setAttribute("memberG", mt);
+			System.out.println("傳送方:"+mt.getAccount());
 			return "/signup4";
 		}
 	}
