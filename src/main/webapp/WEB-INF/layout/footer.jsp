@@ -31,8 +31,5 @@
 			<p class="text-center text-muted">&copy; 2021 Company, Inc</p>
 		</footer>
 	</div>
-
-	<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-	<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 </body>
 </html>

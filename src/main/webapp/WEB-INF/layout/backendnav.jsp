@@ -15,7 +15,7 @@
         <body class="sb-nav-fixed">
             <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
                 <!-- Navbar Brand-->
-                <a class="navbar-brand ps-3" href="index">Dating</a>
+                <a class="navbar-brand ps-3" href="${contextRoot}/index">Dating</a>
                 <!-- Sidebar Toggle-->
                 <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                         class="fas fa-bars"></i></button>
@@ -34,11 +34,11 @@
                         <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">回到前台</a></li>
+                            <li><a class="dropdown-item" href="${contextRoot}/">回到前台</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="/logout">登出</a></li>
+                            <li><a class="dropdown-item" href="${contextRoot}/logout">登出</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -51,14 +51,14 @@
                             <div class="nav">
                                 <div class="sb-sidenav-menu-heading">member</div>
 
-                                <a class="nav-link" href="/memberBackendSet">
+                                <a class="nav-link" href="${contextRoot}/memberBackendSet">
                                     <div class="sb-nav-link-icon"><i class='fas fa-user-alt'></i></div>
                                     用戶管理
                                 </a>
 
                                
 
-                                <a class="nav-link" href="/msg/reunionbackend">
+                                <a class="nav-link" href="/reunionbackend">
                                     <div class="sb-nav-link-icon"><i class='fas fa-campground'></i></i></div>
                                     揪團管理
                                 </a>
@@ -74,8 +74,8 @@
                                 <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                                     data-bs-parent="#sidenavAccordion">
                                     <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="productbackend">商品管理</a>
-                                        <a class="nav-link" href="order">訂單管理</a>
+                                        <a class="nav-link" href="${contextRoot}/productbackend">商品管理</a>
+                                        <a class="nav-link" href="${contextRoot}/order">訂單管理</a>
                                     </nav>
                                 </div>
                             </div>

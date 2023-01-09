@@ -148,10 +148,10 @@
 				<div class="top-div" style="margin-top: 72px;"></div>
 
 				<main>
-					<div class="container-fluid" style="width: 85%;">
+					<div class="container-fluid" style="width: 78%;">
 						<div class="row">
 							<div class="col-12" style="height: 520px;margin-bottom: 5px; padding: 10px;">
-								<div style="height: 30px;"><img src="/assets/mallsystemimg.png" alt="" style="width:100%"></div>
+								<div style="height: 30px;"><img src="${contextRoot}/assets/mallsystemimg.png" alt="" style="width:100%"></div>
 							</div>
 						</div>
 						<div class="row">

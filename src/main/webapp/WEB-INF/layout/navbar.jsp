@@ -22,7 +22,7 @@
         <nav class="navbar navbar-expand-lg">
           <div class="container">
             <!-- Logo START 點擊logo返回首頁-->
-            <a class="navbar-brand" href="/index">
+            <a class="navbar-brand" href="${contextRoot}/index">
               <!-- logo圖片位置 -->
               <img class="light-mode-item navbar-brand-item" src="${contextRoot}/images/uuu.jpeg">
             </a>
@@ -46,12 +46,12 @@
               <ul class="navbar-nav navbar-nav-scroll ms-auto">
                 <!-- 揪團 -->
                 <li class="nav-item " style="margin-right: 20px;">
-                  <a class="nav-link " href="/page" id="homeMenu" aria-haspopup="true"
+                  <a class="nav-link " href="${contextRoot}/page" id="homeMenu" aria-haspopup="true"
                     aria-expanded="false">揪團</a>
                 </li>
                 <!-- 商城 -->
                 <li class="nav-item " style="margin-right: 20px;">
-                  <a class="nav-link " href="/product" id="homeMenu" aria-haspopup="true"
+                  <a class="nav-link " href="${contextRoot}/product" id="homeMenu" aria-haspopup="true"
                     aria-expanded="false">商城</a>
                 </li>
 
@@ -69,7 +69,7 @@
                 <a class="nav-link btn icon-md p-0" id="profileDropdown" role="button" data-bs-auto-close="outside"
                   data-bs-display="static"  aria-expanded="false" href="/login">
                   <!-- 預設是灰頭像，登入後改成用戶頭像 -->
-                  <img class="avatar-img rounded-2" src="/assets/human.png" alt=""  />
+                  <img class="avatar-img rounded-2" src="${contextRoot}/assets/human.png" alt=""  />
                 </a>
               </li>
               </c:if>
@@ -80,7 +80,7 @@
                 <span class="badge-notif animation-blink"></span>
                   
                   <!-- 預設是灰頭像，登入後改成用戶頭像 -->
-                  <img class="avatar-img rounded-2" src="/assets/human.png" alt="" />
+                  <img class="avatar-img rounded-2" src="${contextRoot}/assets/human.png" alt="" />
                 </a>
               </c:if>
                 
@@ -99,9 +99,9 @@
                   aria-labelledby="profileDropdown">
            
                   <!-- Links -->
-                  <li><a class="dropdown-item" href="/signup"><i class="bi bi-gear fa-fw me-2"></i>Sign up</a></li>
+                  <li><a class="dropdown-item" href="${contextRoot}/signup"><i class="bi bi-gear fa-fw me-2"></i>Sign up</a></li>
 
-              <li><a class="dropdown-item" href="/login"><i class="bi bi-gear fa-fw me-2"></i>Login</a></li>
+              <li><a class="dropdown-item" href="${contextRoot}/login"><i class="bi bi-gear fa-fw me-2"></i>Login</a></li>
 
                   <li>
                     <hr class="dropdown-divider">
@@ -149,31 +149,31 @@
                       <li>
                   </li> 
                   <li> 
-                    <a class="dropdown-item" href="/toMyOrderPage">
+                    <a class="dropdown-item" href="${contextRoot}/toMyOrderPage">
                       <i class="fa-fw bi bi-card-text me-2"></i>我的訂單
                     </a>
                   </li>
 
                     <li>
-                    <a class="dropdown-item" href="/myreunion">
+                    <a class="dropdown-item" href="${contextRoot}/myreunion">
                       <i class="fa-fw bi bi-card-text me-2"></i>我的聚會
                     </a>
                   </li>
                   
                   <li>
-                    <a class="dropdown-item" href="/insertreunion">
+                    <a class="dropdown-item" href="${contextRoot}/insertreunion">
                       <i class="fa-fw bi bi-card-text me-2"></i>新增聚會
                     </a>
                   </li>
 					<c:if test="${loginUser.getAccount()=='admin' }">
 					   <li>
-                    <a class="dropdown-item" href="/memberBackendSet">
+                    <a class="dropdown-item" href="${contextRoot}/memberBackendSet">
                       <i class="fa-fw bi bi-card-text me-2"></i>前往後台
                     </a>
                   </li></c:if>
                   <!-- 登出位置，連接要放登入 -->
 
-                  <li><a class="dropdown-item bg-danger-soft-hover" href="/logout" onclick="closeWebSocket()"><i
+                  <li><a class="dropdown-item bg-danger-soft-hover" href="${contextRoot}/logout" onclick="closeWebSocket()"><i
                         class="bi bi-power fa-fw me-2"></i>登出</a></li>
                   <li>
                     <hr class="dropdown-divider">

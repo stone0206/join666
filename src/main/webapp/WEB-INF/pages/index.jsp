@@ -1,366 +1,358 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-		<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
-		<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-			<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 
-				<!DOCTYPE html>
+<!DOCTYPE html>
 
-				<html>
+<html>
 
-				<head>
+<head>
+<meta charset="UTF-8">
 
-					<link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet" />
+<link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet" />
+ <script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
+      <script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 
-					<link id="style-switch" rel="stylesheet" type="text/css" href="${contextRoot}/css/style.css">
-					<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-					<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
-					<meta charset="UTF-8">
+<link id="style-switch" rel="stylesheet" type="text/css"
+	href="${contextRoot}/css/style.css">
+	</head>
 
-					<title>約約</title>
-					<style type="text/css">
-						.box {
-							width: 100px;
-							height: 50px;
-							margin: auto;
-							/*區塊置中*/
-						}
+<title>約約</title>
+<style type="text/css">
+.box {
+	width: 100px;
+	height: 50px;
+	margin: auto;
+	/*區塊置中*/
+}
 
-						p {
-							text-align: center;
-							line-height: 50px;
-							/*與包著的區塊設定同高度即可*/
-						}
+p {
+	text-align: center;
+	line-height: 50px;
+	/*與包著的區塊設定同高度即可*/
+}
 
-						a {
-							text-align: center;
-							line-height: 50px;
-							/*與包著的區塊設定同高度即可*/
-						}
-					</style>
-				</head>
+a {
+	text-align: center;
+	line-height: 50px;
+	/*與包著的區塊設定同高度即可*/
+}
+</style>
+     
 
-				<body>
-					<header>
-						<jsp:include page="/WEB-INF/layout/navbar.jsp" />
-					</header>
-					<main>
-						<div class="container">
-							<div class="row g-4">
-								<div class="col-lg-9" style="margin-top: 60px">
-									<div class="card card-body">
-										<div class="d-flex mb-3">
-											<!-- Avatar -->
-											<c:if test="${message.memberId.id ==loginUser.id}">
-												<div class="avatar avatar-xs me-2">
+<body>
+	<header>
+		<jsp:include page="${contextRoot}/WEB-INF/layout/navbar.jsp" />
+	</header>
+	<main>
+		<div class="container">
+			<div class="row g-4">
+				<div class="col-lg-9" style="margin-top: 60px">
+					<div class="card card-body">
+						<div class="d-flex mb-3">
+							<!-- Avatar -->
+							<c:if test="${message.memberId.id ==loginUser.id}">
+								<div class="avatar avatar-xs me-2">
 
-													<a href="#"> <img class="avatar-img rounded-circle"
-															src="assets/avatar-placeholder.jpg" alt="">
-													</a>
-												</div>
-											</c:if>
-											<c:if test="${message.memberId.id !=loginUser.id}">
-												<div class="avatar avatar-xs me-2">
+									<a href="#"> <img class="avatar-img rounded-circle"
+										src="assets/avatar-placeholder.jpg" alt="">
+									</a>
+								</div>
+							</c:if>
+							<c:if test="${message.memberId.id !=loginUser.id}">
+								<div class="avatar avatar-xs me-2">
 
-													<a href="#"> <img class="avatar-img rounded-circle"
-															src="${loginUser.avator}" alt="">
-													</a>
-												</div>
-											</c:if>
+									<a href="#"> <img class="avatar-img rounded-circle"
+										src="${loginUser.avator}" alt="">
+									</a>
+								</div>
+							</c:if>
 
 
-											<!-- Post input -->
-											<form:form modelAttribute="postBean" action="${contextRoot}/post"
-												method="post" enctype="multipart/form-data">
-												<textarea name="content" class="form-control pe-4 border-0" rows="3"
-													cols="100" data-autoresize placeholder="你在想什麼"></textarea>
-												<c:if test="${message.memberId.id ==loginUser.id}">
+							<!-- Post input -->
+							<form:form modelAttribute="postBean" action="${contextRoot}/post"
+								method="post" enctype="multipart/form-data">
+								<textarea name="content" class="form-control pe-4 border-0"
+									rows="3" cols="100" data-autoresize placeholder="你在想什麼"></textarea>
+								<c:if test="${message.memberId.id ==loginUser.id}">
 
-												</c:if>
-												<c:if test="${message.memberId.id !=loginUser.id}">
-													<img src="assets/preview.png" style="width: 30px;" id="file-img"
-														alt="Image preview" />
-													<input style="display:none;" type="file" id="imgFile" name="photo"
-														accept="image/*" />
-												</c:if>
+								</c:if>
+								<c:if test="${message.memberId.id !=loginUser.id}">
+									<img src="assets/preview.png" style="width: 30px;"
+										id="file-img" alt="Image preview" />
+									<input style="display: none;" type="file" id="imgFile"
+										name="photo" accept="image/*" />
+								</c:if>
 
-												<img id="theImg" src="assets/gallery.png"
-													style="width: 10px; color: white;" alt="Image preview" />
-												<input type="submit" class="bi bi-three-dots" value="貼文"
-													style="float: right; border: 2px blue none; background-color: AliceBlue;" />
-											</form:form>
+								<img id="theImg" src="assets/gallery.png"
+									style="width: 10px; color: white;" alt="Image preview" />
+								<input type="submit" class="bi bi-three-dots" value="貼文"
+									style="float: right; border: 2px blue none; background-color: AliceBlue;" />
+							</form:form>
+						</div>
+						<!-- Share feed toolbar START -->
+
+
+						<!-- Share feed toolbar END -->
+					</div>
+					<!-- Share feed END -->
+					<!-- Card feed item START -->
+					<div class="container">
+						<c:forEach var="message" items="${page.content}">
+							<div class="card">
+								<!-- Card header START -->
+
+								<div class="card-header border-0 pb-0 ">
+									<c:if test="${message.memberId.id ==loginUser.id}">
+										<div style="text-align: right;">
+											<a onclick="return confirm('確認刪除嗎?')"
+												href="${contextRoot}/deletepost?postid=${message.postid}"
+												style="width: 50px; float: right; border: 2px blue none;">刪除</a>
+											<a href="${contextRoot}/edit/${message.postid}"
+												style="width: 50px; float: right; border: 2px blue none;">編輯</a>
+
 										</div>
-										<!-- Share feed toolbar START -->
+									</c:if>
 
+									<c:if test="${message.memberId.id !=loginUser.id}">
+										<div
+											style="text-align: right; width: 50px; float: right; border: 2px">
 
-										<!-- Share feed toolbar END -->
-									</div>
-									<!-- Share feed END -->
-									<!-- Card feed item START -->
-									<div class="container">
-										<c:forEach var="message" items="${page.content}">
-											<div class="card">
-												<!-- Card header START -->
+											<font face="fantasy">GREAT POST</font>
 
-												<div class="card-header border-0 pb-0 ">
-													<c:if test="${message.memberId.id ==loginUser.id}">
-														<div style="text-align: right;">
-															<a onclick="return confirm('確認刪除嗎?')"
-																href="${contextRoot}/deletepost?postid=${message.postid}"
-																style="width: 50px; float: right; border: 2px blue none;">刪除</a>
-															<a href="${contextRoot}/edit/${message.postid}"
-																style="width: 50px; float: right; border: 2px blue none;">編輯</a>
-
-														</div>
-													</c:if>
-
-													<c:if test="${message.memberId.id !=loginUser.id}">
+										</div>
+									</c:if>
+									<div class="d-flex align-items-center justify-content-between">
+										<div class="d-flex align-items-center">
+											<!-- Avatar -->
+											<div class="avatar">
+												<a href="#!"> <img class="avatar-img rounded-circle"
+													src="${ message.memberId.avator}" alt="">
+												</a>
+											</div>
+											<!-- Info -->
+											<div>
+												<div class="nav nav-divider">
+													<div class="nav-item card-title mb-0">
+														<a href="#!">&nbsp;${message.memberId.name} &nbsp;</a>
+														<div>&nbsp;&nbsp;&nbsp;</div>
+														<br>
 														<div
-															style="text-align: right;width: 50px; float: right; border: 2px">
+															style="font-size: 12px; text-align: right; background: AliceBlue;">
+															Time
+															<fmt:formatDate pattern="yyy/MM/dd HH:mm:ss EEEE"
+																value="${message.posttime}" />
 
-															<font face="fantasy">GREAT POST</font>
-
-														</div>
-													</c:if>
-													<div class="d-flex align-items-center justify-content-between">
-														<div class="d-flex align-items-center">
-															<!-- Avatar -->
-															<div class="avatar">
-																<a href="#!"> <img class="avatar-img rounded-circle"
-																		src="${ message.memberId.avator}" alt="">
-																</a>
-															</div>
-															<!-- Info -->
-															<div>
-																<div class="nav nav-divider">
-																	<div class="nav-item card-title mb-0">
-																		<a href="#!">&nbsp;${message.memberId.name}
-																			&nbsp;</a>
-																		<div>&nbsp;&nbsp;&nbsp;</div>
-																		<br>
-																		<div
-																			style="font-size: 12px; text-align: right; background: AliceBlue;">
-																			Time
-																			<fmt:formatDate
-																				pattern="yyy/MM/dd HH:mm:ss EEEE"
-																				value="${message.posttime}" />
-
-																		</div>
-
-																	</div>
-
-																</div>
-															</div>
 														</div>
 
 													</div>
 
 												</div>
-												<!-- Card header END -->
-												<!-- Card body START -->
+											</div>
+										</div>
+
+									</div>
+
+								</div>
+								<!-- Card header END -->
+								<!-- Card body START -->
 
 
-												<div class="card card-body mb-4 " style="background-color: AliceBlue;">
-													<!-- 發文的內容 -->
-													<!-- ${postHtml} -->
-													${message.content} <br>
-													<br>
-													<!-- Card img -->
+								<div class="card card-body mb-4 "
+									style="background-color: AliceBlue;">
+									<!-- 發文的內容 -->
+									<!-- ${postHtml} -->
+									${message.content} <br> <br>
+									<!-- Card img -->
 
-													<img class="card-img" style="width: 100%; height: auto;"
-														src="${contextRoot}/showPicture?postId=${message.postid}"
-														alt="貼照片的地方">
+									<img class="card-img" style="width: 100%; height: auto;"
+										src="${contextRoot}/showPicture?postId=${message.postid}"
+										alt="貼照片的地方">
 
-													<!--FEED REACT START -->
-													<ul class="nav nav-stack py-3 small" style="padding:1px 1px">
-														<c:if test="${loginUser ==null}">
-															<li class="nav-item">
-																<button class="btn btn-primary like-button"
-																	style="background-color: transparent;width: 50%; border:none"
-																	data-post-id="123"><img
-																		src="https://img.icons8.com/arcade/64/null/filled-like.png" /></button>
-																<span
-																	id="likeCount${message.postid}">${message.likepostList[0].count}
-																</span>
-															</li>
-														</c:if>
+									<!--FEED REACT START -->
+									<ul class="nav nav-stack py-3 small" style="padding: 1px 1px">
+										<c:if test="${loginUser ==null}">
+											<li class="nav-item">
+												<button class="btn btn-primary like-button"
+													style="background-color: transparent; width: 50%; border: none"
+													data-post-id="123">
+													<img
+														src="https://img.icons8.com/arcade/64/null/filled-like.png" />
+												</button> <span id="likeCount${message.postid}">${message.likepostList[0].count}
+											</span>
+											</li>
+										</c:if>
 
-														<c:if test="${loginUser !=null}">
-															<li class="nav-item">
-																<button id="likeButton${message.postid}"
-																	onclick="sendAjaxRequest(${message.postid})"
-																	class="btn btn-primary like-button"
-																	style="background-color: transparent;width: 50%; border:none"
-																	data-post-id="123"><img
-																		src="https://img.icons8.com/arcade/64/null/filled-like.png" /></button>
-																<span
-																	id="likeCount${message.postid}">${message.likepostList[0].count}
-																</span>
-															</li>
-														</c:if>
-													</ul>
-													<!-- Feed react END -->
+										<c:if test="${loginUser !=null}">
+											<li class="nav-item">
+												<button id="likeButton${message.postid}"
+													onclick="sendAjaxRequest(${message.postid})"
+													class="btn btn-primary like-button"
+													style="background-color: transparent; width: 50%; border: none"
+													data-post-id="123">
+													<img
+														src="https://img.icons8.com/arcade/64/null/filled-like.png" />
+												</button> <span id="likeCount${message.postid}">${message.likepostList[0].count}
+											</span>
+											</li>
+										</c:if>
+									</ul>
+									<!-- Feed react END -->
 
-													<!-- Add comment -->
-													<div class="d-flex mb-3">
-														<!-- Avatar -->
-														<c:if test="${loginUser ==null}">
-															<div class="avatar avatar-xs me-2">
-																<a href="#!"> <img class="avatar-img rounded-circle"
-																		src="assets/avatar-placeholder.jpg" alt="">
-																</a>
-															</div>
-														</c:if>
+									<!-- Add comment -->
+									<div class="d-flex mb-3">
+										<!-- Avatar -->
+										<c:if test="${loginUser ==null}">
+											<div class="avatar avatar-xs me-2">
+												<a href="#!"> <img class="avatar-img rounded-circle"
+													src="assets/avatar-placeholder.jpg" alt="">
+												</a>
+											</div>
+										</c:if>
 
-														<c:if test="${loginUser !=null}">
-															<div class="avatar avatar-xs me-2">
-																<a href="#!"> <img class="avatar-img rounded-circle"
-																		src="${loginUser.avator}" alt="">
-																</a>
-															</div>
-														</c:if>
-														<!-- Comment box  -->
-														<form class="w-100" action="/addComment" method="post">
-															<textarea name="comment" data-autoresize
-																class="form-control pe-4 bg-light" rows="1"
-																placeholder="留言區"></textarea>
-															<input type="hidden" name="postId"
-																value="${message.postid}">
-															<button type="submit"
-																class="btn btn-primary mt-2">送出留言</button>
-														</form>
+										<c:if test="${loginUser !=null}">
+											<div class="avatar avatar-xs me-2">
+												<a href="#!"> <img class="avatar-img rounded-circle"
+													src="${loginUser.avator}" alt="">
+												</a>
+											</div>
+										</c:if>
+										<!-- Comment box  -->
+										<form class="w-100" action="/addComment" method="post">
+											<textarea name="comment" data-autoresize
+												class="form-control pe-4 bg-light" rows="1"
+												placeholder="留言區"></textarea>
+											<input type="hidden" name="postId" value="${message.postid}">
+											<button type="submit" class="btn btn-primary mt-2">送出留言</button>
+										</form>
+									</div>
+
+
+									<!-- Comment wrap START -->
+									<ul class="comment-wrap list-unstyled">
+										<!-- Comment item START -->
+										<c:forEach var="comment" items="${message.commentList}">
+
+											<li class="comment-item">
+												<div class="d-flex position-relative">
+													<!-- Avatar -->
+													<div class="avatar avatar-xs">
+														<a href="#!"><img class="avatar-img rounded-circle"
+															src="${comment.memberId.avator}" alt=""></a>
 													</div>
+													<div class="d-flex mb-3">
+														<!-- Comment by -->
+														<div class="bg-light rounded-start-top-0 p-1 rounded">
 
-
-													<!-- Comment wrap START -->
-													<ul class="comment-wrap list-unstyled">
-														<!-- Comment item START -->
-														<c:forEach var="comment" items="${message.commentList}">
-
-															<li class="comment-item">
-																<div class="d-flex position-relative">
-																	<!-- Avatar -->
-																	<div class="avatar avatar-xs">
-																		<a href="#!"><img
-																				class="avatar-img rounded-circle"
-																				src="${comment.memberId.avator}"
-																				alt=""></a>
-																	</div>
-																	<div class="d-flex mb-3">
-																		<!-- Comment by -->
-																		<div
-																			class="bg-light rounded-start-top-0 p-1 rounded">
-
-																			<div class="mb-1"
-																				style="vertical-align:top;">
-																				<a href="#!">
-																					${comment.memberId.name} </a>
-																				<small class="ms-2">
-																					${comment.commenttime}</small><br>
-																				${comment.comments}
-																				<!-- <p class="small mb-0"
+															<div class="mb-1" style="vertical-align: top;">
+																<a href="#!"> ${comment.memberId.name} </a> <small
+																	class="ms-2"> ${comment.commenttime}</small><br>
+																${comment.comments}
+																<!-- <p class="small mb-0"
 																						style="text-align: left;">
 																						${comment.comments}
 																					</p> -->
-																			</div>
+															</div>
 
 
-																		</div>
-																		<!-- Comment react -->
+														</div>
+														<!-- Comment react -->
 
-																	</div>
-																</div> <!-- Comment item nested START -->
-															</li>
+													</div>
+												</div> <!-- Comment item nested START -->
+											</li>
 
-														</c:forEach>
-												</div>
-
-											</div>
 										</c:forEach>
-									</div>
-									<!-- Card feed item END -->
 								</div>
 
-
-								<!-- Right sidebar START -->
-								<div class="col-lg-3">
-									<div class="row g-4">
-										<!-- Card follow START -->
-										<div class="col-sm-6 col-lg-12" style="margin-top: 60px">
-											<div class="card">
-												<!-- Card header START -->
-												<div class="card-header pb-0 border-0">
-													<h5 class="card-title mb-0">推薦好友</h5>
-												</div>
-												<!-- Card header END -->
-												<!-- Card body START -->
-												<div class="card-body" id="onefriend">
-													<div>
-														<a role="button" data-bs-auto-close="outside"> <img
-																class="avatar-img" src="${random.avator}"
-																style="height: 280px; width: 280px; margin: auto;">
-														</a>
-													</div>
-													<c:if test="${random.gender==1 }">
-														<a>${random.address},男</a>
-													</c:if>
-													<c:if test="${random.gender==2 }">
-														<a>${random.address},女</a>
-													</c:if>
-
-													<div class="box">
-														<p style="font-size: 30px;">${random.name }</p>
-													</div>
-													<div style="text-align: center;">
-														<a class="btn btn-outline-dark" onclick="changeone()">換一個</a>
-														<c:if test="${loginUser ==null}">
-															<a class="btn btn-outline-dark" href="/login"
-																id="addBtn">請先登入</a>
-														</c:if>
-														<c:if test="${loginUser !=null}">
-															<a class="btn btn-outline-dark" id="addBtn"
-																onclick="addNewFriend(${random.id})"> 送出邀請</a>
-														</c:if>
-
-													</div>
-												</div>
-
-												<!-- Connection item END -->
-												<c:if test="${loginUser ==null}">
-													<div class="d-grid mt-3">
-														<a class="btn btn-sm btn-primary-soft" href="/login"
-															style="font-size: 20px;">更多推薦</a>
-													</div>
-												</c:if>
-												<c:if test="${loginUser !=null}">
-													<div class="d-grid mt-3">
-														<a class="btn btn-sm btn-primary-soft" href="/addfriend"
-															style="font-size: 20px;">更多推薦</a>
-													</div>
-												</c:if>
-											</div>
-											<!-- Card body END -->
-										</div>
-									</div>
-									<!-- Card follow START -->
-
-								</div>
 							</div>
+						</c:forEach>
+					</div>
+					<!-- Card feed item END -->
+				</div>
+
+
+				<!-- Right sidebar START -->
+				<div class="col-lg-3">
+					<div class="row g-4">
+						<!-- Card follow START -->
+						<div class="col-sm-6 col-lg-12" style="margin-top: 60px">
+							<div class="card">
+								<!-- Card header START -->
+								<div class="card-header pb-0 border-0">
+									<h5 class="card-title mb-0">推薦好友</h5>
+								</div>
+								<!-- Card header END -->
+								<!-- Card body START -->
+								<div class="card-body" id="onefriend">
+									<div>
+										<a role="button" data-bs-auto-close="outside"> <img
+											class="avatar-img" src="${random.avator}"
+											style="height: 280px; width: 280px; margin: auto;">
+										</a>
+									</div>
+									<c:if test="${random.gender==1 }">
+										<a>${random.address},男</a>
+									</c:if>
+									<c:if test="${random.gender==2 }">
+										<a>${random.address},女</a>
+									</c:if>
+
+									<div class="box">
+										<p style="font-size: 30px;">${random.name }</p>
+									</div>
+									<div style="text-align: center;">
+										<a class="btn btn-outline-dark" onclick="changeone()">換一個</a>
+										<c:if test="${loginUser ==null}">
+											<a class="btn btn-outline-dark" href="/login" id="addBtn">請先登入</a>
+										</c:if>
+										<c:if test="${loginUser !=null}">
+											<a class="btn btn-outline-dark" id="addBtn"
+												onclick="addNewFriend(${random.id})"> 送出邀請</a>
+										</c:if>
+
+									</div>
+								</div>
+
+								<!-- Connection item END -->
+								<c:if test="${loginUser ==null}">
+									<div class="d-grid mt-3">
+										<a class="btn btn-sm btn-primary-soft" href="/login"
+											style="font-size: 20px;">更多推薦</a>
+									</div>
+								</c:if>
+								<c:if test="${loginUser !=null}">
+									<div class="d-grid mt-3">
+										<a class="btn btn-sm btn-primary-soft" href="/addfriend"
+											style="font-size: 20px;">更多推薦</a>
+									</div>
+								</c:if>
+							</div>
+							<!-- Card body END -->
 						</div>
-					</main>
+					</div>
+					<!-- Card follow START -->
+
+				</div>
+			</div>
+		</div>
+	</main>
 
 
 
 
-					<footer>
-						<jsp:include page="/WEB-INF/layout/footer.jsp" />
-						<jsp:include page="${contextRoot}/WEB-INF/layout/chat.jsp" />
-						<jsp:include page="${contextRoot}/WEB-INF/pages/game.jsp" />
-
-					</footer>
-				</body>
-				<script type="text/javascript">
+	<footer>
+		<jsp:include page="${contextRoot}/WEB-INF/layout/footer.jsp" />
+		<jsp:include page="${contextRoot}/WEB-INF/layout/chat.jsp" />
+		<jsp:include page="${contextRoot}/WEB-INF/pages/game.jsp" />
+		
+	</footer>
+</body>
+<script type="text/javascript">
 
 					$(document).ready(function () {
 						$('#file-img').click(function () {
@@ -525,4 +517,4 @@
 					}
 				</script>
 
-				</html>
+</html>

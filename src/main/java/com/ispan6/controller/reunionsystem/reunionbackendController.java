@@ -26,14 +26,14 @@ public class reunionbackendController {
 	@Autowired
 	private ReunionsystemService reunionsystemService;
 	
-	@GetMapping("/msg/reunionbackend")
+	@GetMapping("/reunionbackend")
 	public String reunionbackend(Model model) {
 		
 		List<Reunionreport> reunionreport = ReunionreportService.getAllReunionreport();
 		model.addAttribute("reunionreport",reunionreport);
 		return "reunionbackend";
 	}
-	@GetMapping("/msg/testGet")
+	@GetMapping("/testGet")
 	@ResponseBody
 	public Reunionreport test(Model model) {
 		
@@ -52,7 +52,7 @@ public class reunionbackendController {
 		}
 		ReunionreportService.deleteReunionreport(id);
 		reunionsystemService.deleteReunionByReunionId(id);
-		return "redirect:/msg/reunionbackend";
+		return "redirect:/reunionbackend";
 	}
 	
 

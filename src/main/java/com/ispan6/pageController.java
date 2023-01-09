@@ -42,7 +42,7 @@ public class pageController {
 		m.addAttribute("random", random);
 		Page<PostBean> page= postService.findByPostPage(pageNumber);
 		m.addAttribute("page", page);
-		return "index";
+		return "party";
 	}
 
 	@GetMapping("/productbackend")

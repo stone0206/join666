@@ -86,7 +86,7 @@ ${contextRoot}<%@ page language="java" contentType="text/html; charset=UTF-8" pa
 					width: 286px;
 					height: 286px;
 					top: 387px;
-					left: 431px;
+					left: 555px;
 				}
 			</style>
 		</head>
