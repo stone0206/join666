@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 		<c:set var="contextRoot" value="${pageContext.request.contextPath}" />
-		<link href="${contextRoot}/js/jquery-3.6.1.min.js" rel="stylesheet" />
 		<!DOCTYPE html>
 		<html>
 
@@ -40,7 +39,7 @@
 		</head>
 
 		<body>
-			<jsp:include page="../layout/backendnav.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/layout/backendnav.jsp"></jsp:include>
 			<div id="layoutSidenav_content">
 				<main>
 					<div class="container-fluid px-4">

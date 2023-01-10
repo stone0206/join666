@@ -9,13 +9,8 @@
 				<html>
 
 				<head>
-
-					<link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
-
 					<link id="style-switch" rel="stylesheet" type="text/css"
 						href="${pageContext.request.contextPath}/css/style.css">
-					<script src="${pageContext.request.contextPath}/js/bootstrap.bundle.min.js"></script>
-					<script src="${pageContext.request.contextPath}/js/jquery-3.6.1.min.js"></script>
 					<meta charset="UTF-8">
 					<title>更新貼文</title>
 					<base href="/webapp/">
@@ -61,16 +56,17 @@
 											<div class="form-group">
 												<div class="form-row">
 													<div class="col-sm-12">
-														<form action="/editpost" method="post">
+														<form action="${contextRoot}/editpost" method="post">
 															<textarea name="content" class="form-control" rows="5"
 																cols="80">${postBean.content}</textarea>
 															<input style="color:white;" 
 												             type="file" id="imgFile" name="photo" accept="image/*" />
-															<img id="theImg" src="/assets/preview.png" style="width: 10px; float: right;" alt="Image preview" />
+															<img id="theImg" src="${contextRoot }/assets/preview.png" style="width: 10px; float: right;" alt="Image preview" />
 															<input class="form-control bi bi-three-dots" type="submit"
 																value="貼文"
 																style="float:right; font-size:8px; background-color:AliceBlue;" />
 														</form>
+														
 										</form>
 									</form:form>
 
@@ -118,6 +114,8 @@
 
 											</div>
 									</c:forEach>
+									</div>
+									</div>
 									<!-- Card header END -->
 									<!-- 页面HTML代码 -->
 

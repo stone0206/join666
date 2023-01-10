@@ -12,10 +12,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
    <link href="${contextRoot}/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-       <link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet" />
       <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
 					rel="stylesheet" />
-      <link id="style-switch" rel="stylesheet" type="text/css" href="${contextRoot}/css/style.css">
 		<!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">				
 <style>
@@ -57,7 +55,7 @@
 										聚會類型：
 										<c:forEach var="reuniontype" items="${reuniontype}">
 											
-												<a type="button" class="btn btn-outline-danger" href="/searchByReuniontypeId?id=${reuniontype.reutid}">${reuniontype.reutype}</a>
+												<a type="button" class="btn btn-outline-danger" href="${contextRoot }/searchByReuniontypeId?id=${reuniontype.reutid}">${reuniontype.reutype}</a>
 											
 										</c:forEach>
 									</p>
@@ -67,7 +65,7 @@
 										付款方式：
 										<c:forEach var="payment" items="${payment}">
 											
-												<a type="button" class="btn btn-outline-warning" href="/searchByPaymentId?id=${payment.payid}">${payment.paytype}</a>
+												<a type="button" class="btn btn-outline-warning" href="${contextRoot }/searchByPaymentId?id=${payment.payid}">${payment.paytype}</a>
 											
 										</c:forEach>
 									</p>
@@ -78,7 +76,7 @@
 						
 
 
-      <form class="d-flex" action="/blurrysearchReunion" method="post">
+      <form class="d-flex" action="${contextRoot }/blurrysearchReunion" method="post">
         <input class="form-control me-2" type="search" placeholder="請輸入欲搜尋的關鍵字" aria-label="Search" name="keywords">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
@@ -86,7 +84,7 @@
 </nav>
 
 
-<form action="/dateRange" method="post">
+<form action="${contextRoot}/dateRange" method="post">
      <div class="control-group">
                 <label for="address" class="form-label"></label>
                 <div class=" input-append date form_datetime" data-date="2022-12-16T05:25:07Z" data-date-format="yyyy MM dd- HH:ii p" data-link-field="dtp_input1">
@@ -184,7 +182,7 @@
 				
 					<div class="col">
 						<div class="card shadow-sm">
-						<a href="/detailedreunion?id=${reunion.reunionid}">
+						<a href="${contextRoot}/detailedreunion?id=${reunion.reunionid}">
 							<img class="avatar-img" src="${reunion.picture}" style="max-width: 100% ;max-height: 100%;  height: 350px;  width:450px ">
 							</a>
 							<div class="card-body" >
@@ -258,11 +256,6 @@
 </div>
 </main>
 		<!-- Bootstrap core JS-->
-				<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-				<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
-				
-				<script type="text/javascript" src="${contextRoot}/js/jquery-3.6.1.min.js" charset="UTF-8"></script>
-<script type="text/javascript" src="${contextRoot}/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${contextRoot}/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="${contextRoot}/js/locales/bootstrap-datetimepicker.zh-TW.js" charset="UTF-8"></script>
  <script type="text/javascript"> -->

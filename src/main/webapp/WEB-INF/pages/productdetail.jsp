@@ -71,7 +71,7 @@
 
 			<body>
 				<!-- Navigation-->
-				<jsp:include page="../layout/navbar.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/layout/navbar.jsp"></jsp:include>
 				<!-- navbar覆蓋的部分 -->
 				<div class="top-div" style="margin-top: 72px;"></div>
 
@@ -155,7 +155,7 @@
 				</main>
 
 				<!-- Footer-->
-				<jsp:include page="../layout/footer.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
 
 				<!-- Bootstrap core JS-->
 				<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>

@@ -9,12 +9,11 @@
 <html>
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+  <!--   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-        crossorigin="anonymous"></script>
-        <link href="${contextRoot}/js/jquery-3.6.1.min.js" rel="stylesheet" />
+        crossorigin="anonymous"></script> -->
     <meta charset="UTF-8">
     <title></title>
    			<style>
@@ -139,8 +138,8 @@
       </div>
       <div class="modal-footer">
       
-        <a href="/notagreeRegister?id=${memberContent.reunionid}&memberid=${memberContent.memberid}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">不同意</button></a>
-        <a href="/agreeRegister?id=${memberContent.reunionid}&memberid=${memberContent.memberid}"><button type="button" class="btn btn-primary">同意</button></a>
+        <a href="${contextRoot}/notagreeRegister?id=${memberContent.reunionid}&memberid=${memberContent.memberid}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">不同意</button></a>
+        <a href="${contextRoot}/agreeRegister?id=${memberContent.reunionid}&memberid=${memberContent.memberid}"><button type="button" class="btn btn-primary">同意</button></a>
       </div>
       
      

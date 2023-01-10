@@ -103,7 +103,7 @@ input, button {
 
 <body>
 	<jsp:include page="/WEB-INF/layout/navbar.jsp" />
-			<form action="/sendCode2" id="form1" method="post">
+			<form action="${contextRoot}/sendCode2" id="form1" method="post">
 		<div class="login_page">
 			<div id="container1">
 				<div class="login">

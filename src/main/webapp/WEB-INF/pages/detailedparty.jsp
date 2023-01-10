@@ -38,7 +38,7 @@
 		<jsp:include page="/WEB-INF/layout/navbar.jsp" />
 	</header>
         <a href="https://nicepage.com" class="u-image u-logo u-image-1">
-          <img src="images/default-logo.png" class="u-logo-image u-logo-image-1">
+          <img src="${contextRoot}/images/default-logo.png" class="u-logo-image u-logo-image-1">
         </a>
       </div></header>
     <section class="u-clearfix u-section-1" id="sec-0a24">
@@ -98,7 +98,7 @@
 		s7.346-3.295,7.346-7.346C37.368,9.276,34.073,5.981,30.023,5.981z M30.023,18.672c-2.947,0-5.346-2.398-5.346-5.346
 		s2.398-5.345,5.346-5.345s5.346,2.397,5.346,5.345S32.97,18.672,30.023,18.672z"></path>
 </g></svg></span>
-        <p class="u-text u-text-6"> 台北市中山區長安東路二段長安東路二段</p><span class="u-file-icon u-icon u-icon-2"><img src="images/1235446.png" alt=""></span><span class="u-file-icon u-icon u-icon-3"><img src="images/4305512.png" alt=""></span><span class="u-file-icon u-icon u-icon-4"><img src="images/1769041.png" alt=""></span>
+        <p class="u-text u-text-6"> 台北市中山區長安東路二段長安東路二段</p><span class="u-file-icon u-icon u-icon-2"><img src="${contextRoot }/images/1235446.png" alt=""></span><span class="u-file-icon u-icon u-icon-3"><img src="images/4305512.png" alt=""></span><span class="u-file-icon u-icon u-icon-4"><img src="images/1769041.png" alt=""></span>
         <p class="u-text u-text-7">我請客<span style="font-size: 1.125rem;"></span>
         </p>
         <p class="u-text u-text-8">4人</p>
@@ -111,8 +111,6 @@
     
     
     			<!-- Bootstrap core JS-->
-				<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-				<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 	
 	<footer>
 		<jsp:include page="/WEB-INF/layout/footer.jsp" />

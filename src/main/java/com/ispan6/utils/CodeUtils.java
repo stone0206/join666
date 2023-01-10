@@ -26,7 +26,7 @@ public class CodeUtils {
             MimeMessageHelper messageHelper = new MimeMessageHelper(message);
             String token = UUID.randomUUID().toString(); // 生成UUID
             session.setAttribute("token", token);
-            messageHelper.setFrom("ispandating6666@gmail.com"); //发送方的邮箱地址，而不是接收方的邮箱地址
+            messageHelper.setFrom("peter4283@gmail.com"); //发送方的邮箱地址，而不是接收方的邮箱地址
             messageHelper.setTo(mt.getEmail()); // 接收方的邮箱地址
             messageHelper.setSubject("歡迎使用約約");  // 邮箱标题
             String html = "<html>\n" +
@@ -51,13 +51,13 @@ public class CodeUtils {
             MimeMessageHelper messageHelper = new MimeMessageHelper(message);
             String code = UUID.randomUUID().toString(); // 生成UUID
             session.setAttribute("code", code);
-            messageHelper.setFrom("ispandating6666@gmail.com"); //发送方的邮箱地址，而不是接收方的邮箱地址
+            messageHelper.setFrom("peter4283@gmail.com"); //发送方的邮箱地址，而不是接收方的邮箱地址
             messageHelper.setTo(account); // 接收方的邮箱地址
             messageHelper.setSubject("來自約約的信");  // 邮箱标题
             String html = "<html>\n" +
             		 "<body>\n" +
-                     "<p>请点击下方链接注册</p>\n" +
-                     "<a href=\"http://localhost:8080/lookCode/"+code+"\">http://localhost:8080/lookCode/"+code+"</a>" +
+                     "<p>請點擊下方連接繼續</p>\n" +
+                     "<a href=\"http://localhost:8080/datingproject/lookCode/"+code+"\">http://localhost:8080/lookCode/"+code+"</a>" +
                      "</body>\n" +
                      "</html>";
             messageHelper.setText(html,true); // 邮箱内容

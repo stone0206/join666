@@ -121,7 +121,7 @@ input, button {
 
 <body>
 	<jsp:include page="/WEB-INF/layout/navbar.jsp" />
-	<form action="/googleSignIn" id="form1" method="post">
+	<form action="${contextRoot}/googleSignIn" id="form1" method="post">
 		<div class="signup_page">
 			<div id="container1">
 				<div class="signup">

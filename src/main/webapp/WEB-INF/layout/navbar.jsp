@@ -67,7 +67,7 @@
                 <c:if test="${loginUser==null}">       
                 <li class="nav-item ms-2 dropdown">
                 <a class="nav-link btn icon-md p-0" id="profileDropdown" role="button" data-bs-auto-close="outside"
-                  data-bs-display="static"  aria-expanded="false" href="/login">
+                  data-bs-display="static"  aria-expanded="false" href="${contextRoot}/login">
                   <!-- 預設是灰頭像，登入後改成用戶頭像 -->
                   <img class="avatar-img rounded-2" src="${contextRoot}/assets/human.png" alt=""  />
                 </a>
@@ -76,7 +76,7 @@
               <c:if test="${loginUser!=null }">
                 <li class="nav-item ms-2 dropdown">
                 <a class="nav-link btn icon-md p-0" id="profileDropdown" role="button" data-bs-auto-close="outside"
-                  data-bs-display="static"  aria-expanded="false" href="/getFriendNotice">
+                  data-bs-display="static"  aria-expanded="false" href="${contextRoot}/getFriendNotice">
                 <span class="badge-notif animation-blink"></span>
                   
                   <!-- 預設是灰頭像，登入後改成用戶頭像 -->
@@ -133,7 +133,7 @@
                       </div>
                       <div>
                         <!-- 用戶名稱 -->
-						<a class="dropdown-item" href="/showprofile">
+						<a class="dropdown-item" href="${contextRoot}/showprofile">
                            <h3 class="mb-0">
                         ${loginUser.getName() }
                     </h3></a>
@@ -142,7 +142,7 @@
                   </li>
                   <!-- Links -->
                   <li>
-                    <a class="dropdown-item" href="/updateprofile">
+                    <a class="dropdown-item" href="${contextRoot}/updateprofile">
                       <i class="fa-fw bi bi-card-text me-2"></i>修改我的資訊
                     </a>
                   </li>    

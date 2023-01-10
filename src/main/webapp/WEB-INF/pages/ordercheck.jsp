@@ -12,17 +12,16 @@
 				<meta name="author" content="" />
 				<title>訂單確認</title>
 				<!-- Favicon-->
-				<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+				<link rel="icon" type="image/x-icon" href="${contextRoot}/assets/favicon.ico" />
 				<!-- Bootstrap icons-->
 				<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
 					rel="stylesheet" />
 				<!-- Core theme CSS (includes Bootstrap)-->
-				<link href="${contextRoot }/css/bootstrap.min.css" rel="stylesheet" />
 
 			</head>
 
 			<body>
-				<jsp:include page="../layout/navbar.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/layout/navbar.jsp"></jsp:include>
 				<div class="container=fluid">
 					<!-- 訂單確認標題 -->
 					<div style="margin-top: 80px; display: flex; justify-content: center;">
@@ -56,7 +55,7 @@
 					<div style="display: flex; justify-content: center;">
 						<div id="totalPrice"></div>
 					</div>
-					<form action="/checkedOrder" method="post">
+					<form action="${contextRoot}/checkedOrder" method="post">
 						<!-- 收件人信息 -->
 						<div class="card mb-4" style="width: 70%; margin: 16px auto 0px;">
 							<!-- 收件人信息之標題 -->
@@ -115,9 +114,7 @@
 
 
 
-				<jsp:include page="../layout/footer.jsp"></jsp:include>
-				<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-				<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
+				<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
 			</body>
 			<script>
 				window.onload = function () {

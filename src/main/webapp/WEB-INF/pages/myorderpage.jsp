@@ -17,7 +17,6 @@
 				<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
 					rel="stylesheet" />
 				<!-- Core theme CSS (includes Bootstrap)-->
-				<link href="${contextRoot }/css/bootstrap.min.css" rel="stylesheet" />
 				<style>
 					#table tr td {
 						height: 40px;
@@ -27,7 +26,7 @@
 			</head>
 
 			<body>
-				<jsp:include page="../layout/navbar.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/layout/navbar.jsp"></jsp:include>
 				<div class="container=fluid">
 					<!-- 訂單確認標題 -->
 					<div style="margin-top: 80px; display: flex; justify-content: center;">
@@ -91,9 +90,7 @@
 					</div>
 				</div>
 				<div>付款帳號 ktvnfl4706@sandbox.com</div>
-				<jsp:include page="../layout/footer.jsp"></jsp:include>
-				<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-				<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
+				<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
 				<script>
 					window.onload = function () {
 						fetch("${contextRoot}/openMyOrder").then(res => res.json()).then(data => changeItem(data))

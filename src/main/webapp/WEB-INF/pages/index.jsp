@@ -13,13 +13,8 @@
 <head>
 <meta charset="UTF-8">
 
-<link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet" />
- <script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-      <script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 
-<link id="style-switch" rel="stylesheet" type="text/css"
-	href="${contextRoot}/css/style.css">
-	</head>
+</head>
 
 <title>約約</title>
 <style type="text/css">
@@ -42,11 +37,11 @@ a {
 	/*與包著的區塊設定同高度即可*/
 }
 </style>
-     
+
 
 <body>
 	<header>
-		<jsp:include page="${contextRoot}/WEB-INF/layout/navbar.jsp" />
+		<jsp:include page="/WEB-INF/layout/navbar.jsp" />
 	</header>
 	<main>
 		<div class="container">
@@ -59,7 +54,7 @@ a {
 								<div class="avatar avatar-xs me-2">
 
 									<a href="#"> <img class="avatar-img rounded-circle"
-										src="assets/avatar-placeholder.jpg" alt="">
+										src="${contextRoot}/assets/avatar-placeholder.jpg" alt="">
 									</a>
 								</div>
 							</c:if>
@@ -82,20 +77,29 @@ a {
 
 								</c:if>
 								<c:if test="${message.memberId.id !=loginUser.id}">
-									<img src="assets/preview.png" style="width: 30px;"
-										id="file-img" alt="Image preview" />
+									<img src="${contextRoot}/assets/preview.png"
+										style="width: 30px;" id="file-img" alt="Image preview" />
 									<input style="display: none;" type="file" id="imgFile"
 										name="photo" accept="image/*" />
 								</c:if>
 
-								<img id="theImg" src="assets/gallery.png"
-									style="width: 10px; color: white;" alt="Image preview" />
-								<input type="submit" class="bi bi-three-dots" value="貼文"
-									style="float: right; border: 2px blue none; background-color: AliceBlue;" />
+								<c:if test="${loginUser !=null}">
+									<img id="theImg" src="assets/gallery.png"
+										style="width: 10px; color: white;" alt="Image preview" />
+									<input type="submit" class="bi bi-three-dots" value="貼文"
+										style="float: right; border: 2px blue none; background-color: AliceBlue;" />
+								</c:if>
+
+								<c:if test="${loginUser ==null}">
+
+									<a type="submit"
+										style="float: right; border: 2px blue none; background-color: AliceBlue;"
+										href="/login">請先登入</a>
+								</c:if>
+
 							</form:form>
 						</div>
 						<!-- Share feed toolbar START -->
-
 
 						<!-- Share feed toolbar END -->
 					</div>
@@ -209,7 +213,7 @@ a {
 										<c:if test="${loginUser ==null}">
 											<div class="avatar avatar-xs me-2">
 												<a href="#!"> <img class="avatar-img rounded-circle"
-													src="assets/avatar-placeholder.jpg" alt="">
+													src="${contextRoot}/assets/avatar-placeholder.jpg" alt="">
 												</a>
 											</div>
 										</c:if>
@@ -222,12 +226,28 @@ a {
 											</div>
 										</c:if>
 										<!-- Comment box  -->
-										<form class="w-100" action="/addComment" method="post">
+										<form class="w-100" action="${contextRoot}/addComment"
+											method="post">
 											<textarea name="comment" data-autoresize
 												class="form-control pe-4 bg-light" rows="1"
 												placeholder="留言區"></textarea>
-											<input type="hidden" name="postId" value="${message.postid}">
-											<button type="submit" class="btn btn-primary mt-2">送出留言</button>
+												
+												
+												<c:if test="${loginUser ==null}">
+																<input type="hidden" name="postId"
+																	value="${message.postid}">
+																<a type="submit" style="float: left" ;
+																	class="btn btn-primary mt-2" href="/login">請先登入</a>
+															</c:if>
+
+															<c:if test="${loginUser !=null}">
+																<input type="hidden" name="postId"
+																	value="${message.postid}">
+																<button type="submit"
+																	class="btn btn-primary mt-2">送出留言</button>
+															</c:if>
+												
+					
 										</form>
 									</div>
 
@@ -308,7 +328,8 @@ a {
 									<div style="text-align: center;">
 										<a class="btn btn-outline-dark" onclick="changeone()">換一個</a>
 										<c:if test="${loginUser ==null}">
-											<a class="btn btn-outline-dark" href="/login" id="addBtn">請先登入</a>
+											<a class="btn btn-outline-dark" href="${contextRoot}/login"
+												id="addBtn">請先登入</a>
 										</c:if>
 										<c:if test="${loginUser !=null}">
 											<a class="btn btn-outline-dark" id="addBtn"
@@ -321,14 +342,14 @@ a {
 								<!-- Connection item END -->
 								<c:if test="${loginUser ==null}">
 									<div class="d-grid mt-3">
-										<a class="btn btn-sm btn-primary-soft" href="/login"
-											style="font-size: 20px;">更多推薦</a>
+										<a class="btn btn-sm btn-primary-soft"
+											href="${contextRoot}/login" style="font-size: 20px;">更多推薦</a>
 									</div>
 								</c:if>
 								<c:if test="${loginUser !=null}">
 									<div class="d-grid mt-3">
-										<a class="btn btn-sm btn-primary-soft" href="/addfriend"
-											style="font-size: 20px;">更多推薦</a>
+										<a class="btn btn-sm btn-primary-soft"
+											href="${contextRoot}/addfriend" style="font-size: 20px;">更多推薦</a>
 									</div>
 								</c:if>
 							</div>
@@ -346,10 +367,10 @@ a {
 
 
 	<footer>
-		<jsp:include page="${contextRoot}/WEB-INF/layout/footer.jsp" />
-		<jsp:include page="${contextRoot}/WEB-INF/layout/chat.jsp" />
-		<jsp:include page="${contextRoot}/WEB-INF/pages/game.jsp" />
-		
+		<jsp:include page="/WEB-INF/layout/footer.jsp" />
+		<jsp:include page="/WEB-INF/layout/chat.jsp" />
+		<jsp:include page="/WEB-INF/pages/game.jsp" />
+
 	</footer>
 </body>
 <script type="text/javascript">

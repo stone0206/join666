@@ -11,7 +11,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
 					rel="stylesheet" />
 <link id="style-switch" rel="stylesheet" type="text/css"
@@ -62,7 +61,7 @@
 										付款方式：
 										<c:forEach var="payment" items="${payment}">
 											<button id="search-btn">
-												<a href="/searchByPaymentId?id=${payment.payid}">${payment.paytype}</a>
+												<a href="${contextRoot}/searchByPaymentId?id=${payment.payid}">${payment.paytype}</a>
 											</button>
 										</c:forEach>
 									</p>
@@ -131,7 +130,7 @@
 													<div class="column is-8">
 														<div class="long-and-truncated" style="width: 70px;">
 															<span><span class="icon"><img
-																	src="/static/media/popularity.d5eeb51c.svg" alt=""></span>1086</span>
+																	src="${contextRoot}/static/media/popularity.d5eeb51c.svg" alt=""></span>1086</span>
 														</div>
 													</div>
 												</div>
@@ -150,7 +149,7 @@
 				<c:forEach var="reunion" items="">
 					<div class="col">
 						<div class="card shadow-sm">
-						<a href="/detailedreunion?id=${reunion.reunionid}">
+						<a href="${contextRoot}/detailedreunion?id=${reunion.reunionid}">
 							<img src="${reunion.picture}" style="max-width: 100%;  height: 450px;  ">
 							</a>
 							<div class="card-body">
@@ -192,7 +191,7 @@
 														<div class="column is-8">
 															<div class="long-and-truncated" style="width: 70px;">
 																<span><span class="icon"><img
-																		src="/static/media/popularity.d5eeb51c.svg" alt=""></span>1086</span>
+																		src="${contextRoot}/static/media/popularity.d5eeb51c.svg" alt=""></span>1086</span>
 															</div>
 														</div>
 													</div>
@@ -223,7 +222,7 @@
 				<c:forEach var="register" items="${register}">
 					<div class="col">
 						<div class="card shadow-sm">
-						<a href="/detailedreunion?id=${register.reunion.reunionid}">
+						<a href="${contextRoot}/detailedreunion?id=${register.reunion.reunionid}">
 							<img src="${register.reunion.picture}" style="max-width: 100%;  height: 450px;  ">
 							</a>
 							<div class="card-body">
@@ -265,7 +264,7 @@
 														<div class="column is-8">
 															<div class="long-and-truncated" style="width: 70px;">
 																<span><span class="icon"><img
-																		src="/static/media/popularity.d5eeb51c.svg" alt=""></span>1086</span>
+																		src="${contextRoot}/static/media/popularity.d5eeb51c.svg" alt=""></span>1086</span>
 															</div>
 														</div>
 													</div>
@@ -295,7 +294,7 @@
 				<c:forEach var="reunionreport" items="${reunionreport}">
 					<div class="col">
 						<div class="card shadow-sm">
-						<a href="/detailedreunion?id=${reunionreport.reunion.reunionid}">
+						<a href="${contextRoot}/detailedreunion?id=${reunionreport.reunion.reunionid}">
 							<img src="${reunionreport.reunion.picture}" style="max-width: 100%;  height: 450px;  ">
 							</a>
 							<div class="card-body">
@@ -337,7 +336,7 @@
 														<div class="column is-8">
 															<div class="long-and-truncated" style="width: 70px;">
 																<span><span class="icon"><img
-																		src="/static/media/popularity.d5eeb51c.svg" alt=""></span>1086</span>
+																		src="${contextRoot}/static/media/popularity.d5eeb51c.svg" alt=""></span>1086</span>
 															</div>
 														</div>
 													</div>
@@ -368,8 +367,6 @@
 	
 	
 				<!-- Bootstrap core JS-->
-				<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-				<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 	
 	<footer>
 		<jsp:include page="/WEB-INF/layout/footer.jsp" />

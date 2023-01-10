@@ -57,7 +57,7 @@
 		</head>
 
 		<body>
-			<jsp:include page="../layout/backendnav.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/layout/backendnav.jsp"></jsp:include>
 			<div id="layoutSidenav_content">
 				<main>
 					<div class="container-fluid px-4">
@@ -185,7 +185,7 @@
 							aria-hidden="true">
 							<div class="modal-dialog modal-lg">
 								<div class="modal-content">
-									<form action="/CSVReader" id="csv-form" method="post" enctype="multipart/form-data">
+									<form action="${contextRoot}/CSVReader" id="csv-form" method="post" enctype="multipart/form-data">
 										<div class="modal-header">
 											<h5 class="modal-title" id="exampleModalLabel">Upload File</h5>
 										</div>

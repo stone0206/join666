@@ -20,7 +20,6 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
 	rel="stylesheet" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="${contextRoot }/css/bootstrap.min.css" rel="stylesheet" />
 
 </head>
 
@@ -147,7 +146,7 @@
 
 <body>
 	<!-- Navigation-->
-	<jsp:include page="../layout/navbar.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/layout/navbar.jsp"></jsp:include>
 	<!-- navbar覆蓋的部分 -->
 	<div class="top-div" style="margin-top: 72px;"></div>
 
@@ -157,7 +156,7 @@
 				<div class="col-12"
 					style="height: 400px; margin-bottom: 5px; padding: 10px;">
 					<div style="height: 30px;">
-						<img src="/assets/matchpage.webp"
+						<img src="${contextRoot }/assets/matchpage.webp"
 							style="height: 360px; width: 1600px;">
 					</div>
 				</div>
@@ -239,14 +238,12 @@
 
 
 	<!-- Footer-->
-	<jsp:include page="../layout/footer.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
 
 	<!-- Button-trigger-modal -->
 
 
 	<!-- Bootstrap core JS-->
-	<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-	<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 
 	<!-- 結帳單裡面的js元素 -->
 	<script>

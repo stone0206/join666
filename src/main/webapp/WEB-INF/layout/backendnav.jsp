@@ -58,7 +58,7 @@
 
                                
 
-                                <a class="nav-link" href="/reunionbackend">
+                                <a class="nav-link" href="${contextRoot}/reunionbackend">
                                     <div class="sb-nav-link-icon"><i class='fas fa-campground'></i></i></div>
                                     揪團管理
                                 </a>

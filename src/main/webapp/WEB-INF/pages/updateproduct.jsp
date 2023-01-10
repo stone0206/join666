@@ -94,10 +94,10 @@ ${contextRoot}<%@ page language="java" contentType="text/html; charset=UTF-8" pa
 
 		<body>
 			<!-- Navigation-->
-			<jsp:include page="../layout/backendnav.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/layout/backendnav.jsp"></jsp:include>
 
 			<div id="layoutSidenav_content">
-				<form method="post" enctype="multipart/form-data" action="/saveProduct">
+				<form method="post" enctype="multipart/form-data" action="${contextRoot}/saveProduct">
 					<div class="row" style="width: 85%;margin: 25px auto 0;">
 						<c:forEach var="p" items="${product}">
 							<input type="hidden" name="id" value="${p.id}">

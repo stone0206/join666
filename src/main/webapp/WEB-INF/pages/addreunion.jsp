@@ -20,7 +20,6 @@
 <link href="${contextRoot}/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet" media="screen">
 
-<link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
 	rel="stylesheet" />
@@ -89,7 +88,7 @@ Custom styles for this template
 						<h2>新增聚會</h2>
 
 					</div>
-					<form action="/insertReunion" method="post"
+					<form action="${contextRoot}/insertReunion" method="post"
 						class="needs-validation " novalidate>
 						<div class="row g-3">
 
@@ -223,12 +222,7 @@ Custom styles for this template
 
 
 	<!-- Bootstrap core JS-->
-	<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-	<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 
-	<script type="text/javascript"
-		src="${contextRoot}/js/jquery-3.6.1.min.js" charset="UTF-8"></script>
-	<script type="text/javascript" src="${contextRoot}/js/bootstrap.min.js"></script>
 	<script type="text/javascript"
 		src="${contextRoot}/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 	<script type="text/javascript"

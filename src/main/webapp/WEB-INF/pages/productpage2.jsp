@@ -17,7 +17,6 @@
 				<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
 					rel="stylesheet" />
 				<!-- Core theme CSS (includes Bootstrap)-->
-				<link href="${contextRoot }/css/bootstrap.min.css" rel="stylesheet" />
 
 			</head>
 
@@ -143,7 +142,7 @@
 
 			<body>
 				<!-- Navigation-->
-				<jsp:include page="../layout/navbar.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/layout/navbar.jsp"></jsp:include>
 				<!-- navbar覆蓋的部分 -->
 				<div class="top-div" style="margin-top: 72px;"></div>
 
@@ -264,7 +263,7 @@
 
 
 				<!-- Footer-->
-				<jsp:include page="../layout/footer.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/layout/footer.jsp"></jsp:include>
 
 				<!-- Button-trigger-modal -->
 				<button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" id="shopping-cart">
@@ -300,16 +299,13 @@
 								<!-- 取消結帳繼續選購 -->
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">繼續選購</button>
 								<!-- 購物車訂單確認結帳 -->
-								<a type="button" class="btn btn-primary" href="/sendCartToCheck">確認結帳</a>
+								<a type="button" class="btn btn-primary" href="${contextRoot }/sendCartToCheck">確認結帳</a>
 							</div>
 						</div>
 					</div>
 				</div>
 
 
-				<!-- Bootstrap core JS-->
-				<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-				<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 
 				<!-- 結帳單裡面的js元素 -->
 				<script>
@@ -366,7 +362,7 @@
 								productData += '$' + value.price + '</div></div >';
 							}
 							productData += '<div class="card-footer p-4 pt-0 border-top-0 bg-transparent"><div class="text-center">'
-							productData += '<a class="btn btn-outline-dark" href="/openProductDetail?productId=' + value.id + '" style="margin-right:10px">查看詳情</a>'
+							productData += '<a class="btn btn-outline-dark" href="${contextRoot }/openProductDetail?productId=' + value.id + '" style="margin-right:10px">查看詳情</a>'
 							productData += '<a class="btn btn-outline-dark" onclick="addToCart(' + value.id + ')">加入購物車</a>'
 							productData += '</div></div></div ></div >'
 						})

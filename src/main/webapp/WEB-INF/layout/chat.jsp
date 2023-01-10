@@ -31,6 +31,7 @@
 					src="https://cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.7.1/jquery.ui.position.js"></script>
 
 				<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+				<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 			</head>
 
 			<body>
@@ -1140,7 +1141,58 @@
 									name: "收回", icon: "delete",
 									callback: function () {
 										// console.log($(this).attr("messageId"))
-										let messageId = $(this).attr("messageId")
+										
+										Swal.fire({
+												title:'你確定嗎',
+												text:'收回訊息的部分',
+												type:'warning',
+												showCancelButton:true,
+												confirmButtonColor:'#3085d6',
+												cancelButtonColor:'#d33',
+												confirmButtonText:'確定！'
+											
+										
+											}).then((result)=>{
+												if(result.value){
+													Swal.fire(
+														'收回！',
+														'你收回了該訊息',
+														'success'
+													)
+													let messageId = $(this).attr("messageId")
+													
+													let defalutMessage = '<span style="color:blue;font-weight:800;font-style:italic;">訊息已被收回</span>'
+											console.log($(".sent[messageId='" + messageId + "']>div span").text())
+											$(".sent[messageId='" + messageId + "'] > div span:eq(0)").html(null)
+											$(".sent[messageId='" + messageId + "'] > div span:eq(0)").append(defalutMessage)
+
+											let formData = new FormData();
+											formData.append('messageId', messageId);
+											formData.append('text', defalutMessage);
+											fetch("${contextRoot}/msg/updateMessage", {
+												method: "POST",
+												body: formData
+
+											})
+											let dataMessage = {};
+											dataMessage["type"] = 2
+											// dataMessage["from"] = "${loginUser.avator}";
+											dataMessage["to"] = $("#message").attr("participants");
+											dataMessage["text"] = defalutMessage;
+											dataMessage["messageId"] = messageId;
+											// console.log("AAA", JSON.stringify(data))
+											websocket.send(JSON.stringify(dataMessage)); // 使用 send() 方法发送数据
+													
+													
+												}
+											
+											})
+											
+								
+										
+										
+										
+										/* let messageId = $(this).attr("messageId")
 
 										let yes = confirm('你確定嗎？');
 
@@ -1172,7 +1224,7 @@
 											websocket.send(JSON.stringify(dataMessage)); // 使用 send() 方法发送数据
 										} else {
 
-										}
+										} */
 
 									}
 								},
@@ -1309,7 +1361,7 @@
 														if (member.id == participants.personId) {
 															chatRoom += '<div class="sender-image" account="' + member.account + '">';
 															chatRoom += '<img src="' + member.avator + '">';
-															chatRoom += '</div><div class="mes-detail"><div class="mes-col1"><div class="sender-name">' + member.name + '</div>';
+															chatRoom += '</div><div class="mes-detail"><div class="mes-col1"><div class="sender-name">' + member.account + '</div>';
 															let dataMessage = {};
 
 															dataMessage["from"] = "${loginUser.account}";
@@ -1364,7 +1416,7 @@
 						// console.log("userId" + "${loginUser.id}")
 
 						if ('WebSocket' in window) { // 浏览器支持 WebSocket
-							websocket = new WebSocket("ws://localhost:8080/webSocket/${loginUser.account}"); // 打开一个 web socket‘
+							websocket = new WebSocket("ws://localhost:8080/datingproject/webSocket/${loginUser.account}"); // 打开一个 web socket‘
 							// console.log("${loginUser.account}")
 							console.log(websocket)
 						}

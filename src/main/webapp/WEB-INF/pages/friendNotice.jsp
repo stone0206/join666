@@ -7,11 +7,6 @@
 
 		<head>
 
-			<link href="${contextRoot}/css/bootstrap.min.css" rel="stylesheet" />
-
-			<link id="style-switch" rel="stylesheet" type="text/css" href="${contextRoot}/css/style.css">
-			<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-			<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 			<meta charset="UTF-8">
 			<title>Insert title here</title>
 		</head>
@@ -26,7 +21,7 @@
 					<!-- Card START -->
 					<div class="card">
 						<div class="h-200px rounded-top"
-							style="background-image: url(assets/images/bg/05.jpg); background-position: center; background-size: cover; background-repeat: no-repeat;">
+							style="background-position: center; background-size: cover; background-repeat: no-repeat;">
 						</div>
 						<!-- Card body START -->
 						<div class="card-body py-0">
@@ -46,7 +41,7 @@
 								</div>
 								<!-- Button -->
 								<div class="d-flex mt-3 justify-content-center ms-sm-auto">
-									<a href="/updateprofile">
+									<a href="${contextRoot}/updateprofile">
 										<button class="btn btn-danger-soft me-2" type="button">
 											編輯資料</button>
 									</a>
@@ -93,7 +88,7 @@
 
 			<footer>
 				<jsp:include page="/WEB-INF/layout/footer.jsp" />
-				<jsp:include page="${contextRoot}/WEB-INF/layout/chat.jsp" />
+				<jsp:include page="/WEB-INF/layout/chat.jsp" />
 
 			</footer>
 		</body>

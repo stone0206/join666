@@ -124,7 +124,7 @@ input, button {
 		<div id="container1">
 			<div class="login">
 				<h3>註冊</h3>
-				<form action="/insertMember" id="form1" method="post">
+				<form action="${contextRoot}/insertMember" id="form1" method="post">
 					<label for="account" id="accLabel">請輸入帳號</label> <input type="text"
 						id="account" name="account" placeholder="帳號" required> <label
 						for="password" id="pwdLabel">請輸入密碼</label> <input type="text"
@@ -152,7 +152,7 @@ input, button {
 
 				<h3>註冊 Sign Up</h3>
 
-				<form action="/insertMember" id="form2" method="post">
+				<form action="${contextRoot}/insertMember" id="form2" method="post">
 					<input type="text" id="fullname" name="fullname" placeholder="暱稱"
 						required>
 					<div class="tab"></div>

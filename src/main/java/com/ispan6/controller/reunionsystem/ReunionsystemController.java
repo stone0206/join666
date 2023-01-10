@@ -216,10 +216,13 @@ public class ReunionsystemController {
 	    	 }
 	    	 //易
 	    	 GroupRoom gr = groupRoomService.reunionIdHaveGroup(id);
-	    	 Integer grId = gr.getGroupId();
-	 		participantsService.insertParticipants(grId,memberid );
-	    	 
-			return "redirect:/searchRegisterByReunionId?id="+id;
+	    	 if(gr !=null) {
+	    	  	 Integer grId = gr.getGroupId();
+	 	 		participantsService.insertParticipants(grId,memberid );
+	 	    	  
+	    	 }
+	  
+	 		return "redirect:/searchRegisterByReunionId?id="+id;
 		}
 	    
 	  //不同意報名

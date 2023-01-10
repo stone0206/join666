@@ -41,7 +41,7 @@
 			</head>
 
 			<body>
-				<jsp:include page="../layout/backendnav.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/layout/backendnav.jsp"></jsp:include>
 				<div id="layoutSidenav_content">
 					<main>
 						<div class="container-fluid px-4">

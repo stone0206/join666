@@ -38,7 +38,7 @@
 		<jsp:include page="/WEB-INF/layout/navbar.jsp" />
 	</header>
         <a href="https://nicepage.com" class="u-image u-logo u-image-1">
-          <img src="images/default-logo.png" class="u-logo-image u-logo-image-1">
+          <img src="${contextRoot }/images/default-logo.png" class="u-logo-image u-logo-image-1">
         </a>
       </div></header>
       
@@ -78,7 +78,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form  action="/insertReunionreport" method="post">
+        <form  action="${contextRoot}/insertReunionreport" method="post">
           <div class="mb-3">
 <!--             <label for="recipient-name" class="col-form-label" type="hidden">聚會id</label> -->
             <input type="hidden" class="form-control" id="recipient-name" name="reunionid" value="${reunion.reunionid}" readonly  >
@@ -108,21 +108,21 @@
         
         <c:if test="${loginUser!=null}">
         <c:if test="${loginUser.id==reunion.memberid}">
-         <a href="/searchRegisterByReunionId?id=${reunion.reunionid}" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">審核</a>
+         <a href="${contextRoot}/searchRegisterByReunionId?id=${reunion.reunionid}" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">審核</a>
         </c:if>
 
         <c:if test="${loginUser.id!=reunion.memberid }">
         
         <c:if test="${flag==false}">
-        <a href="" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">已報名</a>
+        <a href="" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2" style="pointer-events:none;">已報名</a>
         </c:if>
         
         <c:if test="${flag==true}">
         <c:if test="${reunion.getPeople()<=count}">
-					<a class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">報名已額滿</a>
+					<a class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2" style="pointer-events:none;">報名已額滿</a>
 					</c:if>
          <c:if test="${reunion.getPeople()>count}">
-        <a onclick="return confirm('確定報名')" href="/insertRegister?id=${reunion.reunionid}" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">報名</a>
+        <a onclick="return confirm('確定報名')" href="${contextRoot}/insertRegister?id=${reunion.reunionid}" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-4-base u-palette-3-base u-radius-50 u-btn-2">報名</a>
          </c:if>
           </c:if>
          </c:if>
@@ -183,8 +183,6 @@
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1"></div>
     </section>  
     			<!-- Bootstrap core JS-->
-				<script src="${contextRoot}/js/bootstrap.bundle.min.js"></script>
-				<script src="${contextRoot}/js/jquery-3.6.1.min.js"></script>
 	
 	<footer>
 		<jsp:include page="/WEB-INF/layout/footer.jsp" />

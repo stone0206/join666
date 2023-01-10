@@ -39,7 +39,7 @@
 			</div>
 			<br>
 			<div class="mb-2">
-				<label> <a href="/checkEmail">忘記密碼了嗎?</a>
+				<label> <a href="${contextRoot}/checkEmail">忘記密碼了嗎?</a>
 				</label>
 			</div>
 			<div class=" mb-2">
@@ -60,7 +60,7 @@
 	<div class="text-center m-5">
 		快速登入:
 		<button class="btn btn-outline-info fastLogin2">Leo</button>
-		<button class="btn btn-outline-info fastLogin2">John</button>
+		<button class="btn btn-outline-info fastLogin2">Kevin</button>
 		<button class="btn btn-outline-info fastLogin2">Mary</button>
 		<button class="btn btn-outline-info fastLogin" value="admin">admin</button>
 		<!-- 		<button class="btn btn-outline-info fastLogin">易穎</button> -->

@@ -9,13 +9,8 @@
 <html>
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
 					rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-        crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <title>我的聚會</title>
     
@@ -86,7 +81,7 @@
 						
 							<c:forEach var="reunion" items="${reunion}">
 								<tr>
-								<td><a href="/detailedreunion?id=${reunion.reunionid}"><img class="" src="${reunion.picture}" alt="avatar" style="width:100px ;height:100px; border-radius: 50px;" ></a></td>
+								<td><a href="${contextRoot}/detailedreunion?id=${reunion.reunionid}"><img class="" src="${reunion.picture}" alt="avatar" style="width:100px ;height:100px; border-radius: 50px;" ></a></td>
 								    
 									<td>${reunion.reuniontype.reutype}</td>
 									<td>${reunion.topic}</td>
@@ -101,7 +96,7 @@
 																				<!-- return confirm('是否刪除 ${productContent.name }') -->
 										 <a class="btn"
 										onclick="return confirm('是否刪除 ${reunion.topic} 聚會')"
-										href="/deleteReunion?id=${reunion.reunionid}"
+										href="${contextRoot}/deleteReunion?id=${reunion.reunionid}"
 										style="color: red;">刪除</a> 
 									</td>
 								</tr>
@@ -150,7 +145,7 @@
 						<tbody id="table">
 							<c:forEach var="register" items="${register}">
 								<tr>
-								<td><a href="/detailedreunion?id=${register.reunion.reunionid}"><img class="" src="${register.reunion.picture}" alt="avatar"style="width:100px ;height:100px; border-radius: 50px;"></a></td>
+								<td><a href="${contextRoot}/detailedreunion?id=${register.reunion.reunionid}"><img class="" src="${register.reunion.picture}" alt="avatar"style="width:100px ;height:100px; border-radius: 50px;"></a></td>
 									<td>${register.reunion.reuniontype.reutype}</td>
 									<td>${register.reunion.topic}</td>
 									<td>${register.reunion.memberTest.name}</td>
@@ -210,7 +205,7 @@
 						<tbody id="table">
 							<c:forEach var="reunionreport" items="${reunionreport}">
 								<tr>
-								    <td><a href="/detailedreunion?id=${reunionreport.reunion.reunionid}"><img class="" src="${reunionreport.reunion.picture}" alt="avatar"style="width:100px ;height:100px; border-radius: 50px;"></a></td>
+								    <td><a href="${contextRoot}/detailedreunion?id=${reunionreport.reunion.reunionid}"><img class="" src="${reunionreport.reunion.picture}" alt="avatar"style="width:100px ;height:100px; border-radius: 50px;"></a></td>
 									<td>${reunionreport.reunion.reuniontype.reutype}</td>
 									<td>${reunionreport.reunion.topic}</td>
 									<td>${reunionreport.reunion.memberTest.name}</td>

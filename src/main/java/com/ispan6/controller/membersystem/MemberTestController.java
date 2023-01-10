@@ -119,7 +119,7 @@ public class MemberTestController {
 		mService.updatePwd(password, account);
 		MemberTest mt = mService.findByAcc(account);
 		session.setAttribute("loginUser", mt);
-		return "/index";
+		return "redirect:/index";
 	}
 
 	@PostMapping("/update")
@@ -166,6 +166,8 @@ public class MemberTestController {
 		session.setAttribute("loginUser", mt);
 		Page<PostBean> page= postService.findByPostPage(pageNumber);
 		m.addAttribute("page", page);
+		MemberTest random = matchService.random1(mt.getId(), mt.getId());
+		m.addAttribute("random", random);
 		return "index";
 	}
 
@@ -261,7 +263,7 @@ public class MemberTestController {
 			}
 		Page<PostBean> page= postService.findByPostPage(pageNumber);
 		m.addAttribute("page", page);
-		return "index";
+		return "redirect:/index";
 	}
 
 	@PostMapping("/insertMember")
@@ -336,7 +338,7 @@ public class MemberTestController {
 	@PostMapping("/sendCode") // 寄送驗證信的註冊
 	public String sendCode(@ModelAttribute("memberTest") MemberTest mt, @RequestParam(value = "account") String account, @RequestParam(value = "hobbit") String[] hobbit,
 			@RequestParam(value = "password") String password, @RequestParam(value = "taiwan") String taiwan, @RequestParam(value = "coun") String coun,HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response ,Model m, @RequestParam(name="p",defaultValue = "1") Integer pageNumber) {
 		mt.setEmail(account);
 		mt.setAddress(taiwan+coun);
 		if(mt.getGender()==1) {
@@ -345,6 +347,10 @@ public class MemberTestController {
 				mt.setAvator(Constants.AVATOR2);
 			}
 		System.out.println("送信中");
+		MemberTest random = matchService.random1(mt.getId(), mt.getId());
+		m.addAttribute("random", random);
+		Page<PostBean> page= postService.findByPostPage(pageNumber);
+		m.addAttribute("page", page);
 		HttpSession session = request.getSession();
 		session.setAttribute("memberTest", mt);
 		session.setAttribute("hobbit", hobbit);
@@ -353,7 +359,7 @@ public class MemberTestController {
 		if (flag) {
 			return "checkUUID";
 		} else {
-			return "/index";
+			return "redirect:/party";
 		}
 	}
 	
@@ -413,7 +419,7 @@ public class MemberTestController {
 			session.setAttribute("loginUser", mt);
 			Page<PostBean> page= postService.findByPostPage(pageNumber);
 			m.addAttribute("page", page);
-			return "/index";
+			return "redirect:/index";
 		} else
 //		if (mService.existsByAccount(user.getEmail()) == null) 
 		{

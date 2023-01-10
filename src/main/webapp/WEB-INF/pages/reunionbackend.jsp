@@ -45,7 +45,7 @@
 
 
 <body>
-			<jsp:include page="../layout/backendnav.jsp"></jsp:include>
+			<jsp:include page="/WEB-INF/layout/backendnav.jsp"></jsp:include>
 <div id="layoutSidenav_content">
 		<main>
 			<h1 class="text-center">聚會管理</h1>
@@ -69,7 +69,7 @@
 						<tbody id="table">
 							<c:forEach var="reunionreport" items="${reunionreport}">
 								<tr>
-									<td><a href="http://localhost:8080/detailedreunion?id=${reunionreport.reunion.reunionid}" target="_blank"><img class="" src="${reunionreport.reunion.picture}" alt="avatar"width="80" height="80"style="border-radius: 50px;"></a></td>
+									<td><a href="http://localhost:8080/datingproject/detailedreunion?id=${reunionreport.reunion.reunionid}" target="_blank"><img class="" src="${reunionreport.reunion.picture}" alt="avatar"width="80" height="80"style="border-radius: 50px;"></a></td>
 									<td>${reunionreport.reunion.topic}</td>
 									<td>${reunionreport.reunion.memberTest.name}</td>
 									<td>${reunionreport.memberTest.name}</td> 
@@ -82,7 +82,7 @@
 																				<!-- return confirm('是否刪除 ${productContent.name }') -->
 										 <a class="btn"
 										onclick="return confirm('是否刪除 ${reunionreport.reunion.reunionid}')"
-										href="/deleteReunionreport?id=${reunionreport.reunion.reunionid}"
+										href="${contextRoot}/deleteReunionreport?id=${reunionreport.reunion.reunionid}"
 										style="color: red;">刪除</a> 
 									</td>
 								</tr>
