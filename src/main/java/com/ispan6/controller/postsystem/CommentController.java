@@ -8,9 +8,11 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ispan6.bean.membersystem.MemberTest;
@@ -63,12 +65,11 @@ public class CommentController {
 	        return "redirect:/index";
 	    }
 
-	    @PostMapping("/deleteComment")
-	    public String deleteComment(@ModelAttribute CommentBean commentBean,HttpSession session) {
-	    	MemberTest member = (MemberTest) session.getAttribute("loginUser");
-	    	commentBean.setMemberId(member);
-	        commentService.deleteComment(commentBean);
-	        return "redirect:/index";
+	    @GetMapping("/deleteComment")
+	    @ResponseBody
+	    public String deleteComment(@RequestParam Integer id, HttpSession session) {
+	     commentService.deleteCommentById(id);
+	      return "刪除成功";
 	    }
 	    
 	    //看留言
@@ -82,6 +83,8 @@ public class CommentController {
 		    model.addAttribute("comments", comments);
 			return "index";
 			}
+	    
+
 
 	
 	

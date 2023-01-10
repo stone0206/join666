@@ -35,4 +35,11 @@ public class CommentService {
     public List<CommentBean> getAllComments() {
         return commentDAO.findAll(Sort.by(Sort.Direction.ASC, "commenttime"));
     }
+    public void deleteCommentById(Integer commentId) {
+        CommentBean comment = commentDAO.findById(commentId).orElse(null);
+        if (comment != null) {
+          commentDAO.deleteById(commentId);
+        }
+   
+  }
 }

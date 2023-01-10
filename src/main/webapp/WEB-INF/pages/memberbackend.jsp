@@ -261,7 +261,7 @@
 								}
 								member2 += '<tr><td rowspan="2" valign="middle">';
 								member2 += members2[i].id;
-								member2 += '</td><td rowspan="1" valign="middle">帳號: ';
+								member2 += '</td><td rowspan="2" valign="middle">帳號: ';
 								member2 += members2[i].account;
 								member2 += '</td><td rowspan="2" valign="middle">';
 								member2 += members2[i].name;
@@ -278,8 +278,6 @@
 								member2 += gender;
 								// 				member2+='</td><td rowspan="2" valign="middle"><button >停權</button></td></tr><tr>';
 								member2 += banned;
-								member2 += '<td valign="middle">密碼: ';
-								member2 += members2[i].password;
 								member2 += '</td><td valign="middle">信箱: ';
 								member2 += members2[i].email;
 								member2 += '</td></tr>';
@@ -353,7 +351,7 @@
 								}
 								member2 += '<tr><td rowspan="2" valign="middle">';
 								member2 += members2[i].id;
-								member2 += '</td><td rowspan="1" valign="middle">帳號: ';
+								member2 += '</td><td rowspan="2" valign="middle">帳號: ';
 								member2 += members2[i].account;
 								member2 += '</td><td rowspan="2" valign="middle">';
 								member2 += members2[i].name;
@@ -370,8 +368,6 @@
 								member2 += gender;
 								// 				member2+='</td><td rowspan="2" valign="middle"><button >停權</button></td></tr><tr>';
 								member2 += banned;
-								member2 += '<td valign="middle">密碼: ';
-								member2 += members2[i].password;
 								member2 += '</td><td valign="middle">信箱: ';
 								member2 += members2[i].email;
 								member2 += '</td></tr>';

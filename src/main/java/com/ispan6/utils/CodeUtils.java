@@ -57,7 +57,7 @@ public class CodeUtils {
             String html = "<html>\n" +
             		 "<body>\n" +
                      "<p>請點擊下方連接繼續</p>\n" +
-                     "<a href=\"http://localhost:8080/datingproject/lookCode/"+code+"\">http://localhost:8080/lookCode/"+code+"</a>" +
+                     "<a href=\"http://localhost:8080/lookCode/"+code+"\">http://localhost:8080/lookCode/"+code+"</a>" +
                      "</body>\n" +
                      "</html>";
             messageHelper.setText(html,true); // 邮箱内容

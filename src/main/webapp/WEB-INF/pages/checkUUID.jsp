@@ -65,7 +65,8 @@
 	//取消按鈕返回上頁
 	$("#cancel").click(function(event) {
 		event.preventDefault(); //取消預設行為
-		window.history.back(); //返回上一頁
+		location.href='http://localhost:8080/index';
+		//window.history.back(); //返回上一頁
 	})
 </script>
 

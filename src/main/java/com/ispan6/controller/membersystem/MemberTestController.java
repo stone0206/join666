@@ -263,6 +263,12 @@ public class MemberTestController {
 			}
 		Page<PostBean> page= postService.findByPostPage(pageNumber);
 		m.addAttribute("page", page);
+		GroupRoom gr = groupRoomService.insertGroupRoom("客服", 2, null);
+		
+		Integer grId = gr.getGroupId();
+		System.out.println(grId);
+		participantsService.insertParticipants(grId, 1);
+		participantsService.insertParticipants(grId, mt.getId());
 		return "redirect:/index";
 	}
 
