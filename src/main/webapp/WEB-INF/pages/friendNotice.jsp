@@ -237,7 +237,7 @@
 					sendInvit += ' <div class="card-body"> <div class="d-md-flex align-items-center mb-4" ><div class="avatar me-3 mb-3 mb-md-0">';
 					sendInvit += '<a href="#!"> <img class="avatar-img rounded-circle" src="' + value.userid.avator + '" alt=""> </a></div>';
 					sendInvit += '<div class="w-100"> <div class="d-sm-flex align-items-start"><h3 class="mb-0"><a href="#!">' + value.userid.name + '</a></h3></div></div>';
-					sendInvit += ' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2" onclick="unfriendfromwhosend(' + value.userid.id + ')"> 拒絕 </button>'
+					sendInvit += ' <div class="ms-md-auto d-flex"><button class="btn btn-danger-soft btn-sm mb-0 me-2" onclick="unfriendfromwhosend(' + value.friendid + ')"> 拒絕 </button>'
 					sendInvit += '<button class="btn btn-primary-soft btn-sm mb-0" onclick="agreeInvitation(' + value.userid.id + ')"> 同意 </button>'
 					sendInvit += '</div> </div></div> </div>'
 				})
