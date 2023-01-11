@@ -74,14 +74,16 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">檢舉聚會</h5>
+        <h5 class="modal-title" id="exampleModalLabel">檢舉聚會</h5><button  class="btn btn-outline-light fastLogin3" type="submit">快速輸入</button>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+      
         <form  action="${contextRoot}/insertReunionreport" method="post">
           <div class="mb-3">
 <!--             <label for="recipient-name" class="col-form-label" type="hidden">聚會id</label> -->
-            <input type="hidden" class="form-control" id="recipient-name" name="reunionid" value="${reunion.reunionid}" readonly  >
+            <input type="hidden" class="form-control" id="recipient-name" name="reunionid" value="${reunion.reunionid}" readonly >
+            
           </div>
           <div class="mb-3">
             <label for="message-text" class="col-form-label">檢舉內容</label>
@@ -183,7 +185,12 @@
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1"></div>
     </section>  
     			<!-- Bootstrap core JS-->
-	
+	<script>
+		$(".fastLogin3").click(function () {
+			$("#message-text").val("圖文不符");
+				
+		});
+	</script>
 	<footer>
 		<jsp:include page="/WEB-INF/layout/footer.jsp" />
 	</footer>
