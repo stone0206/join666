@@ -106,9 +106,13 @@
 						</div>
 						<!-- 確認結帳 -->
 						<div style="display: flex; justify-content: center;">
+							
 							<button class="btn btn-primary col-md-2" type="submit">確認結帳</button>
 						</div>
 					</form>
+					<div style="margin: 0 auto;">
+						<button  class="btn btn-outline fastLogin3">快速輸入</button>
+					</div>
 				</div>
 
 
@@ -219,7 +223,15 @@
 						});
 					});
 				});
-
+				$(".fastLogin3").click(function () {
+				$("#validationServer01").val("小朱");
+				$("#validationServer02").val("0912345678");
+				$("#validationServer3").val("0912345678@gmail.com");
+				$("#addrDetail").val("復興南路100號1樓");
+			
+			
+			
+		});
 
 
 			</script>

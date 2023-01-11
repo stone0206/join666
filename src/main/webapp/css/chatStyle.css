@@ -1018,13 +1018,14 @@ background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, F
     }
 
     .chatimgLargeFile img{
-    	z-index:100000;
-        width: 400px;
+    	z-index:100000000;
+        width: 500px;
+        height:600px;
         display:flex;
         position:fixed;
         top:20%;
-        right:40%;
-        
+        right:45%;
+        float:right;
         
     }
 
@@ -1062,6 +1063,9 @@ background: linear-gradient(to right, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, F
     	top:50px;
     	display:none;
 }
-    
+.swal2-container {
+  z-index: 1000000 !important;
+  
+}
     
     
