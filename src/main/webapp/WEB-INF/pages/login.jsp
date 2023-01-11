@@ -31,12 +31,14 @@
 									name="account" required> <label for="floatingInput">帳號</label>
 							</div>
 							<div class="form-floating">
-								<input type="password" class="form-control" id="floatingPassword" placeholder="Password"
-									name="password" required> <label for="floatingPassword">密碼</label> <i id="checkEye"
-									class="fas fa-eye"></i>
+								<input type="text" class="form-control" id="floatingPassword" placeholder="Password"
+									name="password" required> <label for="floatingPassword">密碼</label>
+									 <i id="checkEye" class="fas fa-eye"></i>
 							</div>
 							<br>
 							<div class="mb-2">
+								 <input type="checkbox" class="custom-control-input" id="chkPasw">
+									<label class="custom-control-label" for="chkPasw"><span style="font-size:smaller;font-weight:900">顯示密碼</span></label><br>
 								<label> <a href="${contextRoot}/checkEmail">忘記密碼了嗎?</a>
 								</label>
 							</div>
@@ -65,8 +67,8 @@
 						<!-- 		<button class="btn btn-outline-info fastLogin">易穎</button> -->
 						<!-- 		<button class="btn btn-outline-info fastLogin">博宇</button> -->
 						<!-- 		<button class="btn btn-outline-info fastLogin">宇豐</button> -->
-						<!-- 		<button class="btn btn-outline-info fastLogin" -->
-						<!-- 			style="border: none; opacity: 0;">奕徵</button> -->
+								<button class="btn btn-outline-info fastLogin3"
+									style="border: none; opacity: 0;">DEMO</button>
 
 					</div>
 
@@ -108,7 +110,11 @@
 						$("#floatingAccount").val(this.innerHTML);
 						$("#floatingPassword").val(this.innerHTML);
 					});
-
+					
+					$(".fastLogin3").click(function () {
+						$("#floatingAccount").val("ispandating6666@gmail.com");
+						$("#floatingPassword").val("456789");
+					});
 					//密碼可視切換
 					$("#checkEye").click(function () {
 						if ($(this).hasClass('fa-eye')) {
@@ -124,6 +130,27 @@
 						event.preventDefault(); //取消預設行為
 						window.history.back(); //返回上一頁
 					})
+					
+				$(document).ready(function () {   
+	ShowHidePasw();//一進來先隱藏密碼
+	$('#chkPasw').attr('onclick', 'ShowHidePasw()');
+						   
+});
+	
+
+//密碼顯示或是隱藏
+function ShowHidePasw() {
+	var txtPasw = $("#floatingPassword");
+	//alert(txtPasw.attr("type"));
+	if (txtPasw.attr("type") == "password") {
+		txtPasw.attr("type", "text");
+	}
+	else {
+		txtPasw.attr("type", "password");
+
+	}
+	
+}
 				</script>
 
 				</html>

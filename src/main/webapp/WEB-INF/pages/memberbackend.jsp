@@ -131,6 +131,11 @@
 														</c:otherwise>
 													</c:choose>
 													<c:choose>
+														<c:when test="${memberContent.banned == 0 && memberContent.id==1 }">
+															<td rowspan="2" valign="middle"><button class="ban"
+																	id="banBtn${memberContent.id}" value="0" disabled>竟想用我的權能對付我</button>
+															</td>
+														</c:when>
 														<c:when test="${memberContent.banned == 0}">
 															<td rowspan="2" valign="middle"><button class="ban"
 																	id="banBtn${memberContent.id}" value="1">停權</button>
@@ -218,7 +223,9 @@
 						var name = $('#name').val();
 						var taiwan = $('#taiwan');
 						var address = taiwan.val() + $('#coun').val();
-
+						if($('#coun').val()=="請選擇"){
+							address="";
+						}
 						var m = $('#male').is(':checked');
 						var f = $('#female').is(':checked');
 						var male = 1;
@@ -240,8 +247,13 @@
 						formData.append("account", account.trim());
 						formData.append("name", name);
 						formData.append("address", address);
+// 						console.log("帳號為:"+account);
+// 						console.log("暱稱為:"+name);
+// 						console.log("縣/市:"+taiwan.val());
+// 						console.log("市/鎮/區:"+$('#coun').val());
+// 						console.log("完整地址:"+address);
+// 						console.log("資料內容:"+formData);
 						fetch("${contextRoot}/findMem", { method: "POST", body: formData }).then(result => result.json()).then(members2 => {
-							console.log(members2.length);
 							var table = $('#table');
 							var gender = "";
 							var birth = "";
@@ -255,13 +267,18 @@
 									gender = '女';
 								}
 								if (members2[i].banned == 0) {
-									banned = '</td><td rowspan="2" valign="middle"><button class="ban" value="0">停權</button></td></tr><tr>'
+									console.log(members2[i].id==1);
+									console.log("members2["+i+"].account="+members2[i].account)
+									if(members2[i].id==1){
+										banned='</td><td rowspan="2" valign="middle"><button class="ban" value="0" disabled>休想用我的權能對付我</button></td></tr><tr>'
+									}else{
+									banned = '</td><td rowspan="2" valign="middle"><button class="ban" value="0">停權</button></td></tr><tr>'}
 								} else {
 									banned = '</td><td rowspan="2" valign="middle"><button class="unban" value="1">解除停權</button></td></tr><tr>'
 								}
 								member2 += '<tr><td rowspan="2" valign="middle">';
 								member2 += members2[i].id;
-								member2 += '</td><td rowspan="2" valign="middle">帳號: ';
+								member2 += '</td><td rowspan="2" valign="middle">';
 								member2 += members2[i].account;
 								member2 += '</td><td rowspan="2" valign="middle">';
 								member2 += members2[i].name;
@@ -291,16 +308,20 @@
 					});
 					$("#taiwan").change(function () {
 						let val = $(this).val();
+						console.log("COUNTRY:"+val);
 						let districts = data.find(function (item) {
 							return item.name == val;
 						})
 						$("#coun>option").remove()
-
+						
+						if(val==""){
+							$("#coun").append("<option value=''>請選擇</option>")
+						}else{
 						districts['districts'].forEach(function (value, index) {
 							let area = value.name
 							let map = "<option value='" + area + "'>" + area + "</option>"
 							$("#coun").append(map)
-						})
+						})}
 					})
 					
 					function findMember2() {
@@ -323,13 +344,18 @@
 							var male = 1;
 							var female = 2;
 						}
-						console.log(male + "," + female)
 						let formData = new FormData();
 						formData.append("male", male);
 						formData.append("female", female);
 						formData.append("account", account.trim());
 						formData.append("name", name);
 						formData.append("address", address);
+						console.log("帳號為:"+account);
+						console.log("暱稱為:"+name);
+						console.log("縣/市:"+taiwan.val());
+						console.log("市/鎮/區:"+$('#coun').val());
+						console.log("完整地址:"+address);
+						console.log("資料內容:"+formData);
 						fetch("${contextRoot}/findMem", { method: "POST", body: formData }).then(result => result.json()).then(members2 => {
 							console.log(members2.length);
 							var table = $('#table');
@@ -345,7 +371,10 @@
 									gender = '女';
 								}
 								if (members2[i].banned == 0) {
-									banned = '</td><td rowspan="2" valign="middle"><button class="ban" value="0">停權</button></td></tr><tr>'
+									if(members2[i].id==1){
+										banned='</td><td rowspan="2" valign="middle"><button class="ban" value="0" disabled>休想用我的權能對付我</button></td></tr><tr>'
+									}else{
+									banned = '</td><td rowspan="2" valign="middle"><button class="ban" value="0">停權</button></td></tr><tr>'}
 								} else {
 									banned = '</td><td rowspan="2" valign="middle"><button class="unban" value="1">解除停權</button></td></tr><tr>'
 								}

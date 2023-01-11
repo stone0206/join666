@@ -117,7 +117,7 @@ input, button {
 						style="background-color: gray">寄送驗證信</button>
 
 					<button class="submit" onclick="" id="cancel">取消</button>
-				
+					<button class="btn btn-outline-info fastLogin3" style="border: none; opacity: 0;">DEMO</button>
 				</div>
 			</div>
 		</div>
@@ -133,7 +133,10 @@ input, button {
 					const submitBtn= $("#submitBtn");
 					const form1=$("#form1");
 					
-					
+					$(".fastLogin3").click(function (e) {
+						e.preventDefault();
+						mail.val("ispandating6666@gmail.com");
+					});
 					
 					let flag1 = false;
 

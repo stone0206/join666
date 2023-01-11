@@ -88,8 +88,12 @@ Custom styles for this template
 						<h2>新增聚會</h2>
 
 					</div>
+					<button  class="btn btn-outline-light fastLogin3" type="submit">快速輸入</button>
 					<form action="${contextRoot}/insertReunion" method="post"
 						class="needs-validation " novalidate>
+						
+						
+						
 						<div class="row g-3">
 
 
@@ -104,7 +108,7 @@ Custom styles for this template
 
 							<div class="col-12">
 								<label for="address" class="form-label"style="float:left">聚會主題</label> <input
-									type="text" class="form-control" id="address" name="topic"
+									type="text" class="form-control" id="topic" name="topic"
 									placeholder="請填寫聚會主題" required>
 								<div class="invalid-feedback">請輸入主題</div>
 							</div>
@@ -116,7 +120,7 @@ Custom styles for this template
 								<label for="address" class="form-label" style="float:left">聚會內容</label>
 								<div class="control ">
 									<textarea class="textarea form-control" placeholder="請填寫聚會描述"
-										name="content"></textarea>
+									id="content"	name="content"></textarea>
 								</div>
 
 								<div class="invalid-feedback">請輸入內容</div>
@@ -126,7 +130,7 @@ Custom styles for this template
 
 							<div class="col-12">
 								<label for="address" class="form-label" style="float:left">聚會地點</label> <input
-									type="text" class="form-control" id="address"
+									type="text" class="form-control" id="place"
 									placeholder="搜尋聚會地點" required name="place">
 								<div class="invalid-feedback">請輸入地點</div>
 							</div>
@@ -139,7 +143,7 @@ Custom styles for this template
 									data-date="2023-01-13T05:25:07Z"
 									data-date-format="yyyy MM dd- HH:ii p"
 									data-link-field="dtp_input1">
-									<input size="16" type="text" value="" name="holdTime"
+									<input size="16" type="text" value="" name="holdTime" id="holdTime"
 										class="form-control"> <span class="add-on"><i
 										class="icon-remove"></i></span> <span class="add-on"><i
 										class="icon-th"></i></span>
@@ -154,7 +158,7 @@ Custom styles for this template
 
 							<div class="v">
 								<label for="address" class="form-label" style="float:left">報名人數</label> <input
-									type="text" class="form-control" id="address"
+									type="text" class="form-control" id="people"
 									placeholder="請輸入人數" required name="people">
 								<div class="invalid-feedback">請輸入報名人數</div>
 							</div>
@@ -162,7 +166,7 @@ Custom styles for this template
 
 							<div class="col-12">
 								<label for="address" class="form-label" style="float:left">聚會類型</label> <select
-									type="text" class="form-control" id="deptno" autocomplete="off"
+									type="text" class="form-control" id="activity" autocomplete="off"
 									name="activity">
 
 									<option value="none" selected disabled hidden>請選擇選項</option>
@@ -183,7 +187,7 @@ Custom styles for this template
 
 							<div class="col-12">
 								<label for="address" class="form-label" style="float:left">付款方式</label> <select
-									type="text" class="form-control" id="deptno" autocomplete="off"
+									type="text" class="form-control" id="payment" autocomplete="off"
 									name="payment">
 
 									<option value="none" selected disabled hidden>請選擇付款方式</option>
@@ -198,7 +202,7 @@ Custom styles for this template
 
 							<div class="col-12">
 								<label for="address" class="form-label" style="float:left">用餐預算</label> <input
-									type="text" class="form-control" id="address" placeholder=""
+									type="text" class="form-control" id="budget" placeholder=""
 									required name="budget">
 								<div class="invalid-feedback">請輸入預算</div>
 							</div>
@@ -261,6 +265,18 @@ Custom styles for this template
 			maxView : 1,
 			forceParse : 0
 		});
+		
+		$(".fastLogin3").click(function () {
+			$("#topic").val("看電影");
+			$("#content").val("教練，我想打籃球！");
+			$("#place").val("新莊晶冠國賓影城");
+			$("#holdTime").val("2023 一月 13- 07:00 下午");
+			$("#people").val("2");
+			$("#activity").val("1");
+			$("#payment").val("1");
+			$("#budget").val("300");
+			
+		});
 	</script>
 
 	<script type="text/javascript">
@@ -277,6 +293,10 @@ Custom styles for this template
 				pimg.value = this.result
 			}
 		})
+		
+		
+		
+		
 	</script>
 	<footer>
 		<jsp:include page="/WEB-INF/layout/footer.jsp" />

@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="${contextRoot}/js/taiwan_districts.js"></script>
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
 
 
 <title>約約-修改密碼頁面</title>
@@ -109,7 +110,7 @@ input, button {
 				<div class="login">
 
 
-					<label for="password" id="pwdLabel">請輸入新密碼</label> <input
+					<label for="password" id="pwdLabel">請輸入新密碼</label> <i id="checkEye" class="fas fa-eye"></i><input
 						type="password" id="password" name="password" placeholder="密碼"
 						required> <label for="comfirm_password"
 						id="comfirmPwdLabel">請再次輸入新密碼</label> <input type="password"
@@ -220,7 +221,15 @@ input, button {
 						event.preventDefault(); //取消預設行為
 						location.href='http://localhost:8080/index';
 						})
-
+					
+										$("#checkEye").click(function() {
+		if ($(this).hasClass('fa-eye')) {
+			password.attr('type', 'text');
+		} else {
+		password.attr('type', 'password');
+		}
+		$(this).toggleClass('fa-eye').toggleClass('fa-eye-slash');
+	});
 				</script>
 
 </html>

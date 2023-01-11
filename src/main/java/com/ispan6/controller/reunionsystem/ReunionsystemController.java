@@ -80,7 +80,7 @@ public class ReunionsystemController {
 		System.out.println(end.compareTo(start));
 		List<Reunion> reunion = reunionsystemService.findDateRange(start, end);
 		model.addAttribute("reunion",reunion);
-		if(end.compareTo(start)!=1) {
+		if(end.compareTo(start)<=1) {
 			model.addAttribute("compara",0);
 		}
 		return "reunion";
