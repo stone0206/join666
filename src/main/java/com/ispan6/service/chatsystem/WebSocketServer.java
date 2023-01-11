@@ -122,7 +122,9 @@ public class WebSocketServer {
 			sendMessage(session, message);
 			}else {
 //				System.out.println(javaMailMessages);
-//				javaMailMessages.sendToGmail(userName);
+				if(userName.equals("andy911026@gmail.com")) {
+				javaMailMessages.sendToGmail(userName);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
