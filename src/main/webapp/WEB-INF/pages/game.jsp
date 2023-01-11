@@ -462,7 +462,7 @@
 
                 function init() {
                     output = document.getElementById("output");
-                    webSocketgame = new WebSocket(getRootUri() + "/datingproject/tictactoe/${loginUser.name}");
+                    webSocketgame = new WebSocket(getRootUri() + "/tictactoe/${loginUser.name}");
                     console.log(webSocketgame)
                     webSocketgame.onopen = function (evt) {
                         onOpen(evt)
