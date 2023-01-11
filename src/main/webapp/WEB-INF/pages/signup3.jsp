@@ -10,7 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="${contextRoot}/js/taiwan_districts.js"></script>
-
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
 
 <title>約約-註冊頁面</title>
 <style type="text/css">
@@ -132,9 +132,10 @@ input, button {
 
 					<label for="account" id="accLabel">請輸入您的信箱</label> <input
 						type="text" id="account" name="account" placeholder="信箱" required>
-					<label for="password" id="pwdLabel">請輸入密碼</label> <input
+					<label for="password" id="pwdLabel">請輸入密碼  </label><i id="checkEye" class="fas fa-eye"></i><input
 						type="password" id="password" name="password" placeholder="密碼"
-						required> <label for="comfirm_password"
+						required> 
+						<label for="comfirm_password"
 						id="comfirmPwdLabel">請再次輸入密碼</label> <input type="password"
 						id="comfirm_password" name="comfirm_password" placeholder="確認密碼"
 						required>
@@ -144,7 +145,7 @@ input, button {
 
 					<button class="submit" onclick="" id="cancel">取消</button>
 					<input type="button" class="submit"
-						onclick="location.href='https://accounts.google.com/o/oauth2/auth?scope=email+profile&redirect_uri=http://localhost:8080/datingproject/LoginGoogleHandler&response_type=code&client_id=378093448501-ebvinmo23u9l8lmljs9souqd3953nbqg.apps.googleusercontent.com&approval_prompt=force';"
+						onclick="location.href='https://accounts.google.com/o/oauth2/auth?scope=email+profile&redirect_uri=http://localhost:8080/LoginGoogleHandler&response_type=code&client_id=378093448501-ebvinmo23u9l8lmljs9souqd3953nbqg.apps.googleusercontent.com&approval_prompt=force';"
 						value="Google登入" style="background-color: #31C1DD" />
 					<%-- 				</form> --%>
 				</div>
@@ -432,7 +433,15 @@ input, button {
 						event.preventDefault(); //取消預設行為
 						location.href='http://localhost:8080/index';
 						})
-
+						
+							$("#checkEye").click(function() {
+		if ($(this).hasClass('fa-eye')) {
+			password.attr('type', 'text');
+		} else {
+		password.attr('type', 'password');
+		}
+		$(this).toggleClass('fa-eye').toggleClass('fa-eye-slash');
+	});
 				</script>
 
 </html>

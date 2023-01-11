@@ -299,7 +299,7 @@ public class MemberTestController {
 		hDto.save(sBean);
 		}
 		
-		return "index";
+		return "redirect:/index";
 	}
 	
 	@PostMapping("/insertMember2")
@@ -338,7 +338,7 @@ public class MemberTestController {
 		System.out.println(grId);
 		participantsService.insertParticipants(grId, 1);
 		participantsService.insertParticipants(grId, mt.getId());
-		return "index";
+		return "redirect:/index";
 	}
 	
 	@PostMapping("/sendCode") // 寄送驗證信的註冊
