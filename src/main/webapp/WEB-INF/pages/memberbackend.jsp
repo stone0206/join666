@@ -272,9 +272,9 @@
 									if(members2[i].id==1){
 										banned='</td><td rowspan="2" valign="middle"><button class="ban" value="0" disabled>休想用我的權能對付我</button></td></tr><tr>'
 									}else{
-									banned = '</td><td rowspan="2" valign="middle"><button class="ban" value="0">停權</button></td></tr><tr>'}
+									banned = '</td><td rowspan="2" valign="middle"><button class="ban" value="1">停權</button></td></tr><tr>'}
 								} else {
-									banned = '</td><td rowspan="2" valign="middle"><button class="unban" value="1">解除停權</button></td></tr><tr>'
+									banned = '</td><td rowspan="2" valign="middle"><button class="unban" value="0">解除停權</button></td></tr><tr>'
 								}
 								member2 += '<tr><td rowspan="2" valign="middle">';
 								member2 += members2[i].id;
