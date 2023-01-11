@@ -81,7 +81,7 @@
 									<td>
 																				<!-- return confirm('是否刪除 ${productContent.name }') -->
 										 <a class="btn"
-										onclick="return confirm('是否刪除 ${reunionreport.reunion.reunionid}')"
+										onclick="return confirm('是否刪除 ${reunionreport.reunion.topic}')"
 										href="${contextRoot}/deleteReunionreport?id=${reunionreport.reunion.reunionid}"
 										style="color: red;">刪除</a> 
 									</td>

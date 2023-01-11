@@ -85,6 +85,7 @@
 										<tbody id="detailTable">
 									</table>
 								</div>
+								
 							</div>
 						</div>
 					</div>
