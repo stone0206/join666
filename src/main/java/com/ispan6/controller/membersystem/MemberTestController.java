@@ -422,6 +422,9 @@ public class MemberTestController {
 		HttpSession session = request.getSession();
 		if (mService.existsByAccount(user.getEmail()) != null) {
 			mt = mService.findByAcc(user.getEmail());
+			if(mt.getBanned()==1) {
+				return "/bannedpage";
+			}
 			session.setAttribute("loginUser", mt);
 			Page<PostBean> page= postService.findByPostPage(pageNumber);
 			m.addAttribute("page", page);
