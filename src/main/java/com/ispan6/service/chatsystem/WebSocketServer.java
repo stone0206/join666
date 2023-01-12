@@ -121,8 +121,9 @@ public class WebSocketServer {
 			if (session!=null) {
 			sendMessage(session, message);
 			}else {
+				WebsocketMessage msg = JSON.parseObject(message, WebsocketMessage.class);
 //				System.out.println(javaMailMessages);
-				if(userName.equals("andy911026@gmail.com")) {
+				if(userName.equals("andy911026@gmail.com") && msg.getType()==1) {
 				javaMailMessages.sendToGmail(userName);
 				}
 			}

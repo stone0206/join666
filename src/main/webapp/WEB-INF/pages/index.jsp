@@ -280,7 +280,7 @@ a {
 
 
 														<!-- Comment by -->
-														<c:if test="${message.memberId.id ==loginUser.id}">
+														<c:if test="${comment.memberId.id ==loginUser.id}">
 															<div class="bg-light rounded-start-top-0 p-1 rounded">
 
 																<div class="mb-1" style="vertical-align: top;">
@@ -300,7 +300,7 @@ a {
 															<!-- Comment react -->
 														</c:if>
 
-														<c:if test="${message.memberId.id !=loginUser.id}">
+														<c:if test="${comment.memberId.id !=loginUser.id}">
 															<div class="bg-light rounded-start-top-0 p-1 rounded">
 
 																<div class="mb-1" style="vertical-align: top;">
