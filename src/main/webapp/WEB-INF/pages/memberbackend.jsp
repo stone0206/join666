@@ -196,6 +196,7 @@
 						var currentRow = $(this).closest("tr");
 						var col2 = currentRow.find("td:eq(1)").text(); //获得当前行第二个TD值
 						let formData = new FormData();
+						console.log($(this).val());
 						formData.append("banned", $(this).val());
 						formData.append("account", col2);
 						fetch("${contextRoot}/banMem", { method: "POST", body: formData });
@@ -209,6 +210,7 @@
 						var currentRow = $(this).closest("tr");
 						var col2 = currentRow.find("td:eq(1)").text(); //获得当前行第二个TD值
 						let formData = new FormData();
+						console.log($(this).val());
 						formData.append("banned", $(this).val());
 						formData.append("account", col2);
 						fetch("${contextRoot}/banMem", { method: "POST", body: formData });
@@ -247,12 +249,6 @@
 						formData.append("account", account.trim());
 						formData.append("name", name);
 						formData.append("address", address);
-// 						console.log("帳號為:"+account);
-// 						console.log("暱稱為:"+name);
-// 						console.log("縣/市:"+taiwan.val());
-// 						console.log("市/鎮/區:"+$('#coun').val());
-// 						console.log("完整地址:"+address);
-// 						console.log("資料內容:"+formData);
 						fetch("${contextRoot}/findMem", { method: "POST", body: formData }).then(result => result.json()).then(members2 => {
 							var table = $('#table');
 							var gender = "";
@@ -380,7 +376,7 @@
 								}
 								member2 += '<tr><td rowspan="2" valign="middle">';
 								member2 += members2[i].id;
-								member2 += '</td><td rowspan="2" valign="middle">帳號: ';
+								member2 += '</td><td rowspan="2" valign="middle">';
 								member2 += members2[i].account;
 								member2 += '</td><td rowspan="2" valign="middle">';
 								member2 += members2[i].name;
